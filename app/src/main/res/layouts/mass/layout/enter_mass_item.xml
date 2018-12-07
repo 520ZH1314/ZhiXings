@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/layout"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/x10"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/item0"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                   android:textSize="@dimen/list_txt_"
+                   android:textColor="@color/txt_viw"
+                   android:text="工单号:255992626466"/>
+               <TextView
+                   android:id="@+id/item1"
+                   android:layout_width="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:layout_height="wrap_content"
+                   android:textSize="@dimen/list_txt_s"
+                   android:textColor="@color/txt_nor"
+                   android:text="12:00"/>
+           </RelativeLayout>
+            <TextView
+                android:id="@+id/item2"
+                android:layout_width="wrap_content"
+                android:text="车间/线体:生产车间、生产A01线体"
+                android:textSize="@dimen/list_txt_s"
+                android:textColor="@color/txt_nor"
+                android:layout_marginTop="@dimen/x3"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/item3"
+                android:layout_width="wrap_content"
+                android:text="产品名称:手机壳"
+                android:textSize="@dimen/list_txt_s"
+                android:layout_marginTop="@dimen/x3"
+                android:textColor="@color/txt_nor"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/item4"
+                android:layout_width="wrap_content"
+                android:text="全检类型:新品项"
+                android:layout_marginTop="@dimen/x3"
+                android:textSize="@dimen/list_txt_s"
+                android:textColor="@color/txt_nor"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/item6"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/list_txt_s"
+                android:textColor="@color/txt_nor"
+                android:layout_marginTop="@dimen/x3"
+                android:text="送检时间：2018-10-10"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/item5"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/list_txt_s"
+                android:textColor="@color/txt_nor"
+                android:layout_marginTop="@dimen/x3"
+                android:text="送检时间：2018-10-10"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+</LinearLayout>

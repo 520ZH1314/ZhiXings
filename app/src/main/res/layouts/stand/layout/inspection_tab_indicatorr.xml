@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x52"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray02">
+
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/tab_0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:layout_centerVertical="true"
+                >
+                <ImageView
+                    android:id="@+id/tab_0_image"
+                    android:layout_width="87.75px"
+                    android:layout_height="@dimen/x22"
+                    android:layout_marginTop="@dimen/x7"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/inspect_tab01"
+                    />
+
+                <TextView
+                    android:id="@+id/tab_0_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x3"
+                    android:text="巡检任务"
+                    android:layout_below="@id/tab_0_image"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/text_b"
+                    android:textSize="@dimen/s11" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tab_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                >
+                <ImageView
+                    android:id="@+id/tab_1_image"
+                    android:layout_width="@dimen/x22"
+                    android:layout_height="@dimen/x22"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/x7"
+                    android:src="@mipmap/inspect_tab02"
+                    />
+
+                <TextView
+                    android:id="@+id/tab_1_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="问题记录"
+                    android:layout_marginTop="@dimen/x3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/tab_1_image"
+                    android:textColor="@color/text_g9"
+                    android:textSize="@dimen/s11" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tab_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                >
+                <ImageView
+                    android:id="@+id/tab_2_image"
+                    android:layout_width="@dimen/x22"
+                    android:layout_height="@dimen/x22"
+                    android:layout_marginTop="@dimen/x7"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/inspect_tab03"
+                    />
+
+                <TextView
+                    android:id="@+id/tab_2_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="管理分析"
+                    android:textColor="@color/text_g9"
+                    android:textSize="@dimen/s11"
+                    android:layout_marginTop="@dimen/x3"
+                    android:layout_below="@+id/tab_2_image"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

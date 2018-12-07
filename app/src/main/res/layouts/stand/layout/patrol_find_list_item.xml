@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:text="问题"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/s12"
+        android:layout_marginLeft="@dimen/x10"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:id="@+id/tx_item03" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60">
+
+        <GridLayout
+            android:id="@+id/grid_pictrue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </GridLayout>
+    </LinearLayout>
+
+    <TextView
+        android:text="问题描述"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/s12"
+        android:layout_marginLeft="@dimen/x10"
+        android:textStyle="bold"
+        android:id="@+id/tx_name02" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/s12"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_marginLeft="@dimen/x10"
+        android:id="@+id/tx_item09" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="问题发现人:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/tx_name03" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_name03"
+            android:layout_toRightOf="@+id/tx_name03"
+            android:layout_toEndOf="@+id/tx_name03"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_item03" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_item03"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginRight="@dimen/x10"
+            android:id="@+id/tx_item04" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_item04"
+            android:layout_toLeftOf="@+id/tx_item04"
+            android:layout_toStartOf="@+id/tx_item04"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_name04"
+            android:text="问题责任人:" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="问题发生时间:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/tx_name05" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_name05"
+            android:layout_toRightOf="@+id/tx_name05"
+            android:layout_toEndOf="@+id/tx_name05"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_item05" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_item05"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginRight="@dimen/x10"
+            android:id="@+id/tx_item06" />
+
+        <TextView
+            android:text="责任部门:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tx_item06"
+            android:layout_toLeftOf="@+id/tx_item06"
+            android:layout_toStartOf="@+id/tx_item06"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_name06" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="问题严重程度:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/textView86" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/textView86"
+            android:layout_toEndOf="@+id/textView86"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:isIndicator="true"
+            android:id="@+id/rate" />
+    </RelativeLayout>
+</LinearLayout>

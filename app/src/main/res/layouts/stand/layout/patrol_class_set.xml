@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:text="巡线开始时间"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/x10"
+        android:textSize="@dimen/s12"
+        android:textStyle="bold"
+        android:id="@+id/tx_name01" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/gray03"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:background="@drawable/calendar_selector"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x5"
+                android:id="@+id/bnt_calendar01" />
+
+            <TextView
+                android:text="2018-04-15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_date01"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                 />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:text="集合地点"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/x10"
+        android:textSize="@dimen/s12"
+        android:textStyle="bold"
+        android:id="@+id/textView66" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@color/gray03"
+        android:layout_height="@dimen/x30"
+        android:layout_margin="@dimen/x10"
+        android:layout_gravity="center"
+        >
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:background="#EEEEEE"
+                android:paddingLeft="@dimen/x10"
+                android:id="@+id/ed_place"
+                android:hint="请输入集合地点"
+                />
+    </LinearLayout>
+    <TextView
+        android:text="巡线主题"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/x10"
+        android:textSize="@dimen/s12"
+        android:textStyle="bold"
+        android:id="@+id/textView67" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@color/gray03"
+        android:layout_height="@dimen/x30"
+        android:layout_margin="@dimen/x10"
+        android:layout_gravity="center"
+        >
+
+
+        <com.shuben.zhixing.www.view.NiceSpinner
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x30"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/nice_spinner01" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_mini_mes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shuben.zhixing.www.mes.MiniMesActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#0098E2"
+        android:id="@+id/lay01">
+
+        <com.shuben.zhixing.www.view.RoundProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            app:roundColor="#c7c7c7"
+            app:roundProgressColor="#f41a29"
+            app:roundWidth="1dp"
+            app:textColor="#ffffff"
+            app:textIsDisplayable="true"
+            app:textSize="15sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x5"
+            android:layout_below="@+id/progressBar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="计划产量"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/s14"
+                    android:id="@+id/textView15" />
+
+                <TextView
+                    android:text="140"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/s14"
+                    android:layout_marginTop="@dimen/x10"
+                    android:id="@+id/tx_item02" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="实际产量"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/s14"
+                    android:id="@+id/textView17" />
+
+                <TextView
+                    android:text="150"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/s14"
+                    android:layout_marginTop="@dimen/x10"
+                    android:id="@+id/tx_item03" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="线平衡率"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/s14"
+                    android:id="@+id/textView19" />
+
+                <TextView
+                    android:text="88.8%"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/s14"
+                    android:layout_marginTop="@dimen/x10"
+                    android:id="@+id/tx_item04" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/mini_item_bg"
+        android:layout_marginTop="@dimen/x10"
+        android:id="@+id/lay02">
+
+        <ImageView
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:background="@mipmap/mini_main01"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:id="@+id/img01" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/x40"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img01"
+            android:layout_toEndOf="@+id/img01"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:text="车间生产计划达成一览表"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:id="@+id/tx_item01" />
+
+            <TextView
+                android:text="进入查看详情"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_enter01" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/mini_item_bg"
+        android:layout_marginTop="@dimen/x10"
+        android:id="@+id/lay03">
+
+        <ImageView
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:background="@mipmap/mini_main02"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:id="@+id/img02" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/x40"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img02"
+            android:layout_toEndOf="@+id/img02"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:text="线体生产状态一览表"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:id="@+id/tx_item06" />
+
+            <TextView
+                android:text="进入查看详情"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_enter02" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/mini_item_bg"
+        android:layout_marginTop="@dimen/x10"
+        android:id="@+id/lay04">
+        <ImageView
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:background="@mipmap/mini_main03"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:id="@+id/img03" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/x40"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img03"
+            android:layout_toEndOf="@+id/img03"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:text="小时产量查询"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:id="@+id/tx_item07" />
+
+            <TextView
+                android:text="进入查看详情"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_enter03" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/mini_item_bg"
+        android:layout_marginTop="@dimen/x10"
+        android:id="@+id/lay05">
+        <ImageView
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:background="@mipmap/mini_main04"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:id="@+id/img04" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/x40"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img04"
+            android:layout_toEndOf="@+id/img04"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:text="损失工时"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:id="@+id/tx_item08" />
+
+            <TextView
+                android:text="进入查看详情"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_enter04" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

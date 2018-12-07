@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="客户名称"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/text_b"/>
+
+            <EditText
+                android:id="@+id/createreminder_user_name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:layout_weight="1"
+                android:textSize="@dimen/s13"
+                android:gravity="center_vertical"
+                android:text=""
+                android:hint="请输入客户名称（必填）"
+                android:padding="5dp"
+                android:textColorHint="@color/gray01"
+                android:layout_marginRight="10dp"
+                android:background="@null"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray03">
+            </View>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="产品名称"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/s12"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_b"/>
+
+            <EditText
+                android:id="@+id/createreminder_cargo_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:padding="5dp"
+                android:textColor="@color/text_g"
+                android:textSize="@dimen/s13"
+                android:hint="请输入产品名称（必填）"
+                android:textColorHint="@color/gray01"
+                android:layout_marginRight="10dp"
+                android:background="@null"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray03">
+            </View>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/gray03">
+        </View>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="交货数量"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/text_b"/>
+
+            <EditText
+                android:id="@+id/createreminder_cargo_number_et"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:textColor="@color/text_g"
+                android:textSize="@dimen/s13"
+                android:gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text=""
+                android:hint="请输入交货数量（必填）"
+                android:textColorHint="@color/gray01"
+                android:visibility="visible"
+                android:numeric="integer"
+                android:padding="5dp"
+                android:background="@null"
+                android:maxLines="1" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray03">
+            </View>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="交货时间"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/s12"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_b"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/createreminder_cargo_time_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x30"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_g"
+                    android:textSize="@dimen/s13"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:hint="请选择交货时间（必填）"
+                    android:textColorHint="@color/gray01"
+                    android:padding="5dp"
+                    android:layout_marginRight="@dimen/x30"
+                    android:background="@null"/>
+
+                <ImageView
+                    android:layout_width="@dimen/x20"
+                    android:layout_height="@dimen/x20"
+                    android:background="@mipmap/nbjjdate"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray03">
+            </View>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="交货地点"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/s12"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_b"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/createreminder_cargo_add_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x30"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_g"
+                    android:textSize="@dimen/s13"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:hint="请选择交货地点（必填）"
+                    android:textColorHint="@color/gray01"
+                    android:padding="5dp"
+                    android:layout_marginRight="@dimen/x30"
+                    android:background="@null"/>
+
+                <ImageView
+                    android:layout_width="@dimen/x15"
+                    android:layout_height="@dimen/x20"
+                    android:background="@mipmap/nbjj_adreess"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray03">
+            </View>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/gray03">
+        </View>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单号"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/text_b"/>
+
+            <EditText
+                android:id="@+id/createreminder_cargo_id_et"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:textColor="@color/text_g"
+                android:textSize="@dimen/s13"
+                android:gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text=""
+                android:hint="请输入订单号（必填）"
+                android:textColorHint="@color/gray01"
+                android:visibility="visible"
+                android:padding="5dp"
+                android:background="@null"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray03">
+            </View>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工单号"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/text_b"/>
+
+            <EditText
+                android:id="@+id/createreminder_cargo_Gid_et"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:textColor="@color/text_g"
+                android:textSize="@dimen/s13"
+                android:gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text=""
+                android:hint="请输入工单号（必填）"
+                android:textColorHint="@color/gray01"
+                android:visibility="visible"
+                android:padding="5dp"
+                android:background="@null"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray03">
+            </View>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/gray03">
+        </View>
+
+        <!--抄送人和责任人-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="责任人"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_b"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/createreminder_Responsible_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x30"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_g"
+                    android:textSize="@dimen/s13"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:hint="请选择责任人（必填）"
+                    android:textColorHint="@color/gray01"
+                    android:padding="5dp"
+                    android:layout_marginRight="@dimen/x30"
+                    android:background="@null"/>
+
+                <ImageView
+                    android:id="@+id/createreminder_Responsible_clear"
+                    android:layout_width="@dimen/x20"
+                    android:layout_height="@dimen/x20"
+                    android:background="@mipmap/clear01"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray03">
+            </View>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="抄送人"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_b"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/createreminder_lead_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x30"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_g"
+                    android:textSize="@dimen/s13"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:hint="请选择抄送人（必填）"
+                    android:textColorHint="@color/gray01"
+                    android:padding="5dp"
+                    android:layout_marginRight="@dimen/x30"
+                    android:background="@null"/>
+
+                <ImageView
+                    android:layout_width="@dimen/x20"
+                    android:layout_height="@dimen/x20"
+                    android:background="@mipmap/nbjj_chaoshong"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray03">
+            </View>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/login_layout05"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x35"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp" >
+
+        <TextView
+            android:id="@+id/login_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_next_step"
+            android:text="确认添加"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s13" />
+    </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

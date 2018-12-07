@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+     >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/title_bg">
+        <ImageView
+            android:id="@+id/tetle_back"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/back"
+            android:onClick="backActivity"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:id="@+id/tetle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/title_center_size"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tetle_tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/content_txt_"
+            android:maxLength="10"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:text="确认"/>
+
+        <RelativeLayout
+            android:id="@+id/title_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginRight="10dp">
+
+
+            <ImageView
+                android:id="@+id/tetle_tv_img"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/x20"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/doughnutchart"
+                />
+            <TextView
+                android:id="@+id/tetle_tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/content_txt_"
+                android:layout_toRightOf="@+id/tetle_tv_img"
+                android:layout_centerVertical="true"
+                android:maxLength="10"
+                android:text="分析"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

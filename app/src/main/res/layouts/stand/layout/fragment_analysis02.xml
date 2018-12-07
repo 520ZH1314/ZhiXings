@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="2018-03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:textSize="@dimen/s11"
+            android:textColor="@color/black"
+            android:id="@+id/tx_date" />
+
+        <Button
+            android:text=""
+            android:layout_width="@dimen/x25"
+            android:layout_height="@dimen/x25"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
+            android:id="@+id/bnt_calendar"
+            android:background="@drawable/calendar_selector"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"
+        android:background="@color/gray"
+        >
+
+    </View>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x60"
+                android:gravity="center"
+                >
+
+                <LinearLayout
+                    android:id="@+id/l_lay01"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/selector"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="巡线执行"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/x10"
+                        android:textSize="@dimen/s14"
+                        android:textStyle="bold"
+                        android:id="@+id/textView58" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        >
+
+                        <TextView
+                            android:text="参与率"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView63"
+                            android:gravity="center"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:text="效率"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView62"
+                            android:gravity="center"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:text="发现"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView61"
+                            android:gravity="center"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:text="详情》"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView60"
+                            android:textColor="@color/blue"
+                            android:gravity="center"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/l_lay02"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/selector"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="巡线结果"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/x10"
+                        android:textSize="@dimen/s14"
+                        android:textStyle="bold"
+                        android:id="@+id/textView64" />
+
+                    <LinearLayout
+
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        >
+
+                        <TextView
+                            android:text="各区域巡线评分"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView68"
+                            android:gravity="center"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:text="详情》"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView65"
+                            android:textColor="@color/blue"
+                            android:gravity="center"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:gravity="center_vertical"
+                >
+                <TextView
+                    android:text="分析改善:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tx_name03"
+                    android:textSize="@dimen/s12"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textStyle="bold"
+                    />
+
+
+
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/search_lay"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:background="@drawable/selector"
+                >
+
+                <ImageView
+                    android:id="@+id/next_img02"
+                    android:layout_width="10dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/next01"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    />
+                <TextView
+                    android:id="@+id/fm_four_set02"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/img02"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:background="@null"
+                    android:textSize="@dimen/s13"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:text="未闭环问题责任人查看" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:orientation="vertical"
+                >
+
+
+                <TextView
+                    android:text="区域巡线问题闭环状态:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView22"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/s12"
+
+                    android:textStyle="bold"
+                    />
+
+            </RelativeLayout>
+
+            <com.github.mikephil.charting.charts.CombinedChart
+                android:id="@+id/lay01"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/gray06"
+                android:layout_height="@dimen/x200"
+                >
+
+            </com.github.mikephil.charting.charts.CombinedChart>
+
+            <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/x30"
+                 android:orientation="vertical"
+                 >
+
+                 <TextView
+                     android:text="巡线问题分类"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/tx_xx"
+                     android:layout_marginLeft="@dimen/x10"
+                     android:textSize="@dimen/s12"
+                     android:textStyle="bold"
+                     android:layout_centerVertical="true"
+                     />
+
+            </RelativeLayout>
+
+            <com.github.mikephil.charting.charts.CombinedChart
+                android:id="@+id/lay02"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/gray06"
+                android:layout_height="@dimen/x200"
+                >
+
+            </com.github.mikephil.charting.charts.CombinedChart>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

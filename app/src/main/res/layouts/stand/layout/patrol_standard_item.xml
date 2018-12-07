@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.shuben.zhixing.www.view.ItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40">
+
+        <TextView
+            android:text="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@mipmap/num"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_index" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tx_index"
+            android:layout_toEndOf="@+id/tx_index"
+            android:layout_marginLeft="@dimen/x5"
+            android:layout_marginStart="@dimen/x5"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_itemName" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_grid"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60"
+        android:visibility="gone"
+        >
+        <com.shuben.zhixing.www.view.MyGridView
+            android:id="@+id/standard_gridview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:listSelector="@null"
+            android:numColumns="5"
+            android:padding="@dimen/x5"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="@dimen/x10"
+            android:verticalSpacing="@dimen/x2"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40">
+
+        <Button
+            android:text=""
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/menu02"
+            android:layout_marginRight="@dimen/x10"
+            android:id="@+id/bnt_more" />
+
+        <TextView
+            android:text="已发现问题(0)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"
+            android:id="@+id/tx_myQuestion" />
+
+        <TextView
+            android:text="已发现亮点(0)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tx_myQuestion"
+            android:layout_toRightOf="@+id/tx_myQuestion"
+            android:layout_toEndOf="@+id/tx_myQuestion"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"
+            android:id="@+id/tx_mylight" />
+    </RelativeLayout>
+
+</com.shuben.zhixing.www.view.ItemView>

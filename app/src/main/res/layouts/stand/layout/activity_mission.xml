@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+     <ListView
+         android:id="@+id/mission_list"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:divider="#00000000"
+         android:dividerHeight="0dip"
+         ></ListView>
+</LinearLayout>

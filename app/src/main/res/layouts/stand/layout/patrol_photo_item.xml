@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:text="第X期巡线人员合影"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/x10"
+
+            android:id="@+id/tx_title" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x200"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:id="@+id/image_photo" />
+    </LinearLayout>
+
+</LinearLayout>

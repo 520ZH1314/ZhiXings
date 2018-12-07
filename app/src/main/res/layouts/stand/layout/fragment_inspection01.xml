@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:popupbtn="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:id="@+id/lay_back"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="#169BD5"
+        >
+
+        <TextView
+            android:text="巡检任务"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_back" />
+
+        <ImageView
+            android:id="@+id/title_back"
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/back"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:text="首页"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s12"
+            android:id="@+id/textView9"
+            android:layout_centerVertical="true"
+            android:layout_alignBaseline="@+id/tx_tittle"
+            android:layout_alignBottom="@+id/tx_tittle"
+            android:layout_toRightOf="@+id/title_back"
+            android:layout_toEndOf="@+id/title_back" />
+
+        <TextView
+            android:text="当前用户:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginEnd="@dimen/x10"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s12"
+            android:visibility="invisible"
+            android:id="@+id/tx_user" />
+    </RelativeLayout>
+    <com.shuben.zhixing.www.view.PopupButton
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="巡检类别选择"
+        popupbtn:normalBg="@drawable/tab_bkg_line"
+        popupbtn:normalIcon="@drawable/arrow_down_shop"
+        popupbtn:pressBg="@drawable/tab_bkg_selected"
+        popupbtn:pressIcon="@drawable/arrow_up_shop"
+        />
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/content_line"/>
+    <ListView
+        android:id="@+id/type_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <com.shuben.zhixing.www.view.EmptyLayout
+        android:id="@+id/emptyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textHello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!" />
+
+    </com.shuben.zhixing.www.view.EmptyLayout>
+
+</LinearLayout>

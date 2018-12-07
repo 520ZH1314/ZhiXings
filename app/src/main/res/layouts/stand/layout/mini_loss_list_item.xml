@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x80">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="开始时间"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x1"
+                android:id="@+id/tx_name01" />
+
+            <TextView
+                android:text="11:00:01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x8"
+                android:id="@+id/tx_item01" />
+
+            <TextView
+                android:text="损失时长"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x1"
+                android:id="@+id/tx_name02" />
+
+            <TextView
+                android:text="3min"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_item02" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x2"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x3"
+                android:background="@mipmap/mini_loss01"
+                android:id="@+id/tx_name03" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x2"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x5"
+                android:background="@mipmap/mini_loss02"
+                android:id="@+id/tx_item03" />
+
+            <TextView
+                android:text="影响时长"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x3"
+                android:id="@+id/tx_name04" />
+
+            <TextView
+                android:text="4min"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_item04" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="结束时间"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x1"
+                android:id="@+id/tx_name05" />
+
+            <TextView
+                android:text="11:00:01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x8"
+                android:id="@+id/tx_item05" />
+
+            <TextView
+                android:text="影响人数"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x1"
+                android:id="@+id/tx_name06" />
+
+            <TextView
+                android:text="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_item06" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

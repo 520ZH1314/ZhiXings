@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CreateTaskActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/titles_layout"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <EditText
+
+            android:id="@+id/ed_create_task_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x150"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="请输入任务内容"
+            android:paddingLeft="@dimen/ball_radius_sidebar"
+            android:paddingTop="@dimen/x10"
+            android:textSize="@dimen/s15" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_create_task_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_meettinger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginBottom="@dimen/x12"
+            android:src="@mipmap/add_meetting_perpeo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x2"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginBottom="@dimen/x12"
+            android:layout_toRightOf="@+id/iv_meettinger"
+            android:text="执行人"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s13" />
+
+        <TextView
+            android:id="@+id/tv_create_task_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginBottom="@dimen/x12"
+            android:layout_toLeftOf="@+id/iv_meet1"
+            android:text="请选择"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s11" />
+
+        <ImageView
+            android:id="@+id/iv_meet1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x24"
+            android:src="@mipmap/jiantou" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/x24"
+        android:layout_marginRight="@dimen/x24"
+        android:background="@color/divider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_create_task_send_copy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_meettinger13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_marginTop="@dimen/x8"
+            android:layout_marginBottom="@dimen/x8"
+            android:src="@mipmap/add_meetting_perpeo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x2"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginBottom="@dimen/x12"
+            android:layout_toRightOf="@+id/iv_meettinger13"
+            android:text="抄送人"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s13" />
+
+        <TextView
+            android:id="@+id/tv_create_task_send_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginBottom="@dimen/x12"
+            android:layout_toLeftOf="@+id/iv_meet2"
+            android:text="请选择"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s11" />
+
+        <ImageView
+            android:id="@+id/iv_meet2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x24"
+            android:src="@mipmap/jiantou" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/x10"
+        android:layout_gravity="center"
+        android:textSize="@dimen/s11"
+        android:text="抄送人可以时刻监督任务进度，但无需完成任务"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/rl_create_task_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_meettinger15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_marginTop="@dimen/x8"
+            android:layout_marginBottom="@dimen/x8"
+            android:src="@mipmap/add_meetting_perpeo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x2"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginBottom="@dimen/x12"
+            android:layout_toRightOf="@+id/iv_meettinger15"
+            android:text="完成时间"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s13" />
+
+        <TextView
+            android:id="@+id/tv_create_task_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginBottom="@dimen/x12"
+            android:layout_toLeftOf="@+id/iv_meet3"
+            android:text="请选择"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s11" />
+
+        <ImageView
+            android:id="@+id/iv_meet3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x24"
+            android:src="@mipmap/jiantou" />
+    </RelativeLayout>
+</LinearLayout>

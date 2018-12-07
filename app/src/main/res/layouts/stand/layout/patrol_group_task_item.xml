@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40">
+
+        <Button
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
+            android:background="@mipmap/user02"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/imageView2" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="@dimen/x100"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView2"
+            android:layout_toEndOf="@+id/imageView2"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/x100"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageView2"
+                android:layout_toEndOf="@+id/imageView2"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@+id/tx_date"
+                    android:layout_marginRight="44dp"
+                    android:layout_marginEnd="44dp"
+                    android:gravity="center"
+                    >
+
+                    <TextView
+                        android:text="李四"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/s12"
+                        android:id="@+id/tx_user" />
+
+                    <TextView
+                        android:text="巡线主管"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/x5"
+                        android:textSize="@dimen/s12"
+                        android:id="@+id/textView12" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:text="2018-10-10 10:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x10"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_date" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="主题:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/tx_name03" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_name03"
+            android:layout_toRightOf="@+id/tx_name03"
+            android:layout_toEndOf="@+id/tx_name03"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_item03" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_item03"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginRight="@dimen/x10"
+            android:id="@+id/tx_item04" />
+
+        <TextView
+            android:text="车间:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_item04"
+            android:layout_toLeftOf="@+id/tx_item04"
+            android:layout_toStartOf="@+id/tx_item04"
+            android:textSize="@dimen/s12"
+            android:id="@+id/textView76" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="组长:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/tx_name05" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_name05"
+            android:layout_toRightOf="@+id/tx_name05"
+            android:layout_toEndOf="@+id/tx_name05"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_item05" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="组员:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/tx_name06" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tx_name06"
+            android:layout_toRightOf="@+id/tx_name06"
+            android:layout_toEndOf="@+id/tx_name06"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_item06" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:paddingLeft="@dimen/x10"
+        >
+
+        <TextView
+            android:text="状态:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_name07" />
+
+        <TextView
+            android:text="No00001"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tx_name07"
+            android:layout_toRightOf="@+id/tx_name07"
+            android:layout_toEndOf="@+id/tx_name07"
+            android:layout_marginLeft="@dimen/x5"
+            android:textColor="#FF6600"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_countdown" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:visibility="invisible"
+        >
+
+        <Button
+            android:text="启动巡线"
+            android:layout_width="@dimen/x100"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginEnd="9dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn1_style"
+            android:id="@+id/bnt_commit" />
+    </RelativeLayout>
+</LinearLayout>

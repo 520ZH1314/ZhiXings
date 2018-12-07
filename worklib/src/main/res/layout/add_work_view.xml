@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+ <LinearLayout
+    android:layout_centerInParent="true"
+     android:orientation="horizontal"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+   <RadioGroup
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       
+       <RadioButton
+           android:id="@+id/rad_work_add_meet"
+           android:gravity="center"
+           android:text="会议"
+           android:drawableTop="@mipmap/mettings"
+           android:button="@null"
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="match_parent" />
+
+       <RadioButton
+           android:id="@+id/rad_work_add_task"
+           android:gravity="center"
+           android:text="任务"
+           android:drawableTop="@mipmap/work"
+           android:button="@null"
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="match_parent" />
+       <RadioButton
+           android:gravity="center"
+           android:text="日程"
+           android:drawableTop="@mipmap/date"
+           android:button="@null"
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="match_parent" />
+       
+   </RadioGroup>
+ </LinearLayout>
+</RelativeLayout>

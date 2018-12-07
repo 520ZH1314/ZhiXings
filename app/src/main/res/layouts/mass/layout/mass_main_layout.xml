@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/l_title"
+        layout="@layout/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/content_bg"
+        android:layout_height="match_parent">
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/item0_layout"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/x10"
+                    android:background="@drawable/linner_selector"
+                    android:layout_height="@dimen/x70">
+                    <com.base.zhixing.www.widget.CircularImage
+                        android:id="@+id/image_head"
+                        android:layout_width="@dimen/x50"
+                        android:layout_centerVertical="true"
+                       android:layout_marginRight="@dimen/x10"
+                        android:layout_height="@dimen/x50"
+                        android:src="@mipmap/xxgl_bg"
+                        android:layout_gravity="center" />
+                        <LinearLayout
+                            android:layout_toRightOf="@+id/image_head"
+                            android:layout_toLeftOf="@+id/time"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:textSize="@dimen/content_txt_"
+                                    android:textColor="@color/txt_viw"
+                                    android:text="首检检验"
+                                    android:layout_height="0dp" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/content_txt_s"
+                                android:textColor="@color/txt_bor"
+                                android:text="张三:刚检验完"
+                                android:layout_height="0dp" />
+                        </LinearLayout>
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/txt_bor"
+                        android:layout_alignParentRight="true"
+                        android:text="13:06"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/content_line"/>
+                <RelativeLayout
+                    android:id="@+id/item1_layout"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/x10"
+                    android:background="@drawable/linner_selector"
+                    android:layout_height="@dimen/x70">
+                    <com.base.zhixing.www.widget.CircularImage
+                        android:id="@+id/image_head1"
+                        android:layout_width="@dimen/x50"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:layout_height="@dimen/x50"
+                        android:src="@mipmap/xxgl_bg"
+                        android:layout_gravity="center" />
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/image_head1"
+                        android:layout_toLeftOf="@+id/time1"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/content_txt_"
+                            android:textColor="@color/txt_viw"
+                            android:text="全检"
+                            android:layout_height="0dp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/content_txt_s"
+                            android:textColor="@color/txt_bor"
+                            android:text="张三:刚检验完"
+                            android:layout_height="0dp" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/time1"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/txt_bor"
+                        android:layout_alignParentRight="true"
+                        android:text="13:06"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/content_line"/>
+                <RelativeLayout
+                    android:id="@+id/item2_layout"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/x10"
+                    android:background="@drawable/linner_selector"
+                    android:layout_height="@dimen/x70">
+                    <com.base.zhixing.www.widget.CircularImage
+                        android:id="@+id/image_head2"
+                        android:layout_width="@dimen/x50"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:layout_height="@dimen/x50"
+                        android:src="@mipmap/xxgl_bg"
+                        android:layout_gravity="center" />
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/image_head2"
+                        android:layout_toLeftOf="@+id/time2"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/content_txt_"
+                            android:textColor="@color/txt_viw"
+                            android:text="抽检"
+                            android:layout_height="0dp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/content_txt_s"
+                            android:textColor="@color/txt_bor"
+                            android:text="张三:刚检验完"
+                            android:layout_height="0dp" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/time2"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/txt_bor"
+                        android:layout_alignParentRight="true"
+                        android:text="13:06"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/content_line"/>
+                <RelativeLayout
+                    android:id="@+id/item3_layout"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/x10"
+                    android:background="@drawable/linner_selector"
+                    android:layout_height="@dimen/x70">
+                    <com.base.zhixing.www.widget.CircularImage
+                        android:id="@+id/image_head3"
+                        android:layout_width="@dimen/x50"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:layout_height="@dimen/x50"
+                        android:src="@mipmap/xxgl_bg"
+                        android:layout_gravity="center" />
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/image_head3"
+                        android:layout_toLeftOf="@+id/time3"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/content_txt_"
+                            android:textColor="@color/txt_viw"
+                            android:text="维修"
+                            android:layout_height="0dp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/content_txt_s"
+                            android:textColor="@color/txt_bor"
+                            android:text="张三:刚检验完"
+                            android:layout_height="0dp" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/time3"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/txt_bor"
+                        android:layout_alignParentRight="true"
+                        android:text="13:06"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/content_line"/>
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fm_sp1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/x26"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/tv_background_grid_2"
+            android:drawableRight="@mipmap/icon_down"
+            android:paddingRight="10dp"
+            android:paddingLeft="5dp"
+            android:hint="数据来源"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/text_g"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/fm_sp2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/x26"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:background="@drawable/tv_background_grid_2"
+            android:drawableRight="@mipmap/icon_down"
+            android:paddingRight="10dp"
+            android:paddingLeft="5dp"
+            android:hint="部门"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/text_g"
+            ></TextView>
+
+            <TextView
+                android:id="@+id/fm_sp3"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/x26"
+                android:layout_weight="1"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/tv_background_grid_2"
+                android:drawableRight="@mipmap/icon_down"
+                android:paddingRight="10dp"
+                android:textColor="@color/text_g"
+                android:paddingLeft="5dp"
+                android:hint="人员"
+                android:textColorHint="@color/gray"
+                ></TextView>
+
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/fm_item_jindu"
+                android:background="@drawable/tv_background_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x26"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="10dp"
+                android:text="确定"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center"
+                android:textSize="@dimen/s13"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray03"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"></View>
+
+    <ListView
+        android:id="@+id/fm_three_list"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="match_parent"></ListView>
+
+</LinearLayout>

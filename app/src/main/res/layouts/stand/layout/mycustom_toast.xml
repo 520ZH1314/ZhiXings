@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llToast"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:minHeight="@dimen/x80"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/widget_radius_bg" >
+
+        <ImageView
+            android:id="@+id/inco_id"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="4dp"
+            android:background="@mipmap/icon_info_1" />
+
+       <TextView
+            android:id="@+id/tvTitleToast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:padding="10dp"
+            android:layout_below="@+id/inco_id"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:minWidth="@dimen/x80"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+           android:textSize="@dimen/s13"
+            android:textColor="#ffffffff" />
+    </RelativeLayout>
+
+</LinearLayout>

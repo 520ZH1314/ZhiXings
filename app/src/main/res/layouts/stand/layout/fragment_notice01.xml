@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="2018-04-25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/s11"
+            android:textColor="@color/black"
+            android:id="@+id/tx_date"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"
+        android:background="@color/gray"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+
+        >
+
+        <TextView
+            android:text="参与率:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_name01"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:text="50%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"
+            android:id="@+id/tx_item01"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+
+        >
+
+        <TextView
+            android:text="请假人数:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_name02"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:text="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:id="@+id/tx_item02"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:background="@color/gray02"
+        android:gravity="center_vertical"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_item03"
+            android:textSize="@dimen/s12"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/x10"
+            android:hint="显示请假人员"
+            android:textColorHint="@color/white"
+            />
+
+
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+
+        >
+
+        <TextView
+            android:text="缺席人数:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_name04"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:text="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:id="@+id/tx_item04"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:background="@color/gray02"
+        android:gravity="center_vertical"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_item05"
+            android:textSize="@dimen/s12"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/x10"
+            android:hint="显示缺席人员"
+            android:textColorHint="@color/white"
+            />
+
+
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+
+        >
+
+        <TextView
+            android:text="早退人数:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_name06"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:text="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:id="@+id/tx_item06"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:background="@color/gray02"
+        android:gravity="center_vertical"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_item07"
+            android:textSize="@dimen/s12"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/x10"
+            android:hint="显示早退人员"
+            android:textColorHint="@color/white"
+            />
+
+
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+
+        >
+
+        <TextView
+            android:text="巡线效率"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_name08"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:textStyle="bold"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+        android:background="@color/gray03"
+        >
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="实际时长:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name09"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="60min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item09"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="计划时长:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name10"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="60min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item10"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="任务超时:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name11"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="60min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item11"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+        android:background="@color/gray03"
+        >
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="实际区域:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name12"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item12"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="计划区域:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name13"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item13"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="达成率:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name14"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="100%"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item14"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+
+        >
+
+        <TextView
+            android:text="发现"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_name15"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:textStyle="bold"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+        android:background="@color/gray03"
+        >
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="发现问题:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name16"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item16"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="发现亮点:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name17"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item17"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+        android:background="@color/gray03"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="人均问题发现:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name18"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item18"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="人均亮点发现:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name19"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item19"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center_vertical"
+        android:background="@color/gray03"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="上次巡线发现问题:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_name20"
+                android:layout_marginLeft="@dimen/x10"
+                />
+
+            <TextView
+                android:text="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/blue"
+                android:layout_marginLeft="@dimen/x1"
+                android:id="@+id/tx_item20"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

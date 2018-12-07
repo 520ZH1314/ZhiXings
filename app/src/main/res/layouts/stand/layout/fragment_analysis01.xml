@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="2018-03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:textSize="@dimen/s11"
+            android:textColor="@color/black"
+            android:id="@+id/tx_name" />
+
+        <Button
+            android:text=""
+            android:layout_width="@dimen/x25"
+            android:layout_height="@dimen/x25"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
+            android:id="@+id/bnt_calendar"
+            android:background="@drawable/calendar_selector"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"
+        android:background="@color/gray"
+        >
+
+    </View>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                >
+
+
+                <TextView
+                    android:text="问题关闭统计"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView22"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="@dimen/s12"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/lay01"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:background="@color/gray06"
+            android:layout_height="@dimen/x120"
+            >
+
+                <ListView
+                    android:id="@+id/listview_statistical01"
+                    android:scrollbars="none"
+                    android:fastScrollEnabled="false"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"  />
+        </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                >
+                <TextView
+                    android:text="巡线统计"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tx_xx"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="@dimen/s12"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/lay02"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/gray06"
+                android:layout_height="@dimen/x120"
+                >
+
+                <ListView
+                    android:id="@+id/listview_statistical02"
+                    android:scrollbars="none"
+                    android:fastScrollEnabled="false"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"  />
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                >
+
+
+                <TextView
+                    android:text="各区域问题关闭统计"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tx_qy"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="@dimen/s12"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lay03"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/gray06"
+                android:layout_height="@dimen/x180"
+                >
+
+                <ListView
+                    android:id="@+id/listview_statistical03"
+                    android:scrollbars="none"
+                    android:fastScrollEnabled="false"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"  />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                >
+
+
+                <TextView
+                    android:text="一级巡线各区域执行统计"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tx_rq"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="@dimen/s12"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/lay04"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/gray06"
+                android:layout_height="@dimen/x180"
+                >
+
+                <ListView
+                    android:id="@+id/listview_statistical04"
+                    android:scrollbars="none"
+                    android:fastScrollEnabled="false"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"  />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_one_find"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shuben.zhixing.www.patrol.oneclass.OneFindActivity">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="#169BD5"
+        >
+
+        <TextView
+            android:text="问题/亮点发现"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_tittle" />
+
+        <LinearLayout
+            android:id="@+id/lay_back"
+            android:orientation="horizontal"
+            android:layout_width="@dimen/x100"
+            android:layout_height="@dimen/x20"
+            android:layout_alignTop="@+id/tx_tittle"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginStart="@dimen/x10">
+
+            <ImageView
+                android:id="@+id/title_back"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/x20"
+                android:background="@mipmap/back"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:text="返回"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_back"
+                />
+
+        </LinearLayout>
+        <TextView
+            android:text="任务关闭"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x10"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_close" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="巡线单号:NO0001"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:textSize="@dimen/s12"
+            android:textColor="@color/blue"
+            android:id="@+id/tx_item01" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray02"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        >
+
+    </View>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x50">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="车间:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:id="@+id/textView26" />
+
+            <TextView
+                android:text="前车间"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/x5"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_item02" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="区域:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:id="@+id/textView28" />
+
+            <TextView
+                android:text="超高温杀菌间"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginTop="@dimen/x5"
+                android:id="@+id/tx_item03" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="区域负责人:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:id="@+id/textView30" />
+
+            <TextView
+                android:text="李四"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_item04" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray02"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        >
+
+    </View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="巡线倒计时"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:textSize="@dimen/s12"
+            android:id="@+id/textView31" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView31"
+            android:layout_toEndOf="@+id/textView31"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            android:id="@+id/tx_item05" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/gray03"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x26"
+            android:layout_marginLeft="@dimen/x35"
+            android:layout_marginRight="@dimen/x35"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tx_find01"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="发现问题"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s14"
+                android:background="@mipmap/data_leftclick"
+                android:gravity="center"/>
+
+
+            <TextView
+                android:id="@+id/tx_find02"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="发现亮点"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s14"
+                android:background="@mipmap/data_right"
+                android:gravity="center"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="巡线问题拍照与描述:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:textSize="@dimen/s12"
+            android:id="@+id/textView40" />
+
+        <LinearLayout
+            android:id="@+id/lay_add"
+            android:layout_width="@dimen/x100"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x10"
+            >
+
+            <TextView
+                android:text="添加问题"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x10"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_add" />
+            <Button
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/x20"
+                android:id="@+id/bnt_add"
+                android:background="@mipmap/add"
+
+                />
+
+
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x120"
+            android:orientation="vertical"
+
+            >
+
+            <ListView
+                android:id="@+id/listview_find"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:fastScrollEnabled="false"
+
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_one_class"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shuben.zhixing.www.patrol.OneClassActivity">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="#169BD5"
+        >
+
+        <TextView
+            android:text="计划达成率"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_tittle" />
+
+        <LinearLayout
+            android:id="@+id/lay_back"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/title_back"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/back"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="返回"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_back"
+                android:layout_alignBaseline="@+id/tx_tittle"
+                android:layout_alignBottom="@+id/tx_tittle"
+                android:layout_toRightOf="@+id/title_back"
+                android:layout_toEndOf="@+id/title_back"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@color/gray03"
+        android:layout_height="@dimen/x40">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="日期"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/x10"
+
+                android:id="@+id/textView27" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30"
+                android:id="@+id/rlay01">
+
+                <TextView
+                    android:text="2018-06-05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tx_date"
+                    android:textSize="@dimen/s12"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+                <Button
+                    android:layout_width="@dimen/x30"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:id="@+id/bnt_date"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="17dp"
+                    android:layout_marginEnd="17dp" />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="班次"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/x10"
+                android:id="@+id/tx_workShop" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x30">
+                <com.shuben.zhixing.www.view.NiceSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x25"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:id="@+id/nice_spinner01" />
+                >
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.github.mikephil.charting.charts.CombinedChart
+                android:id="@+id/lay01"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@color/gray06"
+                android:layout_height="@dimen/x120"
+                >
+            </com.github.mikephil.charting.charts.CombinedChart>
+
+            <ListView
+                android:id="@+id/plan_listview"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x80"
+                android:scrollbars="none"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

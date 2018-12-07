@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/gray03"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x45"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="数量"
+                android:gravity="center"
+                android:textSize="@dimen/s13"
+
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                />
+
+            <EditText
+                android:id="@+id/reply_number"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="请输入货物数量"
+                android:background="@null"
+                android:layout_toRightOf="@+id/number"
+                android:textSize="@dimen/s12"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_g"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/gray03"></View>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/x45"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="时间"
+                android:gravity="center"
+                android:textSize="@dimen/s13"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/reply_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="请选择时间"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/time"
+                android:textSize="@dimen/s12"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_g"/>
+
+            <ImageView
+                android:id="@+id/reply_time_img"
+                android:layout_width="@dimen/x25"
+                android:layout_height="@dimen/x25"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:background="@mipmap/xfcd_alendar"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/gray03"></View>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x45"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="类型"
+                android:gravity="center"
+                android:textSize="@dimen/s13"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+               />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/x35"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout">
+
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/reply_type"
+                android:layout_width="@dimen/x100"
+                android:layout_height="@dimen/x34"
+                android:layout_gravity="center"
+                android:textSize="@dimen/s12"
+                android:textColor="@color/text_g"
+                android:gravity="center"
+                android:hint="请选择类型"
+                android:textColorHint="@color/gray"
+                android:drawableRight="@mipmap/icon_down"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="回复内容"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/s13"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            />
+
+
+        <EditText
+            android:id="@+id/reply_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="请输入回复内容，最多可输入120子"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/s12"
+            android:maxLength="120"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:background="@drawable/tv_background_grid"
+            />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_layout05"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x35"
+        android:layout_marginTop="30dp" >
+
+        <TextView
+            android:id="@+id/reply_ok"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_next_step"
+            android:text="确认"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s13" />
+    </RelativeLayout>
+
+</LinearLayout>

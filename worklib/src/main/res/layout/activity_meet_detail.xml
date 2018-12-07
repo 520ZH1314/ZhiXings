@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MeetDetailActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="@color/title_bg">
+
+        <ImageView
+            android:id="@+id/iv_work_add_work"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/ball_radius_sidebar"
+            android:src="@mipmap/left_jian_tou" />
+
+        <TextView
+            android:id="@+id/tv_work_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="会议详情"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/s18" />
+        <ImageView
+            android:src="@mipmap/more"
+            android:layout_marginRight="@dimen/x24"
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_meet_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="42dp"
+        android:scrollbars="none">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+            <View
+                android:id="@+id/view8"
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:background="@color/divider"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/button" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                <View
+                    android:id="@+id/view5_note_taker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/divider"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView17_note_taker" />
+
+                <TextView
+                    android:id="@+id/textView17_note_taker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="记录人:"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView4_note_taker"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4_note_taker"
+                    app:layout_constraintTop_toTopOf="@+id/imageView4_note_taker" />
+
+                <ImageView
+                    android:id="@+id/imageView4_note_taker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@mipmap/add_meetting_perpeo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_meet_detail_note_taker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text=" 李刚; 李波;"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView17_note_taker"
+                    app:layout_constraintStart_toEndOf="@+id/textView17_note_taker"
+                    app:layout_constraintTop_toTopOf="@+id/textView17_note_taker" />
+
+                <TextView
+                    android:id="@+id/tv_meet_detail_note_taker_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="8人"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_note_taker"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView5_note_taker"
+                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_note_taker" />
+
+                <ImageView
+                    android:id="@+id/imageView5_note_taker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:src="@mipmap/right"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_note_taker_total"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_note_taker_total" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                <View
+                    android:id="@+id/view5_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0.5dp"
+                    android:background="@color/divider"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView17_host" />
+
+                <TextView
+                    android:id="@+id/textView17_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="主持人:"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView4_host"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4_host"
+                    app:layout_constraintTop_toTopOf="@+id/imageView4_host"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <ImageView
+                    android:id="@+id/imageView4_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@mipmap/add_meetting_perpeo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_meet_detail_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text=" 李刚; 李波;"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView17_host"
+                    app:layout_constraintStart_toEndOf="@+id/textView17_host"
+                    app:layout_constraintTop_toTopOf="@+id/textView17_host"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_meet_detail_host_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="8人"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_host"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView5_host"
+                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_host" />
+
+                <ImageView
+                    android:id="@+id/imageView5_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:src="@mipmap/right"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_host_total"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_host_total" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/meet_message_people"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="会议内容:"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+            <TextView
+                android:textSize="@dimen/s13"
+                android:id="@+id/tv_meet_detail_contant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:maxEms="13"
+                android:maxLines="5"
+                android:text="今天下午在胎位参加8点的,会议主要内容是关于,请大家代号自闭内容懂不"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="会议时间:"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_meet_detail_contant" />
+
+            <TextView
+                android:textSize="@dimen/s13"
+                android:id="@+id/tv_work_meet_detail_open_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="11月18日 10:00~12:00"
+                app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="主持人:  李三"
+                android:textSize="@dimen/s13"
+                app:layout_constraintStart_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="会议提醒:"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/tv_meet_detail_meet_remind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="会议开始时"
+                android:textSize="@dimen/s13"
+                app:layout_constraintBottom_toBottomOf="@+id/textView14"
+                app:layout_constraintStart_toStartOf="@+id/tv_work_meet_detail_open_time"
+                app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/divider"
+                app:layout_constraintStart_toStartOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3">
+
+                <View
+                    android:id="@+id/view5_attendee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0.5dp"
+                    android:background="@color/divider"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView17_attendee" />
+
+                <TextView
+                    android:id="@+id/textView17_attendee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="参会人:"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView4_attendee"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4_attendee"
+                    app:layout_constraintTop_toTopOf="@+id/imageView4_attendee" />
+
+                <ImageView
+                    android:id="@+id/imageView4_attendee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@mipmap/add_meetting_perpeo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_meet_detail_attendee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text=" 李刚; 李波;"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView17_attendee"
+                    app:layout_constraintStart_toEndOf="@+id/textView17_attendee"
+                    app:layout_constraintTop_toTopOf="@+id/textView17_attendee" />
+
+                <TextView
+                    android:id="@+id/tv_meet_detail_attendee_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="8人"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_attendee"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView5_attendee"
+                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_attendee"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/imageView5_attendee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:src="@mipmap/right"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_attendee"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_attendee" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/moreclass"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="会议纪要"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="添加会议纪要"
+                app:layout_constraintBottom_toBottomOf="@+id/textView20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView20" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/view8" />
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout_meet_detail"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x35"
+                android:layout_marginTop="9dp"
+                app:tabIndicatorColor="@color/blue_bg"
+                app:tabSelectedTextColor="@color/blue_bg"
+                app:tabTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view6" />
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager_meet_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tablayout_meet_detail" />
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </ScrollView>
+
+    <!--底部布局-->
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+     <Button
+         android:visibility="visible"
+         android:layout_centerVertical="true"
+         android:id="@+id/btn_work_meet_detail"
+         android:text="确认参加"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+
+        <EditText
+            android:gravity="start"
+            android:textSize="@dimen/s13"
+            android:layout_marginRight="@dimen/x2"
+            android:layout_toLeftOf="@+id/iv_meet_detail_add_message"
+            android:layout_toRightOf="@+id/btn_work_meet_detail"
+            android:padding="@dimen/x5"
+            android:hint="回复内容"
+            android:layout_centerVertical="true"
+            android:background="@drawable/edit_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_meet_detail_add_message"
+            android:layout_marginRight="@dimen/x5"
+            android:layout_centerVertical="true"
+             android:layout_alignParentRight="true"
+            android:src="@mipmap/add_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</RelativeLayout>

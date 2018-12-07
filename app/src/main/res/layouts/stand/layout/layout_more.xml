@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+   >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:background="@color/background_material_dark"
+        >
+
+        <TextView
+            android:id="@+id/tx_question"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:text="发现问题"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text=""
+            android:layout_width="@dimen/x5"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:id="@+id/dev"
+             />
+
+        <TextView
+            android:id="@+id/tx_light"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:text="发现亮点"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>

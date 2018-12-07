@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="net_tip_unknown_error">不知为啥错误了哦</string>
+  <string name="net_tip_unknown_host">服务器貌似已经打盹了，请稍后再试</string>
+  <string name="net_tip_connect_error">加载失败，网络似乎在打盹哦</string>
+  <string name="net_tip_timeout_error">连接服务器超时哦，稍后再试试吧</string>
+  <string name="net_tip_parse_error">数据解析异常</string>
+</resources>

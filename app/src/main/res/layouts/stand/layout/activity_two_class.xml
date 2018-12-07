@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_two_class"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shuben.zhixing.www.patrol.TwoClassActivity">
+
+    <RelativeLayout
+        android:id="@+id/lay_back"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="@color/blue_bg"
+        >
+
+        <TextView
+            android:text="二级巡线"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_tittle" />
+
+        <ImageView
+            android:id="@+id/title_back"
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/back"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:text="返回"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_back"
+            android:layout_alignBaseline="@+id/tx_tittle"
+            android:layout_alignBottom="@+id/tx_tittle"
+            android:layout_toRightOf="@+id/title_back"
+            android:layout_toEndOf="@+id/title_back" />
+
+        <Button
+            android:layout_width="@dimen/x25"
+            android:layout_height="@dimen/x25"
+            android:id="@+id/bnt_set"
+            android:background="@mipmap/set"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="@color/blue_bg"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:text="巡线倒计时"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/s12"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:id="@+id/textView44" />
+
+        <TextView
+            android:text="60min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/s16"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:id="@+id/tx_custown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:orientation="horizontal"
+        android:background="@color/blue_bg"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="巡线开始时间"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/yellow"
+                android:textStyle="bold"
+                android:textSize="@dimen/s12"
+                android:id="@+id/textView47" />
+
+            <TextView
+                android:text="2018-03-28 10:00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView47"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_patrolDate" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="集合地点"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView49"
+                android:textStyle="bold"
+                android:textSize="@dimen/s12"
+                android:gravity="center"
+                android:textColor="@color/yellow"
+                 />
+
+            <TextView
+                android:text="A01车间"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/s12"
+                android:gravity="center"
+                android:id="@+id/tx_workShop"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="巡线主题"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView50"
+                android:textStyle="bold"
+                android:textSize="@dimen/s12"
+                android:gravity="center"
+                android:textColor="@color/yellow"
+                />
+
+            <TextView
+                android:text="5S巡线"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/s12"
+                android:gravity="center"
+                android:id="@+id/tx_Subject"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/m_set_lay01"
+        android:layout_width="match_parent"
+        android:background="@drawable/selector"
+        android:layout_height="@dimen/x45">
+
+        <ImageView
+            android:id="@+id/img01"
+            android:layout_width="@dimen/x25"
+            android:layout_height="@dimen/x25"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/erji_callpeople"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/next_img01"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/next01"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            />
+        <TextView
+            android:id="@+id/fm_four_set01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/img01"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:textSize="@dimen/s13"
+            android:textColor="@color/text_g"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:text="召集人员" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/m_set_lay02"
+        android:layout_width="match_parent"
+        android:background="@drawable/selector"
+        android:layout_height="@dimen/x45">
+
+        <ImageView
+            android:id="@+id/img02"
+            android:layout_width="@dimen/x25"
+            android:layout_height="@dimen/x25"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/erji_faqi"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/next_img02"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/next01"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            />
+        <TextView
+            android:id="@+id/fm_four_set02"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/img02"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:textSize="@dimen/s13"
+            android:textColor="@color/text_g"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:text="巡线分组" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/m_set_lay03"
+        android:layout_width="match_parent"
+        android:background="@drawable/selector"
+        android:layout_height="@dimen/x45">
+
+        <ImageView
+            android:id="@+id/img03"
+            android:layout_width="@dimen/x25"
+            android:layout_height="@dimen/x25"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/erji_fenzhu"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/next_img032"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/next01"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            />
+        <TextView
+            android:id="@+id/fm_four_set03"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/img03"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:textSize="@dimen/s13"
+            android:textColor="@color/text_g"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:text="分组任务" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/m_set_lay04"
+        android:layout_width="match_parent"
+        android:background="@drawable/selector"
+        android:layout_height="@dimen/x45">
+
+        <ImageView
+            android:id="@+id/img04"
+            android:layout_width="@dimen/x25"
+            android:layout_height="@dimen/x25"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/erji_tb"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/next_img04"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/next01"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            />
+        <TextView
+            android:id="@+id/fm_four_set04"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/img04"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:textSize="@dimen/s13"
+            android:textColor="@color/text_g"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:text="巡线通报" />
+    </RelativeLayout>
+
+
+</LinearLayout>

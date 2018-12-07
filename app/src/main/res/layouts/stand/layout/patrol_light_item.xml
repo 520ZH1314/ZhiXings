@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="@dimen/x40">
+
+        <TextView
+            android:text="第一组"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_item01"
+            android:gravity="center"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="组长:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView24"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="张三"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView21"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:text="前车间"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView20"
+            android:gravity="center"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

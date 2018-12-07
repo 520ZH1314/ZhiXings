@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:padding="@dimen/x10"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/item2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x3"
+                android:text="编号：001"
+                android:textColor="@color/txt_nor"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/list_txt_" />
+            <ImageView
+                android:layout_width="@dimen/x20"
+                android:src="@mipmap/jianshao_mass3"
+                android:layout_alignParentRight="true"
+                android:layout_height="@dimen/x20" />
+        </RelativeLayout>
+    <TextView
+        android:id="@+id/item3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x3"
+        android:text="工单号：     FASD43245435"
+        android:textColor="@color/txt_nor"
+        android:textSize="@dimen/content_txt_s" />
+    <TextView
+        android:id="@+id/item4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x3"
+        android:text="不良数量:1"
+        android:textColor="@color/txt_nor"
+        android:textSize="@dimen/content_txt_s" />
+    <TextView
+        android:id="@+id/item5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x3"
+        android:text="产品名称：耳机带"
+        android:textColor="@color/txt_nor"
+        android:textSize="@dimen/content_txt_s" />
+    <TextView
+        android:id="@+id/item6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x3"
+        android:text="不良原因:烤炉的温度过高"
+        android:textColor="@color/txt_nor"
+        android:textSize="@dimen/content_txt_s" />
+    <TextView
+        android:id="@+id/item7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x3"
+        android:text="不良原因:烤炉的温度过高"
+        android:textColor="@color/txt_nor"
+        android:textSize="@dimen/content_txt_s" />
+</LinearLayout>

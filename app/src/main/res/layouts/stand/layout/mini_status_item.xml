@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="节拍"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginStart="@dimen/x20"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:id="@+id/textView29" />
+
+        <TextView
+            android:text="当前"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginEnd="@dimen/x20"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="#4ABBEF"
+            android:id="@+id/textView43" />
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/gray01"
+        >
+    </View>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="7.6s"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView48" />
+
+            <TextView
+                android:text="标准C/T"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView45" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="473"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView52" />
+
+            <TextView
+                android:text="标准UPH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView50" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="86.08%"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView70" />
+
+            <TextView
+                android:text="线平衡率"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView54" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:gravity="center"
+        android:background="@color/gray01"
+        >
+    </View>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="9.6s"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView73" />
+
+            <TextView
+                android:text="实际C/T"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView72" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="375"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView75" />
+
+            <TextView
+                android:text="实际UPH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView74" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="13.92%"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView78" />
+
+            <TextView
+                android:text="平均损失"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:layout_marginBottom="@dimen/x2"
+                android:id="@+id/textView77" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

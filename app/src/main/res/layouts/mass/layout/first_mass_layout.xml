@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/l_title"
+        layout="@layout/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/content0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:padding="@dimen/x10"
+            android:layout_height="@dimen/x75">
+
+            <RelativeLayout
+                android:id="@+id/add"
+
+                android:layout_width="match_parent"
+
+                android:paddingLeft="@dimen/x10"
+                android:paddingRight="@dimen/x10"
+                android:background="@drawable/shape_mass_first_tip"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/title_btn"
+                    android:layout_width="wrap_content"
+
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/content_txt_"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="@dimen/x25"
+                    android:layout_height="@dimen/x25"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_join_dialing_norm"/>
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+        <com.base.zhixing.www.widget.PagerSlidingTabStrip
+            android:id="@+id/strip"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            app:pstsShouldExpand="true"
+            app:pstsUnderlineColor="@color/no_color"
+            app:pstsIndicatorColor="@color/frame_l"
+            android:layout_height="40dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x10"
+            android:background="@color/content_line"/>
+        <com.base.zhixing.www.widget.BannerPager
+            android:id="@+id/data_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/left_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>

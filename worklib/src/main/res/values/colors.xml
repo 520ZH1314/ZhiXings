@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bar">#6CB0DF</color>
+    <color name="bar1">#B5C2CA</color>
+    <color name="bar2">#F5E6BF</color>
+    <color name="bar3">#81D8C8</color>
+    <color name="description">#686868</color>
+    <color name="line">#8CD276</color>
+    <color name="linefill">#DEEFE4</color>
+    <color name="line1">#E9C517</color>
+    <color name="line1fill">#ECEAD0</color>
+    <color name="line2">#9F8FBA</color>
+    <color name="line2fill">#EBE4F8</color>
+    <color name="actionbar_color">#6CB0DF</color>
+    <color name="blue_bg"> #169BD5</color>
+    <color name="drawer_arrow_second_color">#303f9f</color>
+    <color name="divider">#d8d8d8</color>
+    <color name="textview_border">#FF6A6A</color>
+</resources>

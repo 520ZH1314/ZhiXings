@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">智行力</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="text_inside_circle_button_text_normal">Text Inside Circle Button(Normal)</string>
+    <string name="text_inside_circle_button_text_highlighted">Text Inside Circle Button(Highlighted)</string>
+    <string name="text_inside_circle_button_text_unable">Text Inside Circle Button(Unable)</string>
+
+    <string name="text_outside_circle_button_text_normal">Text Outside Circle Button(Normal)</string>
+    <string name="text_outside_circle_button_text_highlighted">Text Outside Circle Button(Highlighted)</string>
+    <string name="text_outside_circle_button_text_unable">Text Outside Circle Button(Unable)</string>
+
+    <string name="degree_centigrade">&#176;C</string>
+    <string name="text_ham_button_text_normal">Ham Button Text(Normal)</string>
+    <string name="text_ham_button_text_highlighted">Ham Button Text(Highlighted)</string>
+    <string name="text_ham_button_text_unable">Ham Button Text(Unable)</string>
+    <string name="text_ham_button_sub_text_normal">Ham Button Sub Text(Normal)</string>
+    <string name="text_ham_button_sub_text_highlighted">Ham Button Sub Text(Highlighted)</string>
+    <string name="text_ham_button_sub_text_unable">Ham Button Sub Text(Unable)</string>
+
+    <string name="title01">一级巡线</string>
+    <string name="title02">二级巡线</string>
+    <string name="title03">三级巡线</string>
+    <string name="title04">随机巡线</string>
+
+    <string name="empty_message">啥也没有</string>
+    <string name="loading_message">请等一等啦ლ(╹◡╹ლ)</string>
+    <string name="error_message">哎呀！发生了一些错误</string>
+    <string name="empty_button">重试</string>
+    <string name="loading_button">取消</string>
+    <string name="error_button">重试</string>
+
+    <!--首页列表-->
+    <string name="frg_i0">紧急催单</string>
+    <string name="frg_i1">任务交办</string>
+    <string name="frg_i2">高效会议</string>
+    <string name="frg_i3">Mini-MES</string>
+    <string name="frg_i4">巡检管理</string>
+    <string name="frg_i5">巡线管理</string>
+    <string name="frg_i6">安灯</string>
+    <string name="frg_i7">Mini-管理</string>
+    <string name="frg_i8">更多</string>
+    <string name="frg_i9">中控室</string>
+</resources>

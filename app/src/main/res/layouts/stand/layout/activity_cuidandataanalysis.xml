@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/gray03"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout_time" />
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/activity_cuidan_dataanalysis_title"
+        />
+
+    <LinearLayout
+        android:id="@+id/llayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        >
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/activity_cuidandataanalysis_biaoge" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/llayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            >
+            <include
+                android:id="@+id/l_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_cuidandataanalysis_img04" />
+        </LinearLayout>
+        <!--任务关闭统计-->
+        <LinearLayout
+            android:id="@+id/llayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            >
+            <include
+                android:id="@+id/l_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_cuidandataanalysis_biaoge_title" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

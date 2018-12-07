@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/gray03"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:text="常用工具"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/s13"
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"/>
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/activity_mian_title" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:text="应用商店"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/s13"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"/>
+
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/activity_mian_shop" />
+
+</LinearLayout>

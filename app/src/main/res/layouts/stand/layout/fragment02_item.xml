@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/gray03"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            >
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/fm_img"
+                        android:layout_width="@dimen/x25"
+                        android:layout_height="@dimen/x25"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/ic_launcher"/>
+                </RelativeLayout>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_weight="5.1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x20"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/s11"
+                        android:text="任务来源:"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text_g9"
+                        android:id="@+id/textView" />
+
+                    <TextView
+                        android:id="@+id/fm_item_laiyuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/s11"
+                        android:textColor="@color/text_g9"
+                        android:text="-"/>
+                </LinearLayout>
+                </RelativeLayout>
+
+                <!--bianhao-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x20"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="编号："
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text_g9"
+                        android:textSize="@dimen/s11"
+                        />
+                    <TextView
+                        android:id="@+id/fm_item_bianhao"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text_g9"
+                        android:textSize="@dimen/s11"
+                        android:text="-"/>
+
+                </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x20">
+
+                    <TextView
+                        android:id="@+id/fm_item_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="任务内容："
+                        android:layout_marginRight="10dp"
+                        android:textSize="@dimen/s13"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text_g"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:layout_centerVertical="true" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/white">
+                </View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x20"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/s11"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text_g"
+                        android:text="责任人:"/>
+
+                    <TextView
+                        android:id="@+id/fm_item_zeren"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/s11"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text_g"
+                        android:text="-"/>
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/fragment02_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="@dimen/s9"
+                    android:textColor="@color/text_g9"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="创建时间："/>
+
+                <TextView
+                    android:id="@+id/fm_item_jindu"
+                    android:background="@drawable/tv_background_grid"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="处理中"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="@dimen/s9"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

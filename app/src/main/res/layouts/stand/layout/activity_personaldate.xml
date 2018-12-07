@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray03"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <com.base.zhixing.www.widget.CircularImage
+            android:id="@+id/user_head"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/user_head"
+            android:text="姓名"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/s13"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/user_zhiwei"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/user_head"
+            android:text="职位"
+            android:layout_marginTop="@dimen/x3"
+            android:layout_below="@+id/user_name"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/s13"
+            android:textColor="@color/black"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/fm_four_set"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x35">
+
+            <TextView
+                android:id="@+id/user_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/change_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/s11"
+                android:gravity="center_vertical"
+                android:hint="性别" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray02"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x35">
+
+            <TextView
+                android:id="@+id/user_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:text="130..." />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/s11"
+                android:gravity="center_vertical"
+                android:hint="手机" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray02"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x35">
+
+            <TextView
+                android:id="@+id/user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:text="130..." />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/s11"
+                android:gravity="center_vertical"
+                android:hint="邮箱" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x35">
+
+            <TextView
+                android:id="@+id/user_lingdao"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:text="-" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/s11"
+                android:gravity="center_vertical"
+                android:hint="直属上级" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray02"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x35">
+
+            <TextView
+                android:id="@+id/user_bumen"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:text="..." />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/s11"
+                android:gravity="center_vertical"
+                android:hint="直属部门" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray02"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x35">
+
+            <TextView
+                android:id="@+id/user_fushu_bumen"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:text="..." />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/s11"
+                android:gravity="center_vertical"
+                android:hint="附属部门" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

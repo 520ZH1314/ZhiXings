@@ -1,0 +1,25 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion project.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        versionCode 1
+    }
+
+    sourceSets{
+        main{
+            java.srcDirs += "src/main/kotlin"
+        }
+    }
+    resourcePrefix "sdk_chat_"
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    implementation 'io.netty:netty-handler:4.1.19.Final'
+    implementation "com.google.code.gson:gson:$gson_version"
+}

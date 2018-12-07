@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="#169BD5"
+        >
+
+        <TextView
+            android:text="龙虎榜"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_tittle" />
+
+    </RelativeLayout>
+
+    <com.shuben.zhixing.www.patrol.billboard.ViewPagerIndicator01
+        android:id="@+id/id_indicator04"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/title_bar_bg_one_row"
+        android:orientation="horizontal"
+        zhy:item_count="3" >
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="短信1"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/s14" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="收藏2"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/s14" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="推荐3"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/s14" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="推荐4"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/s14" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="推荐5"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/s14" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="推荐6"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/s14" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="推荐7"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/s14" />
+    </com.shuben.zhixing.www.patrol.billboard.ViewPagerIndicator01>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/id_vp04"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

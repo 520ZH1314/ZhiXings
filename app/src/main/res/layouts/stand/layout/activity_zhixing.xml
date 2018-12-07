@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray03"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <com.base.zhixing.www.widget.CircularImage
+            android:id="@+id/imageView_head"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/ic_launcher"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray02"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x32">
+
+            <ImageView
+                android:id="@+id/next_img02"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/next01"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/me_num"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/next_img02"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="v1.0" />
+
+
+            <TextView
+                android:id="@+id/fm_four_version"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginRight="20dp"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:hint="版本号" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray02"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x32">
+
+            <ImageView
+                android:id="@+id/next_img03"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/next01"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/fm_four_service"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/next_img03"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:hint="0755-00000000" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginRight="20dp"
+                android:background="@null"
+                android:textSize="@dimen/s11"
+                android:maxLength="11"
+                android:inputType="number"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:hint="客服电话" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

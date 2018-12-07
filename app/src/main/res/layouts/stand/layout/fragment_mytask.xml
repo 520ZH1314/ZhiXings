@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+    <!--工具-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x35"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fragment02_faqi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/s12"
+            android:gravity="center"
+            android:textColor="@color/green"
+            android:text="我的发起"/>
+
+
+        <TextView
+            android:id="@+id/fragment_zeren"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/s12"
+            android:textColor="@color/gray"
+            android:gravity="center"
+            android:text="我的责任"/>
+
+
+
+        <TextView
+            android:id="@+id/fragment_canyu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/s12"
+            android:gravity="center"
+            android:textColor="@color/gray"
+            android:text="我的参与"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray03"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view01"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/green"></View>
+
+        <View
+            android:id="@+id/view02"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:background="@color/green"></View>
+
+        <View
+            android:id="@+id/view03"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:background="@color/green"></View>
+    </LinearLayout>
+
+
+    aaaaA
+
+    <ListView
+        android:id="@+id/mytask_fm_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+</LinearLayout>

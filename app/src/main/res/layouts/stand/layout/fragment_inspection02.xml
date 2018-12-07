@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:id="@+id/lay_back"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="#169BD5"
+        >
+
+        <TextView
+            android:text="问题记录"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_back" />
+
+        <ImageView
+            android:id="@+id/title_back"
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/back"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:text="首页"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s12"
+            android:id="@+id/textView9"
+            android:layout_centerVertical="true"
+            android:layout_alignBaseline="@+id/tx_tittle"
+            android:layout_alignBottom="@+id/tx_tittle"
+            android:layout_toRightOf="@+id/title_back"
+            android:layout_toEndOf="@+id/title_back" />
+
+        <TextView
+            android:text="当前用户:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginEnd="@dimen/x10"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_user" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_activity_tabbar_all"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x30">
+
+            <HorizontalScrollView
+                android:id="@+id/hs_activity_tabbar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:fadingEdge="none"
+                android:scrollbars="none"
+                android:layout_weight="1"
+                >
+                <LinearLayout
+                    android:id="@+id/ll_activity_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal">
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/a_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

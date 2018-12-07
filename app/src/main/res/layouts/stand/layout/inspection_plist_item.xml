@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f1f1f1"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/problem_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+
+        >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/qpa_problem_title"
+            android:visibility="gone"
+
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                style="@style/problem_list_content_dim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/tx_pronlemNo"
+                    style="@style/problem_list_content01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/tx_name01" />
+
+                <TextView
+                    android:id="@+id/tx_date"
+                    style="@style/problem_list_content02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="2017-04-14"
+                    android:textColor="#009ede" />
+
+                <TextView
+                    android:id="@+id/tx_problemNo"
+                    style="@style/problem_list_content01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tx_date"
+                    android:layout_alignBottom="@+id/tx_date"
+                    android:layout_toRightOf="@+id/tx_name01"
+                    android:text="X0001" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/problem_list_content_dim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tx_content"
+                    style="@style/problem_list_content02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="L01线/电控车间/印刷" />
+
+                <TextView
+                    android:id="@+id/tx_product"
+                    style="@style/problem_list_content02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="XXXXXX"
+                     />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/x10"
+                >
+                <TextView
+                    android:text="问题描述："
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/s12"
+                    android:textStyle="bold"
+                    android:layout_gravity="left"
+                    android:id="@+id/textView13" />
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x50"
+                    android:textSize="@dimen/s12"
+                    android:gravity="center"
+                    android:background="@color/gray03"
+                    android:id="@+id/tx_problem" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                style="@style/problem_list_content_dim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tx_name03"
+                    style="@style/problem_list_content02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="责任人:" />
+
+                <TextView
+                    android:id="@+id/tx_user"
+                    style="@style/problem_list_content02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="张三"
+                    android:layout_toRightOf="@+id/tx_name03" />
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp" />
+
+                <ImageView
+                    android:id="@+id/img_status"
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/x30"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@mipmap/qpa_hand"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

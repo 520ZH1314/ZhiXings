@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.shuben.contact.lib" >
+    <application>
+
+        <activity
+            android:name=".ConstantActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+
+        </activity>
+    </application>
+</manifest>

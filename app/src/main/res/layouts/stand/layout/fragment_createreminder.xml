@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        layout="@layout/title_layout" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x35"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fm_neibu_cuidan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/s12"
+            android:gravity="center"
+            android:textColor="@color/green"
+            android:text="内部紧急催单"/>
+
+
+        <TextView
+            android:id="@+id/fm_caigou_cuidan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/s12"
+            android:textColor="@color/gray"
+            android:gravity="center"
+            android:text="采购紧急催单"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray03"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view01"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/green"></View>
+
+        <View
+            android:id="@+id/view02"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:background="@color/green"></View>
+
+</LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/clientele_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center" />
+
+</LinearLayout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/title_bg"
+        android:layout_height="@dimen/title_height">
+        <ImageView
+            android:id="@+id/tetle_back"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/back"
+            android:onClick="backActivity"
+            android:layout_marginLeft="10dp"
+        />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/title_center_size"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/content_txt_"
+            android:text="编辑"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <com.base.zhixing.www.widget.scrollablelayoutlib.ScrollableLayout
+        android:id="@+id/scroollable"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/white">
+
+        </LinearLayout>
+        <com.base.zhixing.www.widget.PagerSlidingTabStrip
+            android:id="@+id/strip"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            app:pstsShouldExpand="true"
+            app:pstsUnderlineColor="@color/no_color"
+            app:pstsIndicatorColor="@color/frame_l"
+            android:layout_height="40dp"/>
+            <com.base.zhixing.www.widget.BannerPager
+                android:id="@+id/data_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </com.base.zhixing.www.widget.scrollablelayoutlib.ScrollableLayout>
+</LinearLayout>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_constant_send"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40">
+       <TextView
+           android:id="@+id/tv_constant_istrue"
+           android:layout_marginLeft="@dimen/x24"
+           android:layout_centerVertical="true"
+          android:layout_alignParentLeft="true"
+           android:text="已选0个"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_constant_send"
+            android:layout_marginRight="@dimen/x24"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="发送"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

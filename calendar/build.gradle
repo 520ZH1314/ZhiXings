@@ -1,0 +1,38 @@
+apply plugin: 'com.android.library'
+apply plugin:'com.github.dcendents.android-maven'
+
+group='com.github.MagicMashRoom'
+android {
+    compileSdkVersion 28
+
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFile file('proguard.cfg')
+            //shrinkResources true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFile 'Unrecognized value'
+            //shrinkResources true
+            debuggable true
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:$support_version"
+    //compile project(':android-support-v7-appcompat')
+    implementation "com.android.support:design:$support_version"
+}

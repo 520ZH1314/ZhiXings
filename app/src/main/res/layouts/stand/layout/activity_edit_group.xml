@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shuben.zhixing.www.patrol.twoclass.EditGroupActivity">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="#169BD5"
+        >
+
+        <TextView
+            android:text="分组编辑"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_tittle" />
+
+        <LinearLayout
+            android:id="@+id/lay_back"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/title_back"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/back"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="返回"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_back"
+                android:layout_alignBaseline="@+id/tx_tittle"
+                android:layout_alignBottom="@+id/tx_tittle"
+                android:layout_toRightOf="@+id/title_back"
+                android:layout_toEndOf="@+id/title_back"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:text="巡线组长"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_marginLeft="@dimen/x10"
+        android:textSize="@dimen/s12"
+        android:textStyle="bold"
+        android:id="@+id/tx_zz" />
+
+    <RelativeLayout
+        android:id="@+id/lay_s01"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="@drawable/selector"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginStart="19dp"
+            android:hint="请选择组长"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_leader" />
+
+        <Button
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x10"
+            android:background="@mipmap/next01"
+            android:id="@+id/bnt_next01" />
+    </RelativeLayout>
+
+    <TextView
+        android:text="巡线组员"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_marginLeft="@dimen/x10"
+        android:textSize="@dimen/s12"
+        android:textStyle="bold"
+        android:id="@+id/textView51" />
+
+    <RelativeLayout
+        android:id="@+id/lay_s02"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="@drawable/selector"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginStart="19dp"
+            android:hint="请选择组员"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_member" />
+
+        <Button
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x10"
+            android:background="@mipmap/next01"
+            android:id="@+id/bnt_next02" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x60">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="巡线主题:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/x10"
+                android:id="@+id/textView53" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x25"
+                android:gravity="center"
+                android:textSize="@dimen/s12"
+                android:background="@color/gray03"
+                android:layout_marginLeft="@dimen/x10"
+                android:id="@+id/tx_title" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tx_cj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/x10"
+                android:text="巡线车间:"
+                 />
+
+            <com.shuben.zhixing.www.view.NiceSpinner
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x25"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="@dimen/x10"
+                android:id="@+id/nice_spinner02" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_layout05"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x35"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/bnt_commit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_next_step"
+            android:text="确认添加"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s13" />
+    </RelativeLayout>
+
+</LinearLayout>

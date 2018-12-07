@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shuben.zhixing.www.patrol.twoclass.AddGroupActivity">
+
+    <RelativeLayout
+
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="#169BD5"
+        >
+
+        <LinearLayout
+            android:id="@+id/lay_back"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/title_back"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/back"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="返回"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_back"
+                android:layout_alignBaseline="@+id/tx_tittle"
+                android:layout_alignBottom="@+id/tx_tittle"
+                android:layout_toRightOf="@+id/title_back"
+                android:layout_toEndOf="@+id/title_back"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <TextView
+            android:text="任务分组"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_tittle" />
+
+
+        <TextView
+            android:text="发送"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_send"
+            android:layout_marginRight="@dimen/x10"></TextView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lay_add"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:background="#FFEEDD"
+
+        >
+
+        <Button
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/add"
+            android:id="@+id/button5" />
+
+        <TextView
+            android:text="添加分组"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/button5"
+            android:layout_toEndOf="@+id/button5"
+            android:id="@+id/textView46" />
+
+    </RelativeLayout>
+
+    <com.shuben.zhixing.www.util.swipeview.RefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.shuben.zhixing.www.util.swipeview.SwipeMenuListView
+            android:id="@+id/add_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.shuben.zhixing.www.util.swipeview.RefreshLayout>
+
+
+
+</LinearLayout>

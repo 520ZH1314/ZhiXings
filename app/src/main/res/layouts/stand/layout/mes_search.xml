@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@color/gray03"
+        android:layout_margin="@dimen/x10"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:background="@drawable/calendar_selector"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x5"
+            android:id="@+id/bnt_calendar01" />
+
+        <TextView
+            android:text="2018-04-10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_date01"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/bnt_calendar01"
+            android:layout_toStartOf="@+id/bnt_calendar01"
+            android:layout_marginRight="205dp"
+            android:layout_marginEnd="205dp" />
+
+        <TextView
+            android:text="日期"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView66"
+            android:layout_marginLeft="15dp"
+            android:layout_alignBaseline="@+id/tx_date01"
+            android:layout_alignBottom="@+id/tx_date01"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:background="@color/gray03"
+        android:layout_margin="@dimen/x10"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="线体:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_line"
+            android:layout_marginLeft="@dimen/x10"
+            />
+
+        <com.shuben.zhixing.www.view.NiceSpinner
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x30"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/nice_spinner01" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:background="@color/gray03"
+        android:layout_margin="@dimen/x10"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="工位:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_station"
+            android:layout_marginLeft="@dimen/x10"
+            />
+
+        <com.shuben.zhixing.www.view.NiceSpinner
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x30"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/nice_spinner02" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:background="@color/gray03"
+        android:layout_marginTop="@dimen/x1"
+        android:layout_margin="@dimen/x10"
+        android:layout_height="@dimen/x30">
+
+        <TextView
+            android:text="线体:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_shift"
+            android:layout_marginLeft="@dimen/x10"
+            />
+
+        <com.shuben.zhixing.www.view.NiceSpinner
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x30"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/nice_spinner03" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

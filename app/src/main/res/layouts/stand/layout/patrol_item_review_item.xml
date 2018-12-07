@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ss03"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/lay01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <TextView
+            android:text="亮点一"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/x10"
+            android:id="@+id/tx_item04" />
+
+        <com.shuben.zhixing.www.view.MyGridView
+            android:id="@+id/gv_images"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:listSelector="@null"
+            android:numColumns="3"
+            android:padding="@dimen/x5"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="@dimen/x10"
+            android:verticalSpacing="@dimen/x2"
+            >
+        </com.shuben.zhixing.www.view.MyGridView>
+    </LinearLayout>
+
+    <TextView
+        android:text="亮点描述:"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/s12"
+        android:textStyle="bold"
+        android:layout_marginLeft="@dimen/x10"
+        android:id="@+id/tx_name01" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/x40"
+        android:layout_marginTop="@dimen/x10"
+        android:gravity="center"
+        android:background="@color/gray03"
+        android:layout_margin="@dimen/x5"
+        android:id="@+id/tx_item01" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="改善人:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tx_name02"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/x10"
+                android:gravity="left"
+                 />
+
+            <TextView
+                android:text="李四"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tx_item02"
+                android:textSize="@dimen/s12"
+                android:gravity="left"
+                 />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="改善部门:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tx_name03"
+                android:textSize="@dimen/s12"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/x10"
+                android:gravity="left"
+                />
+
+            <TextView
+                android:text="成品检验组"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tx_item03"
+                android:textSize="@dimen/s12"
+                android:gravity="left"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

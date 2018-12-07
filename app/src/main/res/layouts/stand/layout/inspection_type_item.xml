@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:paddingLeft="@dimen/x10"
+        >
+
+        <TextView
+            android:text="巡检单号:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#1695db"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:id="@+id/tx_bh_name" />
+
+        <TextView
+            android:text="(分组任务)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/tx_task"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            android:visibility="invisible"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:text="No00001"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_bh_value"
+            android:layout_alignBaseline="@+id/tx_bh_name"
+            android:layout_alignBottom="@+id/tx_bh_name"
+            android:layout_toRightOf="@+id/tx_bh_name"
+            android:layout_toEndOf="@+id/tx_bh_name" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lay01"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        >
+
+        <TextView
+            android:text="产线:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:id="@+id/tx_line_name" />
+
+        <TextView
+            android:text="1号线"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tx_line_name"
+            android:layout_toEndOf="@+id/tx_line_name"
+            android:layout_marginLeft="@dimen/x5"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_line_value" />
+
+        <TextView
+            android:text="XXX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginRight="@dimen/x10"
+            android:id="@+id/tx_user_value" />
+
+        <TextView
+            android:text="巡检人:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tx_user_value"
+            android:layout_toStartOf="@+id/tx_user_value"
+            android:layout_marginRight="@dimen/x5"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:id="@+id/tx_user_name" />
+
+
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        >
+
+        <TextView
+            android:text="产品名称:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:id="@+id/tx_pro_name01" />
+
+        <TextView
+            android:text="产品A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tx_pro_name01"
+            android:layout_toEndOf="@+id/tx_pro_name01"
+            android:layout_marginLeft="@dimen/x5"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_pro_value01" />
+
+    </RelativeLayout>
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x30"
+    android:paddingLeft="@dimen/x10"
+    android:paddingRight="@dimen/x10"
+    >
+
+    <TextView
+        android:text="计划巡检时间:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/s12"
+        android:textStyle="bold"
+        android:id="@+id/tx_date_name01" />
+
+    <TextView
+        android:text="2018-07-10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/tx_date_name01"
+        android:layout_toEndOf="@+id/tx_date_name01"
+        android:layout_marginLeft="@dimen/x5"
+        android:textSize="@dimen/s12"
+        android:id="@+id/tx_date_value01" />
+
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        >
+
+        <TextView
+            android:text="实际巡检时间:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:id="@+id/tx_date_name02" />
+
+        <TextView
+            android:text="2018-07-10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tx_date_name02"
+            android:layout_toEndOf="@+id/tx_date_name02"
+            android:layout_marginLeft="@dimen/x5"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_date_value02" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        >
+
+        <TextView
+            android:id="@+id/tx_date_name03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="结束巡检时间:"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold" />
+
+        <TextView
+            android:text="2018-07-10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tx_date_name03"
+            android:layout_toEndOf="@+id/tx_date_name03"
+            android:layout_marginLeft="@dimen/x5"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_date_value03" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:paddingLeft="@dimen/x10"
+        >
+
+        <TextView
+            android:text="状态:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:id="@+id/tx_status_name" />
+
+        <TextView
+            android:text="未开始"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tx_status_name"
+            android:layout_toRightOf="@+id/tx_status_name"
+            android:layout_toEndOf="@+id/tx_status_name"
+            android:layout_marginLeft="@dimen/x5"
+            android:textColor="#FF6600"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_status_value" />
+
+        <TextView
+            android:text="XX巡线"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/s12"
+            android:layout_marginRight="@dimen/x10"
+            android:id="@+id/tx_class_value" />
+
+        <TextView
+            android:text="巡检类别:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tx_class_value"
+            android:layout_toStartOf="@+id/tx_class_value"
+            android:layout_marginRight="@dimen/x5"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:id="@+id/tx_class_name" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="#CCCCCC"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:paddingLeft="@dimen/x10"
+        android:layout_marginTop="@dimen/x5"
+        android:paddingRight="@dimen/x10"
+        >
+
+        <Button
+            android:text="启动巡检》"
+            android:layout_width="@dimen/x100"
+            android:layout_height="@dimen/x30"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/white"
+            android:background="@drawable/btn1_style"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:id="@+id/bnt_start" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="#F0f0F0"
+        >
+
+    </RelativeLayout>
+
+</LinearLayout>

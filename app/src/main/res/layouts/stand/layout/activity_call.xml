@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_call"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shuben.zhixing.www.patrol.twoclass.CallActivity">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="#169BD5"
+        >
+
+        <TextView
+            android:text="人员召集"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s14"
+            android:id="@+id/tx_tittle" />
+
+        <LinearLayout
+            android:id="@+id/lay_back"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/title_back"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/back"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="返回"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s12"
+                android:id="@+id/tx_back"
+                android:layout_alignBaseline="@+id/tx_tittle"
+                android:layout_alignBottom="@+id/tx_tittle"
+                android:layout_toRightOf="@+id/title_back"
+                android:layout_toEndOf="@+id/title_back"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        >
+
+
+        <TextView
+            android:text="09:00"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:id="@+id/textView59" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/x20"
+            android:background="@drawable/ss"
+            android:gravity="center_vertical"
+            android:id="@+id/lay01">
+
+            <TextView
+                android:text="召集人员"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#61c1E5"
+                android:gravity="center"
+                android:textSize="@dimen/s16"
+                android:textStyle="bold"
+                android:id="@+id/tx_call01" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/textView71" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textView67" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/x20"
+            android:gravity="center_vertical"
+            android:background="@drawable/ss"
+            android:id="@+id/lay02">
+            <TextView
+                android:text="签到"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#61c1E5"
+                android:gravity="center"
+                android:textSize="@dimen/s16"
+                android:textStyle="bold"
+                android:id="@+id/tx_call02" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textView69" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ss"
+            android:layout_margin="@dimen/x20"
+            android:gravity="center_vertical"
+            android:id="@+id/lay03">
+            <TextView
+                android:text="合影"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#61c1E5"
+                android:gravity="center"
+                android:textSize="@dimen/s16"
+                android:textStyle="bold"
+                android:id="@+id/tx_call03" />
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

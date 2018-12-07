@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/gray03"
+    android:orientation="vertical"
+    >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        >
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:text="平均分数"
+        android:textSize="@dimen/s15"
+        android:textColor="@color/text_g"
+        android:gravity="center"/>
+
+              <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x30">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="公司平均分："
+                android:textSize="@dimen/s12"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_g"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/tx_Avg01"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="--："
+                android:textSize="@dimen/s13"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/red"
+                android:layout_toRightOf="@+id/textView5"
+                android:layout_toEndOf="@+id/textView5" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x30">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="部门平均分："
+                android:textSize="@dimen/s12"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_g"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/tx_Avg02"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="--："
+                android:textSize="@dimen/s13"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_g"
+                android:layout_toRightOf="@+id/textView6"
+                android:layout_toEndOf="@+id/textView6" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x30">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="我的平均分:"
+                android:textSize="@dimen/s13"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_g"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/tx_Avg03"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="--："
+                android:textSize="@dimen/s13"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_g"
+                android:layout_toRightOf="@+id/textView7"
+                android:layout_toEndOf="@+id/textView7" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x30"
+            android:textSize="@dimen/s15"
+            android:gravity="center"
+            android:textColor="@color/text_g"
+            android:text="排行榜"/>
+        <include
+            android:id="@+id/l_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/activity_dataanalysis_two_title" />
+
+        <ListView
+            android:id="@+id/gognsi_data_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#00000000"
+            android:dividerHeight="0dip"
+            android:layout_marginBottom="10dp"
+            >
+        </ListView>
+
+    </LinearLayout>
+
+</LinearLayout>

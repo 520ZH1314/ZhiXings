@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/gray03"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/l_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        layout="@layout/title_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="#fff"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/choose_date_view"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x25"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/show_month_view"
+                    android:layout_width="@dimen/x20"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom|center"
+                    android:maxLines="1"
+                    android:text="17"
+                    android:textColor="#ff25adff"
+                    android:textSize="@dimen/s13" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="14dp"
+                    android:gravity="bottom"
+                    android:maxLines="1"
+                    android:text="月"
+                    android:textColor="#ff25adff"
+                    android:textSize="@dimen/s13" />
+                <TextView
+                    android:id="@+id/show_year_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:text="2014年"
+                    android:textColor="#ff25adff"
+                    android:textSize="@dimen/s12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp">
+                <TextView
+                android:id="@+id/back_today_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x20"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_bg"
+                    android:layout_marginRight="8dp"
+                    android:text="今天"
+                android:gravity="center"
+                android:textColor="#ff9c0e"
+                android:textSize="@dimen/s11"/>
+
+                <TextView
+                    android:id="@+id/scroll_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/x20"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:layout_toLeftOf="@id/back_today_button"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/button_bg"
+                    android:text="切换周月"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:textColor="#ff9c0e"
+                    android:textSize="@dimen/s12"/>
+
+                <TextView
+                    android:id="@+id/theme_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/x20"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:visibility="gone"
+                    android:layout_toLeftOf="@id/scroll_switch"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/button_bg"
+                    android:text="更改效果"
+                    android:gravity="center"
+                    android:textColor="#ff9c0e"
+                    android:textSize="@dimen/s12"/>
+                <TextView
+                    android:id="@+id/next_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/x20"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:layout_toLeftOf="@id/scroll_switch"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/button_bg"
+                    android:text="下一月"
+                    android:gravity="center"
+                    android:textColor="#ff9c0e"
+                    android:textSize="@dimen/s12"/>
+                <TextView
+                    android:id="@+id/last_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/x20"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:layout_toLeftOf="@id/scroll_switch"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/button_bg"
+                    android:text="上一月"
+                    android:gravity="center"
+                    android:textColor="#ff9c0e"
+                    android:textSize="@dimen/s12"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:background="#fff">
+            <TextView
+                style="@style/weekIndicatorStyle"
+                android:text="一" />
+            <TextView
+                style="@style/weekIndicatorStyle"
+                android:text="二"/>
+            <TextView
+                style="@style/weekIndicatorStyle"
+                android:text="三" />
+            <TextView
+                style="@style/weekIndicatorStyle"
+                android:text="四" />
+            <TextView
+                style="@style/weekIndicatorStyle"
+                android:text="五" />
+            <TextView
+                style="@style/weekIndicatorStyle"
+                android:text="六" />
+            <TextView
+                style="@style/weekIndicatorStyle"
+                android:text="日" />
+        </LinearLayout>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.ldf.calendar.view.MonthPager
+                android:id="@+id/calendar_view"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:layout_height="270dp"
+                android:background="#fff">
+            </com.ldf.calendar.view.MonthPager>
+
+        </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+>
+
+        <TextView
+            android:id="@+id/calendar_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/text_g"
+            android:visibility="gone"
+            android:textSize="@dimen/s15"
+            android:text="没有任务哦"
+            />
+
+     <ListView
+    android:id="@+id/rili_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:background="@color/white"></ListView>
+
+    </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

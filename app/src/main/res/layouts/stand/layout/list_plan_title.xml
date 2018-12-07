@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x30"
+        android:gravity="center"
+        >
+        <TextView
+            android:text="tx_item01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_item01"
+            android:gravity="center"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:layout_weight="1" />
+
+
+        <TextView
+            android:text="tx_item02"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_item02"
+            android:gravity="center"
+            android:textSize="@dimen/s12"
+            android:textStyle="bold"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="tx_item03"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_item03"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/s12"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="tx_item04"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_item04"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/s12"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>
