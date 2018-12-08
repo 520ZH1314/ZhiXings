@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.shuben.contact.lib.common.ConstantS;
 import com.shuben.contact.lib.event.ConstantDataEvent;
+import com.shuben.contact.lib.event.ConstantIsCheck;
 import com.shuben.contact.lib.event.ConstantOneEvent;
 import com.shuben.contact.lib.event.TypeBean;
 import com.base.zhixing.www.util.GsonUtil;
@@ -152,6 +153,16 @@ public class ConstantAdapter extends BaseTurboAdapter<Type, BaseViewHolder> {
 
 
                         notifyDataSetChanged();
+                        //查询确定的数据
+                        List<TypeBean> dataNum = new ArrayList<>();
+                        for (int i = 0; i < mData.size(); i++) {
+                            if (mData.get(i).isCheck()) {
+                                dataNum.add(new TypeBean(mData.get(i).getOid(),
+                                        mData.get(i).getId(),
+                                        mData.get(i).getName()));
+                            }
+                        }
+                        EventBus.getDefault().post(new ConstantIsCheck(dataNum.size()));
 
                     } else {
 

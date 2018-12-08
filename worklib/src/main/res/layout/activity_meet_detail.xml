@@ -460,6 +460,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
      <Button
+         android:textSize="@dimen/s13"
          android:visibility="visible"
          android:layout_centerVertical="true"
          android:id="@+id/btn_work_meet_detail"

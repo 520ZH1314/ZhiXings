@@ -339,6 +339,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/rl_create_meet_remind"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/x8"
@@ -355,9 +356,9 @@
             android:src="@mipmap/add_meetting_perpeo" />
 
         <TextView
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/x2"
             android:layout_marginTop="@dimen/x8"
@@ -368,6 +369,7 @@
             android:textSize="@dimen/s13" />
 
         <TextView
+            android:id="@+id/tv_create_meet_remind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -378,13 +380,14 @@
             android:text="请选择"
             android:textColor="@color/black"
             android:textSize="@dimen/s11" />
+
         <ImageView
-            android:layout_marginRight="@dimen/x24"
             android:id="@+id/iv_meet3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x24"
             android:src="@mipmap/jiantou" />
     </RelativeLayout>
 

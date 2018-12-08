@@ -37,7 +37,7 @@ import com.zhixing.kpilib.httpbean.KpiEntitys;
 import com.zhixing.kpilib.httpbean.LeftMenuBean;
 import com.zhixing.kpilib.httpbean.MenuEntity;
 import com.base.zhixing.www.util.ACache;
-import com.zhixing.kpilib.httpbean.MenuEntity;
+import com.zhixing.kpilib.httpbean.MenuEntitys;
 import com.zhixing.kpilib.httpbean.PostKpiBean;
 import com.zhixing.kpilib.utils.Contant;
 import com.zhixing.kpilib.utils.GsonUtil;

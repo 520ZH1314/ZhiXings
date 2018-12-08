@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/x200"
+    android:layout_height="@dimen/x180"
     android:layout_marginLeft="@dimen/x24"
     android:layout_marginTop="@dimen/x10"
     android:layout_marginRight="@dimen/x24">
@@ -12,15 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="@dimen/x10"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
             <CheckBox
                 android:id="@+id/item_work_task_check"
                 android:layout_width="wrap_content"
@@ -53,7 +52,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/item_work_task_check" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tv_meet_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -70,12 +69,12 @@
                 android:layout_marginTop="8dp"
                 android:text="内容:"
                 android:textSize="@dimen/s13"
-                app:layout_constraintEnd_toEndOf="@+id/textView3"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintEnd_toEndOf="@+id/tv_meet_title"
+                app:layout_constraintStart_toStartOf="@+id/tv_meet_title"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <TextView
-                android:id="@+id/tv_meet_message_content"
+                android:id="@+id/tv_task_message_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -107,29 +106,8 @@
                 android:layout_marginTop="8dp"
                 android:text="10月30日 21:00-22:00"
                 android:textSize="@dimen/s13"
-                app:layout_constraintStart_toStartOf="@+id/tv_meet_message_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv_meet_message_content" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="地点:"
-                android:textSize="@dimen/s13"
-                app:layout_constraintEnd_toEndOf="@+id/textView7"
-                app:layout_constraintStart_toStartOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-            <TextView
-                android:id="@+id/tv_item_task_message_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="高新技术数字园"
-                android:textSize="@dimen/s13"
-                app:layout_constraintStart_toStartOf="@+id/tv_item_task_message_open_time"
-                app:layout_constraintTop_toBottomOf="@+id/tv_item_task_message_open_time" />
+                app:layout_constraintStart_toStartOf="@+id/tv_task_message_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_task_message_content" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -138,8 +116,8 @@
                 android:layout_marginTop="8dp"
                 android:text="发起人:"
                 android:textSize="@dimen/s13"
-                app:layout_constraintStart_toStartOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintStart_toStartOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <TextView
                 android:id="@+id/tv_item_task_message_originator"
@@ -153,13 +131,13 @@
                 app:layout_constraintTop_toTopOf="@+id/textView11" />
 
             <ImageView
+                android:src="@mipmap/message_icon"
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="@+id/textView11"
-                app:layout_constraintTop_toBottomOf="@+id/textView11"
-                app:srcCompat="@mipmap/message_icon" />
+                app:layout_constraintTop_toBottomOf="@+id/textView11"/>
 
             <TextView
                 android:id="@+id/textView13"
@@ -183,46 +161,11 @@
                 app:layout_constraintStart_toEndOf="@+id/textView13"
                 app:layout_constraintTop_toTopOf="@+id/textView13" />
 
-            <ImageView
-                android:id="@+id/imageView3"
+            <TextView
+                android:id="@+id/tv_item_task_message_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                app:layout_constraintStart_toEndOf="@+id/tv_item_task_message_originator"
-                app:layout_constraintTop_toTopOf="@+id/textView13"
-                app:srcCompat="@mipmap/people" />
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="参与人数:"
-                android:textColor="@color/actionbar_color"
-                android:textSize="@dimen/s13"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
-            <TextView
-                android:id="@+id/tv_item_task_message_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="18人"
-                android:textColor="@color/actionbar_color"
-                android:textSize="@dimen/s13"
-                app:layout_constraintBottom_toBottomOf="@+id/textView15"
-                app:layout_constraintStart_toEndOf="@+id/textView15"
-                app:layout_constraintTop_toTopOf="@+id/textView15" />
-
-            <TextView
-                android:id="@+id/tv_item_task_message_count_down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/textview_border"
                 android:gravity="center"
@@ -232,10 +175,10 @@
                 android:padding="@dimen/x3"
                 android:text="已完成"
                 android:textColor="@color/textview_border"
-                android:textSize="@dimen/s12"
+                android:textSize="@dimen/s16"
                 app:layout_constraintBottom_toTopOf="@+id/tv_item_task_message_dynamic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_item_task_message_address" />
+                app:layout_constraintStart_toEndOf="@+id/tv_item_task_message_open_time" />
+
         </android.support.constraint.ConstraintLayout>
 
 

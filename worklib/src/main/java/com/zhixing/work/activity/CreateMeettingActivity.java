@@ -26,10 +26,12 @@ import com.shuben.contact.lib.event.ConstantDataEvent;
 import com.shuben.contact.lib.event.TypeBean;
 import com.zhixing.work.R;
 import com.zhixing.work.bean.CreateTaskEntity;
+import com.zhixing.work.bean.MeetStatusType;
 import com.zhixing.work.bean.PostCreateMeetJson;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
+import com.zhixing.work.ui.MeetStatusTypeDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,7 +51,7 @@ import okhttp3.RequestBody;
  * @author zjq
  * create at 2018/11/29 下午3:44
  */
-public class CreateMeettingActivity extends BaseActvity implements View.OnClickListener, Validator.ValidationListener {
+public class CreateMeettingActivity extends BaseActvity implements View.OnClickListener, Validator.ValidationListener, MeetStatusTypeDialog.OnDialogInforCompleted {
     private static final String SEPARATOR = ",";
     private ImageView mIvadd;
     private TextView mTvTitle;
@@ -87,6 +89,9 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
     @NotEmpty
     private EditText mEditContent;
     private PostCreateMeetJson postCreateMeetJson;
+    private RelativeLayout mRlMeetRemind;
+    private TextView mTvMeetRemind;
+    private int MeetingReminder;//会议提醒类型
 
     @Override
     public int getLayoutId() {
@@ -135,6 +140,10 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
         mTvMeetRecordPeople = (TextView) findViewById(R.id.tv_meet_record_people);
 
 
+        //会议提醒
+        mRlMeetRemind=(RelativeLayout) findViewById(R.id.rl_create_meet_remind);
+        mTvMeetRemind=(TextView) findViewById(R.id.tv_create_meet_remind);
+
         mIvadd.setImageResource(R.mipmap.left_jian_tou);
         mTvTitle.setText("发起会议");
         mTvSend.setVisibility(View.VISIBLE);
@@ -150,6 +159,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
         mRlMeetJoin.setOnClickListener(this);
         mRlMeetRecord.setOnClickListener(this);
         mTvSend.setOnClickListener(this);
+        mRlMeetRemind.setOnClickListener(this);
     }
 
     @Override
@@ -190,6 +200,22 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
 
         } else if (i == R.id.tv_work_send) {
             validator.validate();
+        }else if(i==R.id.rl_create_meet_remind){
+
+            List<MeetStatusType> data=new ArrayList<>();
+            //1-不提醒；2-会议开始时；3-提前五分钟；4-提前十五分钟；5-提前三十分钟；6-提前一天
+            data.add(new MeetStatusType("不提醒"));
+            data.add(new MeetStatusType("会议开始时"));
+            data.add(new MeetStatusType("提前五分钟"));
+            data.add(new MeetStatusType("提前十五分钟"));
+            data.add(new MeetStatusType("提前三十分钟"));
+            data.add(new MeetStatusType("提前一天"));
+            String json = GsonUtil.getGson().toJson(data);
+            MeetStatusTypeDialog dialog = MeetStatusTypeDialog.newInstance(json);
+            dialog.setOnDialogInforCompleted(this);
+            dialog.show(getSupportFragmentManager(),"MeetStatusTypeDialog");
+
+
         }
 
         //
@@ -298,7 +324,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
         String startTime = TimeUtil.getTime(l);
         long l1 = TimeUtil.parseTime(mTvTimeEnd.getText().toString());
         String endTime = TimeUtil.getTime(l1);
-        int MeetingReminder = 1;
+         MeetingReminder = 1;
         postCreateMeetJson = new PostCreateMeetJson();
         PostCreateMeetJson.UserBean userBean = new PostCreateMeetJson.UserBean();
         userBean.setParticipantID(ParticipantID);
@@ -313,7 +339,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
         listBeans.setMeetingContent(mEditContent.getText().toString().trim());
         listBeans.setMeetingPlace(mEditAddress.getText().toString().trim());
         listBeans.setTenantId(TenantId);
-        listBeans.setMeetingReminder(1);
+        listBeans.setMeetingReminder(MeetingReminder);
         list.add(listBeans);
         rowsBean.setList(new PostCreateMeetJson.RowsBean.ListBean(list));
         postCreateMeetJson.setApiCode(ApiCode);
@@ -325,6 +351,33 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
         Toasty.INSTANCE.showToast(this, "内容不能为空");
+    }
+    //1-不提醒；2-会议开始时；3-提前五分钟；4-提前十五分钟；5-提前三十分钟；6-提前一天
+
+    @Override
+    public void dialogInforCompleted(String name) {
+        mTvMeetRemind.setText(name);
+        switch (name){
+            case "不提醒":
+                MeetingReminder=1;
+                break;
+            case "会议开始时":
+                MeetingReminder=2;
+                break;
+            case "提前五分钟":
+                MeetingReminder=3;
+                break;
+            case "提前十五分钟":
+                MeetingReminder=4;
+                break;
+            case "提前三十分钟":
+                MeetingReminder=5;
+                break;
+            case "提前一天":
+                MeetingReminder=6;
+                break;
+        }
+
     }
 }
 

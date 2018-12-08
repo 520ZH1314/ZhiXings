@@ -17,13 +17,17 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.base.zhixing.www.util.GsonUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.gson.reflect.TypeToken;
+import com.shuben.contact.lib.event.TypeBean;
 import com.zhixing.work.R;
 import com.zhixing.work.bean.MeetStatusType;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +41,27 @@ public class MeetStatusTypeDialog extends DialogFragment {
 
     private RecyclerView mRecyleView;
     private MeetStatusListAdapter adapter;
+    private String jsonData;
+     private OnDialogInforCompleted mOnDialogInforCompleted;
 
+    public static MeetStatusTypeDialog newInstance(String jsonString) {
+        MeetStatusTypeDialog fragment = new MeetStatusTypeDialog();
+        Bundle args = new Bundle();
+        args.putString("jsonString", jsonString);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+             jsonData = getArguments().getString("jsonString");
+
+        }
+
+    }
 
     @Nullable
     @Override
@@ -57,17 +81,19 @@ public class MeetStatusTypeDialog extends DialogFragment {
          mRecyleView=view.findViewById(R.id.recy_dialog_meet_status);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyleView.setLayoutManager(layoutManager);
-         final List<MeetStatusType> data=new ArrayList<>();
-        data.add(new MeetStatusType("未结束的"));
-        data.add(new MeetStatusType("已结束/取消/不参加的"));
-        data.add(new MeetStatusType("我发出的"));
-        data.add(new MeetStatusType("有任务的"));
-         adapter=new MeetStatusListAdapter(R.layout.item_recy_dialog_meet_status,data);
+
+        Type mType = new TypeToken<List<MeetStatusType>>() {
+        }.getType();
+
+        final List<MeetStatusType> datas = GsonUtil.getGson().fromJson(jsonData, mType);
+
+
+        adapter=new MeetStatusListAdapter(R.layout.item_recy_dialog_meet_status,datas);
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                EventBus.getDefault().post(new MeetStatusType(data.get(position).getName()));
+                mOnDialogInforCompleted.dialogInforCompleted(datas.get(position).getName());
                 dismiss();
             }
         });
@@ -111,6 +137,14 @@ public class MeetStatusTypeDialog extends DialogFragment {
     }
 
 
-    //Item点击事件
+   //接口回调
+   public interface OnDialogInforCompleted {
+       void dialogInforCompleted(String name);
+   }
+
+
+    public void setOnDialogInforCompleted(OnDialogInforCompleted mOnDialogInforCompleted) {
+        this.mOnDialogInforCompleted = mOnDialogInforCompleted;
+    }
 
 }

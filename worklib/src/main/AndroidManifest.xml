@@ -3,6 +3,7 @@
     package="com.zhixing.work">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application>
         <activity
             android:name=".activity.WorkMainActivity"
@@ -19,7 +20,12 @@
         <activity
             android:name=".activity.TaskListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.MeetDetailActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
+        <activity
+            android:name=".activity.MeetDetailActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.WorkTaskDetailActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

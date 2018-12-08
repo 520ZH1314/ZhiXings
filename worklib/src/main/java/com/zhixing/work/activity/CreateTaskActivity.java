@@ -139,7 +139,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
         if (i == R.id.rl_create_task_send) {
             Intent mRlMeetOrganizingIntent = new Intent(this, ConstantActivity.class);
             mRlMeetOrganizingIntent.putExtra(ConstantS.ISEDIT, true);
-            mRlMeetOrganizingIntent.putExtra(ConstantS.ISSINGLE, true);
+            mRlMeetOrganizingIntent.putExtra(ConstantS.ISSINGLE, false);
             mRlMeetOrganizingIntent.putExtra(ConstantS.TYPE, "1");
             startActivity(mRlMeetOrganizingIntent);
         } else if (i == R.id.rl_create_task_send_copy) {
@@ -231,10 +231,16 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
             Type mType = new TypeToken<List<TypeBean>>() {
             }.getType();
             List<TypeBean> ListBeans = GsonUtil.getGson().fromJson(datas, mType);
+            mTvTaskSend.setText(ListBeans.get(0).getName()+"等"+ListBeans.size() + "人");
+
+            StringBuilder csvBuilder = new StringBuilder();
             for (TypeBean bean : ListBeans) {
-                mTvTaskSend.setText(bean.getName());
-                ToDoUserId = bean.getOid();
+                csvBuilder.append(bean.getId());
+                csvBuilder.append(SEPARATOR);
             }
+            String csv = csvBuilder.toString();
+            ToDoUserId = csv.substring(0, csv.length() - SEPARATOR.length());
+
         } else if ("2".equals(type)) {
             //抄送人
             Type mType = new TypeToken<List<TypeBean>>() {
@@ -265,5 +271,13 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
            Toasty.INSTANCE.showToast(this,"内容不能为空");
 
         }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+    }
 
 }
