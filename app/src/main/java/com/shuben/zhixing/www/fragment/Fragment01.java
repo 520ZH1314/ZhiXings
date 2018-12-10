@@ -49,6 +49,7 @@ import com.base.zhixing.www.util.UrlUtil;
 import com.shuben.zhixing.www.widget.CommonTips;
 import com.shuben.zhixing.www.widget.InGridView;
 import com.zhixing.kpilib.activity.KpiMainActivity;
+import com.zhixing.work.activity.WorkMainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -232,7 +233,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
             case 1://任务交办
                 //showRefundDialogs("当前用户未开启任务交办功能");
 
-                    Intent intent =new Intent(getActivity(),KpiMainActivity.class);
+                    Intent intent =new Intent(getActivity(),WorkMainActivity.class);
                     startActivity(intent);
 
                 break;
