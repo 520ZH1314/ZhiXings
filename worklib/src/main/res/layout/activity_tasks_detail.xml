@@ -208,7 +208,7 @@
 
     <!--执行人-->
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout5"
+        android:id="@+id/con_task_detail_executor"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x40"
         android:background="@color/white"
@@ -288,14 +288,14 @@
     </android.support.constraint.ConstraintLayout>
     <!--抄送人-->
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout6"
+        android:id="@+id/con_task_detail_copy_people"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x40"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+        app:layout_constraintTop_toBottomOf="@+id/con_task_detail_executor">
 
         <ImageView
             android:id="@+id/imageView_task_detail5"
@@ -364,7 +364,7 @@
         android:background="@color/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
+        app:layout_constraintTop_toBottomOf="@+id/con_task_detail_copy_people" />
 
     <TextView
         android:id="@+id/textView22"

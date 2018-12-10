@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
@@ -25,8 +26,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.orhanobut.logger.Logger;
 import com.zhixing.work.R;
+import com.zhixing.work.bean.CompeteTaskEvent;
+import com.zhixing.work.bean.CopyPeopleBean;
 import com.zhixing.work.bean.CreateTaskEntity;
 import com.zhixing.work.bean.DeleteTaskEvent;
+import com.zhixing.work.bean.PostCloseTaskDetailJson;
+import com.zhixing.work.bean.PostTaskCompeteJsonBean;
 import com.zhixing.work.bean.PostTaskDetailJson;
 import com.zhixing.work.bean.PostTaskReplyJson;
 import com.zhixing.work.bean.TaskDetailEntity;
@@ -34,6 +39,7 @@ import com.zhixing.work.bean.TaskListItemEntity;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
+import com.zhixing.work.ui.CloseTaskDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -78,10 +84,22 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     private RecyclerView mRecyleView;
     private CheckBox mCheckBox;
     private Button mBtnDiss;
+    private ConstraintLayout mConstranintExecutor;
+    private ConstraintLayout mConstranintCopy;
+    private String copyJson;
+    private String executorJson;
+    private String userId;
+    private String name;
+    private String apiCode;
+    private  boolean isCreate=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+         name = getIntent().getStringExtra("name");
+         apiCode = getIntent().getStringExtra("ApiCode");
 
     }
 
@@ -103,7 +121,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     }
 
     private void initData() {
-
+         userId = SharedPreferencesTool.getMStool(this).getUserId();
         PostTaskDetailJson jsonBean = new PostTaskDetailJson();
         jsonBean.setApiCode(ApiCode);
         jsonBean.setAppCode(AppCode);
@@ -132,23 +150,45 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                     @Override
                     public void accept(TaskDetailEntity entity) throws Exception {
                         dismissDialog();
-                        if (entity.getCurrentStep()==15||entity.getCurrentStep()==20){
-                            //已经完成或者取消
+
+
+                        if (entity.getCurrentStep() == 15) {
+                            //已经完成
                             mCheckBox.setChecked(true);
                             mCheckBox.setClickable(false);
                             mTv_task_details_status.setVisibility(View.VISIBLE);
-                            mBtnDiss.setVisibility(View.GONE);
-                        }else{
-                            mCheckBox.setChecked(false);
-                            mCheckBox.setClickable(true);
-                            mTv_task_details_status.setVisibility(View.GONE);
+                            mTv_task_details_status.setText("已完成");
                             mBtnDiss.setVisibility(View.VISIBLE);
+                            mBtn_Diss.setText("已完成");
+                            mBtn_Diss.setClickable(false);
+                        } else if (entity.getCurrentStep() == 20) {
+                            //取消
+                            mCheckBox.setChecked(true);
+                            mCheckBox.setClickable(false);
+                            mTv_task_details_status.setVisibility(View.VISIBLE);
+                            mTv_task_details_status.setText("已取消");
+                            mBtnDiss.setVisibility(View.VISIBLE);
+                            mBtn_Diss.setText("已取消");
+                            mBtn_Diss.setClickable(false);
+                        } else {
+                            if (userId.equals(entity.getCreateUserId())){
+                                isCreate=true;
+                                mCheckBox.setChecked(false);
+                                mCheckBox.setClickable(true);
+                                mTv_task_details_status.setVisibility(View.GONE);
+                                mBtnDiss.setVisibility(View.VISIBLE);
+                                mBtn_Diss.setText("取消任务");
+                                mBtn_Diss.setClickable(true);
+                            }else{
+                                isCreate=false;
+                                mCheckBox.setChecked(false);
+                                mCheckBox.setClickable(true);
+                                mTv_task_details_status.setVisibility(View.GONE);
+                                mBtnDiss.setVisibility(View.VISIBLE);
+                                mBtn_Diss.setText("任务进行时");
+                            }
+
                         }
-
-
-
-
-
 
                         mTv_task_detail_content.setText(entity.getTaskDesc());//任务描述
                         String[] createtime = entity.getCreateDate().split("T");
@@ -158,43 +198,33 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         mTv_task_crate_people.setText(entity.getCreateUserName());
                         String toDoUserName = entity.getToDoUserName();//执行人name
                         String[] str1 = toDoUserName.split(",");
+
+
                         mTv_task_detail_do_people.setText(str1[0].toString() + "等" + str1.length + "人");
-                        String ccUserName = entity.getCcUserName();//抄送人name
+                        String ccUserName = entity.getCCUserName();//抄送人name
                         String[] str2 = ccUserName.split(",");
+                        List<CopyPeopleBean> copyData = new ArrayList<>();
+                        for (int i = 0; i < str2.length; i++) {
+                            copyData.add(new CopyPeopleBean(str2[i]));
+                        }
+                         copyJson = GsonUtil.getGson().toJson(copyData);
+
                         mTv_task_detail_do_people_copy.setText(str2[0].toString() + "等" + str2.length + "人");
 
                         SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).setString("createId", entity.getCreateUserId());
                         TaskDetailEntity.CommentListBean commentList = entity.getCommentList();//回复消息列表
                         List<TaskDetailEntity.CommentListBean.RowsBean> rows = commentList.getRows();
                         TaskDetailListAdapter adapter = new TaskDetailListAdapter(R.layout.item_task_detail_recyle, rows);
-                           mRecyleView.setAdapter(adapter);
+                        mRecyleView.setAdapter(adapter);
                     }
                 });
 
-        //CommonTips tips = new CommonTips(getActivity(),getHandler());
-        //                tips.init("取消","确定","是否退出账户");
-        //                tips.setI(new Tips() {
-        //                    @Override
-        //                    public void cancel() {
-        //
-        //                    }
-        //
-        //                    @Override
-        //                    public void sure() {
-        //                        ChatSdk.close();
-        //                        SharedPreferencesTool.getMStool(getActivity()).clear("UserId");
-        //                        Intent intent=new Intent();
-        //                        intent.setClass(context, LoginActivity.class);
-        //                        startActivity(intent);
-        //                        getActivity().finish();
-        //                    }
-        //                });
-        //                tips.showSheet();
 
     }
 
     private void initView() {
         TaskId = getIntent().getStringExtra("TaskId");
+         SharedPreferencesTool.getMStool(this).setString("TaskId",TaskId);
         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         Tv_work_title = (TextView) findViewById(R.id.tv_work_title);
         Tv_work_title.setText("任务详情");
@@ -207,8 +237,8 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         mTv_task_detail_do_people_copy = (TextView) findViewById(R.id.tv_task_detail_do_people_copy);
         mTv_task_details_status = (TextView) findViewById(R.id.tv_task_details_status);
         mRecyleView = (RecyclerView) findViewById(R.id.recy_task_detail);
-        mCheckBox=(CheckBox) findViewById(R.id.check_task_detail);
-        mBtnDiss=(Button) findViewById(R.id.btn_task_detail_diss);
+        mCheckBox = (CheckBox) findViewById(R.id.check_task_detail);
+        mBtnDiss = (Button) findViewById(R.id.btn_task_detail_diss);
         LinearLayoutManager layoutManager = new LinearLayoutManager(WorkTaskDetailActivity.this);
         mRecyleView.setLayoutManager(layoutManager);
 
@@ -226,6 +256,11 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         //文件,图片
         mConstranint = (ConstraintLayout) findViewById(R.id.cl_buttom);
 
+        //执行人
+        mConstranintExecutor = (ConstraintLayout) findViewById(R.id.con_task_detail_executor);
+        //抄送人
+        mConstranintCopy = (ConstraintLayout) findViewById(R.id.con_task_detail_copy_people);
+
         initListner();
     }
 
@@ -233,6 +268,9 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         mBtn_Diss.setOnClickListener(this);
         mBtn_Send.setOnClickListener(this);
         mIv_addMore.setOnClickListener(this);
+        mConstranintExecutor.setOnClickListener(this);
+        mConstranintCopy.setOnClickListener(this);
+        mCheckBox.setOnClickListener(this);
         mEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -262,78 +300,151 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.btn_task_detail_send)
-        {
+        if (id == R.id.btn_task_detail_send) {
 
-            PostTaskReplyJson postTaskReplyJson = new PostTaskReplyJson();
-            postTaskReplyJson.setApiCode("EditComment");
-            postTaskReplyJson.setAppCode("CEOAssist");
-            PostTaskReplyJson.RowsBean rowsBean = new PostTaskReplyJson.RowsBean();
-            PostTaskReplyJson.RowsBean.ListBean ListBean = new PostTaskReplyJson.RowsBean.ListBean();
-            List<PostTaskReplyJson.RowsBean.ListBean.InsertedBean> listBeans = new ArrayList<>();
-            PostTaskReplyJson.RowsBean.ListBean.InsertedBean bean = new PostTaskReplyJson.RowsBean.ListBean.InsertedBean();
-            bean.setCommentSourceID(TaskId);
-            bean.setCommentText(mEdit.getText().toString().trim());
-            bean.setCommentUserID(SharedPreferencesTool.getMStool(this).getUserId());
-            bean.setCreateUserID(SharedPreferencesTool.getMStool(this).getUserId());
-            bean.setTenantId(tenantId);
-            bean.setToUserID(SharedPreferencesTool.getMStool(this).getString("createId"));
-            listBeans.add(bean);
-            ListBean.setInserted(listBeans);
-            rowsBean.setList(ListBean);
-            postTaskReplyJson.setRows(rowsBean);
-
-            String json = GsonUtil.getGson().toJson(postTaskReplyJson);
-            replybody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
-
-            RetrofitClients.getInstance(this).create(WorkAPi.class)
-                    .SendMessage(replybody)
-                    .compose(RxUtils.schedulersTransformer())  // 线程调度
-                    .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
-                    .doOnSubscribe(new Consumer<Disposable>() {
-                        @Override
-                        public void accept(Disposable disposable) throws Exception {
-                            showDialog("加载中");
-                        }
-                    })
-                    .subscribe(new Consumer<CreateTaskEntity>() {
-                        @Override
-                        public void accept(CreateTaskEntity entity) throws Exception {
-
-                            dismissDialog();
-                            if (entity.isStatus()){
-                                //保存成功
-                                initData();//重新刷新下数据
-                            }
+            sendMessage();
+        } else if (id == R.id.btn_task_detail_diss) {
+             if (isCreate){
+                 CloseTaskDialog closeTaskDialog = CloseTaskDialog.newInstance("取消任务");
+                 closeTaskDialog.setOnCloseDialogInforCompleted(new CloseTaskDialog.OnCloseDialogInforCompleted() {
+                     @Override
+                     public void closeDialogInforCompleted(String text) {
+                         closeTask(text);
+                     }
+                 });
+                 closeTaskDialog.show(getSupportFragmentManager(), "CloseTaskDialog");
+             }
 
 
-                        }
-                    });
+        }else if (id==R.id.con_task_detail_executor){
+            Intent intentExecutor=new Intent(this,Work_ExecutorActivity.class);
+            startActivity(intentExecutor);
+        }else if (id==R.id.con_task_detail_copy_people){
+            SharedPreferencesTool.getMStool(this).setString("copyJson",copyJson);
+             Intent intentCopy=new Intent(this,CopyPersonActivity.class);
+             startActivity(intentCopy);
+        } else if (id==R.id.check_task_detail){
 
 
-
-                        }else if (id==R.id.btn_task_detail_diss){
-
-
-                     closeTask();
-
+              CompeteTask();
         }
+
+
+    }
+     //完成任务
+    private void CompeteTask() {
+        PostTaskCompeteJsonBean bean =new PostTaskCompeteJsonBean();
+        bean.setApiCode("EditCompletedTask");
+        bean.setAppCode("CEOAssist");
+        bean.setSystemCurrentUserID(userId);
+        bean.setTaskId(TaskId);
+        String json = GsonUtil.getGson().toJson(bean);
+        RequestBody  body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+
+
+        RetrofitClients.getInstance(this).create(WorkAPi.class)
+                .CompeteTask(body1)
+                .compose(RxUtils.schedulersTransformer())  // 线程调度
+                .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showDialog("加载中");
+                    }
+                }).subscribe(new Consumer<CreateTaskEntity>() {
+            @Override
+            public void accept(CreateTaskEntity o) throws Exception {
+                 dismissDialog();
+                 if (o.isStatus()){
+                     mCheckBox.setChecked(true);
+                     mCheckBox.setClickable(false);
+                     mTv_task_details_status.setVisibility(View.VISIBLE);
+                     mTv_task_details_status.setText("已完成");
+                     mBtnDiss.setVisibility(View.VISIBLE);
+                     mBtn_Diss.setText("已完成");
+                     mBtn_Diss.setClickable(false);
+                     //发条消息通知外面刷新下界面
+                     EventBus.getDefault().postSticky(new CompeteTaskEvent(true,name,apiCode));
+                     AppManager.getAppManager().finishActivity();
+
+                 }
+
+            }
+        });
 
 
 
     }
 
-    private void closeTask() {
-        PostTaskDetailJson jsonBean = new PostTaskDetailJson();
-        jsonBean.setApiCode("EditCompletedTask");
+    /**
+      *
+      *@author zjq
+      *create at 2018/12/10 下午2:09
+      * 发送消息回复
+      */
+    private void sendMessage() {
+        PostTaskReplyJson postTaskReplyJson = new PostTaskReplyJson();
+        postTaskReplyJson.setApiCode("EditComment");
+        postTaskReplyJson.setAppCode("CEOAssist");
+        PostTaskReplyJson.RowsBean rowsBean = new PostTaskReplyJson.RowsBean();
+        PostTaskReplyJson.RowsBean.ListBean ListBean = new PostTaskReplyJson.RowsBean.ListBean();
+        List<PostTaskReplyJson.RowsBean.ListBean.InsertedBean> listBeans = new ArrayList<>();
+        PostTaskReplyJson.RowsBean.ListBean.InsertedBean bean = new PostTaskReplyJson.RowsBean.ListBean.InsertedBean();
+        bean.setCommentSourceID(TaskId);
+        bean.setCommentText(mEdit.getText().toString().trim());
+        bean.setCommentUserID(SharedPreferencesTool.getMStool(this).getUserId());
+        bean.setCreateUserID(SharedPreferencesTool.getMStool(this).getUserId());
+        bean.setTenantId(tenantId);
+        bean.setToUserID(SharedPreferencesTool.getMStool(this).getString("createId"));
+        listBeans.add(bean);
+        ListBean.setInserted(listBeans);
+        rowsBean.setList(ListBean);
+        postTaskReplyJson.setRows(rowsBean);
+
+        String json = GsonUtil.getGson().toJson(postTaskReplyJson);
+        replybody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
+
+        RetrofitClients.getInstance(this).create(WorkAPi.class)
+                .SendMessage(replybody)
+                .compose(RxUtils.schedulersTransformer())  // 线程调度
+                .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showDialog("加载中");
+                    }
+                })
+                .subscribe(new Consumer<CreateTaskEntity>() {
+                    @Override
+                    public void accept(CreateTaskEntity entity) throws Exception {
+
+                        dismissDialog();
+                        if (entity.isStatus()) {
+                            //保存成功
+                            initData();//重新刷新下数据
+                        }
+
+
+                    }
+                });
+    }
+    /**
+     *
+     *@author zjq
+     *create at 2018/12/10 下午2:09
+     * 关闭任务
+     */
+    private void closeTask(String text) {
+        PostCloseTaskDetailJson jsonBean = new PostCloseTaskDetailJson();
+        jsonBean.setApiCode("EditRevokeTask");
         jsonBean.setAppCode(AppCode);
-        jsonBean.setTenantId(tenantId);
         jsonBean.setTaskId(TaskId);
+        jsonBean.setCancelRemark(text);
         String json = GsonUtil.getGson().toJson(jsonBean);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
 
         RetrofitClients.getInstance(this).create(WorkAPi.class)
-                .getTaskDetail(requestBody)
+                .CloseTask(requestBody)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -346,16 +457,23 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                     @Override
                     public void accept(CreateTaskEntity entity) throws Exception {
                         dismissDialog();
-                          if (entity.isStatus()){
-                              AppManager.getAppManager().finishActivity();
-                              //发条消息通知外面刷新下界面
-                              EventBus.getDefault().postSticky(new DeleteTaskEvent(true));
+                        if (entity.isStatus()) {
+                            //取消
+                            mCheckBox.setChecked(true);
+                            mCheckBox.setClickable(false);
+                            mTv_task_details_status.setVisibility(View.VISIBLE);
+                            mTv_task_details_status.setText("已取消");
+                            mBtnDiss.setVisibility(View.VISIBLE);
+                            mBtn_Diss.setText("已取消");
+                            mBtn_Diss.setClickable(false);
+                            //发条消息通知外面刷新下界面
+                            EventBus.getDefault().postSticky(new DeleteTaskEvent(true,name,apiCode));
+                            AppManager.getAppManager().finishActivity();
 
-                          }
+                        }
 
                     }
                 });
-
 
 
     }
@@ -371,9 +489,6 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
             baseViewHolder.setText(R.id.tv_task_detail_reply_name, menuItem.getCommentUserName());//名字
             baseViewHolder.setText(R.id.tv_task_detail_reply_time, menuItem.getCommentDate());//时间
             baseViewHolder.setText(R.id.tv_task_detail_reply_content, menuItem.getCommentText());
-
-
-
         }
     }
 

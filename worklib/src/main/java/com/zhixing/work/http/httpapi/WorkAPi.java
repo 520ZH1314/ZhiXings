@@ -5,6 +5,7 @@ package com.zhixing.work.http.httpapi;
 
 import com.zhixing.work.activity.CreateTaskActivity;
 import com.zhixing.work.bean.CreateTaskEntity;
+import com.zhixing.work.bean.ResponseCompeteBean;
 import com.zhixing.work.bean.TaskDetailEntity;
 import com.zhixing.work.bean.TaskListItemEntity;
 
@@ -52,5 +53,21 @@ public interface WorkAPi {
     @POST("api/CMP/ApiRegistrator/PostApiGateWay")
     Observable<CreateTaskEntity>CloseTask(@Body RequestBody body);
 
+    //完成任务
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Observable<CreateTaskEntity>CompeteTask(@Body RequestBody body);
+
+    //获取未完成的执行人
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Observable<ResponseCompeteBean>getTaskUnFinishPeople(@Body RequestBody body);
+
+
+    //获取完成的执行人
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Observable<ResponseCompeteBean>getTaskFinishPeople(@Body RequestBody body);
 
 }

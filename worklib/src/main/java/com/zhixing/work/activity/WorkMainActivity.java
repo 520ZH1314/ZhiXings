@@ -68,12 +68,10 @@ public class WorkMainActivity extends BaseActvity implements View.OnClickListene
         mTvWorkMainTask.setOnClickListener(this);
         ArrayList<String> titleDatas = new ArrayList<>();
         titleDatas.add("我发出的");
-        titleDatas.add("部门发出的");
-        titleDatas.add("部门收到的");
+        titleDatas.add("我收到的");
         ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
         fragmentList.add(new MyReceiveFragment());
         fragmentList.add(new DepartmentReceiveFragment());
-        fragmentList.add(new DepartmentSendFragment());
         MyViewPageAdapter myViewPageAdapter = new MyViewPageAdapter(getSupportFragmentManager(), titleDatas, fragmentList);
         mViewPage.setAdapter(myViewPageAdapter);
         mTablayout.setupWithViewPager(mViewPage);

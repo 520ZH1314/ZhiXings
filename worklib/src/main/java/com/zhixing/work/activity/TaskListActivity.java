@@ -15,6 +15,7 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhixing.work.R;
+import com.zhixing.work.bean.CompeteTaskEvent;
 import com.zhixing.work.bean.DeleteTaskEvent;
 import com.zhixing.work.bean.MeetStatusType;
 import com.zhixing.work.bean.PostTaskCreateJsonBean;
@@ -102,7 +103,7 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
         jsonBean.setApiCode(ApiCode);
         jsonBean.setAppCode(AppCode);
         jsonBean.setTenantId(tenantId);
-        jsonBean.setToDoUserId(userId);
+        jsonBean.setSystemCurrentUserID(userId);
          String json = GsonUtil.getGson().toJson(jsonBean);
          body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
         setTaskListData(body);
@@ -149,6 +150,8 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
 
                                       Intent intent =new Intent(TaskListActivity.this,WorkTaskDetailActivity.class);
                                       intent.putExtra("TaskId",taskId);
+                                      intent.putExtra("name",mTvTaskStatusType.getText());
+                                      intent.putExtra("ApiCode",ApiCode);
                                       startActivity(intent);
 
                                   }
@@ -163,6 +166,8 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
                                      String taskId = rows.get(position).getSourceId();
                                      Intent intent =new Intent(TaskListActivity.this,WorkTaskDetailActivity.class);
                                      intent.putExtra("TaskId",taskId);
+                                     intent.putExtra("name",mTvTaskStatusType.getText());
+                                     intent.putExtra("ApiCode",ApiCode);
                                      intent.putExtra("CreateTaskName",rows.get(position).getCreateUserName());
                                      startActivity(intent);
 
@@ -208,27 +213,27 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
         mTvTaskStatusType.setText(name);
         switch (name) {
             case "未结束的":
-                ApiCode = "GetUnfinished";
+                ApiCode = "GetUnfinishedTask";
                 initData();
                 break;
             case "已完成":
-                ApiCode = "GetCompleted";
+                ApiCode = "GetCompletedTask";
                 initData();
                 break;
             case "已取消":
-                ApiCode = "GetUnfinished";
+                ApiCode = "GetCancelTask";
                 initData();
                 break;
             case "我的发起":
-                ApiCode = "GetLaunch";
+                ApiCode = "GetLaunchTask";
                 initMyCreateData();
                 break;
             case "我的责任":
-                ApiCode = "GetDuty";
+                ApiCode = "GetDutyTask";
                 initData();
                 break;
             case "我的参与":
-                ApiCode = "GetPartake";
+                ApiCode = "GetPartakeTask";
                 initData();
                 break;
         }
@@ -243,9 +248,13 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
         @Override
         protected void convert(BaseViewHolder baseViewHolder, TaskListItemEntity.RowsBean menuItem) {
             baseViewHolder.setText(R.id.tv_meet_title, menuItem.getTitle());//任务标题
-            baseViewHolder.setText(R.id.tv_item_task_message_time, menuItem.getCreateDate());//任务创建时间
+            String[] createtime = menuItem.getCreateDate().split("T");
+            String time1=createtime[0]+" "+createtime[1];
+            baseViewHolder.setText(R.id.tv_item_task_message_time, time1);//任务创建时间
             baseViewHolder.setText(R.id.tv_task_message_content, menuItem.getContents());//任务内容
-            baseViewHolder.setText(R.id.tv_item_task_message_open_time, menuItem.getDueDate());//任务开始时间
+            String[] createtime1 = menuItem.getDueDate().split("T");
+            String time2=createtime[0]+" "+createtime[1];
+            baseViewHolder.setText(R.id.tv_item_task_message_open_time, time2);//任务开始时间
             baseViewHolder.setText(R.id.tv_item_task_message_originator, menuItem.getCreateUserName());//任务责任人
             baseViewHolder.setText(R.id.tv_item_task_message_status, menuItem.getTaskStatusName());//任务状态
             baseViewHolder.setText(R.id.tv_item_task_message_dynamic,menuItem.getCount()+"");//任务动态
@@ -255,13 +264,35 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
     }
 
 
-    //
+    //接受取消任务的消息
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void Event(DeleteTaskEvent event){
+    public void DeleteEvent(DeleteTaskEvent event){
         if (event.isDelete()){
+            String aPiCode = event.getAPiCode();
+            String name = event.getName();
+            mTvTaskStatusType.setText(name);
+            ApiCode=aPiCode;
             initData();
         }
         DeleteTaskEvent stickyEvent = EventBus.getDefault().getStickyEvent(DeleteTaskEvent.class);
+        if (stickyEvent!=null){
+            EventBus.getDefault().removeStickyEvent(stickyEvent);
+        }
+
+    }
+
+
+    //接受完成任务的消息
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void CompeteEvent(CompeteTaskEvent event){
+        if (event.isCompete()){
+            String aPiCode = event.getApiCode();
+            String name = event.getName();
+            mTvTaskStatusType.setText(name);
+            ApiCode=aPiCode;
+            initData();
+        }
+        CompeteTaskEvent stickyEvent = EventBus.getDefault().getStickyEvent(CompeteTaskEvent.class);
         if (stickyEvent!=null){
             EventBus.getDefault().removeStickyEvent(stickyEvent);
         }

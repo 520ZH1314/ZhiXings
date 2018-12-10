@@ -96,7 +96,7 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
         jsonBean.setApiCode(ApiCode);
         jsonBean.setAppCode(AppCode);
         jsonBean.setTenantId(tenantId);
-        jsonBean.setToDoUserId(userId);
+        jsonBean.setSystemCurrentUserID(userId);
 
         String json = GsonUtil.getGson().toJson(jsonBean);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);

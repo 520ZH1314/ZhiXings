@@ -16,5 +16,31 @@ public class DeleteTaskEvent {
 
     private boolean isDelete;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAPiCode() {
+        return APiCode;
+    }
+
+    public void setAPiCode(String APiCode) {
+        this.APiCode = APiCode;
+    }
+
+    private  String name;
+
+    public DeleteTaskEvent(boolean isDelete, String name, String APiCode) {
+        this.isDelete = isDelete;
+        this.name = name;
+        this.APiCode = APiCode;
+    }
+
+    private String APiCode;
+
 
 }

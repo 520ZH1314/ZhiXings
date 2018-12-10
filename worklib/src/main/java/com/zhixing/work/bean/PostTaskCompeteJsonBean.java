@@ -3,7 +3,7 @@ package com.zhixing.work.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PostTaskListJsonBean implements Parcelable {
+public class PostTaskCompeteJsonBean implements Parcelable {
 
 
     /**
@@ -16,7 +16,7 @@ public class PostTaskListJsonBean implements Parcelable {
     private String AppCode;
     private String ApiCode;
     private String SystemCurrentUserID;
-    private String TenantId;
+    private String TaskId;
 
     public String getAppCode() {
         return AppCode;
@@ -42,12 +42,12 @@ public class PostTaskListJsonBean implements Parcelable {
         this.SystemCurrentUserID = SystemCurrentUserID;
     }
 
-    public String getTenantId() {
-        return TenantId;
+    public String getTaskId() {
+        return TaskId;
     }
 
-    public void setTenantId(String TenantId) {
-        this.TenantId = TenantId;
+    public void setTaskId(String TaskId) {
+        this.TaskId = TaskId;
     }
 
     @Override
@@ -60,28 +60,28 @@ public class PostTaskListJsonBean implements Parcelable {
         dest.writeString(this.AppCode);
         dest.writeString(this.ApiCode);
         dest.writeString(this.SystemCurrentUserID);
-        dest.writeString(this.TenantId);
+        dest.writeString(this.TaskId);
     }
 
-    public PostTaskListJsonBean() {
+    public PostTaskCompeteJsonBean() {
     }
 
-    protected PostTaskListJsonBean(Parcel in) {
+    protected PostTaskCompeteJsonBean(Parcel in) {
         this.AppCode = in.readString();
         this.ApiCode = in.readString();
         this.SystemCurrentUserID = in.readString();
-        this.TenantId = in.readString();
+        this.TaskId = in.readString();
     }
 
-    public static final Parcelable.Creator<PostTaskListJsonBean> CREATOR = new Parcelable.Creator<PostTaskListJsonBean>() {
+    public static final Creator<PostTaskCompeteJsonBean> CREATOR = new Creator<PostTaskCompeteJsonBean>() {
         @Override
-        public PostTaskListJsonBean createFromParcel(Parcel source) {
-            return new PostTaskListJsonBean(source);
+        public PostTaskCompeteJsonBean createFromParcel(Parcel source) {
+            return new PostTaskCompeteJsonBean(source);
         }
 
         @Override
-        public PostTaskListJsonBean[] newArray(int size) {
-            return new PostTaskListJsonBean[size];
+        public PostTaskCompeteJsonBean[] newArray(int size) {
+            return new PostTaskCompeteJsonBean[size];
         }
     };
 }

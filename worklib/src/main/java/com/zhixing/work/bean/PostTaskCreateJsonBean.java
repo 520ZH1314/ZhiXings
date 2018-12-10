@@ -15,7 +15,7 @@ public class PostTaskCreateJsonBean implements Parcelable {
 
     private String AppCode;
     private String ApiCode;
-    private String CreateUserId;
+    private String SystemCurrentUserID;
     private String TenantId;
 
     public String getAppCode() {
@@ -35,11 +35,11 @@ public class PostTaskCreateJsonBean implements Parcelable {
     }
 
     public String getCreateUserId() {
-        return CreateUserId;
+        return SystemCurrentUserID;
     }
 
-    public void setCreateUserId(String CreateUserId) {
-        this.CreateUserId = CreateUserId;
+    public void setCreateUserId(String SystemCurrentUserID) {
+        this.SystemCurrentUserID = SystemCurrentUserID;
     }
 
     public String getTenantId() {
@@ -59,7 +59,7 @@ public class PostTaskCreateJsonBean implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.AppCode);
         dest.writeString(this.ApiCode);
-        dest.writeString(this.CreateUserId);
+        dest.writeString(this.SystemCurrentUserID);
         dest.writeString(this.TenantId);
     }
 
@@ -69,7 +69,7 @@ public class PostTaskCreateJsonBean implements Parcelable {
     protected PostTaskCreateJsonBean(Parcel in) {
         this.AppCode = in.readString();
         this.ApiCode = in.readString();
-        this.CreateUserId = in.readString();
+        this.SystemCurrentUserID = in.readString();
         this.TenantId = in.readString();
     }
 

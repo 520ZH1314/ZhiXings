@@ -38,8 +38,8 @@ public class TaskDetailEntity {
      * Comment : null
      * EndTime : null
      * ToDoUserName :
-     * ccUserName :
-     * createUserName :
+     * CCUserName :
+     * CreateUserName :
      * CommentList : {"rows":[{"CommentID":"5318EA7E-9917-4489-B934-607C564392D0","CommentSourceID":"51e72d58-4d7f-42a1-bb19-a184f1fd733c","CommentUserID":"E7936890-6C2A-438A-BDBD-682ED5D7E912","CommentText":"测试","CommentDate":"2018-12-04T14:29:18","ToUserID":"6DA5BB71-2DC8-46DA-98FF-9814069A7C7E","EnclosureUrl":null,"Seq":1,"CreateUserID":"06E78CC3-13D2-48AD-B65D-2D19B628E05E","CreateTime":"2018-12-04T14:34:36","IsEnable":"1","TenantId":"00000000-0000-0000-0000-000000000001","CommentUserName":"许婷","ToUserName":"刘亚平"}],"total":1}
      */
 
@@ -75,8 +75,8 @@ public class TaskDetailEntity {
     private Object Comment;
     private Object EndTime;
     private String ToDoUserName;
-    private String ccUserName;
-    private String createUserName;
+    private String CCUserName;
+    private String CreateUserName;
     private CommentListBean CommentList;
 
     public String getTaskId() {
@@ -335,20 +335,20 @@ public class TaskDetailEntity {
         this.ToDoUserName = ToDoUserName;
     }
 
-    public String getCcUserName() {
-        return ccUserName;
+    public String getCCUserName() {
+        return CCUserName;
     }
 
-    public void setCcUserName(String ccUserName) {
-        this.ccUserName = ccUserName;
+    public void setCCUserName(String CCUserName) {
+        this.CCUserName = CCUserName;
     }
 
     public String getCreateUserName() {
-        return createUserName;
+        return CreateUserName;
     }
 
-    public void setCreateUserName(String createUserName) {
-        this.createUserName = createUserName;
+    public void setCreateUserName(String CreateUserName) {
+        this.CreateUserName = CreateUserName;
     }
 
     public CommentListBean getCommentList() {
