@@ -81,7 +81,7 @@ public class KpiMainActivity extends BaseActvity   {
      private void initData() {
          LeftMenuBean leftMenuBean =new LeftMenuBean();
          leftMenuBean.setAppCode("CEOAssist");
-         leftMenuBean.setApiCode("GetType");
+         leftMenuBean.setApiCode("GetKPIType");
          leftMenuBean.setTenantId(tenantId);
          String json = com.base.zhixing.www.util.GsonUtil.getGson().toJson(leftMenuBean);
          RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
@@ -126,7 +126,7 @@ public class KpiMainActivity extends BaseActvity   {
      private void initFristData(List<MenuEntity.RowsBean> kpiBean) {
 
          PostKpiBean postKpiBean=new PostKpiBean();
-         postKpiBean.setApiCode("GetParameter");
+         postKpiBean.setApiCode("GetKPIParameter");
          postKpiBean.setAppCode("CEOAssist");
          postKpiBean.setCycleCode(kpiBean.get(0).getCycleCode());
          postKpiBean.setTypeCode(kpiBean.get(0).getTypeCode());
@@ -166,7 +166,7 @@ public class KpiMainActivity extends BaseActvity   {
     private void initKpiData(final int i, List<MenuEntity.RowsBean> kpiBean) {
 
         PostKpiBean postKpiBean=new PostKpiBean();
-        postKpiBean.setApiCode("GetParameter");
+        postKpiBean.setApiCode("GetKPIParameter");
         postKpiBean.setAppCode("CEOAssist");
         postKpiBean.setCycleCode(kpiBean.get(i).getCycleCode());
         postKpiBean.setTypeCode(kpiBean.get(i).getTypeCode());
