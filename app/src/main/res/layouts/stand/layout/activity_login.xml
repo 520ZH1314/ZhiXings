@@ -197,7 +197,7 @@
             android:layout_centerVertical="true"
             android:text="服务器"
             android:layout_marginLeft="20dp"
-
+            android:textColor="@color/txt_viw"
             android:textSize="@dimen/s14" />
 
 
@@ -209,6 +209,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:text=" 忘记密码"
+            android:textColor="@color/txt_viw"
             android:textSize="@dimen/s14" />
     </RelativeLayout>
 
@@ -222,6 +223,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/txt_viw"
                 android:layout_marginRight="20dp"
                 android:text=" 版本号：V1.1"
                 android:textSize="@dimen/s10" />

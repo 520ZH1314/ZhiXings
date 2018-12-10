@@ -15,7 +15,6 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
 import com.base.zhixing.www.widget.ChangeDoubleTime;
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.shuben.zhixing.module.mass.bean.Test;
 import com.shuben.zhixing.module.mass.bean.WxBean;
 import com.shuben.zhixing.module.mass.chart.CombinedChartManager;
 import com.shuben.zhixing.module.mass.widget.ShowMassPie;
@@ -162,11 +161,7 @@ public class WX_Chart3 extends BaseActvity {
             }
         });
 
-        try {
-            parse(new JSONObject(Test.value));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 //        loadData();
     }
 
@@ -275,7 +270,7 @@ public class WX_Chart3 extends BaseActvity {
         httpPostVolley(SharedPreferencesTool.getMStool(WX_Chart3.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
             public void success(JSONObject jsonObject) {
-
+                parse(jsonObject);
             }
             @Override
             public void error(VolleyError error) {

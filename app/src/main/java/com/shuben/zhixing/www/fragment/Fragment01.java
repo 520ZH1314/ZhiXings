@@ -128,6 +128,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
     private FoucsAdapter foucsAdapter;
     //id初始化
     private void init() {
+        setStatus(-1);
         initItems();
         load();
         foucsAdapter = new FoucsAdapter(getActivity(),items);

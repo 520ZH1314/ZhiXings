@@ -56,9 +56,7 @@ public class AndonActivity extends BaseActvity {
 
         process_bar = findViewById(R.id.process_bar);
         commonView = findViewById(R.id.common_web);
-
       //  init();
-
         commonView.getSettings().setBuiltInZoomControls(false);
         commonView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -111,7 +109,6 @@ public class AndonActivity extends BaseActvity {
                         commonView.loadUrl(getIntent().getStringExtra("js"));
                     }
                 }
-
             }
 
             @Override

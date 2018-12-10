@@ -10,6 +10,15 @@ public class WxItem implements Serializable {
     private String okN;
     private String noC;
     private String noN;
+    private String result;
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
 
     public String getNo() {
         return no;
