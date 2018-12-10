@@ -3,9 +3,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/x40"
+    android:layout_height="@dimen/title_height"
     android:background="@color/title_bg">
-
+    <!--cloor修改，调整标题高度为titleheight和标题文字大小为统一 -->
     <ImageView
         android:id="@+id/iv_work_add_work"
         android:layout_width="16dp"
@@ -21,7 +21,7 @@
         android:layout_centerInParent="true"
         android:text="工作执行"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/s18" />
+        android:textSize="@dimen/title_center_size" />
     <TextView
         android:layout_marginRight="@dimen/x24"
         android:layout_centerVertical="true"
@@ -31,6 +31,6 @@
         android:layout_alignParentRight="true"
         android:text="发送"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/s18" />
+        android:textSize="@dimen/content_txt_" />
 
 </RelativeLayout>
