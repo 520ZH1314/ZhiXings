@@ -83,6 +83,11 @@ public class JavaScriptAndon {
                       backJs();
                   });
               }
+             if(txtView[2] instanceof ImageView){
+                  txtView[2].setOnClickListener(view -> {
+                      showHistory("javascript:GoHistoryVue()");
+                  });
+              }
           });
     }
 
@@ -103,13 +108,38 @@ public class JavaScriptAndon {
             }
         });
 
-
-
     }
+
+        /**
+         * 返回当前登录的用户信息
+         * @return
+         */
+        @JavascriptInterface
+        public String getCurrentUserInfo(){
+        JSONObject jsonObject =new JSONObject();
+        try {
+            jsonObject.put("userId",SharedPreferencesTool.getMStool(mContxt).getUserId());
+            jsonObject.put("userCode",SharedPreferencesTool.getMStool(mContxt).getUserCode());
+            jsonObject.put("userName",SharedPreferencesTool.getMStool(mContxt).getUserName());
+            jsonObject.put("tenanId",SharedPreferencesTool.getMStool(mContxt).getTenantId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
+
+    /**
+     * 返回基础地址
+     * @return
+     */
     @JavascriptInterface
     public String getAndroidUrl(){
         return  SharedPreferencesTool.getMStool(mContxt).getIp();
     }
+
+    /**
+     * 安灯需要的数据初始化
+     */
     @JavascriptInterface
     public void MainInit(){
 
@@ -371,6 +401,26 @@ public class JavaScriptAndon {
             }
         });
     }
+
+    /**
+     * 历史记录
+     */
+    private void showHistory(String js){
+        mContxt.runOnUiThread(() -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
+                commonView.evaluateJavascript( js, new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String s) {
+
+                    }
+                });
+            }else{
+                commonView.loadUrl(js);
+            }
+        });
+    }
+
     public void backJs(){
        mContxt.runOnUiThread(() -> {
            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
