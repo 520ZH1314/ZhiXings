@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zhixing.schedule" >
+
+    <application>
+        <activity android:name=".ScheduleActivity"
+
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
+                <intent-filter>
+                    <action android:name="com.zhixing.schedule"/>
+                </intent-filter>
+        </activity>
+    </application>
+</manifest>

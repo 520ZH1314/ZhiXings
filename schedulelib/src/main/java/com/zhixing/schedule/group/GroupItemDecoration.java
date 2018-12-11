@@ -1,4 +1,4 @@
-package com.shuben.zhixing.module.schedule.group;
+package com.zhixing.schedule.group;
 
 import android.annotation.SuppressLint;
 import android.graphics.Canvas;
@@ -8,13 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 分组浮动的ItemDecoration
- * Created by haibin on 2017/5/15.
  */
 @SuppressWarnings("all")
 public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecoration {

@@ -133,11 +133,7 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name="com.shuben.zhixing.module.schedule.ScheduleActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
 
-        </activity>
         <activity android:name="com.shuben.zhixing.module.mass.MassMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>

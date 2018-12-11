@@ -1,4 +1,4 @@
-package com.shuben.zhixing.module.schedule.adapter;
+package com.zhixing.schedule.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.shuben.zhixing.module.schedule.group.GroupRecyclerAdapter;
-import com.shuben.zhixing.www.R;
+import com.zhixing.schedule.R;
+import com.zhixing.schedule.group.GroupRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

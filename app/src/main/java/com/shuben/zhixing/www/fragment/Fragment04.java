@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.shuben.contact.lib.ConstantActivity;
 import com.shuben.zhixing.module.mass.ScanMassActivity;
-import com.shuben.zhixing.module.schedule.ScheduleActivity;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.activity.SettingComActivity;
@@ -23,6 +22,7 @@ import com.shuben.zhixing.www.common.ImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.widget.CharAvatarView;
 import com.base.zhixing.www.widget.CircularImage;
+import com.zhixing.schedule.ScheduleActivity;
 
 /**
  * Created by Administrator on 2017/8/21.智行力设置

@@ -2,7 +2,7 @@ package com.base.zhixing.www;
 
 import android.app.Application;
 
-import com.luliang.shapeutils.DevShapeUtils;
+//import com.luliang.shapeutils.DevShapeUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 

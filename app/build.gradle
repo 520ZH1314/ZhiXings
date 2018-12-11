@@ -128,7 +128,7 @@ dependencies {
     //compile files('libs/achartengine-1.1.0.jar')
 //    implementation project(path: ':datalib')
     implementation project(path: ':calendar')
-    implementation project(path: ':calendarview')
+
     implementation project(path: ':MPChartLib')
     implementation project(path: ':mylibrary')
     implementation project(path: ':boommenu')
@@ -141,6 +141,7 @@ dependencies {
     implementation project(path: ':kpilib')
     implementation project(path: ':contact')
     implementation project(path: ':worklib')
+    implementation project(path: ':schedulelib')
     //    implementation 'com.android.support:appcompat-v7:25.3.1'
     //    implementation "com.android.support:$support_version"
    // testImplementation 'junit:junit:4.12'
@@ -157,7 +158,7 @@ dependencies {
     implementation files('libs/xUtils.jar')
 
     //用于延时动画显示
-    implementation files('libs/volley.jar')
+    implementation 'com.mcxiaoke.volley:library:1.0.+'
     implementation files('libs/library.jar')
     implementation files('libs/afinal_0.5.1_bin.jar')
     implementation files('libs/achartengine-1.1.0.jar')

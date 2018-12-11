@@ -51,6 +51,9 @@ public class BaseApplication extends BaseApp {
     //    protected boolean isNeedCaughtExeption = true;// 是否捕获未知异常
     private MyUncaughtExceptionHandler uncaughtExceptionHandler;
     private static String packgeName;
+    public static String getPackgeName(){
+        return packgeName;
+    }
     private   NotificationUtils notificationUtils;
     public NotificationUtils getNotificationUtils(){
         return  notificationUtils;

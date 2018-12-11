@@ -1,10 +1,9 @@
-package com.shuben.zhixing.module.schedule.adapter;
+package com.zhixing.schedule.adapter;
 
 import java.io.Serializable;
 
 /**
  * 一个简单的bean
- * Created by huanghaibin on 2017/12/4.
  */
 @SuppressWarnings("all")
 public class Article implements Serializable {
