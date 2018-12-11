@@ -27,8 +27,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -123,10 +126,13 @@ public class ScheduleActivity extends BaseActvity {
         mRecyclerView = (GroupRecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new GroupItemDecoration<String, Article>());
-        mRecyclerView.setAdapter(new ArticleAdapter(this));
+        articleAdapter = new ArticleAdapter(this,adapterMap,titles);
+        mRecyclerView.setAdapter(articleAdapter);
         mRecyclerView.notifyDataSetChanged();
     }
-
+    private ArticleAdapter articleAdapter;
+    private LinkedHashMap<String, List<Article>> adapterMap = new LinkedHashMap<>();
+    private ArrayList<String> titles = new ArrayList<>();
     @Override
     public int getLayoutId() {
         return R.layout.schedule_layout;
@@ -152,6 +158,11 @@ public class ScheduleActivity extends BaseActvity {
 
             load(TimeUtil.getTimeCh(calendar.getTimeInMillis()));
 
+            java.util.Calendar calendar1 = java.util.Calendar.getInstance();
+
+            calendar1.setTime(new Date(calendar.getTimeInMillis()));
+
+            loadAllStatus(getCurrent(calendar1));
         }
     };
     private CalendarView.OnYearChangeListener changeListener = new CalendarView.OnYearChangeListener() {
@@ -163,11 +174,7 @@ public class ScheduleActivity extends BaseActvity {
     private CalendarView.OnMonthChangeListener onMonthChangeListener = new CalendarView.OnMonthChangeListener() {
         @Override
         public void onMonthChange(int year, int month) {
-            java.util.Calendar calendar1 = java.util.Calendar.getInstance();
 
-            calendar1.setTime(new Date(mCalendarView.getSelectedCalendar().getTimeInMillis()));
-
-            loadAllStatus(getCurrent(calendar1));
         }
     };
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
@@ -177,9 +184,9 @@ public class ScheduleActivity extends BaseActvity {
         calendar.setDay(day);
         calendar.setSchemeColor(color);//如果单独标记颜色、则会使用这个颜色
         calendar.setScheme(text);
-        calendar.addScheme(new Calendar.Scheme());
-        calendar.addScheme(0xFF008800, "假");
-        calendar.addScheme(0xFF008800, "节");
+       // calendar.addScheme(new Calendar.Scheme());
+//        calendar.addScheme(0xFF008800, "假");
+//        calendar.addScheme(0xFF008800, "节");
         return calendar;
     }
 
@@ -214,14 +221,17 @@ public class ScheduleActivity extends BaseActvity {
                 map.clear();
                 try {
                     JSONArray jsonArray = jsonObject.getJSONArray("rows");
+
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject o = jsonArray.getJSONObject(i);
                        String temp =  o.getString("CalendarDate");
-                        Calendar c = getSchemeCalendar(Integer.parseInt(prts[0]),Integer.parseInt(prts[1]),Integer.parseInt(TimeUtil.parseTime_day(temp)),0xFFdf1356,"");
+                        Calendar c = getSchemeCalendar(Integer.parseInt(prts[0]),Integer.parseInt(prts[1]),Integer.parseInt(TimeUtil.parseTime_day(temp)),0xFFdf1356,"6");
                        map.put(c.toString(),c);
-
                     }
+                    mCalendarView.clearSchemeDate();
                     mCalendarView.setSchemeDate(map);
+                    mCalendarView.update();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -245,12 +255,44 @@ public class ScheduleActivity extends BaseActvity {
         httpPostSONVolley(SharedPreferencesTool.getMStool(ScheduleActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
             public void success(JSONObject jsonObject) {
+                adapterMap.clear();
+                List<Article> list = new ArrayList<>();
+                try {
+                    JSONArray jsonArray = jsonObject.getJSONArray("rows");
+                    for(int i=0;i<jsonArray.length();i++){
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        Article article = new Article();
+                        article.setTitle(object.getString("ScheduleTitle"));
+                        article.setContent(object.getString("ScheduleContent"));
+                        article.setDesc(object.getString("ScheduleRemark"));
+                       // list.add(article);
+                        list.add(create("数本科技",
+                                "工业4.0",
+                                "http://cms-bucket.nosdn.127.net/catchpic/2/27/27e2ce7fd02e6c096e21b1689a8a3fe9.jpg?imageView&thumbnail=550x0"));
+                    }
+                    adapterMap.put("标题1",list);
+                    adapterMap.put("标题2",list);
+                    titles.add("标题1");
+                    titles.add("标题2");
 
+
+                    articleAdapter.updata(adapterMap,titles);
+                    mRecyclerView.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             @Override
             public void error(VolleyError error) {
 
             }
         });
+    }
+    private static Article create(String title, String content, String imgUrl) {
+        Article article = new Article();
+        article.setTitle(title);
+        article.setContent(content);
+        article.setImgUrl(imgUrl);
+        return article;
     }
 }

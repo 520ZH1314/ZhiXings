@@ -234,7 +234,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
             case 1://任务交办
                 //showRefundDialogs("当前用户未开启任务交办功能");
 
-                    Intent intent =new Intent(getActivity(),WorkMainActivity.class);
+                    Intent intent =new Intent(getActivity(),KpiMainActivity.class);
                     startActivity(intent);
 
                 break;

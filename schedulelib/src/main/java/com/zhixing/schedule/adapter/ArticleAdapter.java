@@ -25,22 +25,21 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
 
 
     private RequestManager mLoader;
-
-    public ArticleAdapter(Context context) {
+    private  LinkedHashMap<String, List<Article>> map ;
+    private ArrayList<String> titles;
+    public ArticleAdapter(Context context, LinkedHashMap<String, List<Article>> map,ArrayList<String> titles) {
         super(context);
         mLoader = Glide.with(context.getApplicationContext());
-        LinkedHashMap<String, List<Article>> map = new LinkedHashMap<>();
-        List<String> titles = new ArrayList<>();
-        map.put("今日推荐", create(0));
-        map.put("每周热点", create(1));
-        map.put("最高评论", create(2));
-        titles.add("今日推荐");
-        titles.add("每周热点");
-        titles.add("最高评论");
+        this.map = map;
+        this.titles = titles;
         resetGroups(map,titles);
     }
 
-
+    public void updata(LinkedHashMap<String, List<Article>> map,ArrayList<String> titles){
+        this.map = map;
+        this.titles = titles;
+        resetGroups(map,titles);
+    }
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
         return new ArticleViewHolder(mInflater.inflate(R.layout.item_list_article, parent, false));
