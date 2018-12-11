@@ -27,6 +27,7 @@ android {
 dependencies {
     api 'com.orhanobut:logger:2.2.0'
     implementation 'com.google.code.gson:gson:2.8.5'
+    api 'cn.luliangdev:DevShapeUtils:1.1.0'
 
     //implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$support_version"
