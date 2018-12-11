@@ -70,9 +70,10 @@
                 android:id="@+id/view8"
                 android:layout_width="wrap_content"
                 android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
                 android:background="@color/divider"
                 app:layout_constraintStart_toStartOf="@+id/imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/button" />
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout3"
@@ -126,25 +127,15 @@
                     app:layout_constraintStart_toEndOf="@+id/textView17_note_taker"
                     app:layout_constraintTop_toTopOf="@+id/textView17_note_taker" />
 
-                <TextView
-                    android:id="@+id/tv_meet_detail_note_taker_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="8人"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_note_taker"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView5_note_taker"
-                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_note_taker" />
-
                 <ImageView
                     android:id="@+id/imageView5_note_taker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:src="@mipmap/right"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_note_taker_total"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_note_taker"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_note_taker_total" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_note_taker" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -155,7 +146,6 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
@@ -201,25 +191,15 @@
                     app:layout_constraintTop_toTopOf="@+id/textView17_host"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
-                    android:id="@+id/tv_meet_detail_host_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="8人"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_host"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView5_host"
-                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_host" />
-
                 <ImageView
                     android:id="@+id/imageView5_host"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:src="@mipmap/right"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_host_total"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_host"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_host_total" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_host" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -264,12 +244,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_meet_detail_contant" />
 
             <TextView
-                android:textSize="@dimen/s13"
                 android:id="@+id/tv_work_meet_detail_open_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="11月18日 10:00~12:00"
+                android:textSize="@dimen/s13"
                 app:layout_constraintBottom_toBottomOf="@+id/textView8"
                 app:layout_constraintStart_toEndOf="@+id/textView8"
                 app:layout_constraintTop_toTopOf="@+id/textView8" />
@@ -316,7 +296,6 @@
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -362,17 +341,6 @@
                     app:layout_constraintStart_toEndOf="@+id/textView17_attendee"
                     app:layout_constraintTop_toTopOf="@+id/textView17_attendee" />
 
-                <TextView
-                    android:id="@+id/tv_meet_detail_attendee_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="8人"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_meet_detail_attendee"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView5_attendee"
-                    app:layout_constraintTop_toTopOf="@+id/tv_meet_detail_attendee"
-                    app:layout_constraintVertical_bias="0.0" />
-
                 <ImageView
                     android:id="@+id/imageView5_attendee"
                     android:layout_width="wrap_content"
@@ -410,6 +378,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="添加会议纪要"
+                android:textSize="@dimen/s13"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/textView20"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView20" />
@@ -445,7 +415,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/tablayout_meet_detail" />
 
 
-
         </android.support.constraint.ConstraintLayout>
 
 
@@ -479,7 +448,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/edit_bg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/x30" />
         <ImageView
             android:id="@+id/iv_meet_detail_add_message"
             android:layout_marginRight="@dimen/x5"

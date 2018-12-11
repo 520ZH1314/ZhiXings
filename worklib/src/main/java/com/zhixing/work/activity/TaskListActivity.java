@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.orhanobut.logger.Logger;
 import com.zhixing.work.R;
 import com.zhixing.work.bean.CompeteTaskEvent;
 import com.zhixing.work.bean.DeleteTaskEvent;
@@ -53,13 +55,14 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
 
     private String AppCode = "CEOAssist";
 
-    private String ApiCode = "GetUnfinished";
+    private String ApiCode = "GetUnfinishedTask";
 
     private String TenantId;
     private String userId;
     private String tenantId;
     private TaskListAdapter adapter;
     private RequestBody body;
+    private String ip;
 
 
     @Override
@@ -78,6 +81,7 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
     }
 
     private void initView() {
+        ip = SharedPreferencesTool.getMStool(this).getIp();
         userId = SharedPreferencesTool.getMStool(this).getUserId();
         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         mTvTaskStatusType=(TextView) findViewById(R.id.tv_meet_type);
@@ -87,9 +91,11 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
         mTvSend=(TextView) findViewById(R.id.tv_work_send);
 
         mIvadd.setImageResource(R.mipmap.left_jian_tou);
+        mIvadd.setOnClickListener(this);
         mTvTitle.setText("任务");
         mTvSend.setVisibility(View.GONE);
         mRelativeLayout.setOnClickListener(this);
+        mTvTaskStatusType.setText("未结束的");
         mRecyTaskList=(RecyclerView) findViewById(R.id.recy_task_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(TaskListActivity.this);
         mRecyTaskList.setLayoutManager(layoutManager);
@@ -126,7 +132,7 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
 
 
     private void setTaskListData(RequestBody body) {
-        RetrofitClients.getInstance(this).create(WorkAPi.class)
+        RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .getTaskList(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
@@ -202,6 +208,8 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
             MeetStatusTypeDialog dialog = MeetStatusTypeDialog.newInstance(json);
             dialog.setOnDialogInforCompleted(this);
             dialog.show(getSupportFragmentManager(),"MeetStatusTypeDialog");
+        }else if(v.getId()==R.id.iv_work_add_work){
+            AppManager.getAppManager().finishActivity();
         }
     }
 

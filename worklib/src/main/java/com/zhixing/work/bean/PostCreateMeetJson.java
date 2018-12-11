@@ -171,7 +171,7 @@ public class PostCreateMeetJson implements Parcelable {
                 private String StartDate;
                 private String EndDate;
                 private int MeetingReminder;
-                private String CreateUserId;
+                private String CreateUserID;
                 private String TenantId;
 
                 public String getMeetingContent() {
@@ -214,12 +214,12 @@ public class PostCreateMeetJson implements Parcelable {
                     this.MeetingReminder = MeetingReminder;
                 }
 
-                public String getCreateUserId() {
-                    return CreateUserId;
+                public String getCreateUserID() {
+                    return CreateUserID;
                 }
 
-                public void setCreateUserId(String CreateUserId) {
-                    this.CreateUserId = CreateUserId;
+                public void setCreateUserID(String CreateUserID) {
+                    this.CreateUserID = CreateUserID;
                 }
 
                 public String getTenantId() {
@@ -242,7 +242,7 @@ public class PostCreateMeetJson implements Parcelable {
                     dest.writeString(this.StartDate);
                     dest.writeString(this.EndDate);
                     dest.writeInt(this.MeetingReminder);
-                    dest.writeString(this.CreateUserId);
+                    dest.writeString(this.CreateUserID);
                     dest.writeString(this.TenantId);
                 }
 
@@ -255,7 +255,7 @@ public class PostCreateMeetJson implements Parcelable {
                     this.StartDate = in.readString();
                     this.EndDate = in.readString();
                     this.MeetingReminder = in.readInt();
-                    this.CreateUserId = in.readString();
+                    this.CreateUserID = in.readString();
                     this.TenantId = in.readString();
                 }
 

@@ -26,8 +26,13 @@
         <activity
             android:name=".activity.WorkTaskDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.Work_ExecutorActivity"  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activity.CopyPersonActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".activity.Work_ExecutorActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.CopyPersonActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.CreateMeetingRecordActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
     </application>
 
 </manifest>

@@ -92,6 +92,8 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     private String name;
     private String apiCode;
     private  boolean isCreate=false;
+    private ImageView mImage;
+    private String ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +173,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             mBtn_Diss.setText("已取消");
                             mBtn_Diss.setClickable(false);
                         } else {
-                            if (userId.equals(entity.getCreateUserId())){
+                            if (userId.toLowerCase().equals(entity.getCreateUserId())){
                                 isCreate=true;
                                 mCheckBox.setChecked(false);
                                 mCheckBox.setClickable(true);
@@ -190,7 +192,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
                         }
 
-                        mTv_task_detail_content.setText(entity.getTaskDesc());//任务描述
+                        mTv_task_detail_content.setText("内容:"+" "+entity.getTaskDesc());//任务描述
                         String[] createtime = entity.getCreateDate().split("T");
                         mTv_task_detail_create_time.setText(createtime[0].toString() + " " + createtime[1].toString()); //创建时间
                         String[] compete_time = entity.getDueDate().split("T");
@@ -223,17 +225,19 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     }
 
     private void initView() {
-        TaskId = getIntent().getStringExtra("TaskId");
+        ip = SharedPreferencesTool.getMStool(this).getIp();
+         TaskId = getIntent().getStringExtra("TaskId");
          SharedPreferencesTool.getMStool(this).setString("TaskId",TaskId);
         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         Tv_work_title = (TextView) findViewById(R.id.tv_work_title);
         Tv_work_title.setText("任务详情");
+        mImage=(ImageView) findViewById(R.id.iv_task_left);
+        mImage.setOnClickListener(this);
         mTv_task_detail_content = (TextView) findViewById(R.id.tv_task_detail_content);
         mTv_task_crate_people = (TextView) findViewById(R.id.tv_task_crate_people);
         mTv_task_detail_create_time = (TextView) findViewById(R.id.tv_task_detail_create_time);
         mTv_task_detail_compete_time = (TextView) findViewById(R.id.tv_task_detail_compete_time);
         mTv_task_detail_do_people = (TextView) findViewById(R.id.tv_task_detail_do_people);
-        mTv_task_detail_status = (TextView) findViewById(R.id.tv_task_detail_status);
         mTv_task_detail_do_people_copy = (TextView) findViewById(R.id.tv_task_detail_do_people_copy);
         mTv_task_details_status = (TextView) findViewById(R.id.tv_task_details_status);
         mRecyleView = (RecyclerView) findViewById(R.id.recy_task_detail);
@@ -322,11 +326,14 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         }else if (id==R.id.con_task_detail_copy_people){
             SharedPreferencesTool.getMStool(this).setString("copyJson",copyJson);
              Intent intentCopy=new Intent(this,CopyPersonActivity.class);
+             intentCopy.putExtra("WorkDetailType","copyJson");
              startActivity(intentCopy);
         } else if (id==R.id.check_task_detail){
 
 
               CompeteTask();
+        }else if(id==R.id.iv_task_left){
+            AppManager.getAppManager().finishActivity();
         }
 
 
@@ -342,7 +349,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         RequestBody  body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
 
-        RetrofitClients.getInstance(this).create(WorkAPi.class)
+        RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .CompeteTask(body1)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
@@ -404,7 +411,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         String json = GsonUtil.getGson().toJson(postTaskReplyJson);
         replybody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
 
-        RetrofitClients.getInstance(this).create(WorkAPi.class)
+        RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .SendMessage(replybody)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
@@ -443,7 +450,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         String json = GsonUtil.getGson().toJson(jsonBean);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
 
-        RetrofitClients.getInstance(this).create(WorkAPi.class)
+        RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .CloseTask(requestBody)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换

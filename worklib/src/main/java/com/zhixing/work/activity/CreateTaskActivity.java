@@ -79,6 +79,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
     private String TenantId;
     private String userId;
     private Validator validator;
+    private String ip;
 
     @Override
     public int getLayoutId() {
@@ -104,7 +105,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
     }
 
     private void InitView() {
-
+        ip = SharedPreferencesTool.getMStool(this).getIp();
         TenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         userId = SharedPreferencesTool.getMStool(this).getUserId();
         mIvadd = (ImageView) findViewById(R.id.iv_work_add_work);
@@ -131,6 +132,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
         mReTaskSendCopy.setOnClickListener(this);
         mReTaskEndTime.setOnClickListener(this);
         mTvSend.setOnClickListener(this);
+        mIvadd.setOnClickListener(this);
     }
 
     @Override
@@ -164,6 +166,8 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
 
 
 
+        }else if(i==R.id.iv_work_add_work){
+            AppManager.getAppManager().finishActivity();
         }
     }
 
@@ -192,7 +196,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
         String json = GsonUtil.getGson().toJson(createTaskJsonBean);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
-        RetrofitClients.getInstance(this).create(WorkAPi.class)
+        RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .CreateTask(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换

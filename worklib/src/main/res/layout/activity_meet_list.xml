@@ -31,7 +31,19 @@
             android:src="@mipmap/down_jian_tou"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+
+
+
     </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recy_meet_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>

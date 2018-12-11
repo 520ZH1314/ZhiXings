@@ -42,6 +42,8 @@ import okhttp3.RequestBody;
 public class ExecutprCompeteFragment extends BaseFragment {
     private RecyclerView mRecylerView;
     private TaskCompetePeopleListAdapter adapter;
+    private String ip;
+
     @Override
     public void process(Message msg) {
 
@@ -54,6 +56,7 @@ public class ExecutprCompeteFragment extends BaseFragment {
     }
 
     private void initData() {
+         ip = SharedPreferencesTool.getMStool(getActivity()).getIp();
         String tenantId = SharedPreferencesTool.getMStool(getActivity()).getTenantId();
         String TaskId = SharedPreferencesTool.getMStool(getActivity()).getString("TaskId");
         PostTaskDetailJson jsonBean = new PostTaskDetailJson();
@@ -63,7 +66,7 @@ public class ExecutprCompeteFragment extends BaseFragment {
         jsonBean.setTaskId(TaskId);
         String json = GsonUtil.getGson().toJson(jsonBean);
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
-        RetrofitClients.getInstance(getActivity()).create(WorkAPi.class)
+        RetrofitClients.getInstance(getActivity(),ip).create(WorkAPi.class)
                 .getTaskFinishPeople(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换

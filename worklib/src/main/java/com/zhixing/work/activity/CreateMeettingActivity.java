@@ -92,6 +92,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
     private RelativeLayout mRlMeetRemind;
     private TextView mTvMeetRemind;
     private int MeetingReminder;//会议提醒类型
+    private String ip;
 
     @Override
     public int getLayoutId() {
@@ -118,6 +119,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
     }
 
     private void initView() {
+         ip = SharedPreferencesTool.getMStool(this).getIp();
         TenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         CreateUserId = SharedPreferencesTool.getMStool(this).getUserId();
         mIvadd = (ImageView) findViewById(R.id.iv_work_add_work);
@@ -160,6 +162,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
         mRlMeetRecord.setOnClickListener(this);
         mTvSend.setOnClickListener(this);
         mRlMeetRemind.setOnClickListener(this);
+        mIvadd.setOnClickListener(this);
     }
 
     @Override
@@ -216,6 +219,8 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
             dialog.show(getSupportFragmentManager(),"MeetStatusTypeDialog");
 
 
+        }else if(i==R.id.iv_work_add_work){
+            AppManager.getAppManager().finishActivity();
         }
 
         //
@@ -290,7 +295,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
 
         String json = GsonUtil.getGson().toJson(postCreateMeetJson);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
-        RetrofitClients.getInstance(this).create(WorkAPi.class)
+        RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .CreateMeet(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
@@ -333,7 +338,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
         PostCreateMeetJson.RowsBean rowsBean = new PostCreateMeetJson.RowsBean();
         List<PostCreateMeetJson.RowsBean.ListBean.InsertedBean> list = new ArrayList<>();
         PostCreateMeetJson.RowsBean.ListBean.InsertedBean listBeans = new PostCreateMeetJson.RowsBean.ListBean.InsertedBean();
-        listBeans.setCreateUserId(CreateUserId);
+        listBeans.setCreateUserID(CreateUserId);
         listBeans.setEndDate(endTime);
         listBeans.setStartDate(startTime);
         listBeans.setMeetingContent(mEditContent.getText().toString().trim());

@@ -41,6 +41,7 @@ import okhttp3.RequestBody;
 public class UnFinishFragment  extends BaseFragment {
     private RecyclerView mRecylerView;
     private TaskUnFinishPeopleListAdapter taskUnFinishPeopleListAdapter;
+    private String ip;
 
 
     @Override
@@ -50,6 +51,7 @@ public class UnFinishFragment  extends BaseFragment {
     }
 
     private void initData() {
+        ip = SharedPreferencesTool.getMStool(getActivity()).getIp();
         String tenantId = SharedPreferencesTool.getMStool(getActivity()).getTenantId();
         String TaskId = SharedPreferencesTool.getMStool(getActivity()).getString("TaskId");
         PostTaskDetailJson jsonBean = new PostTaskDetailJson();
@@ -60,7 +62,7 @@ public class UnFinishFragment  extends BaseFragment {
         String json = GsonUtil.getGson().toJson(jsonBean);
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
 
-        RetrofitClients.getInstance(getActivity()).create(WorkAPi.class)
+        RetrofitClients.getInstance(getActivity(),ip).create(WorkAPi.class)
                 .getTaskUnFinishPeople(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换

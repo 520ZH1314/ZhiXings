@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".activity.CreateMeetingRecordActivity">
+
+    <include
+        android:id="@+id/include4"
+        layout="@layout/titles_layout" />
+
+
+    <EditText
+        android:id="@+id/ed_create_meet_record"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x150"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:gravity="start"
+        android:hint="请输入会议纪要内容"
+        android:paddingLeft="@dimen/ball_radius_sidebar"
+        android:paddingTop="@dimen/x10"
+        android:textSize="@dimen/s15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include4" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed_create_meet_record" />
+
+</android.support.constraint.ConstraintLayout>

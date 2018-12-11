@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.BaseFragment;
 import com.zhixing.work.R;
@@ -58,6 +59,12 @@ public class Work_ExecutorActivity extends BaseActvity {
         mTvTitle.setText("执行人");
         mTvSend.setVisibility(View.GONE);
         mImage.setImageResource(R.drawable.task_left);
+        mImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppManager.getAppManager().finishActivity();
+            }
+        });
         mTabExecutor=(TabLayout) findViewById(R.id.tabLayout_executor);
         mViewPage=(ViewPager) findViewById(R.id.vp_tabLayout_executor);
         ArrayList<String> titleDatas = new ArrayList<>();

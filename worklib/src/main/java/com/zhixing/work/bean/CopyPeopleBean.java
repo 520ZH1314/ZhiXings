@@ -4,8 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class CopyPeopleBean implements Parcelable {
+
+
+
+
+
     public CopyPeopleBean(String copyName) {
         this.copyName = copyName;
+
     }
 
     public String getCopyName() {
@@ -18,6 +24,9 @@ public class CopyPeopleBean implements Parcelable {
 
     public String copyName;
 
+    public CopyPeopleBean() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -25,17 +34,16 @@ public class CopyPeopleBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeString(this.copyName);
     }
 
-    public CopyPeopleBean() {
-    }
-
     protected CopyPeopleBean(Parcel in) {
+
         this.copyName = in.readString();
     }
 
-    public static final Parcelable.Creator<CopyPeopleBean> CREATOR = new Parcelable.Creator<CopyPeopleBean>() {
+    public static final Creator<CopyPeopleBean> CREATOR = new Creator<CopyPeopleBean>() {
         @Override
         public CopyPeopleBean createFromParcel(Parcel source) {
             return new CopyPeopleBean(source);
