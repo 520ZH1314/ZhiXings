@@ -1,8 +1,8 @@
-package com.shuben.zhixing.module.schedule.group;
+package com.zhixing.schedule.group;
 
 import android.content.Context;
 
-import com.shuben.zhixing.module.schedule.base.BaseRecyclerAdapter;
+import com.zhixing.schedule.base.BaseRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * 分组的RecyclerAdapter
- * Created by haibin on 2017/5/15.
  */
 @SuppressWarnings("unused")
 public abstract class GroupRecyclerAdapter<Parent, Child> extends BaseRecyclerAdapter<Child> {

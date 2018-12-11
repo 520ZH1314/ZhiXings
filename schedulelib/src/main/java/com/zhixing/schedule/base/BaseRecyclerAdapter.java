@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.shuben.zhixing.module.schedule.base;
+package com.zhixing.schedule.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

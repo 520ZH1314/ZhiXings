@@ -82,6 +82,19 @@ public class TimeUtil {
 		SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
 		return format.format(new Date(time));
 	}
+    public static String getYear(Date time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+        return format.format(time);
+    }
+    public static String getMonth(Date time) {
+        SimpleDateFormat format = new SimpleDateFormat("MM");
+        return format.format(time);
+    }
+
+	public static String getDateByDate(Date time) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(time);
+	}
 	public static String getTimeTo(String mat,String now){
 		SimpleDateFormat format = new SimpleDateFormat(mat);
 		return format.format(new Date(parseTime(now)));
@@ -118,7 +131,17 @@ public class TimeUtil {
 		}
 		return  null;
 	}
-
+    public static String parseTime_day(String time){
+//		1991-11-15 00:00:00
+        SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
+        SimpleDateFormat format0 = new SimpleDateFormat("dd");
+        try {
+            return  format0.format(format.parse(time).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return  null;
+    }
 
 	public static long parseTime_(String time){
 //		1991-11-15 00:00:00
