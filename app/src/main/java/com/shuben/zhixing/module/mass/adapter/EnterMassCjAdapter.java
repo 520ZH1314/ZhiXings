@@ -15,6 +15,9 @@ import com.shuben.zhixing.www.R;
 
 import java.util.ArrayList;
 
+/**
+ * 抽检适配
+ */
 public class EnterMassCjAdapter extends RecyclerView.Adapter<EnterMassCjAdapter.ViewHolder> {
     private Activity context;
     private final LayoutInflater inflater;

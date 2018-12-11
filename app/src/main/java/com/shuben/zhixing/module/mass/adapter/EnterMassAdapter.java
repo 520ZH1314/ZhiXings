@@ -15,6 +15,9 @@ import com.base.zhixing.www.util.DensityUtil;
 
 import java.util.ArrayList;
 
+/**
+ * 公共适配
+ */
 public class EnterMassAdapter extends RecyclerView.Adapter<EnterMassAdapter.ViewHolder> {
     private Activity context;
     private final LayoutInflater inflater;

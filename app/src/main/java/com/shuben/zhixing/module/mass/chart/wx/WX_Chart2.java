@@ -16,7 +16,6 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
 import com.base.zhixing.www.widget.ChangeDoubleTime;
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.shuben.zhixing.module.mass.bean.Test;
 import com.shuben.zhixing.module.mass.bean.WxBean;
 import com.shuben.zhixing.module.mass.chart.CombinedChartManager;
 import com.shuben.zhixing.module.mass.widget.ShowMassPie;
@@ -152,7 +151,7 @@ public class WX_Chart2 extends BaseActvity {
 
         tetle_tv_ok.setOnClickListener( c ->  loadData());
 
-        test();
+//        test();
 //        loadData();
     }
 
@@ -160,14 +159,14 @@ public class WX_Chart2 extends BaseActvity {
     private ArrayList<Float> countArrt = new ArrayList<>();
     private ArrayList<Float> lvArrt = new ArrayList<>();
 
-    private void test(){
+   /* private void test(){
         try {
             parse(new JSONObject(Test.value));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-    }
+    }*/
     /**
      * 解析数据
      * @param jsonObject

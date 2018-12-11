@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.util.DensityUtil;
+import com.base.zhixing.www.view.Toasty;
+import com.shuben.zhixing.module.mass.bean.MassItemBean;
 import com.shuben.zhixing.module.mass.bean.QC_Reason;
 import com.shuben.zhixing.module.mass.bean.WxItem;
 import com.shuben.zhixing.module.mass.inter.AddNoF;
@@ -34,9 +36,10 @@ public class AddWxList {
     private LayoutInflater inflater;
     private Activity context;
     private ImageView close;
-    private NiceSpinner spi0,spi1;
+    private NiceSpinner spi0,spi1,spi2;
     private ArrayList<String> list = new ArrayList<>();
     private ArrayList<String> list1 = new ArrayList<>();
+    private ArrayList<String> list2 = new ArrayList<>();
     private ArrayList<QC_Reason> qc_reasons = new ArrayList<>();
     private ArrayList<QC_Reason> qc_reasons1 = new ArrayList<>();
     private void add(){
@@ -45,14 +48,16 @@ public class AddWxList {
       new Thread(() -> {  MassDB.getInstance().getQc_reasons(qc_reasons1,1);
           handler.sendEmptyMessage(2);}).start();
 
+
     }
     private AddWx addWx;
     public void setR(AddWx addWx){
         this.addWx =addWx;
     }
-    public AddWxList(Activity activity){
+    private MassItemBean b;
+    public AddWxList(Activity activity,MassItemBean b){
         this.context = activity;
-
+        this.b = b;
         inflater  = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         add();
@@ -81,6 +86,8 @@ public class AddWxList {
                         P.c("不良原因"+qc_reasons1.get(i).getName());
                     }
                     spi1.attachDataSource(list1);
+
+
                     break;
             }
         }
@@ -102,11 +109,17 @@ public class AddWxList {
         close = layout.findViewById(R.id.close);
         spi0 = layout.findViewById(R.id.spi0);
         spi1 = layout.findViewById(R.id.spi1);
+        spi2 = layout.findViewById(R.id.spi2);
+        list2.add("维修成功");
+        list2.add("维修不成功");
+        list2.add("报废");
+        spi2.attachDataSource(list2);
         edit0 = layout.findViewById(R.id.edit0);
         edit1 = layout.findViewById(R.id.edit1);
+        edit1.setEnabled(false);
         edit2 = layout.findViewById(R.id.edit2);
         TextView sure = layout.findViewById(R.id.sure);
-
+        edit1.setTextEx(b.getProduct());
         dlg.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface arg0) {
@@ -123,18 +136,27 @@ public class AddWxList {
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(addWx!=null){
-                    WxItem item = new WxItem();
-                    item.setNo(edit0.getTextEx().intern());
-                    item.setName(edit1.getTextEx().intern());
-                    item.setNum(edit2.getTextEx().intern());
-                    item.setOkC(qc_reasons1.get(spi1.getSelectedIndex()).getId());
-                    item.setOkN(qc_reasons1.get(spi1.getSelectedIndex()).getName());
-                    item.setNoC(qc_reasons.get(spi0.getSelectedIndex()).getId());
-                    item.setNoN(qc_reasons.get(spi0.getSelectedIndex()).getName());
-                    addWx.select(item);
-                    cancle();
+                String num  = edit2.getTextEx().intern();
+                try {
+                    Integer.parseInt(num);
+                    if(addWx!=null){
+                        WxItem item = new WxItem();
+                        item.setNo(edit0.getTextEx().intern());
+                        item.setName(edit1.getTextEx().intern());
+                        item.setNum(edit2.getTextEx().intern());
+                        item.setOkC(qc_reasons1.get(spi1.getSelectedIndex()).getId());
+                        item.setOkN(qc_reasons1.get(spi1.getSelectedIndex()).getName());
+                        item.setNoC(qc_reasons.get(spi0.getSelectedIndex()).getId());
+                        item.setNoN(qc_reasons.get(spi0.getSelectedIndex()).getName());
+                        item.setResult(list2.get(spi2.getSelectedIndex()));
+                        addWx.select(item);
+                        cancle();
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    Toasty.INSTANCE.showToast(context,"请输入正确的数量");
                 }
+
             }
         });
         dlg.setCanceledOnTouchOutside(false);

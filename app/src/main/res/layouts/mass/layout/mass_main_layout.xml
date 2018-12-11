@@ -32,7 +32,7 @@
                         android:layout_centerVertical="true"
                        android:layout_marginRight="@dimen/x10"
                         android:layout_height="@dimen/x50"
-                        android:src="@mipmap/xxgl_bg"
+                        android:src="@mipmap/zl_item0"
                         android:layout_gravity="center" />
                         <LinearLayout
                             android:layout_toRightOf="@+id/image_head"
@@ -81,7 +81,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/x10"
                         android:layout_height="@dimen/x50"
-                        android:src="@mipmap/xxgl_bg"
+                        android:src="@mipmap/zl_item1"
                         android:layout_gravity="center" />
                     <LinearLayout
                         android:layout_toRightOf="@+id/image_head1"
@@ -130,7 +130,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/x10"
                         android:layout_height="@dimen/x50"
-                        android:src="@mipmap/xxgl_bg"
+                        android:src="@mipmap/zl_item2"
                         android:layout_gravity="center" />
                     <LinearLayout
                         android:layout_toRightOf="@+id/image_head2"
@@ -179,7 +179,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/x10"
                         android:layout_height="@dimen/x50"
-                        android:src="@mipmap/xxgl_bg"
+                        android:src="@mipmap/zl_item3"
                         android:layout_gravity="center" />
                     <LinearLayout
                         android:layout_toRightOf="@+id/image_head3"

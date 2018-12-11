@@ -59,7 +59,12 @@ public class EnterMassActivity extends BaseActvity {
     }
     private RelativeLayout add;
 
-    private void addWxItem(WxItem item,MassItemBean bean){
+    /**
+     * 添加维修小项
+     * @param item
+     * @param bean
+     */
+    private void addWxItem(WxItem item,int pos){
         /*
         ProductCode：产品型号
 WorkNo：工单号
@@ -71,6 +76,7 @@ RepairCount：维修数量
 TenantId：租列号
 
          */
+        MassItemBean bean = massItemBeans.get(pos);
         Map<String,String> params  = new HashMap<>();
         params.put("AppCode", "QC");
         params.put("ApiCode", "EditAddRepairCount");
@@ -86,7 +92,10 @@ TenantId：租列号
         httpPostSONVolley(SharedPreferencesTool.getMStool(EnterMassActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
             public void success(JSONObject jsonObject) {
-
+                    //在这里进行数据保存
+                ArrayList<WxItem> x =  massItemBeans.get(pos).getWxItems();
+                x.add(item);
+                getHandler().sendEmptyMessage(2);
             }
 
             @Override
@@ -103,12 +112,9 @@ TenantId：租列号
                 case 31:
                     //维修类目
                     int pos = msg.arg1;
-                    AddWxList wxList = new AddWxList(EnterMassActivity.this);
-                    wxList.setR(new AddWx() {
-                        @Override
-                        public void select(WxItem wxItem) {
-                            addWxItem(wxItem,massItemBeans.get(pos));
-                        }
+                    AddWxList wxList = new AddWxList(EnterMassActivity.this,massItemBeans.get(pos));
+                    wxList.setR(wxItem -> {
+                        addWxItem(wxItem,pos);
                     });
                     wxList.showSheet();
                     break;
@@ -122,12 +128,7 @@ TenantId：租列号
                     endTime = temps[1];
                     P.c(temps[0]+"==="+temps[1]+"=="+picNo);
                     loadDataCjRight(picNo);
-
-
                     break;
-
-
-
                 case -1:
                     //右边
                     String time = (String) msg.obj;

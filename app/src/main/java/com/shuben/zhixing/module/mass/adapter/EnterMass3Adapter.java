@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
+ * 维修项
  */
 
 public class EnterMass3Adapter extends BaseAdapter {
