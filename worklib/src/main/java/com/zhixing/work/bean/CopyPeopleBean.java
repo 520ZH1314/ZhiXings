@@ -5,10 +5,6 @@ import android.os.Parcelable;
 
 public class CopyPeopleBean implements Parcelable {
 
-
-
-
-
     public CopyPeopleBean(String copyName) {
         this.copyName = copyName;
 

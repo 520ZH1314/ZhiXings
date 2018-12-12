@@ -1,5 +1,6 @@
 package com.zhixing.work.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.view.Toasty;
 import com.zhixing.work.R;
+import com.zhixing.work.bean.AddMeetRecordEvent;
 import com.zhixing.work.bean.CreateTaskEntity;
 import com.zhixing.work.bean.PostCreateMeetRecordJson;
 import com.zhixing.work.http.base.MyBaseSubscriber;
@@ -22,6 +24,8 @@ import com.zhixing.work.http.base.ResponseThrowable;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,33 +64,61 @@ public class CreateMeetingRecordActivity extends BaseActvity {
 
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void initLayout() {
-        tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
-        userId = SharedPreferencesTool.getMStool(this).getUserId();
-         ip = SharedPreferencesTool.getMStool(this).getIp();
-        meetId = SharedPreferencesTool.getMStool(this).getString("MeetId");
-        mEditText = (EditText) findViewById(R.id.ed_create_meet_record);
 
-        mImage = (ImageView) findViewById(R.id.iv_work_add_work);
-        mTvSend = (TextView) findViewById(R.id.tv_work_send);
-        mTvTitle = (TextView) findViewById(R.id.tv_work_title);
-        mTvTitle.setText("会议纪要");
-        mImage.setImageResource(R.drawable.task_left);
-        mImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppManager.getAppManager().finishActivity();
-            }
-        });
+        String des = getIntent().getStringExtra("Des");
+        if (TextUtils.isEmpty(des)){
+            tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
+            userId = SharedPreferencesTool.getMStool(this).getUserId();
+            ip = SharedPreferencesTool.getMStool(this).getIp();
+            meetId = SharedPreferencesTool.getMStool(this).getString("MeetId");
+            mEditText = (EditText) findViewById(R.id.ed_create_meet_record);
 
-        mTvSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //发送会议纪要
-                sendMeetRecordMessage();
-            }
-        });
+            mImage = (ImageView) findViewById(R.id.iv_work_add_work);
+            mTvSend = (TextView) findViewById(R.id.tv_work_send);
+            mTvTitle = (TextView) findViewById(R.id.tv_work_title);
+            mTvTitle.setText("会议纪要");
+            mImage.setImageResource(R.drawable.task_left);
+            mImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppManager.getAppManager().finishActivity();
+                }
+            });
+
+            mTvSend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //发送会议纪要
+                    sendMeetRecordMessage();
+
+                }
+            });
+
+        }else{
+            meetId = SharedPreferencesTool.getMStool(this).getString("MeetId");
+            mEditText = (EditText) findViewById(R.id.ed_create_meet_record);
+            mImage = (ImageView) findViewById(R.id.iv_work_add_work);
+            mTvSend = (TextView) findViewById(R.id.tv_work_send);
+            mTvTitle = (TextView) findViewById(R.id.tv_work_title);
+            mEditText.setEnabled(false);
+            mEditText.setFocusable(false);
+            mEditText.setKeyListener(null);
+            mEditText.setText(des);
+            mTvTitle.setText("会议纪要");
+            mEditText.setTextColor(R.color.black);
+            mTvSend.setVisibility(View.GONE);
+            mImage.setImageResource(R.drawable.task_left);
+            mImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppManager.getAppManager().finishActivity();
+                }
+            });
+
+        }
 
     }
 
@@ -130,10 +162,9 @@ public class CreateMeetingRecordActivity extends BaseActvity {
                 public void onResult(CreateTaskEntity o) {
                    dismissDialog();
                    if (o.isStatus()){
-                       //发送成功
-                       AppManager.getAppManager().finishActivity();
                        //并且传递数据
-
+                       EventBus.getDefault().postSticky(new AddMeetRecordEvent(true));
+                       AppManager.getAppManager().finishActivity();
                    }
 
                 }

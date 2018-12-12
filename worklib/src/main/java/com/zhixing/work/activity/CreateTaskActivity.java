@@ -80,6 +80,8 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
     private String userId;
     private Validator validator;
     private String ip;
+    private RelativeLayout mReTaskStartTime;
+    private TextView mTvTaskStartTime;
 
     @Override
     public int getLayoutId() {
@@ -118,7 +120,10 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
         mTvTaskSendCopy = (TextView) findViewById(R.id.tv_create_task_send_copy);
         mTvTaskEndTime = (TextView) findViewById(R.id.tv_create_task_end_time);
         mReTaskSendCopy = (RelativeLayout) findViewById(R.id.rl_create_task_send_copy);//抄送人
-        mReTaskEndTime = (RelativeLayout) findViewById(R.id.rl_create_task_end_time);//完成时间
+        mReTaskStartTime = (RelativeLayout) findViewById(R.id.rl_create_task_start_time);//开始时间
+
+        mTvTaskStartTime = (TextView) findViewById(R.id.tv_create_task_start_time);
+
         mIvadd.setImageResource(R.mipmap.left_jian_tou);
         mTvTitle.setText("发起任务");
         mTvSend.setVisibility(View.VISIBLE);
@@ -133,6 +138,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
         mReTaskEndTime.setOnClickListener(this);
         mTvSend.setOnClickListener(this);
         mIvadd.setOnClickListener(this);
+        mReTaskStartTime.setOnClickListener(this);
     }
 
     @Override
@@ -165,9 +171,12 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
             validator.validate();
 
 
-
-        }else if(i==R.id.iv_work_add_work){
+        } else if (i == R.id.iv_work_add_work) {
             AppManager.getAppManager().finishActivity();
+        } else if (i == R.id.rl_create_task_start_time) {
+            ChangeTime changeTime = new ChangeTime(this, "", 0, mTvTaskStartTime);
+            changeTime.showSheet();
+
         }
     }
 
@@ -175,6 +184,8 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
     private void SendTask() {
         long l = TimeUtil.parseTime(mTvTaskEndTime.getText().toString());
         String time = TimeUtil.getTime(l);
+        long l1 = TimeUtil.parseTime(mTvTaskStartTime.getText().toString());
+        String time1 = TimeUtil.getTime(l1);
         CreateTaskJsonBean createTaskJsonBean = new CreateTaskJsonBean();
 
         CreateTaskJsonBean.RowsBean rowsBean = new CreateTaskJsonBean.RowsBean();
@@ -185,18 +196,19 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
         insertedBean.setDueDate(time);
         insertedBean.setTaskDesc(mEditContent.getText().toString().trim());
         insertedBean.setTenantId(TenantId);
+        insertedBean.setCreateDate(time1);
         insertedBean.setCurrentOperateUserId(userId);
-        List< CreateTaskJsonBean.RowsBean.ListBean.InsertedBean> list =new ArrayList<>();
+        List<CreateTaskJsonBean.RowsBean.ListBean.InsertedBean> list = new ArrayList<>();
         list.add(insertedBean);
         rowsBean.setList(new CreateTaskJsonBean.RowsBean.ListBean(list));
         createTaskJsonBean.setApiCode(ConstantS.EDITTASK);
         createTaskJsonBean.setAppCode(ConstantS.CEOASSIST);
-        createTaskJsonBean.setUser(new CreateTaskJsonBean.UserBean(CCUserId,ToDoUserId));
+        createTaskJsonBean.setUser(new CreateTaskJsonBean.UserBean(CCUserId, ToDoUserId));
         createTaskJsonBean.setRows(rowsBean);
         String json = GsonUtil.getGson().toJson(createTaskJsonBean);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
-        RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
+        RetrofitClients.getInstance(this, ip).create(WorkAPi.class)
                 .CreateTask(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
@@ -235,7 +247,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
             Type mType = new TypeToken<List<TypeBean>>() {
             }.getType();
             List<TypeBean> ListBeans = GsonUtil.getGson().fromJson(datas, mType);
-            mTvTaskSend.setText(ListBeans.get(0).getName()+"等"+ListBeans.size() + "人");
+            mTvTaskSend.setText(ListBeans.get(0).getName() + "等" + ListBeans.size() + "人");
 
             StringBuilder csvBuilder = new StringBuilder();
             for (TypeBean bean : ListBeans) {
@@ -272,9 +284,9 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
 
-           Toasty.INSTANCE.showToast(this,"内容不能为空");
+        Toasty.INSTANCE.showToast(this, "内容不能为空");
 
-        }
+    }
 
     @Override
     public void onDestroy() {

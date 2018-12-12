@@ -6,6 +6,7 @@ package com.zhixing.work.http.httpapi;
 import com.zhixing.work.activity.CreateTaskActivity;
 import com.zhixing.work.bean.CreateTaskEntity;
 import com.zhixing.work.bean.ResponseCompeteBean;
+import com.zhixing.work.bean.ResponseJoinBean;
 import com.zhixing.work.bean.ResponseMeetDetailEntity;
 import com.zhixing.work.bean.ResponseMeetingEntity;
 import com.zhixing.work.bean.TaskDetailEntity;
@@ -90,6 +91,27 @@ public interface WorkAPi {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("api/CMP/ApiRegistrator/PostApiGateWay")
     Observable<CreateTaskEntity>addMeetingRecord(@Body RequestBody body);
+
+
+    //获取会议人员的参会状态
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Observable<ResponseJoinBean>getJoinStatus(@Body RequestBody body);
+
+    //参加会议
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Observable<CreateTaskEntity>JoinMeet(@Body RequestBody body);
+    //取消会议
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Observable<CreateTaskEntity>DisMeet(@Body RequestBody body);
+
+    //关闭会议
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Observable<CreateTaskEntity>CompeteMeet(@Body RequestBody body);
 
 
 

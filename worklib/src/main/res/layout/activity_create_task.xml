@@ -156,7 +156,7 @@
         android:layout_height="wrap_content" />
 
     <RelativeLayout
-        android:id="@+id/rl_create_task_end_time"
+        android:id="@+id/rl_create_task_start_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
@@ -179,12 +179,12 @@
             android:layout_marginTop="@dimen/x12"
             android:layout_marginBottom="@dimen/x12"
             android:layout_toRightOf="@+id/iv_meettinger15"
-            android:text="完成时间"
+            android:text="开始时间"
             android:textColor="@color/black"
             android:textSize="@dimen/s13" />
 
         <TextView
-            android:id="@+id/tv_create_task_end_time"
+            android:id="@+id/tv_create_task_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -198,6 +198,66 @@
 
         <ImageView
             android:id="@+id/iv_meet3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x24"
+            android:src="@mipmap/jiantou" />
+
+
+    </RelativeLayout>
+    <View
+
+        android:background="@color/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/x24"
+        android:layout_marginRight="@dimen/x24"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_create_task_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_meettinger16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_marginTop="@dimen/x8"
+            android:layout_marginBottom="@dimen/x8"
+            android:src="@mipmap/add_meetting_perpeo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x2"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginBottom="@dimen/x12"
+            android:layout_toRightOf="@+id/iv_meettinger16"
+            android:text="完成时间"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s13" />
+
+        <TextView
+            android:id="@+id/tv_create_task_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/x12"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginBottom="@dimen/x12"
+            android:layout_toLeftOf="@+id/iv_meet4"
+            android:text="请选择"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s11" />
+
+        <ImageView
+            android:id="@+id/iv_meet4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

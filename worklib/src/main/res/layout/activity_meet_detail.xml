@@ -64,7 +64,7 @@
                 android:background="@color/divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/recy_meet_record_list" />
 
             <View
                 android:id="@+id/view8"
@@ -385,7 +385,7 @@
                 app:layout_constraintTop_toTopOf="@+id/textView20" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/recy_meet_record_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -438,20 +438,31 @@
          android:layout_height="wrap_content" />
 
         <EditText
-            android:gravity="start"
-            android:textSize="@dimen/s13"
-            android:layout_marginRight="@dimen/x2"
-            android:layout_toLeftOf="@+id/iv_meet_detail_add_message"
-            android:layout_toRightOf="@+id/btn_work_meet_detail"
-            android:padding="@dimen/x5"
-            android:hint="回复内容"
+             android:layout_marginLeft="@dimen/x8"
+            android:id="@+id/ed_meet_detail_respon"
+            android:layout_width="@dimen/x170"
+            android:layout_height="@dimen/x30"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_toLeftOf="@+id/btn_meet_detail_send"
+            android:layout_toRightOf="@+id/btn_work_meet_detail"
             android:background="@drawable/edit_bg"
+            android:gravity="start"
+            android:hint="回复内容"
+            android:padding="@dimen/x5"
+            android:textSize="@dimen/s13" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btn_meet_detail_send"
+            android:layout_marginRight="@dimen/x5"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="发送"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/x30" />
+            android:layout_height="wrap_content" />
         <ImageView
             android:id="@+id/iv_meet_detail_add_message"
-            android:layout_marginRight="@dimen/x5"
+            android:layout_marginRight="@dimen/x24"
             android:layout_centerVertical="true"
              android:layout_alignParentRight="true"
             android:src="@mipmap/add_message"

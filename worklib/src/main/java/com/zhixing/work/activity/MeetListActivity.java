@@ -142,7 +142,9 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
                                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                      Intent intent =new  Intent(MeetListActivity.this,MeetDetailActivity.class);
                                      intent.putExtra("meetingID",rows.get(position).getMeetingID());
-                                     startActivity(intent);
+
+
+                                    startActivity(intent);
                                 }
                             });
                         }else{
@@ -152,6 +154,7 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
                                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                     Intent intent =new  Intent(MeetListActivity.this,MeetDetailActivity.class);
                                     intent.putExtra("meetingID",rows.get(position).getMeetingID());
+
                                     startActivity(intent);
                                 }
                             });

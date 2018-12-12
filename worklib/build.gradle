@@ -25,6 +25,7 @@ android {
 }
 
 dependencies {
+
     implementation project(path: ':contact')
     implementation project(path: ':basecommon')
     implementation 'org.greenrobot:eventbus:3.0.0'

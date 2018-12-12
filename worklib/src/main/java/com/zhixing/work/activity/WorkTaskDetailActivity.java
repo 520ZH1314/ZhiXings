@@ -201,6 +201,8 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         String toDoUserName = entity.getToDoUserName();//执行人name
                         String[] str1 = toDoUserName.split(",");
 
+                        //保存taskID
+                        SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).setString("TaskId",entity.getTaskId());
 
                         mTv_task_detail_do_people.setText(str1[0].toString() + "等" + str1.length + "人");
                         String ccUserName = entity.getCCUserName();//抄送人name
@@ -226,8 +228,8 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
     private void initView() {
         ip = SharedPreferencesTool.getMStool(this).getIp();
-         TaskId = getIntent().getStringExtra("TaskId");
-         SharedPreferencesTool.getMStool(this).setString("TaskId",TaskId);
+
+
         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         Tv_work_title = (TextView) findViewById(R.id.tv_work_title);
         Tv_work_title.setText("任务详情");
@@ -344,7 +346,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         bean.setApiCode("EditCompletedTask");
         bean.setAppCode("CEOAssist");
         bean.setSystemCurrentUserID(userId);
-        bean.setTaskId(TaskId);
+        bean.setTaskId(SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).getString("TaskId"));
         String json = GsonUtil.getGson().toJson(bean);
         RequestBody  body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
@@ -445,7 +447,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         PostCloseTaskDetailJson jsonBean = new PostCloseTaskDetailJson();
         jsonBean.setApiCode("EditRevokeTask");
         jsonBean.setAppCode(AppCode);
-        jsonBean.setTaskId(TaskId);
+        jsonBean.setTaskId(SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).getString("TaskId"));
         jsonBean.setCancelRemark(text);
         String json = GsonUtil.getGson().toJson(jsonBean);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);

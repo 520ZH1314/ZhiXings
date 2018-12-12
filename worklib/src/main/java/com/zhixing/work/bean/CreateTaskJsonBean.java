@@ -186,6 +186,16 @@ public class CreateTaskJsonBean implements Parcelable {
                 private String TenantId;
                 private String CurrentOperateUserId;
 
+                public String getCreateDate() {
+                    return CreateDate;
+                }
+
+                public void setCreateDate(String createDate) {
+                    CreateDate = createDate;
+                }
+
+                private String CreateDate;
+
                 public String getTaskDesc() {
                     return TaskDesc;
                 }
@@ -226,6 +236,9 @@ public class CreateTaskJsonBean implements Parcelable {
                     this.CurrentOperateUserId = CurrentOperateUserId;
                 }
 
+                public InsertedBean() {
+                }
+
                 @Override
                 public int describeContents() {
                     return 0;
@@ -238,9 +251,7 @@ public class CreateTaskJsonBean implements Parcelable {
                     dest.writeString(this.CreateUserId);
                     dest.writeString(this.TenantId);
                     dest.writeString(this.CurrentOperateUserId);
-                }
-
-                public InsertedBean() {
+                    dest.writeString(this.CreateDate);
                 }
 
                 protected InsertedBean(Parcel in) {
@@ -249,6 +260,7 @@ public class CreateTaskJsonBean implements Parcelable {
                     this.CreateUserId = in.readString();
                     this.TenantId = in.readString();
                     this.CurrentOperateUserId = in.readString();
+                    this.CreateDate = in.readString();
                 }
 
                 public static final Creator<InsertedBean> CREATOR = new Creator<InsertedBean>() {
