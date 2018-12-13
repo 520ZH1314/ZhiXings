@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -54,21 +55,37 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
                 .asBitmap()
                 .centerCrop()
                 .into(h.mImageView);
+        h.schedule_layout.setOnClickListener(c ->{
+            if(click!=null){
+                click.clickItem(item);
+            }
+        });
     }
 
     private static class ArticleViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextTitle,
                 mTextContent;
         private ImageView mImageView;
+        private LinearLayout schedule_layout;
 
         private ArticleViewHolder(View itemView) {
             super(itemView);
             mTextTitle = (TextView) itemView.findViewById(R.id.tv_title);
             mTextContent = (TextView) itemView.findViewById(R.id.tv_content);
             mImageView = (ImageView) itemView.findViewById(R.id.imageView);
+            schedule_layout = itemView.findViewById(R.id.schedule_layout);
         }
     }
-
+    private onItemClick click;
+    public void setOnItemClick(onItemClick click){
+        this.click = click;
+    }
+    /**
+     * 增加点击按钮事件
+     */
+    public interface onItemClick {
+        void clickItem(Article pos);
+    }
 
     private static Article create(String title, String content, String imgUrl) {
         Article article = new Article();
@@ -78,32 +95,5 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
         return article;
     }
 
-    private static List<Article> create(int p) {
-        List<Article> list = new ArrayList<>();
-        if (p == 0) {
-            list.add(create("数本科技",
-                    "工业4.0",
-                    "http://cms-bucket.nosdn.127.net/catchpic/2/27/27e2ce7fd02e6c096e21b1689a8a3fe9.jpg?imageView&thumbnail=550x0"));
-            list.add(create("智慧精益",
-                    "高效",
-                    "http://cms-bucket.nosdn.127.net/catchpic/c/c8/c8b0685089258b82f3ca1997def78d8d.png?imageView&thumbnail=550x0"));
-        } else if (p == 1) {
-            list.add(create("数本科技",
-                    "工业4.0",
-                    "http://cms-bucket.nosdn.127.net/catchpic/2/27/27e2ce7fd02e6c096e21b1689a8a3fe9.jpg?imageView&thumbnail=550x0"));
-            list.add(create("智慧精益",
-                    "高效",
-                    "http://cms-bucket.nosdn.127.net/catchpic/c/c8/c8b0685089258b82f3ca1997def78d8d.png?imageView&thumbnail=550x0"));
-        } else if (p == 2) {
-            list.add(create("数本科技",
-                    "工业4.0",
-                    "http://cms-bucket.nosdn.127.net/catchpic/2/27/27e2ce7fd02e6c096e21b1689a8a3fe9.jpg?imageView&thumbnail=550x0"));
-            list.add(create("智慧精益",
-                    "高效",
-                    "http://cms-bucket.nosdn.127.net/catchpic/c/c8/c8b0685089258b82f3ca1997def78d8d.png?imageView&thumbnail=550x0"));
-        }
 
-
-        return list;
-    }
 }

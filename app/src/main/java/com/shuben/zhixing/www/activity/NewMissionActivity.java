@@ -62,6 +62,7 @@ public class NewMissionActivity extends BaseActvity implements View.OnClickListe
 
     @Override
     public void initLayout() {
+        setStatus(-1);
         init();
         getListDate();//获取服务器数据方法
     }

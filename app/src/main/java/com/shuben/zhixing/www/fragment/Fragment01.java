@@ -30,7 +30,6 @@ import com.shuben.zhixing.www.activity.SquareActivity;
 import com.shuben.zhixing.www.adapter.ViewPagerAdapter;
 import com.shuben.zhixing.module.andon.AndonActivity;
 import com.shuben.zhixing.module.andon.JavaScriptAndon;
-import com.shuben.zhixing.www.calendars.SyllabusActivity;
 import com.shuben.zhixing.module.center_room.CenterRoomActivity;
 import com.base.zhixing.www.common.P;
 import com.shuben.zhixing.www.fragment.adapter.FoucsAdapter;
@@ -49,6 +48,7 @@ import com.base.zhixing.www.util.UrlUtil;
 import com.shuben.zhixing.www.widget.CommonTips;
 import com.shuben.zhixing.www.widget.InGridView;
 import com.zhixing.kpilib.activity.KpiMainActivity;
+import com.zhixing.schedule.ScheduleActivity;
 import com.zhixing.work.activity.WorkMainActivity;
 
 import org.json.JSONArray;
@@ -234,7 +234,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
             case 1://任务交办
                 //showRefundDialogs("当前用户未开启任务交办功能");
 
-                    Intent intent =new Intent(getActivity(),KpiMainActivity.class);
+                    Intent intent =new Intent(getActivity(),WorkMainActivity.class);
                     startActivity(intent);
 
                 break;
@@ -463,7 +463,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 break;
 
             case R.id.richeng://日程
-                intent = new Intent(getActivity(), SyllabusActivity.class);
+                intent = new Intent(getActivity(), ScheduleActivity.class);
                 startActivity(intent);
 
             case R.id.tv_dialog_i_know_but://日程

@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.base.zhixing.www.view.Toasty;
 import com.shuben.zhixing.module.mass.bean.QC_Reason;
 import com.base.zhixing.www.BaseActvity;
 import com.shuben.zhixing.www.R;
@@ -58,13 +59,15 @@ public class MassMainActivity extends BaseActvity {
         item0_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MassMainActivity.this,EnterMassActivity.class);
+                Toasty.INSTANCE.showToast(MassMainActivity.this,"功能完善中");
+
+              /*  Intent intent = new Intent(MassMainActivity.this,EnterMassActivity.class);
                 intent.putExtra("title","首件检验");
                 intent.putExtra("left_t","首件检验");
                 intent.putExtra("right_t","首件报告记录");
                 intent.putExtra("btn_t","添加首件检验");
                 intent.putExtra("type",0);
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
         item1_layout.setOnClickListener(new View.OnClickListener() {

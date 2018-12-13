@@ -1,5 +1,6 @@
 package com.zhixing.schedule;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,11 +9,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.base.zhixing.www.BaseApp;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.util.UrlUtil;
+import com.base.zhixing.www.view.Toasty;
 import com.githang.statusbar.StatusBarCompat;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
@@ -30,9 +33,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 日程系统
@@ -59,6 +64,7 @@ public class ScheduleActivity extends BaseActvity {
     GroupRecyclerView mRecyclerView;
     @Override
     public void initLayout() {
+
         setStatus(-1);
         mTextMonthDay =   findViewById(R.id.tv_month_day);
         mTextYear =  findViewById(R.id.tv_year);
@@ -129,6 +135,30 @@ public class ScheduleActivity extends BaseActvity {
         articleAdapter = new ArticleAdapter(this,adapterMap,titles);
         mRecyclerView.setAdapter(articleAdapter);
         mRecyclerView.notifyDataSetChanged();
+
+        articleAdapter.setOnItemClick(pos -> {
+            String type = pos.getTypeName();
+            switch (type){
+                case "任务交办":
+                        //进入详情
+                    Intent intent =new Intent();
+                   // intent.setPackage("com.zhixing.work");
+                    intent.setAction("com.zhixing.work.outer.detail");
+                    intent.putExtra("TaskId",pos.getStuId());
+                    intent.putExtra("name",type);
+                    intent.putExtra("ApiCode","GetUnfinishedTask");
+                    startActivity(intent);
+                    break;
+                case "高效会议":
+                    Intent intent1 =new Intent();
+                    // intent.setPackage("com.zhixing.work");
+                    intent1.setAction("com.zhixing.meet.outer.detail");
+                    intent1.putExtra("meetingID",pos.getStuId());
+
+                    startActivity(intent1);
+                    break;
+            }
+        });
     }
     private ArticleAdapter articleAdapter;
     private LinkedHashMap<String, List<Article>> adapterMap = new LinkedHashMap<>();
@@ -154,7 +184,7 @@ public class ScheduleActivity extends BaseActvity {
             mTextYear.setText(String.valueOf(calendar.getYear()));
             mTextLunar.setText(calendar.getLunar());
             mYear = calendar.getYear();
-            P.c("点击了日期"+TimeUtil.getTimeCh(calendar.getTimeInMillis()));
+          //  P.c("点击了日期"+TimeUtil.getTimeCh(calendar.getTimeInMillis()));
 
             load(TimeUtil.getTimeCh(calendar.getTimeInMillis()));
 
@@ -207,6 +237,10 @@ public class ScheduleActivity extends BaseActvity {
         return  new String[]{TimeUtil.getYear(cal.getTime()),TimeUtil.getMonth(cal.getTime()),day_start,day_end};
     }
 
+    /**
+     * 加载所有状态日期状态情况
+     * @param prts
+     */
     private void loadAllStatus(final String prts[]){
         final Map<String,String> params = new HashMap<>();
         params.put("AppCode","CEOAssist");
@@ -225,7 +259,8 @@ public class ScheduleActivity extends BaseActvity {
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject o = jsonArray.getJSONObject(i);
                        String temp =  o.getString("CalendarDate");
-                        Calendar c = getSchemeCalendar(Integer.parseInt(prts[0]),Integer.parseInt(prts[1]),Integer.parseInt(TimeUtil.parseTime_day(temp)),0xFFdf1356,"6");
+                       String count = o.getString("Count");
+                        Calendar c = getSchemeCalendar(Integer.parseInt(prts[0]),Integer.parseInt(prts[1]),Integer.parseInt(TimeUtil.parseTime_day(temp)),0xFFdf1356,count);
                        map.put(c.toString(),c);
                     }
                     mCalendarView.clearSchemeDate();
@@ -244,7 +279,10 @@ public class ScheduleActivity extends BaseActvity {
         });
     }
 
-
+    /**
+     * 加载每日的数据信息列表
+     * @param StartDate
+     */
     private void load(String StartDate){
         Map<String,String> params = new HashMap<>();
         params.put("AppCode","CEOAssist");
@@ -256,26 +294,42 @@ public class ScheduleActivity extends BaseActvity {
             @Override
             public void success(JSONObject jsonObject) {
                 adapterMap.clear();
-                List<Article> list = new ArrayList<>();
+                titles.clear();
                 try {
                     JSONArray jsonArray = jsonObject.getJSONArray("rows");
+                   // P.c("数据长度"+jsonArray.length());
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject object = jsonArray.getJSONObject(i);
                         Article article = new Article();
-                        article.setTitle(object.getString("ScheduleTitle"));
-                        article.setContent(object.getString("ScheduleContent"));
+                        article.setStuId(object.getString("ScheduleSourceID"));
+                        article.setTitle(object.getString("ScheduleContent"));
+                        article.setContent(object.getString("ExecutorName"));
                         article.setDesc(object.getString("ScheduleRemark"));
-                       // list.add(article);
-                        list.add(create("数本科技",
-                                "工业4.0",
-                                "http://cms-bucket.nosdn.127.net/catchpic/2/27/27e2ce7fd02e6c096e21b1689a8a3fe9.jpg?imageView&thumbnail=550x0"));
+                        String tag = object.getString("SourceModel");
+                        article.setTypeName(tag);
+                        //数据分类和组装
+                        if(adapterMap.containsKey(tag)){
+                            //if exits
+                            adapterMap.get(tag).add(article);
+                         //   P.c(tag+"----"+article.getContent()+"---"+i);
+                        }else{
+                            List<Article> list = new ArrayList<>();
+                            list.add(article);
+                            adapterMap.put(tag,list);
+                            titles.add(tag);
+                         //   P.c(tag+"==="+article.getContent()+"---"+i);
+                        }
+
+
                     }
-                    adapterMap.put("标题1",list);
-                    adapterMap.put("标题2",list);
-                    titles.add("标题1");
-                    titles.add("标题2");
-
-
+                 /*Set set =  adapterMap.keySet();
+                 Iterator it =  set.iterator();
+                 while(it.hasNext()){
+                     String key = it.next().toString();
+                     P.c("长度"+adapterMap.get(key).size());
+                     titles.add(key);
+                 }*/
+                 P.c(titles.toString());
                     articleAdapter.updata(adapterMap,titles);
                     mRecyclerView.notifyDataSetChanged();
                 } catch (JSONException e) {

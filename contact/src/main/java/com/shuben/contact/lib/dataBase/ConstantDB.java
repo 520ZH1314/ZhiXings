@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 
 public class ConstantDB extends DB {
-    public   static ConstantDB dao;
+    public   static volatile ConstantDB dao;//增加单一控制
     private static DBHelper dbHelper;
     private static SQLiteDatabase db;
     public static synchronized ConstantDB getInstance() {

@@ -69,6 +69,7 @@ public class NewNotificationActivity extends BaseActvity implements View.OnClick
 
     @Override
     public void initLayout() {
+        setStatus(-1);
         init();
         getListDate();//获取服务器数据方法
     }

@@ -127,7 +127,7 @@ dependencies {
     //compile files('libs/httpmime-4.3.5.jar')
     //compile files('libs/achartengine-1.1.0.jar')
 //    implementation project(path: ':datalib')
-    implementation project(path: ':calendar')
+
 
     implementation project(path: ':MPChartLib')
     implementation project(path: ':mylibrary')

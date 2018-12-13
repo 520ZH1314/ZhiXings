@@ -253,11 +253,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="任务子菜单"
             android:screenOrientation="portrait" />
-        <activity
+       <!-- <activity
             android:name=".calendars.SyllabusActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="任务子菜单"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
         <activity
             android:name=".reminder.ReplyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
