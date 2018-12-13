@@ -10,10 +10,11 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x40"
+        android:layout_height="@dimen/x55"
         android:background="@color/title_bg">
 
         <ImageView
+
             android:id="@+id/iv_work_add_work"
             android:layout_width="16dp"
             android:layout_height="16dp"
@@ -30,19 +31,20 @@
             android:text="会议详情"
             android:textColor="@android:color/white"
             android:textSize="@dimen/s18" />
+
         <ImageView
-            android:src="@mipmap/more"
-            android:layout_marginRight="@dimen/x24"
-            android:layout_centerVertical="true"
             android:id="@+id/iv_meet_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x24"
+            android:src="@mipmap/more" />
 
     </RelativeLayout>
 
     <ScrollView
+        android:fillViewport="true"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,7 +52,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="55dp"
         android:scrollbars="none">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -110,8 +112,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:src="@mipmap/add_meetting_perpeo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -173,8 +175,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:src="@mipmap/add_meetting_perpeo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -324,8 +326,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:src="@mipmap/add_meetting_perpeo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -357,8 +359,10 @@
                 android:id="@+id/imageView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
                 android:src="@mipmap/moreclass"
+                app:layout_constraintBottom_toTopOf="@+id/view8"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 

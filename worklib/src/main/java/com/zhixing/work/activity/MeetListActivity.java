@@ -249,6 +249,10 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
             String endDate[]=menuItem.getEndDate().split("T");
             String time2=endDate[1];
             String time=time1+" "+time3+"-"+time2;
+            //
+
+
+            baseViewHolder.setText(R.id.tv_item_meet_message_count_down,getMeetStatus(menuItem.getMeetingStatus()));//会议状态
             baseViewHolder.setText(R.id.tv_item_meet_message_open_time, time);//会议开始时间
             baseViewHolder.setText(R.id.tv_item_meet_message_address, menuItem.getMeetingPlace());//会议地址
             baseViewHolder.setText(R.id.tv_item_meet_message_originator, menuItem.getCreateUserName());//会议创建人
@@ -260,6 +264,32 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
         }
     }
 
+
+
+    public String getMeetStatus(int i){
+        String name="";
+        switch (i){
+            case 1:
+                name="已发起";
+                break;
+
+            case 2:
+                name="已确认";
+                break;
+
+            case 3:
+                name="已结束";
+                break;
+
+            case 4:
+                name="已取消";
+                break;
+
+        }
+
+      return  name;
+
+    }
 
 
 }

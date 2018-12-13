@@ -16,6 +16,7 @@ import com.zhixing.work.R;
 
 import com.zhixing.work.fragment.DepartmentReceiveFragment;
 import com.zhixing.work.fragment.DepartmentSendFragment;
+import com.zhixing.work.fragment.MeetDetailResponseFragment;
 import com.zhixing.work.fragment.MyReceiveFragment;
 import com.zhixing.work.ui.AddWorkDialog;
 
@@ -70,7 +71,7 @@ public class WorkMainActivity extends BaseActvity implements View.OnClickListene
         titleDatas.add("我发出的");
         titleDatas.add("我收到的");
         ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
-        fragmentList.add(new MyReceiveFragment());
+        fragmentList.add(new DepartmentSendFragment());
         fragmentList.add(new DepartmentReceiveFragment());
         MyViewPageAdapter myViewPageAdapter = new MyViewPageAdapter(getSupportFragmentManager(), titleDatas, fragmentList);
         mViewPage.setAdapter(myViewPageAdapter);

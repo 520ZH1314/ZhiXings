@@ -11,9 +11,11 @@
         android:layout_width="@dimen/x20"
         android:layout_height="@dimen/x20"
         android:layout_margin="@dimen/x3"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:src="@mipmap/meet_message_people"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
         android:text="李三"
         android:textSize="@dimen/s11"
         app:layout_constraintStart_toEndOf="@+id/iv_item_image_head"

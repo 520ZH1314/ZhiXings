@@ -157,6 +157,7 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
                                       Intent intent =new Intent(TaskListActivity.this,WorkTaskDetailActivity.class);
                                       intent.putExtra("TaskId",taskId);
                                       intent.putExtra("name",mTvTaskStatusType.getText());
+                                      intent.putExtra("TaskStatus",rows.get(position).getTaskStatus());
                                       intent.putExtra("ApiCode",ApiCode);
                                       startActivity(intent);
 

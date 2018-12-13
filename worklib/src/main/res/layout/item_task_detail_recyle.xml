@@ -11,7 +11,7 @@
         android:layout_width="@dimen/x20"
         android:layout_height="@dimen/x20"
         android:layout_margin="@dimen/x3"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:src="@mipmap/meet_message_people"
         app:layout_constraintStart_toStartOf="parent"

@@ -94,14 +94,14 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     private  boolean isCreate=false;
     private ImageView mImage;
     private String ip;
+    private String TaskSID;
+    private int taskStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-         name = getIntent().getStringExtra("name");
-         apiCode = getIntent().getStringExtra("ApiCode");
 
     }
 
@@ -128,7 +128,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         jsonBean.setApiCode(ApiCode);
         jsonBean.setAppCode(AppCode);
         jsonBean.setTenantId(tenantId);
-        jsonBean.setTaskId(TaskId);
+        jsonBean.setTaskId(TaskSID);
         String json = GsonUtil.getGson().toJson(jsonBean);
         body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
@@ -154,7 +154,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         dismissDialog();
 
 
-                        if (entity.getCurrentStep() == 15) {
+                        if (taskStatus==10) {
                             //已经完成
                             mCheckBox.setChecked(true);
                             mCheckBox.setClickable(false);
@@ -163,7 +163,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             mBtnDiss.setVisibility(View.VISIBLE);
                             mBtn_Diss.setText("已完成");
                             mBtn_Diss.setClickable(false);
-                        } else if (entity.getCurrentStep() == 20) {
+                        } else if (taskStatus==15) {
                             //取消
                             mCheckBox.setChecked(true);
                             mCheckBox.setClickable(false);
@@ -227,9 +227,11 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     }
 
     private void initView() {
-        ip = SharedPreferencesTool.getMStool(this).getIp();
-
-
+           ip = SharedPreferencesTool.getMStool(this).getIp();
+           taskStatus = getIntent().getIntExtra("TaskStatus",0);
+        TaskSID = getIntent().getStringExtra("TaskId");
+        name = getIntent().getStringExtra("name");
+        apiCode = getIntent().getStringExtra("ApiCode");
         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         Tv_work_title = (TextView) findViewById(R.id.tv_work_title);
         Tv_work_title.setText("任务详情");

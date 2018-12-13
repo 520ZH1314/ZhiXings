@@ -18,6 +18,7 @@ import com.base.zhixing.www.util.TimeUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.reflect.TypeToken;
+import com.orhanobut.logger.Logger;
 import com.zhixing.work.R;
 import com.zhixing.work.bean.CopyPeopleBean;
 import com.zhixing.work.bean.MeetDeatilResponseEvent;
@@ -25,6 +26,7 @@ import com.zhixing.work.bean.MeetJoinStatusBean;
 import com.zhixing.work.bean.PostMeetDetailJson;
 import com.zhixing.work.bean.ResponseJoinBean;
 import com.zhixing.work.bean.ResponseMeetDetailEntity;
+import com.zhixing.work.bean.UpdateMeetSureEvent;
 import com.zhixing.work.http.base.MyBaseSubscriber;
 import com.zhixing.work.http.base.ResponseThrowable;
 import com.zhixing.work.http.base.RetrofitClients;
@@ -61,15 +63,15 @@ public class MeetDetailIsSureFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        EventBus.getDefault().register(this);
-        View view = inflater.inflate(R.layout.fragment_meet_sure, container, false);
+         EventBus.getDefault().register(this);
+         View view = inflater.inflate(R.layout.fragment_meet_sure, container, false);
          tenantId = SharedPreferencesTool.getMStool(getContext()).getTenantId();
          meetingID = SharedPreferencesTool.getMStool(getContext()).getString("meetingID");
-        ip=SharedPreferencesTool.getMStool(getActivity()).getIp();
-        mRecyleView = view.findViewById(R.id.recy_meet_sure);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mRecyleView.setLayoutManager(layoutManager);
-         initData();
+         ip=SharedPreferencesTool.getMStool(getActivity()).getIp();
+         mRecyleView = view.findViewById(R.id.recy_meet_sure);
+         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+          mRecyleView.setLayoutManager(layoutManager);
+          initData();
         return view;
     }
 
@@ -92,11 +94,14 @@ public class MeetDetailIsSureFragment extends BaseFragment {
                 }).subscribe(new MyBaseSubscriber<ResponseJoinBean>(getActivity()) {
             @Override
             public void onResult(ResponseJoinBean o) {
+                dismissDialog();
+                Logger.d(o.getRows().size());
                 List<MeetJoinStatusBean> data=new ArrayList<>();
                 List<ResponseJoinBean.RowsBean> rows = o.getRows();
                 for (ResponseJoinBean.RowsBean bean:rows) {
                     data.add(new MeetJoinStatusBean(bean.getParticipantsName(),bean.getMeetingStatusName(),bean.getCreateTime()));
                 }
+                Logger.d(data.size());
                  adapter = new MeetDetailIsSureListAdapter(R.layout.item_meet_detail_join_recyle, data);
                  mRecyleView.setAdapter(adapter);
 
@@ -104,7 +109,8 @@ public class MeetDetailIsSureFragment extends BaseFragment {
 
             @Override
             public void onError(ResponseThrowable e) {
-
+                dismissDialog();
+                Logger.d(e.getMessage());
             }
         });
 
@@ -134,14 +140,26 @@ public class MeetDetailIsSureFragment extends BaseFragment {
         }
     }
 
-//
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        if (EventBus.getDefault().isRegistered(this)) {
-//            EventBus.getDefault().unregister(this);
-//        }
-//    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+    }
+
+
+      @Subscribe(threadMode = ThreadMode.MAIN)
+       public void Update(UpdateMeetSureEvent event){
+        if (event.isTrue){
+            initData();//更新数据
+
+        }
+
+      }
+
+
 
 
     }
