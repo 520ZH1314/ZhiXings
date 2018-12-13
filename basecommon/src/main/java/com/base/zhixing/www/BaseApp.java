@@ -8,11 +8,17 @@ import com.orhanobut.logger.Logger;
 
 public class BaseApp extends Application {
     public static BaseApp application;
+    private static String packgeName;
+    public static String getPackgeName(){
+        return packgeName;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
         application = this;
+        packgeName = getPackageName();
         Logger.addLogAdapter(new AndroidLogAdapter());
 
     }
+
 }
