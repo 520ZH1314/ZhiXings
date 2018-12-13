@@ -121,6 +121,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
         mTvTaskEndTime = (TextView) findViewById(R.id.tv_create_task_end_time);
         mReTaskSendCopy = (RelativeLayout) findViewById(R.id.rl_create_task_send_copy);//抄送人
         mReTaskStartTime = (RelativeLayout) findViewById(R.id.rl_create_task_start_time);//开始时间
+        mReTaskEndTime = (RelativeLayout) findViewById(R.id.rl_create_task_end_time);//结束时间
 
         mTvTaskStartTime = (TextView) findViewById(R.id.tv_create_task_start_time);
 
