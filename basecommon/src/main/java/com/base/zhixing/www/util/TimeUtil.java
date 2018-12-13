@@ -300,4 +300,23 @@ public class TimeUtil {
 			w = 0;
 		return weekDays[w];
 	}
+
+	/**
+	 *
+	 *@author zjq
+	 *create at 2018/12/12 上午11:02
+	 * 更新将时间带秒的字符串转为不带秒
+	 */
+	public static String getFormatData(String time)  {
+		Date date = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		try {
+			date = formatter.parse(time);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String time2 = formatter.format(date);
+		return time2;
+	}
+
 }
