@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
 import com.sdk.chat.ChatSdk;
 import com.shuben.zhixing.module.mass.MassMainActivity;
@@ -32,6 +33,7 @@ import com.shuben.zhixing.module.andon.AndonActivity;
 import com.shuben.zhixing.module.andon.JavaScriptAndon;
 import com.shuben.zhixing.module.center_room.CenterRoomActivity;
 import com.base.zhixing.www.common.P;
+import com.shuben.zhixing.www.common.ARouterContants;
 import com.shuben.zhixing.www.fragment.adapter.FoucsAdapter;
 import com.shuben.zhixing.www.inspection.InspectionActivity;
 import com.shuben.zhixing.www.inter.ScreenSelect;
@@ -48,7 +50,6 @@ import com.base.zhixing.www.util.UrlUtil;
 import com.shuben.zhixing.www.widget.CommonTips;
 import com.shuben.zhixing.www.widget.InGridView;
 import com.zhixing.kpilib.activity.KpiMainActivity;
-import com.zhixing.schedule.ScheduleActivity;
 import com.zhixing.work.activity.WorkMainActivity;
 
 import org.json.JSONArray;
@@ -463,8 +464,11 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 break;
 
             case R.id.richeng://日程
-                intent = new Intent(getActivity(), ScheduleActivity.class);
-                startActivity(intent);
+//                intent = new Intent(getActivity(), ScheduleActivity.class);
+//                startActivity(intent);
+                ARouter.getInstance().build(ARouterContants.ScheduleActivity).navigation();
+
+
 
             case R.id.tv_dialog_i_know_but://日程
                 if (ltbAlertDialog!=null){

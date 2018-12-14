@@ -40,7 +40,9 @@ import com.shuben.zhixing.www.service.TraceServiceImpl;
 import com.shuben.zhixing.www.util.CustomToast;
 import com.shuben.zhixing.www.util.PackageUtils;
 import com.shuben.zhixing.www.util.UpdateManager;
-
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.lang.reflect.Field;
@@ -122,10 +124,28 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
 
     @Override
     public void initLayout() {
+
         customToast = new CustomToast(this);
         ActivityCompat.requestPermissions(LoginActivity.this,new String []{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE},1);
         init();
+        EventBus.getDefault().register(this);
         checkUpdate();
+    }
+    @Subscribe (threadMode =  ThreadMode.MAIN)
+    public void even(String i){
+
+    }
+
+    @Subscribe (threadMode =  ThreadMode.MAIN)
+    public void even1(String i){
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     private void checkUpdate() {
@@ -183,6 +203,7 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                         }
                         SdkConfig.setIP(IP);
 
+                        EventBus.getDefault().postSticky("");
                         ChatSdk.close();
                         ChatSdk.init(LoginActivity.this);
                         ChatSdk.setConnectListener(new IConnectListener() {

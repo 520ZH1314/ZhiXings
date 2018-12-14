@@ -13,16 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.shuben.contact.lib.ConstantActivity;
 import com.shuben.zhixing.module.mass.ScanMassActivity;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.activity.SettingComActivity;
+import com.shuben.zhixing.www.common.ARouterContants;
 import com.shuben.zhixing.www.common.ImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.widget.CharAvatarView;
 import com.base.zhixing.www.widget.CircularImage;
-import com.zhixing.schedule.ScheduleActivity;
 
 /**
  * Created by Administrator on 2017/8/21.智行力设置
@@ -78,9 +79,7 @@ public class Fragment04 extends BaseFragment {
         richeng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent personIntent = new Intent();
-                personIntent.setClass(getActivity(),ScheduleActivity.class);
-                startActivity(personIntent);
+                ARouter.getInstance().build(ARouterContants.ScheduleActivity).navigation();
             }
         });
         setting = view_layout.findViewById(R.id.setting);

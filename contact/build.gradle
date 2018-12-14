@@ -13,6 +13,11 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
 
     buildTypes {
@@ -38,5 +43,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compileOnly files('libs/volley.jar')
     implementation 'com.github.bumptech.glide:glide:3.6.0'
+    implementation "com.alibaba:arouter-api:$arouter_api"
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
+
+
+
 
 }

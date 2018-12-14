@@ -13,6 +13,12 @@ android {
         versionCode 1
         flavorDimensions "1"
         versionName '1.0.1'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
     buildTypes {
         release {
@@ -50,6 +56,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:1.9.5"
 //    implementation project(path: ':basecommon')
+    implementation "com.alibaba:arouter-api:$arouter_api"
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
+
+
+
 }
 
 android.libraryVariants.all { variant ->

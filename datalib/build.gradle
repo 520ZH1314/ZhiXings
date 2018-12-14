@@ -9,8 +9,11 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
 
     }
     buildTypes {
@@ -28,4 +31,7 @@ dependencies {
     })
     implementation "com.android.support:appcompat-v7:$support_version"
     testImplementation 'junit:junit:4.12'
+    implementation "com.alibaba:arouter-api:$arouter_api"
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
+
 }
