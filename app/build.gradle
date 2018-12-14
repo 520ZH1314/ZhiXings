@@ -57,6 +57,11 @@ android {
         versionName "V1.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
     buildTypes {
         release {
@@ -175,4 +180,7 @@ dependencies {
     implementation 'com.liulishuo.magicprogresswidget:library:1.0.2'//进度
     //    implementation 'com.mcxiaoke.volley:library:1.0.19'
     //    implementation 'com.android.volley:volley:1.0.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation "com.alibaba:arouter-api:$arouter_api"
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
 }

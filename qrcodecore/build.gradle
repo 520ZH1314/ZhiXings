@@ -6,6 +6,12 @@ android {
     defaultConfig {
         minSdkVersion 18
         targetSdkVersion 28
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
 }
 
@@ -16,4 +22,9 @@ if (hasProperty("publishAar")) {
  dependencies{
 
      implementation 'com.google.zxing:core:3.3.3'
+     implementation "com.alibaba:arouter-api:$arouter_api"
+     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
+
+
+
  }

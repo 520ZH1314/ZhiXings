@@ -13,6 +13,12 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+
     }
     buildTypes {
         release {
@@ -41,9 +47,14 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //noinspection GradleDependency
-    implementation 'com.android.support:appcompat-v7:23.3.0'
+    implementation "com.android.support:appcompat-v7:$support_version"
     //noinspection GradleDependency
     implementation 'com.android.support:recyclerview-v7:23.3.0'
     testImplementation 'junit:junit:4.12'
+    implementation "com.alibaba:arouter-api:$arouter_api"
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
+
+
+
 }
 //apply from: '../script/gradle-jcenter-push.gradle'

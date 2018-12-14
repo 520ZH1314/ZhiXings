@@ -46,7 +46,6 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
 public class BaseApplication extends BaseApp {
-    private static final boolean DEVELOPER_MODE = true;
     public static BaseApplication application;
     //    protected boolean isNeedCaughtExeption = true;// 是否捕获未知异常
     private MyUncaughtExceptionHandler uncaughtExceptionHandler;

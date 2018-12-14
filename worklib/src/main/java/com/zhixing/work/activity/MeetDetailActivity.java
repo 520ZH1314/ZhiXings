@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.BaseFragment;
@@ -79,7 +80,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-
+@Route(path = "/worklib/MeetDetailActivity")
 public class MeetDetailActivity extends BaseActvity implements View.OnClickListener, TopMeetStatusTypeDialog.OnDialogInforCompleted {
 
     private TabLayout mTablayout;

@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.util.ACache;
@@ -53,7 +54,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-
+@Route(path = "/worklib/WorkTaskDetailActivity")
 public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickListener {
     private String AppCode = "CEOAssist";
     private String ApiCode = "GetTaskDetails";

@@ -23,20 +23,12 @@
         <activity
             android:name=".activity.MeetDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-            <intent-filter>
-                <!--data-->
-                <action android:name="com.zhixing.meet.outer.detail"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.WorkTaskDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-            <intent-filter>
-                <!--data-->
-                <action android:name="com.zhixing.work.outer.detail"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.Work_ExecutorActivity"

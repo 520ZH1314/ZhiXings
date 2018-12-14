@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.BaseApp;
 import com.base.zhixing.www.common.P;
@@ -22,6 +24,7 @@ import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.zhixing.schedule.adapter.Article;
 import com.zhixing.schedule.adapter.ArticleAdapter;
+import com.zhixing.schedule.common.ARouterContants;
 import com.zhixing.schedule.group.GroupItemDecoration;
 import com.zhixing.schedule.group.GroupRecyclerView;
 import com.base.zhixing.www.BaseActvity;
@@ -43,6 +46,7 @@ import java.util.Set;
  * 日程系统
  * @author cloor
  */
+@Route(path = "/schedulelib/ScheduleActivity")
 public class ScheduleActivity extends BaseActvity {
     @Override
     public void process(Message msg) {
@@ -141,20 +145,27 @@ public class ScheduleActivity extends BaseActvity {
             switch (type){
                 case "任务交办":
                         //进入详情
-                    Intent intent =new Intent();
+                   /* Intent intent =new Intent();
                    // intent.setPackage("com.zhixing.work");
                     intent.setAction("com.zhixing.work.outer.detail");
                     intent.putExtra("TaskId",pos.getStuId());
                     intent.putExtra("name",type);
                     intent.putExtra("ApiCode","GetUnfinishedTask");
-                    startActivity(intent);
+                    startActivity(intent);*/
+
+                    ARouter.getInstance().build(ARouterContants.WorkTaskDetailActivity)
+                            .withString("TaskId",pos.getStuId())
+                            .withString("name",type)
+                            .withString("ApiCode","GetUnfinishedTask")
+                            .navigation();
+
                     break;
                 case "高效会议":
                     Intent intent1 =new Intent();
                     // intent.setPackage("com.zhixing.work");
                     intent1.setAction("com.zhixing.meet.outer.detail");
                     intent1.putExtra("meetingID",pos.getStuId());
-
+                    intent1.putExtra("meetingDataID",pos.getStuId());
                     startActivity(intent1);
                     break;
             }
