@@ -3,29 +3,20 @@ package com.zhixing.work.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PostNewMeetDetailJson implements Parcelable {
+public class PostNewTaskDetailJson implements Parcelable {
 
 
     /**
      * AppCode : CEOAssist
-     * ApiCode : GetMeetingInfo
-     * MeetingID : 81a5541f-b2aa-423d-8fc9-c72043c750b0
-     * MeetingDataID : 81a5541f-b2aa-423d-8fc9-c72043c750b0
+     * ApiCode : GetTaskDetails
+     * ToDoListId :  51e72d58-4d7f-42a1-bb19-a184f1fd733c
      * TenantId : 00000000-0000-0000-0000-000000000001
      */
 
     private String AppCode;
     private String ApiCode;
-    private String MeetingDataID;
+    private String ToDoListId;
     private String TenantId;
-
-    public PostNewMeetDetailJson(String appCode, String apiCode, String meetingDataID, String tenantId) {
-        AppCode = appCode;
-        ApiCode = apiCode;
-
-        MeetingDataID = meetingDataID;
-        TenantId = tenantId;
-    }
 
     public String getAppCode() {
         return AppCode;
@@ -43,16 +34,12 @@ public class PostNewMeetDetailJson implements Parcelable {
         this.ApiCode = ApiCode;
     }
 
-
-
-
-
-    public String getMeetingDataID() {
-        return MeetingDataID;
+    public String getToDoListId() {
+        return ToDoListId;
     }
 
-    public void setMeetingDataID(String MeetingDataID) {
-        this.MeetingDataID = MeetingDataID;
+    public void setToDoListId(String ToDoListId) {
+        this.ToDoListId = ToDoListId;
     }
 
     public String getTenantId() {
@@ -72,30 +59,29 @@ public class PostNewMeetDetailJson implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.AppCode);
         dest.writeString(this.ApiCode);
-        dest.writeString(this.MeetingDataID);
+        dest.writeString(this.ToDoListId);
         dest.writeString(this.TenantId);
     }
 
-    public PostNewMeetDetailJson() {
+    public PostNewTaskDetailJson() {
     }
 
-    protected PostNewMeetDetailJson(Parcel in) {
+    protected PostNewTaskDetailJson(Parcel in) {
         this.AppCode = in.readString();
         this.ApiCode = in.readString();
-
-        this.MeetingDataID = in.readString();
+        this.ToDoListId = in.readString();
         this.TenantId = in.readString();
     }
 
-    public static final Parcelable.Creator<PostNewMeetDetailJson> CREATOR = new Parcelable.Creator<PostNewMeetDetailJson>() {
+    public static final Parcelable.Creator<PostNewTaskDetailJson> CREATOR = new Parcelable.Creator<PostNewTaskDetailJson>() {
         @Override
-        public PostNewMeetDetailJson createFromParcel(Parcel source) {
-            return new PostNewMeetDetailJson(source);
+        public PostNewTaskDetailJson createFromParcel(Parcel source) {
+            return new PostNewTaskDetailJson(source);
         }
 
         @Override
-        public PostNewMeetDetailJson[] newArray(int size) {
-            return new PostNewMeetDetailJson[size];
+        public PostNewTaskDetailJson[] newArray(int size) {
+            return new PostNewTaskDetailJson[size];
         }
     };
 }

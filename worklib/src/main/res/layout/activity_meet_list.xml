@@ -20,7 +20,7 @@
             android:id="@+id/tv_meet_type"
             android:textColor="@color/black"
             android:layout_centerInParent="true"
-            android:textSize="@dimen/s13"
+            android:textSize="@dimen/content_txt_"
             android:text="未结束的"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

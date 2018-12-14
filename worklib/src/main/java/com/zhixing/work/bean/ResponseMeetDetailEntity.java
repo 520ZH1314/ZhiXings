@@ -3,6 +3,7 @@ package com.zhixing.work.bean;
 import java.util.List;
 
 public class ResponseMeetDetailEntity {
+
     /**
      * MeetingID : 3a7da71e-c12a-4c01-a945-5c78c3f7decb
      * MeetingTitle : null
@@ -10,6 +11,7 @@ public class ResponseMeetDetailEntity {
      * MeetingStatus : 3
      * MeetingPlace : 深圳南山科技园
      * MeetingReminder : 1
+     * ParticipantsID : 2430147E-A451-4841-B027-717C6C8F27A8
      * StartDate : 2018-12-07T08:00:00
      * EndDate : 2018-12-07T21:00:00
      * Seq : null
@@ -33,6 +35,7 @@ public class ResponseMeetDetailEntity {
     private int MeetingStatus;
     private String MeetingPlace;
     private int MeetingReminder;
+    private String ParticipantsID;
     private String StartDate;
     private String EndDate;
     private Object Seq;
@@ -95,6 +98,14 @@ public class ResponseMeetDetailEntity {
 
     public void setMeetingReminder(int MeetingReminder) {
         this.MeetingReminder = MeetingReminder;
+    }
+
+    public String getParticipantsID() {
+        return ParticipantsID;
+    }
+
+    public void setParticipantsID(String ParticipantsID) {
+        this.ParticipantsID = ParticipantsID;
     }
 
     public String getStartDate() {

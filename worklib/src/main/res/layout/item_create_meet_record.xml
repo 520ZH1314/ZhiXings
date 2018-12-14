@@ -30,7 +30,7 @@
         android:maxLines="1"
         android:text="今天下午在胎位参加8点的,会议主要内容是关于,请大家代号自闭内容懂不"
         android:textColor="@color/black"
-        android:textSize="@dimen/s12"
+        android:textSize="@dimen/s14"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:text="记录人:李三"
-        android:textSize="@dimen/s12"
+        android:textSize="@dimen/s14"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_create_meet_record"
         app:layout_constraintTop_toBottomOf="@+id/tv_create_meet_record" />

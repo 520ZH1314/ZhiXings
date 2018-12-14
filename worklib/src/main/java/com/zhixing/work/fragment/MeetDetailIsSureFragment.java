@@ -20,6 +20,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
 import com.zhixing.work.R;
+import com.zhixing.work.activity.MeetDetailActivity;
 import com.zhixing.work.bean.CopyPeopleBean;
 import com.zhixing.work.bean.MeetDeatilResponseEvent;
 import com.zhixing.work.bean.MeetJoinStatusBean;
@@ -66,7 +67,7 @@ public class MeetDetailIsSureFragment extends BaseFragment {
          EventBus.getDefault().register(this);
          View view = inflater.inflate(R.layout.fragment_meet_sure, container, false);
          tenantId = SharedPreferencesTool.getMStool(getContext()).getTenantId();
-         meetingID = SharedPreferencesTool.getMStool(getContext()).getString("meetingID");
+         meetingID = SharedPreferencesTool.getMStool(getContext()).getString("MeetId");
          ip=SharedPreferencesTool.getMStool(getActivity()).getIp();
          mRecyleView = view.findViewById(R.id.recy_meet_sure);
          LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

@@ -7,7 +7,7 @@
          android:layout_marginTop="@dimen/x10"
          android:id="@+id/tv_item_recy_dialog_meet_status"
          android:layout_marginLeft="@dimen/x24"
-         android:textSize="@dimen/s13"
+         android:textSize="@dimen/content_txt_"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content" />
      <View

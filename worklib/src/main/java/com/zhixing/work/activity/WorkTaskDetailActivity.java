@@ -32,6 +32,7 @@ import com.zhixing.work.bean.CopyPeopleBean;
 import com.zhixing.work.bean.CreateTaskEntity;
 import com.zhixing.work.bean.DeleteTaskEvent;
 import com.zhixing.work.bean.PostCloseTaskDetailJson;
+import com.zhixing.work.bean.PostNewTaskDetailJson;
 import com.zhixing.work.bean.PostTaskCompeteJsonBean;
 import com.zhixing.work.bean.PostTaskDetailJson;
 import com.zhixing.work.bean.PostTaskReplyJson;
@@ -98,6 +99,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     private String TaskSID;
     private int taskStatus;
     private  boolean isCCuser=false;
+    private String ToDoListId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,13 +128,15 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
     private void initData() {
          userId = SharedPreferencesTool.getMStool(this).getUserId();
-        PostTaskDetailJson jsonBean = new PostTaskDetailJson();
-        jsonBean.setApiCode(ApiCode);
-        jsonBean.setAppCode(AppCode);
-        jsonBean.setTenantId(tenantId);
-        jsonBean.setTaskId(TaskSID);
-        String json = GsonUtil.getGson().toJson(jsonBean);
-        body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+
+        PostNewTaskDetailJson json= new PostNewTaskDetailJson();
+
+        json.setToDoListId(ToDoListId);
+        json.setApiCode(ApiCode);
+        json.setAppCode(AppCode);
+        json.setTenantId(tenantId);
+        String json1 = GsonUtil.getGson().toJson(json);
+        body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json1);
 
         setTaskDetailData(body);
 
@@ -155,8 +159,8 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                     public void accept(TaskDetailEntity entity) throws Exception {
                         dismissDialog();
 
-
-                        if (taskStatus==10) {
+                        SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).setString("TaskID",entity.getSourceId());
+                        if (entity.getTaskStatus()==10) {
                             //已经完成
                                 mCheckBox.setChecked(true);
                                 mCheckBox.setClickable(false);
@@ -168,7 +172,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
 
 
-                        } else if (taskStatus==15) {
+                        } else if (entity.getTaskStatus()==15) {
                             //取消
                             mCheckBox.setChecked(true);
                             mCheckBox.setClickable(false);
@@ -217,7 +221,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
                         }
 
-                        mTv_task_detail_content.setText("内容:"+" "+entity.getTaskDesc());//任务描述
+                        mTv_task_detail_content.setText("内容:"+" "+entity.getContents());//任务描述
                         String[] createtime = entity.getCreateDate().split("T");
                         mTv_task_detail_create_time.setText(createtime[0].toString() + " " + createtime[1].toString()); //创建时间
                         String[] compete_time = entity.getDueDate().split("T");
@@ -226,8 +230,6 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         String toDoUserName = entity.getToDoUserName();//执行人name
                         String[] str1 = toDoUserName.split(",");
 
-                        //保存taskID
-                        SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).setString("TaskId",entity.getTaskId());
 
                         mTv_task_detail_do_people.setText(str1[0].toString() + "等" + str1.length + "人");
                         String ccUserName = entity.getCCUserName();//抄送人name
@@ -253,16 +255,14 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
     private void initView() {
            ip = SharedPreferencesTool.getMStool(this).getIp();
-           taskStatus = getIntent().getIntExtra("TaskStatus",0);
-           TaskSID = getIntent().getStringExtra("TaskId");
-           Logger.d(TaskSID);
+           ToDoListId = getIntent().getStringExtra("ToDoListId");
           name = getIntent().getStringExtra("name");
           apiCode = getIntent().getStringExtra("ApiCode");
          tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
          Tv_work_title = (TextView) findViewById(R.id.tv_work_title);
          Tv_work_title.setText("任务详情");
          mImage=(ImageView) findViewById(R.id.iv_task_left);
-         mImage.setOnClickListener(this);
+
          mTv_task_detail_content = (TextView) findViewById(R.id.tv_task_detail_content);
          mTv_task_crate_people = (TextView) findViewById(R.id.tv_task_crate_people);
          mTv_task_detail_create_time = (TextView) findViewById(R.id.tv_task_detail_create_time);
@@ -299,6 +299,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     }
 
     private void initListner() {
+        mImage.setOnClickListener(this);
         mBtn_Diss.setOnClickListener(this);
         mBtn_Send.setOnClickListener(this);
         mIv_addMore.setOnClickListener(this);
@@ -335,7 +336,6 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         int id = v.getId();
 
         if (id == R.id.btn_task_detail_send) {
-
             sendMessage();
         } else if (id == R.id.btn_task_detail_diss) {
              if (isCreate){
@@ -370,6 +370,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
              }
 
         }else if(id==R.id.iv_task_left){
+            Logger.d("点击了");
             AppManager.getAppManager().finishActivity();
         }
 
@@ -381,7 +382,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         bean.setApiCode("EditCompletedTask");
         bean.setAppCode("CEOAssist");
         bean.setSystemCurrentUserID(userId);
-        bean.setTaskId(SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).getString("TaskId"));
+        bean.setToDoListId(ToDoListId);
         String json = GsonUtil.getGson().toJson(bean);
         RequestBody  body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
@@ -434,7 +435,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         PostTaskReplyJson.RowsBean.ListBean ListBean = new PostTaskReplyJson.RowsBean.ListBean();
         List<PostTaskReplyJson.RowsBean.ListBean.InsertedBean> listBeans = new ArrayList<>();
         PostTaskReplyJson.RowsBean.ListBean.InsertedBean bean = new PostTaskReplyJson.RowsBean.ListBean.InsertedBean();
-        bean.setCommentSourceID(TaskSID);
+        bean.setCommentSourceID(SharedPreferencesTool.getMStool(this).getString("TaskID"));
         bean.setCommentText(mEdit.getText().toString().trim());
         bean.setCommentUserID(SharedPreferencesTool.getMStool(this).getUserId());
         bean.setCreateUserID(SharedPreferencesTool.getMStool(this).getUserId());
@@ -482,7 +483,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         PostCloseTaskDetailJson jsonBean = new PostCloseTaskDetailJson();
         jsonBean.setApiCode("EditRevokeTask");
         jsonBean.setAppCode(AppCode);
-        jsonBean.setTaskId(SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).getString("TaskId"));
+        jsonBean.setTaskId(SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).getString("TaskID"));
         jsonBean.setCancelRemark(text);
         String json = GsonUtil.getGson().toJson(jsonBean);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
@@ -510,6 +511,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             mBtnDiss.setVisibility(View.VISIBLE);
                             mBtn_Diss.setText("已取消");
                             mBtn_Diss.setClickable(false);
+                            Toasty.INSTANCE.showToast(WorkTaskDetailActivity.this,"取消成功");
                             //发条消息通知外面刷新下界面
                             EventBus.getDefault().postSticky(new DeleteTaskEvent(true,name,apiCode));
                             AppManager.getAppManager().finishActivity();

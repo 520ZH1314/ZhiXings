@@ -8,7 +8,7 @@
     tools:context=".activity.WorkTaskDetailActivity"
     >
 
-<ScrollView
+<com.zhixing.work.ui.NestedListView
     android:scrollbars="none"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -91,7 +91,7 @@
             android:layout_marginTop="24dp"
             android:text="分配任务人:"
             android:textColor="@color/black"
-            android:textSize="@dimen/s14"
+            android:textSize="@dimen/content_txt_"
             app:layout_constraintStart_toStartOf="@+id/tv_task_detail_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_task_detail_content" />
 
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="李三"
-            android:textSize="@dimen/s13"
+            android:textSize="@dimen/content_txt_"
             app:layout_constraintBottom_toBottomOf="@+id/textView6"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="@+id/textView6" />
@@ -115,6 +115,7 @@
             android:background="@drawable/textview_border"
             android:padding="@dimen/x3"
             android:text="已取消任务"
+            android:textSize="@dimen/content_txt_"
             android:textColor="@color/textview_border"
             app:layout_constraintStart_toEndOf="@+id/tv_task_detail_create_time"
             app:layout_constraintTop_toTopOf="@+id/tv_task_crate_people" />
@@ -125,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="时间:11月5日 09:17"
-            android:textSize="@dimen/s14"
+            android:textSize="@dimen/content_txt_"
             app:layout_constraintStart_toStartOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -180,6 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:textSize="@dimen/content_txt_"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="2018年12月12日 18:00 截止"
@@ -239,6 +241,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:textSize="@dimen/content_txt_"
                 android:text="执行人:"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
@@ -251,6 +254,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:textSize="@dimen/content_txt_"
                 android:text="共3人"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView_task18"
@@ -307,6 +311,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:textSize="@dimen/content_txt_"
                 android:text="抄送人:"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView_task_detail5"
@@ -320,6 +325,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:textSize="@dimen/content_txt_"
                 android:text="共3人"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView_task19"
@@ -363,6 +369,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="8dp"
+            android:textSize="@dimen/content_txt_"
             android:text="全部回复"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
@@ -391,7 +398,7 @@
 
     </android.support.constraint.ConstraintLayout>
 
-</ScrollView>
+</com.zhixing.work.ui.NestedListView>
 
 
 
@@ -440,7 +447,7 @@
 
                     android:hint="回复内容"
                     android:padding="@dimen/x5"
-                    android:textSize="@dimen/s13" />
+                    android:textSize="@dimen/content_txt_" />
                 <ImageView
                     android:visibility="visible"
                     android:layout_gravity="center_vertical"

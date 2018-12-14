@@ -6,89 +6,57 @@ public class TaskDetailEntity {
 
 
     /**
-     * TaskId : 51e72d58-4d7f-42a1-bb19-a184f1fd733c
-     * TaskNo : C2018120620181215
-     * TaskMode : 2
-     * Title : null
+     * ToDoListId : 001e3286-507a-49f4-8876-b859a7c3a327
+     * TaskNo : C2018121020181215
+     * Title : 任务交办
+     * Contents : 还是睡觉
+     * Source : 2
      * TaskType : null
-     * TaskDesc : 今天下午准备开会
-     * AcceptanceStandard : null
-     * AttachmentURL : null
-     * TaskFrequency : null
-     * DueDate : 2018-12-06T03:00:00
-     * ReminderDate : null
-     * RepeatCycle : null
-     * RepeatFrequency : null
-     * RepeatValue : null
-     * TaskTime : null
-     * CycleEndDate : null
-     * CreateDate : 2018-12-06T14:12:49
-     * CreateUserId : 31971032-a433-4edc-affc-76d7fb39480e
-     * CurrentStep : 1
-     * Valid : 1
-     * CancelDate : null
-     * CancelRemark : null
-     * TenantId : 00000000-0000-0000-0000-000000000001
-     * IsOrigionTask : null
-     * OrigionTaskId : null
-     * IsReplied : null
-     * CurrentOperateUserId : 31971032-a433-4edc-affc-76d7fb39480
-     * Status : 0
-     * Score : null
-     * Comment : null
-     * EndTime : null
+     * CreateDate : 2018-12-10T16:50:17
+     * CreateUserId : 06E78CC3-13D2-48AD-B65D-2D19B628E05E
+     * ToDoUserId : 000D7EA5-D9C0-4A72-B89C-CBE103258125
+     * DoType : 2
+     * DueDate : 2018-12-10T05:00:00
+     * CompleteDate : null
+     * TaskStatus : 15
+     * IsRead : 0
+     * EvaluateScore : 0
+     * SourceId : fd883234-f8fb-4133-b4de-1eba7945d8b2
      * ToDoUserName :
      * CCUserName :
      * CreateUserName :
      * CCUserId : 22413439-0823-4E11-9B1B-D8BC3F944B45
-     * ToDoUserId : F0E19A82-0091-44A3-97DD-6192F64C5DC1
      * CommentList : {"rows":[{"CommentID":"5318EA7E-9917-4489-B934-607C564392D0","CommentSourceID":"51e72d58-4d7f-42a1-bb19-a184f1fd733c","CommentUserID":"E7936890-6C2A-438A-BDBD-682ED5D7E912","CommentText":"测试","CommentDate":"2018-12-04T14:29:18","ToUserID":"6DA5BB71-2DC8-46DA-98FF-9814069A7C7E","EnclosureUrl":null,"Seq":1,"CreateUserID":"06E78CC3-13D2-48AD-B65D-2D19B628E05E","CreateTime":"2018-12-04T14:34:36","IsEnable":"1","TenantId":"00000000-0000-0000-0000-000000000001","CommentUserName":"许婷","ToUserName":"刘亚平"}],"total":1}
      */
 
-    private String TaskId;
+    private String ToDoListId;
     private String TaskNo;
-    private int TaskMode;
-    private Object Title;
+    private String Title;
+    private String Contents;
+    private int Source;
     private Object TaskType;
-    private String TaskDesc;
-    private Object AcceptanceStandard;
-    private Object AttachmentURL;
-    private Object TaskFrequency;
-    private String DueDate;
-    private Object ReminderDate;
-    private Object RepeatCycle;
-    private Object RepeatFrequency;
-    private Object RepeatValue;
-    private Object TaskTime;
-    private Object CycleEndDate;
     private String CreateDate;
     private String CreateUserId;
-    private int CurrentStep;
-    private String Valid;
-    private Object CancelDate;
-    private Object CancelRemark;
-    private String TenantId;
-    private Object IsOrigionTask;
-    private Object OrigionTaskId;
-    private Object IsReplied;
-    private String CurrentOperateUserId;
-    private int Status;
-    private Object Score;
-    private Object Comment;
-    private Object EndTime;
+    private String ToDoUserId;
+    private int DoType;
+    private String DueDate;
+    private Object CompleteDate;
+    private int TaskStatus;
+    private String IsRead;
+    private int EvaluateScore;
+    private String SourceId;
     private String ToDoUserName;
     private String CCUserName;
     private String CreateUserName;
     private String CCUserId;
-    private String ToDoUserId;
     private CommentListBean CommentList;
 
-    public String getTaskId() {
-        return TaskId;
+    public String getToDoListId() {
+        return ToDoListId;
     }
 
-    public void setTaskId(String TaskId) {
-        this.TaskId = TaskId;
+    public void setToDoListId(String ToDoListId) {
+        this.ToDoListId = ToDoListId;
     }
 
     public String getTaskNo() {
@@ -99,20 +67,28 @@ public class TaskDetailEntity {
         this.TaskNo = TaskNo;
     }
 
-    public int getTaskMode() {
-        return TaskMode;
-    }
-
-    public void setTaskMode(int TaskMode) {
-        this.TaskMode = TaskMode;
-    }
-
-    public Object getTitle() {
+    public String getTitle() {
         return Title;
     }
 
-    public void setTitle(Object Title) {
+    public void setTitle(String Title) {
         this.Title = Title;
+    }
+
+    public String getContents() {
+        return Contents;
+    }
+
+    public void setContents(String Contents) {
+        this.Contents = Contents;
+    }
+
+    public int getSource() {
+        return Source;
+    }
+
+    public void setSource(int Source) {
+        this.Source = Source;
     }
 
     public Object getTaskType() {
@@ -121,94 +97,6 @@ public class TaskDetailEntity {
 
     public void setTaskType(Object TaskType) {
         this.TaskType = TaskType;
-    }
-
-    public String getTaskDesc() {
-        return TaskDesc;
-    }
-
-    public void setTaskDesc(String TaskDesc) {
-        this.TaskDesc = TaskDesc;
-    }
-
-    public Object getAcceptanceStandard() {
-        return AcceptanceStandard;
-    }
-
-    public void setAcceptanceStandard(Object AcceptanceStandard) {
-        this.AcceptanceStandard = AcceptanceStandard;
-    }
-
-    public Object getAttachmentURL() {
-        return AttachmentURL;
-    }
-
-    public void setAttachmentURL(Object AttachmentURL) {
-        this.AttachmentURL = AttachmentURL;
-    }
-
-    public Object getTaskFrequency() {
-        return TaskFrequency;
-    }
-
-    public void setTaskFrequency(Object TaskFrequency) {
-        this.TaskFrequency = TaskFrequency;
-    }
-
-    public String getDueDate() {
-        return DueDate;
-    }
-
-    public void setDueDate(String DueDate) {
-        this.DueDate = DueDate;
-    }
-
-    public Object getReminderDate() {
-        return ReminderDate;
-    }
-
-    public void setReminderDate(Object ReminderDate) {
-        this.ReminderDate = ReminderDate;
-    }
-
-    public Object getRepeatCycle() {
-        return RepeatCycle;
-    }
-
-    public void setRepeatCycle(Object RepeatCycle) {
-        this.RepeatCycle = RepeatCycle;
-    }
-
-    public Object getRepeatFrequency() {
-        return RepeatFrequency;
-    }
-
-    public void setRepeatFrequency(Object RepeatFrequency) {
-        this.RepeatFrequency = RepeatFrequency;
-    }
-
-    public Object getRepeatValue() {
-        return RepeatValue;
-    }
-
-    public void setRepeatValue(Object RepeatValue) {
-        this.RepeatValue = RepeatValue;
-    }
-
-    public Object getTaskTime() {
-        return TaskTime;
-    }
-
-    public void setTaskTime(Object TaskTime) {
-        this.TaskTime = TaskTime;
-    }
-
-    public Object getCycleEndDate() {
-        return CycleEndDate;
-    }
-
-    public void setCycleEndDate(Object CycleEndDate) {
-        this.CycleEndDate = CycleEndDate;
     }
 
     public String getCreateDate() {
@@ -227,108 +115,68 @@ public class TaskDetailEntity {
         this.CreateUserId = CreateUserId;
     }
 
-    public int getCurrentStep() {
-        return CurrentStep;
+    public String getToDoUserId() {
+        return ToDoUserId;
     }
 
-    public void setCurrentStep(int CurrentStep) {
-        this.CurrentStep = CurrentStep;
+    public void setToDoUserId(String ToDoUserId) {
+        this.ToDoUserId = ToDoUserId;
     }
 
-    public String getValid() {
-        return Valid;
+    public int getDoType() {
+        return DoType;
     }
 
-    public void setValid(String Valid) {
-        this.Valid = Valid;
+    public void setDoType(int DoType) {
+        this.DoType = DoType;
     }
 
-    public Object getCancelDate() {
-        return CancelDate;
+    public String getDueDate() {
+        return DueDate;
     }
 
-    public void setCancelDate(Object CancelDate) {
-        this.CancelDate = CancelDate;
+    public void setDueDate(String DueDate) {
+        this.DueDate = DueDate;
     }
 
-    public Object getCancelRemark() {
-        return CancelRemark;
+    public Object getCompleteDate() {
+        return CompleteDate;
     }
 
-    public void setCancelRemark(Object CancelRemark) {
-        this.CancelRemark = CancelRemark;
+    public void setCompleteDate(Object CompleteDate) {
+        this.CompleteDate = CompleteDate;
     }
 
-    public String getTenantId() {
-        return TenantId;
+    public int getTaskStatus() {
+        return TaskStatus;
     }
 
-    public void setTenantId(String TenantId) {
-        this.TenantId = TenantId;
+    public void setTaskStatus(int TaskStatus) {
+        this.TaskStatus = TaskStatus;
     }
 
-    public Object getIsOrigionTask() {
-        return IsOrigionTask;
+    public String getIsRead() {
+        return IsRead;
     }
 
-    public void setIsOrigionTask(Object IsOrigionTask) {
-        this.IsOrigionTask = IsOrigionTask;
+    public void setIsRead(String IsRead) {
+        this.IsRead = IsRead;
     }
 
-    public Object getOrigionTaskId() {
-        return OrigionTaskId;
+    public int getEvaluateScore() {
+        return EvaluateScore;
     }
 
-    public void setOrigionTaskId(Object OrigionTaskId) {
-        this.OrigionTaskId = OrigionTaskId;
+    public void setEvaluateScore(int EvaluateScore) {
+        this.EvaluateScore = EvaluateScore;
     }
 
-    public Object getIsReplied() {
-        return IsReplied;
+    public String getSourceId() {
+        return SourceId;
     }
 
-    public void setIsReplied(Object IsReplied) {
-        this.IsReplied = IsReplied;
-    }
-
-    public String getCurrentOperateUserId() {
-        return CurrentOperateUserId;
-    }
-
-    public void setCurrentOperateUserId(String CurrentOperateUserId) {
-        this.CurrentOperateUserId = CurrentOperateUserId;
-    }
-
-    public int getStatus() {
-        return Status;
-    }
-
-    public void setStatus(int Status) {
-        this.Status = Status;
-    }
-
-    public Object getScore() {
-        return Score;
-    }
-
-    public void setScore(Object Score) {
-        this.Score = Score;
-    }
-
-    public Object getComment() {
-        return Comment;
-    }
-
-    public void setComment(Object Comment) {
-        this.Comment = Comment;
-    }
-
-    public Object getEndTime() {
-        return EndTime;
-    }
-
-    public void setEndTime(Object EndTime) {
-        this.EndTime = EndTime;
+    public void setSourceId(String SourceId) {
+        this.SourceId = SourceId;
     }
 
     public String getToDoUserName() {
@@ -361,14 +209,6 @@ public class TaskDetailEntity {
 
     public void setCCUserId(String CCUserId) {
         this.CCUserId = CCUserId;
-    }
-
-    public String getToDoUserId() {
-        return ToDoUserId;
-    }
-
-    public void setToDoUserId(String ToDoUserId) {
-        this.ToDoUserId = ToDoUserId;
     }
 
     public CommentListBean getCommentList() {

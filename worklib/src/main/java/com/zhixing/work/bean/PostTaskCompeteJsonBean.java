@@ -16,7 +16,7 @@ public class PostTaskCompeteJsonBean implements Parcelable {
     private String AppCode;
     private String ApiCode;
     private String SystemCurrentUserID;
-    private String TaskId;
+    private String ToDoListId ;
 
     public String getAppCode() {
         return AppCode;
@@ -42,12 +42,12 @@ public class PostTaskCompeteJsonBean implements Parcelable {
         this.SystemCurrentUserID = SystemCurrentUserID;
     }
 
-    public String getTaskId() {
-        return TaskId;
+    public String getToDoListId () {
+        return ToDoListId ;
     }
 
-    public void setTaskId(String TaskId) {
-        this.TaskId = TaskId;
+    public void setToDoListId (String ToDoListId ) {
+        this.ToDoListId  = ToDoListId ;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class PostTaskCompeteJsonBean implements Parcelable {
         dest.writeString(this.AppCode);
         dest.writeString(this.ApiCode);
         dest.writeString(this.SystemCurrentUserID);
-        dest.writeString(this.TaskId);
+        dest.writeString(this.ToDoListId );
     }
 
     public PostTaskCompeteJsonBean() {
@@ -70,7 +70,7 @@ public class PostTaskCompeteJsonBean implements Parcelable {
         this.AppCode = in.readString();
         this.ApiCode = in.readString();
         this.SystemCurrentUserID = in.readString();
-        this.TaskId = in.readString();
+        this.ToDoListId  = in.readString();
     }
 
     public static final Creator<PostTaskCompeteJsonBean> CREATOR = new Creator<PostTaskCompeteJsonBean>() {
