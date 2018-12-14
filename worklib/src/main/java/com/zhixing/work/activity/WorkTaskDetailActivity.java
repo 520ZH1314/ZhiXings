@@ -22,6 +22,7 @@ import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
+import com.base.zhixing.www.view.Toasty;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.orhanobut.logger.Logger;
@@ -96,6 +97,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     private String ip;
     private String TaskSID;
     private int taskStatus;
+    private  boolean isCCuser=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,13 +158,16 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
                         if (taskStatus==10) {
                             //已经完成
-                            mCheckBox.setChecked(true);
-                            mCheckBox.setClickable(false);
-                            mTv_task_details_status.setVisibility(View.VISIBLE);
-                            mTv_task_details_status.setText("已完成");
-                            mBtnDiss.setVisibility(View.VISIBLE);
-                            mBtn_Diss.setText("已完成");
-                            mBtn_Diss.setClickable(false);
+                                mCheckBox.setChecked(true);
+                                mCheckBox.setClickable(false);
+                                mTv_task_details_status.setVisibility(View.VISIBLE);
+                                mTv_task_details_status.setText("已完成");
+                                mBtnDiss.setVisibility(View.VISIBLE);
+                                mBtn_Diss.setText("已完成");
+                                mBtn_Diss.setClickable(false);
+
+
+
                         } else if (taskStatus==15) {
                             //取消
                             mCheckBox.setChecked(true);
@@ -173,22 +178,42 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             mBtn_Diss.setText("已取消");
                             mBtn_Diss.setClickable(false);
                         } else {
-                            if (userId.toLowerCase().equals(entity.getCreateUserId())){
-                                isCreate=true;
-                                mCheckBox.setChecked(false);
-                                mCheckBox.setClickable(true);
-                                mTv_task_details_status.setVisibility(View.GONE);
-                                mBtnDiss.setVisibility(View.VISIBLE);
-                                mBtn_Diss.setText("取消任务");
-                                mBtn_Diss.setClickable(true);
-                            }else{
-                                isCreate=false;
+
+                            String ccUserId = entity.getCCUserId();
+                            String[] split = ccUserId.split(",");
+                            List <String> data=new ArrayList<>();
+                            for (int i = 0; i < split.length; i++) {
+                                data.add(split[i]);
+                            }
+
+                            if (data.contains(userId)){
+                                //当前用户是抄送人
+                                isCCuser=true;
                                 mCheckBox.setChecked(false);
                                 mCheckBox.setClickable(true);
                                 mTv_task_details_status.setVisibility(View.GONE);
                                 mBtnDiss.setVisibility(View.VISIBLE);
                                 mBtn_Diss.setText("任务进行时");
+                            }else{
+                                if (userId.toLowerCase().equals(entity.getCreateUserId())){
+                                    isCreate=true;
+                                    mCheckBox.setChecked(false);
+                                    mCheckBox.setClickable(true);
+                                    mTv_task_details_status.setVisibility(View.GONE);
+                                    mBtnDiss.setVisibility(View.VISIBLE);
+                                    mBtn_Diss.setText("取消任务");
+                                    mBtn_Diss.setClickable(true);
+                                }else{
+                                    isCreate=false;
+                                    mCheckBox.setChecked(false);
+                                    mCheckBox.setClickable(true);
+                                    mTv_task_details_status.setVisibility(View.GONE);
+                                    mBtnDiss.setVisibility(View.VISIBLE);
+                                    mBtn_Diss.setText("任务进行时");
+                                }
                             }
+
+
 
                         }
 
@@ -229,18 +254,19 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     private void initView() {
            ip = SharedPreferencesTool.getMStool(this).getIp();
            taskStatus = getIntent().getIntExtra("TaskStatus",0);
-        TaskSID = getIntent().getStringExtra("TaskId");
-        name = getIntent().getStringExtra("name");
-        apiCode = getIntent().getStringExtra("ApiCode");
-        tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
-        Tv_work_title = (TextView) findViewById(R.id.tv_work_title);
-        Tv_work_title.setText("任务详情");
-        mImage=(ImageView) findViewById(R.id.iv_task_left);
-        mImage.setOnClickListener(this);
-        mTv_task_detail_content = (TextView) findViewById(R.id.tv_task_detail_content);
-        mTv_task_crate_people = (TextView) findViewById(R.id.tv_task_crate_people);
-        mTv_task_detail_create_time = (TextView) findViewById(R.id.tv_task_detail_create_time);
-        mTv_task_detail_compete_time = (TextView) findViewById(R.id.tv_task_detail_compete_time);
+           TaskSID = getIntent().getStringExtra("TaskId");
+           Logger.d(TaskSID);
+          name = getIntent().getStringExtra("name");
+          apiCode = getIntent().getStringExtra("ApiCode");
+         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
+         Tv_work_title = (TextView) findViewById(R.id.tv_work_title);
+         Tv_work_title.setText("任务详情");
+         mImage=(ImageView) findViewById(R.id.iv_task_left);
+         mImage.setOnClickListener(this);
+         mTv_task_detail_content = (TextView) findViewById(R.id.tv_task_detail_content);
+         mTv_task_crate_people = (TextView) findViewById(R.id.tv_task_crate_people);
+         mTv_task_detail_create_time = (TextView) findViewById(R.id.tv_task_detail_create_time);
+         mTv_task_detail_compete_time = (TextView) findViewById(R.id.tv_task_detail_compete_time);
         mTv_task_detail_do_people = (TextView) findViewById(R.id.tv_task_detail_do_people);
         mTv_task_detail_do_people_copy = (TextView) findViewById(R.id.tv_task_detail_do_people_copy);
         mTv_task_details_status = (TextView) findViewById(R.id.tv_task_details_status);
@@ -321,6 +347,9 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                      }
                  });
                  closeTaskDialog.show(getSupportFragmentManager(), "CloseTaskDialog");
+
+             }else{
+                 Toasty.INSTANCE.showToast(this,"创建人才能取消");
              }
 
 
@@ -333,9 +362,13 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
              intentCopy.putExtra("WorkDetailType","copyJson");
              startActivity(intentCopy);
         } else if (id==R.id.check_task_detail){
+             if (isCreate||isCCuser){
 
+                 Toasty.INSTANCE.showToast(this,"只有执行人才能完成任务");
+             }else{
+                 CompeteTask();
+             }
 
-              CompeteTask();
         }else if(id==R.id.iv_task_left){
             AppManager.getAppManager().finishActivity();
         }
@@ -401,7 +434,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         PostTaskReplyJson.RowsBean.ListBean ListBean = new PostTaskReplyJson.RowsBean.ListBean();
         List<PostTaskReplyJson.RowsBean.ListBean.InsertedBean> listBeans = new ArrayList<>();
         PostTaskReplyJson.RowsBean.ListBean.InsertedBean bean = new PostTaskReplyJson.RowsBean.ListBean.InsertedBean();
-        bean.setCommentSourceID(TaskId);
+        bean.setCommentSourceID(TaskSID);
         bean.setCommentText(mEdit.getText().toString().trim());
         bean.setCommentUserID(SharedPreferencesTool.getMStool(this).getUserId());
         bean.setCreateUserID(SharedPreferencesTool.getMStool(this).getUserId());

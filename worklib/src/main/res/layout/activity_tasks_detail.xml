@@ -116,7 +116,7 @@
             android:padding="@dimen/x3"
             android:text="已取消任务"
             android:textColor="@color/textview_border"
-            app:layout_constraintStart_toEndOf="@+id/tv_task_crate_people"
+            app:layout_constraintStart_toEndOf="@+id/tv_task_detail_create_time"
             app:layout_constraintTop_toTopOf="@+id/tv_task_crate_people" />
 
         <TextView

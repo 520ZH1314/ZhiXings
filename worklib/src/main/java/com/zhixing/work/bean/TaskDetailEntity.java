@@ -40,6 +40,8 @@ public class TaskDetailEntity {
      * ToDoUserName :
      * CCUserName :
      * CreateUserName :
+     * CCUserId : 22413439-0823-4E11-9B1B-D8BC3F944B45
+     * ToDoUserId : F0E19A82-0091-44A3-97DD-6192F64C5DC1
      * CommentList : {"rows":[{"CommentID":"5318EA7E-9917-4489-B934-607C564392D0","CommentSourceID":"51e72d58-4d7f-42a1-bb19-a184f1fd733c","CommentUserID":"E7936890-6C2A-438A-BDBD-682ED5D7E912","CommentText":"测试","CommentDate":"2018-12-04T14:29:18","ToUserID":"6DA5BB71-2DC8-46DA-98FF-9814069A7C7E","EnclosureUrl":null,"Seq":1,"CreateUserID":"06E78CC3-13D2-48AD-B65D-2D19B628E05E","CreateTime":"2018-12-04T14:34:36","IsEnable":"1","TenantId":"00000000-0000-0000-0000-000000000001","CommentUserName":"许婷","ToUserName":"刘亚平"}],"total":1}
      */
 
@@ -77,6 +79,8 @@ public class TaskDetailEntity {
     private String ToDoUserName;
     private String CCUserName;
     private String CreateUserName;
+    private String CCUserId;
+    private String ToDoUserId;
     private CommentListBean CommentList;
 
     public String getTaskId() {
@@ -349,6 +353,22 @@ public class TaskDetailEntity {
 
     public void setCreateUserName(String CreateUserName) {
         this.CreateUserName = CreateUserName;
+    }
+
+    public String getCCUserId() {
+        return CCUserId;
+    }
+
+    public void setCCUserId(String CCUserId) {
+        this.CCUserId = CCUserId;
+    }
+
+    public String getToDoUserId() {
+        return ToDoUserId;
+    }
+
+    public void setToDoUserId(String ToDoUserId) {
+        this.ToDoUserId = ToDoUserId;
     }
 
     public CommentListBean getCommentList() {

@@ -80,6 +80,7 @@ public class MeetDetailResponseFragment extends BaseFragment {
 
             String[] ts = menuItem.getCommentDate().split("T");
             String time = ts[0] + " " + ts[1];
+            Logger.d(time);
             baseViewHolder.setText(R.id.tv_task_detail_reply_time, TimeUtil.getFormatData(time));//时间
             baseViewHolder.setText(R.id.tv_task_detail_reply_content, menuItem.getCommentText());
         }

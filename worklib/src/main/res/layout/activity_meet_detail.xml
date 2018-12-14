@@ -43,7 +43,7 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <com.zhixing.work.ui.MyNestedScrollView
         android:fillViewport="true"
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -53,7 +53,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="55dp"
-        android:scrollbars="none">
+        >
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -98,6 +98,7 @@
                     app:layout_constraintStart_toStartOf="@+id/textView17_note_taker" />
 
                 <TextView
+                    android:textSize="@dimen/content_txt_"
                     android:id="@+id/textView17_note_taker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -409,11 +410,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view6" />
-            <android.support.v4.view.ViewPager
+            <com.zhixing.work.ui.WrapContentHeightViewPager
                 android:id="@+id/view_pager_meet_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tablayout_meet_detail" />
@@ -422,7 +422,7 @@
         </android.support.constraint.ConstraintLayout>
 
 
-    </ScrollView>
+    </com.zhixing.work.ui.MyNestedScrollView>
 
     <!--底部布局-->
 

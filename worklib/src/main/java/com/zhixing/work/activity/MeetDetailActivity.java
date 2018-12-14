@@ -7,7 +7,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,11 +36,15 @@ import com.zhixing.work.adapt.CreateMeetRecordAdapt;
 import com.zhixing.work.bean.AddMeetRecordEvent;
 import com.zhixing.work.bean.CopyPeopleBean;
 import com.zhixing.work.bean.CreateTaskEntity;
+import com.zhixing.work.bean.MeetCompeteRefrshDataEvent;
 import com.zhixing.work.bean.MeetDeatilResponseEvent;
+import com.zhixing.work.bean.MeetDisRefrshDataEvent;
 import com.zhixing.work.bean.MeetStatusType;
 import com.zhixing.work.bean.PostCompeteMeetJson;
 import com.zhixing.work.bean.PostMeetDetailJson;
 import com.zhixing.work.bean.PostMeetJoinJson;
+import com.zhixing.work.bean.PostNewMeetDetailJson;
+import com.zhixing.work.bean.PostNewMeetJoinJson;
 import com.zhixing.work.bean.PostTaskReplyJson;
 import com.zhixing.work.bean.ResponseMeetDetailEntity;
 import com.zhixing.work.bean.UpdateMeetSureEvent;
@@ -55,7 +59,9 @@ import com.zhixing.work.http.base.ResponseThrowable;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
+import com.zhixing.work.ui.CommonTips;
 import com.zhixing.work.ui.TopMeetStatusTypeDialog;
+import com.zhixing.work.ui.WrapContentHeightViewPager;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -77,7 +83,7 @@ import okhttp3.RequestBody;
 public class MeetDetailActivity extends BaseActvity implements View.OnClickListener, TopMeetStatusTypeDialog.OnDialogInforCompleted {
 
     private TabLayout mTablayout;
-    private ViewPager mViewPage;
+    private WrapContentHeightViewPager mViewPage;
     private TextView mTvContent;
     private TextView mTvOpenTime;
     private Button mButton;
@@ -100,6 +106,7 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
     private Button mSend;
     private Button mBtnJoin;
     private ImageView mIvMore;
+    private  boolean isJoin=false;
 
     @Override
     public int getLayoutId() {
@@ -128,13 +135,13 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
             meetingID = getIntent().getStringExtra("meetingID");
             SharedPreferencesTool.getMStool(this).setString("meetingID", meetingID);
         }
-
+         meetingDataID = getIntent().getStringExtra("meetingDataID");
         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         userId = SharedPreferencesTool.getMStool(this).getUserId();
         ip = SharedPreferencesTool.getMStool(this).getIp();
         mIvMore = (ImageView) findViewById(R.id.iv_meet_detail);
         mTablayout = (TabLayout) findViewById(R.id.tablayout_meet_detail);
-        mViewPage = (ViewPager) findViewById(R.id.view_pager_meet_detail);
+        mViewPage = (WrapContentHeightViewPager) findViewById(R.id.view_pager_meet_detail);
         mTvContent = (TextView) findViewById(R.id.tv_meet_detail_contant);//会议内容
         mTvOpenTime = (TextView) findViewById(R.id.tv_work_meet_detail_open_time);//会议时间
         mTvRemind = (TextView) findViewById(R.id.tv_meet_detail_meet_remind);//会议提醒
@@ -173,12 +180,9 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
 
     //初始化数据
     private void initData() {
-
-        PostMeetDetailJson jsonBean = new PostMeetDetailJson("CEOAssist", "GetMeetingInfo", meetingID, tenantId);
-
+        PostNewMeetDetailJson jsonBean=new PostNewMeetDetailJson("CEOAssist","GetMeetingInfo",meetingID,meetingDataID,tenantId);
         String json = GsonUtil.getGson().toJson(jsonBean);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
-
         setMeetDetailData(body);
 
 
@@ -278,7 +282,21 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
                         } else {
                             mButton.setVisibility(View.GONE);
                         }
-                        if (o.getMeetingStatus() == 1) {
+
+                        //参会权限
+                        List<String> ParticipantIdData=new ArrayList<>();
+                        ParticipantIdData.add(o.getHostID());
+                        ParticipantIdData.add(o.getRecorderID());
+                        String[] split1 = o.getParticipantID().split(",");
+                        for (int i = 0; i < split1.length; i++) {
+                            ParticipantIdData.add(split1[i]);
+                        }
+
+                        if (ParticipantIdData.contains(userId)){
+                            //是参会人
+                            isJoin=true;
+                        }
+                        if (o.getMeetingStatus() == 1&&isJoin) {
                             //可以参加会议
                             mBtnJoin.setClickable(true);
                             mBtnJoin.setText("参加会议");
@@ -388,10 +406,9 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
 
         } else if (id == R.id.iv_meet_detail) {
             //弹窗
-
             List<MeetStatusType> data = new ArrayList<>();
             data.add(new MeetStatusType("取消"));
-            data.add(new MeetStatusType("完成"));
+            data.add(new MeetStatusType("关闭"));
             String json = GsonUtil.getGson().toJson(data);
             TopMeetStatusTypeDialog textMeetStatusTypeDialog = TopMeetStatusTypeDialog.newInstance(json);
             textMeetStatusTypeDialog.show(getSupportFragmentManager(), "");
@@ -427,6 +444,9 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
             @Override
             public void onResult(CreateTaskEntity o) {
                 dismissDialog();
+                EventBus.getDefault().postSticky(new MeetDisRefrshDataEvent(true));
+                //发通知刷新下界面
+                AppManager.getAppManager().finishActivity();
             }
 
             @Override
@@ -464,6 +484,9 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
             @Override
             public void onResult(CreateTaskEntity o) {
                 dismissDialog();
+                //发通知刷新下界面
+                EventBus.getDefault().postSticky(new MeetCompeteRefrshDataEvent(true));
+                AppManager.getAppManager().finishActivity();
             }
 
             @Override
@@ -480,12 +503,12 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
      * 参加会议
      */
     private void JoinMeet() {
+        PostNewMeetJoinJson json =new PostNewMeetJoinJson();
 
-        PostMeetJoinJson json = new PostMeetJoinJson();
         json.setAppCode("CEOAssist");
         json.setApiCode("EditConfirmMeeting");
-        json.setMeetingID(meetingID);
-        json.setSystemCurrentUserID(userId);
+         json.setMeetingDataID(meetingDataID);
+         json.setSystemCurrentUserID(userId);
 
         String json1 = GsonUtil.getGson().toJson(json);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json1);
@@ -502,7 +525,9 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
                 }).subscribe(new MyBaseSubscriber<CreateTaskEntity>(this) {
             @Override
             public void onResult(CreateTaskEntity o) {
-                dismissDialog();
+                 dismissDialog();
+                mBtnJoin.setText("已参加");
+                mBtnJoin.setClickable(false);
                 EventBus.getDefault().post(new UpdateMeetSureEvent(true));
             }
 
@@ -520,13 +545,42 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
     @Override
     public void dialogInforCompleted(String name) {
         if ("取消".equals(name)) {
-            DissMeeting();
-            //发通知刷新下界面
-            AppManager.getAppManager().finishActivity();
+            CommonTips tips = new CommonTips(this,getHandler());
+            tips.init("取消","确定","是否取消会议");
+            tips.setI(new CommonTips.Tips() {
+                @Override
+                public void cancel() {
+
+                }
+
+                @Override
+                public void sure() {
+                    DissMeeting();
+
+                }
+            });
+            tips.showSheet();
+
+
+
+
         } else {
-            CompeteMeeting();
-            //发通知刷新下界面
-            AppManager.getAppManager().finishActivity();
+            CommonTips tips = new CommonTips(this,getHandler());
+            tips.init("取消","确定","是否关闭会议");
+            tips.setI(new CommonTips.Tips() {
+                @Override
+                public void cancel() {
+
+                }
+
+                @Override
+                public void sure() {
+                    CompeteMeeting();
+
+                }
+            });
+            tips.showSheet();
+
         }
 
     }

@@ -29,7 +29,7 @@
             android:hint="请输入任务内容"
             android:paddingLeft="@dimen/ball_radius_sidebar"
             android:paddingTop="@dimen/x10"
-            android:textSize="@dimen/s15" />
+            android:textSize="@dimen/content_txt_" />
 
     </LinearLayout>
 
@@ -64,7 +64,7 @@
             android:layout_toRightOf="@+id/iv_meettinger"
             android:text="执行人"
             android:textColor="@color/black"
-            android:textSize="@dimen/s14" />
+            android:textSize="@dimen/content_txt_" />
 
         <TextView
             android:id="@+id/tv_create_task_send"
@@ -78,7 +78,7 @@
             android:layout_toLeftOf="@+id/iv_meet1"
             android:text="请选择"
             android:textColor="@color/black"
-            android:textSize="@dimen/s14" />
+            android:textSize="@dimen/content_txt_" />
 
         <ImageView
             android:id="@+id/iv_meet1"
@@ -123,7 +123,7 @@
             android:layout_toRightOf="@+id/iv_meettinger13"
             android:text="抄送人"
             android:textColor="@color/black"
-            android:textSize="@dimen/s14" />
+            android:textSize="@dimen/content_txt_" />
 
         <TextView
             android:id="@+id/tv_create_task_send_copy"
@@ -136,7 +136,7 @@
             android:layout_toLeftOf="@+id/iv_meet2"
             android:text="请选择"
             android:textColor="@color/black"
-            android:textSize="@dimen/s14" />
+            android:textSize="@dimen/content_txt_" />
 
         <ImageView
             android:id="@+id/iv_meet2"
@@ -152,7 +152,7 @@
         android:layout_marginTop="@dimen/x10"
         android:layout_marginBottom="@dimen/x10"
         android:layout_gravity="center"
-        android:textSize="@dimen/s14"
+        android:textSize="@dimen/content_txt_"
         android:text="抄送人可以时刻监督任务进度，但无需完成任务"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -184,7 +184,7 @@
             android:layout_toRightOf="@+id/iv_meettinger15"
             android:text="开始时间"
             android:textColor="@color/black"
-            android:textSize="@dimen/s14" />
+            android:textSize="@dimen/content_txt_" />
 
         <TextView
             android:id="@+id/tv_create_task_start_time"
@@ -197,7 +197,7 @@
             android:layout_toLeftOf="@+id/iv_meet3"
             android:text="请选择"
             android:textColor="@color/black"
-            android:textSize="@dimen/s14" />
+            android:textSize="@dimen/content_txt_" />
 
         <ImageView
             android:id="@+id/iv_meet3"
@@ -244,7 +244,7 @@
             android:layout_toRightOf="@+id/iv_meettinger16"
             android:text="完成时间"
             android:textColor="@color/black"
-            android:textSize="@dimen/s14" />
+            android:textSize="@dimen/content_txt_" />
 
         <TextView
             android:id="@+id/tv_create_task_end_time"
@@ -257,7 +257,7 @@
             android:layout_toLeftOf="@+id/iv_meet4"
             android:text="请选择"
             android:textColor="@color/black"
-            android:textSize="@dimen/s14" />
+            android:textSize="@dimen/content_txt_" />
 
         <ImageView
             android:id="@+id/iv_meet4"

@@ -18,6 +18,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.orhanobut.logger.Logger;
 import com.zhixing.work.R;
+import com.zhixing.work.bean.MeetCompeteRefrshDataEvent;
+import com.zhixing.work.bean.MeetDisRefrshDataEvent;
 import com.zhixing.work.bean.MeetStatusType;
 import com.zhixing.work.bean.PostTaskListJsonBean;
 import com.zhixing.work.bean.ResponseMeetingEntity;
@@ -26,6 +28,10 @@ import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
 import com.zhixing.work.ui.MeetStatusTypeDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +84,7 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
 
     @Override
     public void initLayout() {
-
+         EventBus.getDefault().register(this);
         ip = SharedPreferencesTool.getMStool(this).getIp();
         userId = SharedPreferencesTool.getMStool(this).getUserId();
         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
@@ -96,6 +102,8 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
         mTvSend.setVisibility(View.GONE);
         mRelativeLayout.setOnClickListener(this);
         mTvMeetStatusType.setText("我的发起");
+
+
         initData();
     }
 
@@ -117,7 +125,11 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
 
     }
 
-
+   /**
+    *
+    *@author zjq
+    *create at 2018/12/14 上午9:51 设置会议列表数据
+    */
     private void setMeetListData(RequestBody body) {
         RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .getMeetingList(body)
@@ -142,6 +154,7 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
                                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                      Intent intent =new  Intent(MeetListActivity.this,MeetDetailActivity.class);
                                      intent.putExtra("meetingID",rows.get(position).getMeetingID());
+                                    intent.putExtra("meetingDataID",rows.get(position).getMeetingDataID());
 
 
                                     startActivity(intent);
@@ -154,6 +167,7 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
                                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                     Intent intent =new  Intent(MeetListActivity.this,MeetDetailActivity.class);
                                     intent.putExtra("meetingID",rows.get(position).getMeetingID());
+                                    intent.putExtra("meetingDataID",rows.get(position).getMeetingDataID());
 
                                     startActivity(intent);
                                 }
@@ -194,10 +208,41 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
     }
 
 
+    //event事件
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky =true)
+    public void disRefrsh(MeetDisRefrshDataEvent event){
+        if (event.isRefrsh()){
+
+            String name = mTvMeetStatusType.getText().toString();
+
+            getMeetListData(name);
+
+
+        }
+
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky =true)
+    public void competeRefrsh(MeetCompeteRefrshDataEvent event){
+        String name = mTvMeetStatusType.getText().toString();
+
+        getMeetListData(name);
+
+    }
+
+
+
+
     //弹窗返回数据
     @Override
     public void dialogInforCompleted(String name) {
         mTvMeetStatusType.setText(name);
+        getMeetListData(name);
+
+    }
+
+    private void getMeetListData(String name) {
         switch (name) {
             case "我的发起":
                 ApiCode = "GetLaunchMeeting";
@@ -224,7 +269,6 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
                 initData();
                 break;
         }
-
     }
 
 
@@ -291,5 +335,11 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
 
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+    }
 }

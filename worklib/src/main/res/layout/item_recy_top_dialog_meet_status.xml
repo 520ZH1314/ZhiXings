@@ -4,14 +4,14 @@
     android:orientation="vertical"
     android:layout_height="wrap_content">
      <TextView
-         android:layout_marginTop="@dimen/x10"
+         android:layout_marginTop="@dimen/x16"
          android:id="@+id/tv_item_recy_dialog_top_meet_status"
          android:layout_gravity="center_horizontal"
-         android:textSize="@dimen/s13"
+         android:textSize="@dimen/s14"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content" />
      <View
-         android:layout_marginTop="@dimen/x10"
+         android:layout_marginTop="@dimen/x16"
          android:background="@color/divider"
          android:layout_width="match_parent"
          android:layout_height="0.1dp"/>

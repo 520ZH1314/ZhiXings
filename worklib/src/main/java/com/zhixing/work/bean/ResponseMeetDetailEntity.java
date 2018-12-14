@@ -3,8 +3,6 @@ package com.zhixing.work.bean;
 import java.util.List;
 
 public class ResponseMeetDetailEntity {
-
-
     /**
      * MeetingID : 3a7da71e-c12a-4c01-a945-5c78c3f7decb
      * MeetingTitle : null
@@ -22,6 +20,9 @@ public class ResponseMeetDetailEntity {
      * HostName : 毕丽芷
      * ParticipantName : 陈凤岭,布建利,毕丽芷
      * RecorderName : 党红星
+     * HostID : F4D8CD26-2617-4579-A1EA-6ABC31C8D85E
+     * ParticipantID : 4D2D5DF9-2929-45AC-9FC4-6F1D7F26A645
+     * RecorderID : F4D8CD26-2617-4579-A1EA-6ABC31C8D85E
      * CommentList : {"rows":[{"CommentID":"5318EA7E-9917-4489-B934-607C564392D0","CommentSourceID":"3a7da71e-c12a-4c01-a945-5c78c3f7decb","CommentUserID":"E7936890-6C2A-438A-BDBD-682ED5D7E912","CommentText":"测试","CommentDate":"2018-12-04T14:29:18","ToUserID":"6DA5BB71-2DC8-46DA-98FF-9814069A7C7E","EnclosureUrl":null,"Seq":1,"CreateUserID":"06E78CC3-13D2-48AD-B65D-2D19B628E05E","CreateTime":"2018-12-04T14:34:36","IsEnable":"1","TenantId":"00000000-0000-0000-0000-000000000001","CommentUserName":"许婷","ToUserName":"刘亚平"}],"total":1}
      * MeetingDetailsList : {"rows":[{"MeetingDetailsID":"5bb1df42-4771-4c82-9c38-a557525881a0","MeetingID":"3a7da71e-c12a-4c01-a945-5c78c3f7decb","MeetingDes":"会议纪要2","RecorderID":"06E78CC3-13D2-48AD-B65D-2D19B628E05E","CreateUserID":"06E78CC3-13D2-48AD-B65D-2D19B628E05E","CreateTime":"2018-12-10T16:31:18","UpdateUserID":"06E78CC3-13D2-48AD-B65D-2D19B628E05E","UpdateTime":"2018-12-10T16:31:18","TenantId":"00000000-0000-0000-0000-000000000001","RecorderName":"张三"}],"total":1}
      */
@@ -42,6 +43,9 @@ public class ResponseMeetDetailEntity {
     private String HostName;
     private String ParticipantName;
     private String RecorderName;
+    private String HostID;
+    private String ParticipantID;
+    private String RecorderID;
     private CommentListBean CommentList;
     private MeetingDetailsListBean MeetingDetailsList;
 
@@ -171,6 +175,30 @@ public class ResponseMeetDetailEntity {
 
     public void setRecorderName(String RecorderName) {
         this.RecorderName = RecorderName;
+    }
+
+    public String getHostID() {
+        return HostID;
+    }
+
+    public void setHostID(String HostID) {
+        this.HostID = HostID;
+    }
+
+    public String getParticipantID() {
+        return ParticipantID;
+    }
+
+    public void setParticipantID(String ParticipantID) {
+        this.ParticipantID = ParticipantID;
+    }
+
+    public String getRecorderID() {
+        return RecorderID;
+    }
+
+    public void setRecorderID(String RecorderID) {
+        this.RecorderID = RecorderID;
     }
 
     public CommentListBean getCommentList() {
