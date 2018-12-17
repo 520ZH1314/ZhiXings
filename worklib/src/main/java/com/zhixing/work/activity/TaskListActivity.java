@@ -171,7 +171,7 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
                                  public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                      String taskId = rows.get(position).getSourceId();
                                      Intent intent =new Intent(TaskListActivity.this,WorkTaskDetailActivity.class);
-                                     intent.putExtra("TaskId",taskId);
+                                     intent.putExtra("ToDoListId", rows.get(position).getToDoListId());
                                      intent.putExtra("name",mTvTaskStatusType.getText());
                                      intent.putExtra("ApiCode",ApiCode);
                                      intent.putExtra("CreateTaskName",rows.get(position).getCreateUserName());
