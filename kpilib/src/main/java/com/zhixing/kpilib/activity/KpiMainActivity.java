@@ -69,14 +69,13 @@ public class KpiMainActivity extends BaseActvity   {
     private ACache mCache;
     private TextView textViewClose;
     private String tenantId;
+    private String ip;
 
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_main_kpi1;
     }
-
-
        //初始化网络数据
      private void initData() {
          LeftMenuBean leftMenuBean =new LeftMenuBean();
@@ -86,7 +85,7 @@ public class KpiMainActivity extends BaseActvity   {
          String json = com.base.zhixing.www.util.GsonUtil.getGson().toJson(leftMenuBean);
          RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
-         RetrofitClients.getInstance(this).create(KpiServer.class)
+         RetrofitClients.getInstance(this,ip).create(KpiServer.class)
                 .getMenuData(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())// 网络错误的异常转换
@@ -134,7 +133,7 @@ public class KpiMainActivity extends BaseActvity   {
          String json = com.base.zhixing.www.util.GsonUtil.getGson().toJson(postKpiBean);
          RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
-         RetrofitClients.getInstance(this).create(KpiServer.class)
+         RetrofitClients.getInstance(this,ip).create(KpiServer.class)
                 .getKpiData(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
@@ -174,7 +173,7 @@ public class KpiMainActivity extends BaseActvity   {
         String json = com.base.zhixing.www.util.GsonUtil.getGson().toJson(postKpiBean);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
-        RetrofitClients.getInstance(this).create(KpiServer.class)
+        RetrofitClients.getInstance(this,ip).create(KpiServer.class)
                 .getKpiData(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
@@ -214,7 +213,7 @@ public class KpiMainActivity extends BaseActvity   {
     private void initView() {
         radButton_Brokenline = (RadioButton) findViewById(R.id.radButton_Brokenline);
         radButton_Columnar = (RadioButton) findViewById(R.id.radButton_Columnar);
-
+        ip=SharedPreferencesTool.getMStool(this).getIp();
 
         radButton_Brokenline.setOnClickListener(c);
         radButton_Columnar.setOnClickListener(c);
