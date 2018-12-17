@@ -15,7 +15,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [moduleName: project.getName()]
             }
         }
     }
@@ -62,8 +62,6 @@ dependencies {
     implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
     implementation "com.alibaba:arouter-api:$arouter_api"
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
-
-
 
 
 }

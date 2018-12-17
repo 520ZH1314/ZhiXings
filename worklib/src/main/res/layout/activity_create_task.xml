@@ -11,6 +11,10 @@
         android:id="@+id/include"
         layout="@layout/titles_layout"
         app:layout_constraintEnd_toEndOf="parent" />
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 
     <LinearLayout
 
@@ -268,4 +272,5 @@
             android:layout_marginRight="@dimen/x24"
             android:src="@mipmap/jiantou" />
     </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
 </LinearLayout>

@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.zhixing.work.R;
+import com.zhixing.work.activity.CreateCalendarActivity;
 import com.zhixing.work.activity.CreateMeettingActivity;
 import com.zhixing.work.activity.CreateTaskActivity;
 
@@ -30,6 +31,7 @@ public class AddWorkDialog extends DialogFragment implements View.OnClickListene
 
     private RadioButton mRadioAddMeet;
     private RadioButton mRadioAddTask;
+    private RadioButton mRadioAddDate;
 
     @Nullable
     @Override
@@ -50,6 +52,10 @@ public class AddWorkDialog extends DialogFragment implements View.OnClickListene
          mRadioAddMeet.setOnClickListener(this);
         mRadioAddTask= view.findViewById(R.id.rad_work_add_task);
         mRadioAddTask.setOnClickListener(this);
+        mRadioAddDate= view.findViewById(R.id.rb_add_date);
+        mRadioAddDate.setOnClickListener(this);
+
+
         builder.setView(view);
         return builder.create();
 
@@ -82,6 +88,11 @@ public class AddWorkDialog extends DialogFragment implements View.OnClickListene
             Intent intent = new Intent(this.getContext(), CreateTaskActivity.class);
             startActivity(intent);
              dismiss();
+        }else{
+
+            Intent intent = new Intent(this.getContext(), CreateCalendarActivity.class);
+            startActivity(intent);
+            dismiss();
         }
     }
 }

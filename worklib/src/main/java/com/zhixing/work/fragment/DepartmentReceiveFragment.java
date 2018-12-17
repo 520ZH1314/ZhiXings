@@ -13,7 +13,7 @@ import com.zhixing.work.R;
 
 
 /**
- *部门收到
+ *部门收到  (现在改为我收到的)
  *@author zjq
  *create at 2018/11/28 下午3:01
  */

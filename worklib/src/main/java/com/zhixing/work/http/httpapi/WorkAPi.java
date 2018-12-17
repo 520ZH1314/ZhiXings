@@ -113,6 +113,10 @@ public interface WorkAPi {
     @POST("api/CMP/ApiRegistrator/PostApiGateWay")
     Observable<CreateTaskEntity>CompeteMeet(@Body RequestBody body);
 
+    //创建日程
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Observable<CreateTaskEntity>CreateDate(@Body RequestBody body);
 
 
 }

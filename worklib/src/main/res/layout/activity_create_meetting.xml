@@ -11,7 +11,7 @@
         android:id="@+id/include"
         layout="@layout/titles_layout"
         app:layout_constraintEnd_toEndOf="parent" />
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -412,7 +412,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
 
 
