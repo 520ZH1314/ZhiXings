@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:shape="rectangle"
+    tools:ignore="MissingDefaultResource">
+
+    <gradient
+        android:angle="180"
+        android:endColor="@color/title_bg"
+        android:startColor="@color/title_bg" />
+
+    <stroke
+        android:width="0.2dp"
+        android:color="@color/title_bg" />
+
+    <solid android:color="@color/title_bg" />
+
+    <corners
+        android:bottomLeftRadius="@dimen/x6"
+        android:bottomRightRadius="@dimen/x6"
+        android:topLeftRadius="@dimen/x6"
+        android:topRightRadius="@dimen/x6" />
+
+</shape>

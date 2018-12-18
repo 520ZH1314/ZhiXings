@@ -49,7 +49,7 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
     private boolean isEdit = false;
     private RelativeLayout rlConstantSend;
     private TextView mTvIsTrue;
-    private Button mBtnConstantSend;
+    private TextView mBtnConstantSend;
     private Boolean isSingle;
     private String type;
 
@@ -101,7 +101,7 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
         strip = findViewById(R.id.strip);
         rlConstantSend = (RelativeLayout) findViewById(R.id.rl_constant_send);//编辑显示发送布局
         mTvIsTrue = (TextView) findViewById(R.id.tv_constant_istrue);//已选中
-        mBtnConstantSend = (Button) findViewById(R.id.btn_constant_send);
+        mBtnConstantSend =  findViewById(R.id.btn_constant_send);
         mBtnConstantSend.setOnClickListener(this);
         scroollable = findViewById(R.id.scroollable);
         data_pager = findViewById(R.id.data_pager);
@@ -126,6 +126,7 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
                 }
             }
         });
+
     }
 
     @Override
@@ -200,6 +201,16 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
         });
         if (isEdit) {
             edit.setVisibility(View.VISIBLE);
+            //mod by zc
+
+                //如果是编辑模式就默认打开
+               edit.post(new Runnable() {
+                   @Override
+                   public void run() {
+                       edit.performClick();
+                   }
+               });
+
         } else {
             edit.setVisibility(View.GONE);
         }

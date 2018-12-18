@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/title_bg"
@@ -42,11 +40,18 @@
             android:textColor="@color/white"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+
     <com.base.zhixing.www.widget.scrollablelayoutlib.ScrollableLayout
         android:id="@+id/scroollable"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -64,34 +69,40 @@
             <com.base.zhixing.www.widget.BannerPager
                 android:id="@+id/data_pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+               />
 
     </com.base.zhixing.www.widget.scrollablelayoutlib.ScrollableLayout>
-</LinearLayout>
-
-
+    </LinearLayout>
     <RelativeLayout
         android:visibility="gone"
         android:id="@+id/rl_constant_send"
-        android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:layout_width="match_parent"
+        android:paddingLeft="@dimen/x25"
+        android:paddingRight="@dimen/x25"
         android:layout_height="@dimen/x50">
-       <TextView
-           android:id="@+id/tv_constant_istrue"
-           android:layout_marginLeft="@dimen/x24"
-           android:layout_centerVertical="true"
-          android:layout_alignParentLeft="true"
-           android:text="已选0个"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/btn_constant_send"
-            android:layout_marginRight="@dimen/x24"
+        <TextView
+            android:id="@+id/tv_constant_istrue"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:text="确定"
+            android:layout_alignParentLeft="true"
+            android:text="已选0个"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/btn_constant_send"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/x40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/x10"
+            android:layout_marginTop="@dimen/x10"
+            android:background="@drawable/shape_sure_bg"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/content_txt_" />
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>
