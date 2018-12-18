@@ -14,8 +14,11 @@ import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.base.zhixing.www.util.TimeUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.luliang.shapeutils.DevShapeUtils;
+import com.luliang.shapeutils.shape.DevShape;
 import com.orhanobut.logger.Logger;
 import com.zhixing.work.R;
 import com.zhixing.work.bean.MeetCompeteRefrshDataEvent;
@@ -288,14 +291,48 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
             String startDate[] = menuItem.getStartDate().split("T");
             String time1=startDate[0];
             String time3=startDate[1];
-            String endDate[]=menuItem.getEndDate().split("T");
-            String time2=endDate[1];
-            String time=time1+" "+time3+"-"+time2;
+            String time=time1+" "+time3;
+
             //
 
-
             baseViewHolder.setText(R.id.tv_item_meet_message_count_down,getMeetStatus(menuItem.getMeetingStatus()));//会议状态
-            baseViewHolder.setText(R.id.tv_item_meet_message_open_time, time);//会议开始时间
+            TextView  tvStatus= baseViewHolder.itemView.findViewById(R.id.tv_item_meet_message_count_down);
+
+            if (menuItem.getMeetingStatus()==1){
+                //进行
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .line(1, R.color.title_bg)
+                        .radius(10)
+                        .into(tvStatus);
+                tvStatus.setTextColor(getResources().getColor(R.color.title_bg));
+            }else if (menuItem.getMeetingStatus()==2){
+                //确认
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .line(1, R.color.green)
+                        .radius(10)
+                        .into(tvStatus);
+                tvStatus.setTextColor(getResources().getColor(R.color.green));
+            }else if (menuItem.getMeetingStatus()==3){
+                //完成
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .line(1, R.color.red)
+                        .radius(10)
+                        .into(tvStatus);
+                tvStatus.setTextColor(getResources().getColor(R.color.red));
+            }else{
+                //取消
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .line(1, R.color.gray)
+                        .radius(10)
+                        .into(tvStatus);
+                tvStatus.setTextColor(getResources().getColor(R.color.gray));
+
+            }
+            baseViewHolder.setText(R.id.tv_item_meet_message_open_time, TimeUtil.getFormatData(time));//会议开始时间
             baseViewHolder.setText(R.id.tv_item_meet_message_address, menuItem.getMeetingPlace());//会议地址
             baseViewHolder.setText(R.id.tv_item_meet_message_originator, menuItem.getCreateUserName());//会议创建人
             baseViewHolder.setText(R.id.tv_item_meet_message_dynamic, menuItem.getCount()+"");//会议动态

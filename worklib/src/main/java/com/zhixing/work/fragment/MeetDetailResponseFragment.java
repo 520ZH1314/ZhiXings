@@ -55,7 +55,7 @@ public class MeetDetailResponseFragment extends BaseFragment {
         mRecyleView = view.findViewById(R.id.recy_meet_response);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyleView.setLayoutManager(layoutManager);
-        meetDetailResponseListAdapter = new MeetDetailResponseListAdapter(R.layout.item_task_detail_recyle, ListBeans);
+        meetDetailResponseListAdapter = new MeetDetailResponseListAdapter(R.layout.item_task_detail_recyles, ListBeans);
         mRecyleView.setAdapter(meetDetailResponseListAdapter);
         return view;
     }
@@ -107,7 +107,7 @@ public class MeetDetailResponseFragment extends BaseFragment {
                 meetDetailResponseListAdapter.replaceData(ListBeans);
 
             } else {
-                MeetDetailResponseListAdapter meetDetailResponseListAdapter = new MeetDetailResponseListAdapter(R.layout.item_task_detail_recyle, ListBeans);
+                MeetDetailResponseListAdapter meetDetailResponseListAdapter = new MeetDetailResponseListAdapter(R.layout.item_task_detail_recyles, ListBeans);
                 mRecyleView.setAdapter(meetDetailResponseListAdapter);
 
             }

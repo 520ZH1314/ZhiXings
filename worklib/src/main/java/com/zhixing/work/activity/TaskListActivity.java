@@ -15,6 +15,8 @@ import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.luliang.shapeutils.DevShapeUtils;
+import com.luliang.shapeutils.shape.DevShape;
 import com.orhanobut.logger.Logger;
 import com.zhixing.work.R;
 import com.zhixing.work.bean.CompeteTaskEvent;
@@ -265,6 +267,29 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
             baseViewHolder.setText(R.id.tv_item_task_message_open_time, time2);//任务开始时间
             baseViewHolder.setText(R.id.tv_item_task_message_originator, menuItem.getCreateUserName());//任务责任人
             baseViewHolder.setText(R.id.tv_item_task_message_status, menuItem.getTaskStatusName());//任务状态
+            TextView  tvStatus= baseViewHolder.itemView.findViewById(R.id.tv_item_task_message_status);
+            if (menuItem.getTaskStatus()==0){
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .line(1, R.color.title_bg)
+                        .radius(10)
+                        .into(tvStatus);
+                tvStatus.setTextColor(getResources().getColor(R.color.title_bg));
+            }else if (menuItem.getTaskStatus()==10){
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .line(1, R.color.red)
+                        .radius(10)
+                        .into(tvStatus);
+                tvStatus.setTextColor(getResources().getColor(R.color.red));
+            }else if (menuItem.getTaskStatus()==15){
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .line(1, R.color.gray)
+                        .radius(10)
+                        .into(tvStatus);
+                tvStatus.setTextColor(getResources().getColor(R.color.gray));
+            }
             baseViewHolder.setText(R.id.tv_item_task_message_dynamic,menuItem.getCount()+"");//任务动态
 
 

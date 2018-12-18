@@ -26,6 +26,8 @@ import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.luliang.shapeutils.DevShapeUtils;
+import com.luliang.shapeutils.shape.DevShape;
 import com.orhanobut.logger.Logger;
 import com.zhixing.work.R;
 import com.zhixing.work.bean.CompeteTaskEvent;
@@ -200,7 +202,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                                 mBtnDiss.setVisibility(View.VISIBLE);
                                 mBtn_Diss.setText("任务进行时");
                             }else{
-                                if (userId.toLowerCase().equals(entity.getCreateUserId())){
+                                if (userId.equals(entity.getCreateUserId())){
                                     isCreate=true;
                                     mCheckBox.setChecked(false);
                                     mCheckBox.setClickable(true);
@@ -224,7 +226,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
                         mTv_task_detail_content.setText("内容:"+" "+entity.getContents());//任务描述
                         String[] createtime = entity.getCreateDate().split("T");
-                        mTv_task_detail_create_time.setText(createtime[0].toString() + " " + createtime[1].toString()); //创建时间
+                        mTv_task_detail_create_time.setText("时间"+createtime[0].toString() + " " + createtime[1].toString()); //创建时间
                         String[] compete_time = entity.getDueDate().split("T");
                         mTv_task_detail_compete_time.setText(compete_time[0].toString() + " " + compete_time[1].toString()); //截止时间
                         mTv_task_crate_people.setText(entity.getCreateUserName());
@@ -246,7 +248,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).setString("createId", entity.getCreateUserId());
                         TaskDetailEntity.CommentListBean commentList = entity.getCommentList();//回复消息列表
                         List<TaskDetailEntity.CommentListBean.RowsBean> rows = commentList.getRows();
-                        TaskDetailListAdapter adapter = new TaskDetailListAdapter(R.layout.item_task_detail_recyle, rows);
+                        TaskDetailListAdapter adapter = new TaskDetailListAdapter(R.layout.item_task_detail_recyles, rows);
                         mRecyleView.setAdapter(adapter);
                     }
                 });
@@ -279,12 +281,22 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
         //发送btn
         mBtn_Send = (Button) findViewById(R.id.btn_task_detail_send);
+        DevShapeUtils
+                .shape(DevShape.RECTANGLE)
+                .solid(R.color.title_bg)
+                .radius(3)
+                .into(mBtn_Send);
         //iv
         mIv_addMore = (ImageView) findViewById(R.id.iv_meet_detail_add_message);
 
         //btn 取消
         mBtn_Diss = (Button) findViewById(R.id.btn_task_detail_diss);
 
+        DevShapeUtils
+                .shape(DevShape.RECTANGLE)
+                .solid(R.color.title_bg)
+                .radius(3)
+                .into(mBtn_Diss);
         //输入回复
         mEdit = (EditText) findViewById(R.id.ed_task_detail);
 
@@ -364,7 +376,6 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
              startActivity(intentCopy);
         } else if (id==R.id.check_task_detail){
              if (isCreate||isCCuser){
-
                  Toasty.INSTANCE.showToast(this,"只有执行人才能完成任务");
              }else{
                  CompeteTask();

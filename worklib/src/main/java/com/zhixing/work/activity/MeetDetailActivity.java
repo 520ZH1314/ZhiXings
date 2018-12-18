@@ -31,6 +31,8 @@ import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.luliang.shapeutils.DevShapeUtils;
+import com.luliang.shapeutils.shape.DevShape;
 import com.orhanobut.logger.Logger;
 import com.zhixing.work.R;
 import com.zhixing.work.adapt.CreateMeetRecordAdapt;
@@ -151,6 +153,11 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
         mTvHostNames = (TextView) findViewById(R.id.tv_meet_detail_host);//主持人名字
         mTvRecorder = (TextView) findViewById(R.id.tv_meet_detail_note_taker);//记录人名字
         mButton = (Button) findViewById(R.id.button);//添加会议纪要,记录人才可以点击//默认不显示
+        DevShapeUtils
+                .shape(DevShape.RECTANGLE)
+                .solid(R.color.actionbar_color)
+                .radius(3)
+                .into(mButton);
         mCon1 = (ConstraintLayout) findViewById(R.id.constraintLayout);//参会人layout
         mCon2 = (ConstraintLayout) findViewById(R.id.constraintLayout2);//主持人人layout
         mCon3 = (ConstraintLayout) findViewById(R.id.constraintLayout3);//记录人layout
@@ -158,7 +165,17 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
         mEdit = (EditText) findViewById(R.id.ed_meet_detail_respon);//回复
         mAdd = (ImageView) findViewById(R.id.iv_meet_detail_add_message);
         mSend = (Button) findViewById(R.id.btn_meet_detail_send);
+        DevShapeUtils
+                .shape(DevShape.RECTANGLE)
+                .solid(R.color.actionbar_color)
+                .radius(3)
+                .into(mSend);
         mBtnJoin = (Button) findViewById(R.id.btn_work_meet_detail);//参加会议
+        DevShapeUtils
+                .shape(DevShape.RECTANGLE)
+                .solid(R.color.red)
+                .radius(3)
+                .into(mBtnJoin);
         EventBus.getDefault().register(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyRecordList.setLayoutManager(layoutManager);

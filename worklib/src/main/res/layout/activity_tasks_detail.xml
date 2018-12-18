@@ -75,13 +75,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:maxEms="13"
+            android:maxEms="18"
             android:maxLines="5"
             android:text="今天下午在胎位参加8点的,会议主要内容是关于,请大家代号自闭内容懂不"
             android:textColor="@color/black"
-            android:textSize="@dimen/s13"
+            android:textSize="@dimen/s14"
             app:layout_constraintStart_toEndOf="@+id/check_task_detail"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/textView6"
@@ -158,12 +158,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/task_date"
+                android:src="@drawable/work_date"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:textSize="@dimen/content_txt_"
+                android:textColor="@color/black"
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -228,7 +230,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/add_user"
+                android:src="@drawable/task_people"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -241,6 +243,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:textSize="@dimen/content_txt_"
+                android:textColor="@color/black"
                 android:text="执行人:"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
@@ -298,7 +301,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/add_user"
+                android:src="@drawable/nagivation"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -311,6 +314,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:textSize="@dimen/content_txt_"
+                android:textColor="@color/black"
                 android:text="抄送人:"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView_task_detail5"
@@ -366,10 +370,11 @@
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:textSize="@dimen/content_txt_"
             android:text="全部回复"
+            android:textColor="@color/black"
+            android:textSize="@dimen/content_txt_"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
 
@@ -388,11 +393,25 @@
             android:id="@+id/recy_task_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/x50"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/view7">
 
         </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="任务内容:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/content_txt_"
+            app:layout_constraintStart_toEndOf="@+id/check_task_detail"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
 
     </android.support.constraint.ConstraintLayout>
@@ -407,19 +426,22 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/x50">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
+                android:padding="@dimen/x5"
                 android:id="@+id/rl_top"
                  android:background="@color/divider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/x40">
+                android:layout_height="@dimen/x50">
 
                 <Button
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
                     android:id="@+id/btn_task_detail_send"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
@@ -460,7 +482,9 @@
                     android:layout_height="wrap_content" />
 
                 <Button
-                    android:visibility="gone"
+
+                    android:layout_centerVertical="true"
+                    android:visibility="visible"
                     android:id="@+id/btn_task_detail_diss"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
