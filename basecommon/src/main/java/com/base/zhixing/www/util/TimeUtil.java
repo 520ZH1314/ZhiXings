@@ -319,4 +319,64 @@ public class TimeUtil {
 		return time2;
 	}
 
+
+/**
+ *
+ *@author zjq
+ *create at 2018/12/19 上午8:36
+ * 比较两个时间的大小
+ */
+	public static int getTimeCompareSize(String startTime, String endTime){
+		int i=0;
+
+
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+			try {
+				Date dt1 = df.parse(startTime);
+				Date dt2 = df.parse(endTime);
+				if (dt1.getTime() > dt2.getTime()) {
+					i=1;
+				} else if (dt1.getTime() < dt2.getTime()) {
+
+					i=2;
+				} else  if (dt1.getTime()==dt2.getTime()){
+					i=0;
+				}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+			return i;
+		}
+
+
+
+
+
+	/**
+	 *
+	 *@author zjq
+	 *create at 2018/12/19 下午1:26
+	 * 将2018-4-8 3:2 转换为 2018-04-08 03:02
+	 */
+
+	public static String getCommonTime(String time)  {
+
+
+		String LgTime1="";
+		try {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date LgTime = simpleDateFormat.parse(time);
+			SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String  LgTime2 = simpleDateFormat1.format(LgTime);
+			LgTime1=LgTime2;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return  LgTime1;
+
+	}
+
+
+
 }

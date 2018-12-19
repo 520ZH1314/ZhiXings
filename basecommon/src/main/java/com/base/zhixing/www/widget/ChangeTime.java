@@ -1,5 +1,4 @@
 package com.base.zhixing.www.widget;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,28 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.base.zhixing.www.R;
 import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.TimeUtil;
-
+import com.orhanobut.logger.Logger;
 import java.util.Calendar;
 import library.NumberPickerView;
 import library.view.GregorianLunarCalendarView;
-
 public class ChangeTime {
     private Context context;
-
     private IDialog dlg;
-
     private  LayoutInflater inflater;
-
-
-    private String isShowClear ;
+    private String isShowClear;
     private int type;
-
     private  TextView textView;//外部传来的textview
-
     /**
      *  type    是否显示时间   2只显示年月日   1只显示时间, 3只显示年月
      * @param context
@@ -45,7 +36,7 @@ public class ChangeTime {
         this.context = context;
         this.isShowClear = isShowClear;
         this.type = type;
-       inflater  = (LayoutInflater) context
+        inflater  = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -136,7 +127,10 @@ public class ChangeTime {
                     selectTime.select(show,calendar0.getTimeInMillis());
                     cancle();
                 }else {
-                    textView.setText(show);
+
+                    long l = TimeUtil.parseTime(show);
+                    String time = TimeUtil.getTime(l);
+                    textView.setText(time);
                     cancle();
 
                 }
