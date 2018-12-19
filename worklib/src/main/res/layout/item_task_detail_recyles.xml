@@ -13,9 +13,7 @@
         android:layout_height="@dimen/x20"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:src="@mipmap/meet_message_people"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_task_detail_reply_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_task_detail_reply_name" />
     <TextView
@@ -40,13 +38,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:textColor="@color/frame_l"
+        android:maxEms="13"
+        android:maxLines="4"
         android:id="@+id/tv_task_detail_reply_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
-        android:text="回复的内容:大家好"
+        android:text="回复的内容:大家好回复的内容:大家好回复的内容:大家好回复的内容:大家好回复的内容:大家好回复的内容:大家好"
+        android:textColor="@color/frame_l"
         android:textSize="@dimen/content_txt_"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_task_detail_reply_name"

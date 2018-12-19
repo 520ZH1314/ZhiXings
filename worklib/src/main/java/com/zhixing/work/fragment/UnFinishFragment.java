@@ -53,7 +53,7 @@ public class UnFinishFragment  extends BaseFragment {
     private void initData() {
         ip = SharedPreferencesTool.getMStool(getActivity()).getIp();
         String tenantId = SharedPreferencesTool.getMStool(getActivity()).getTenantId();
-        String TaskId = SharedPreferencesTool.getMStool(getActivity()).getString("TaskId");
+        String TaskId = SharedPreferencesTool.getMStool(getActivity()).getString("TaskID");
         PostTaskDetailJson jsonBean = new PostTaskDetailJson();
         jsonBean.setApiCode("GetUnfinishedUsers");
         jsonBean.setAppCode("CEOAssist");

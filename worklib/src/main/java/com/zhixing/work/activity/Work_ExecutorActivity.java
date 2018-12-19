@@ -58,7 +58,7 @@ public class Work_ExecutorActivity extends BaseActvity {
         mTvTitle=(TextView)findViewById(R.id.tv_work_title);
         mTvTitle.setText("执行人");
         mTvSend.setVisibility(View.GONE);
-        mImage.setImageResource(R.drawable.task_left);
+        mImage.setImageResource(R.mipmap.back);
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

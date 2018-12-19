@@ -20,14 +20,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical">
-
         <EditText
-
             android:id="@+id/ed_create_task_content"
             android:layout_width="match_parent"
             android:layout_height="@dimen/x150"
@@ -156,6 +153,8 @@
     </RelativeLayout>
 
     <TextView
+        android:layout_marginLeft="@dimen/x16"
+        android:layout_marginRight="@dimen/x16"
         android:layout_marginTop="@dimen/x10"
         android:layout_marginBottom="@dimen/x10"
         android:layout_gravity="center"

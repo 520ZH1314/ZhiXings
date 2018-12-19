@@ -34,6 +34,7 @@ import com.zhixing.work.bean.CreateTaskJsonBean;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
+import com.zhixing.work.utils.TextViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,11 +64,11 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
     private static final String SEPARATOR = ",";
 
     private RelativeLayout mReTaskSend;
-    @NotEmpty
+
     private TextView mTvTaskSend;
-    @NotEmpty
+
     private TextView mTvTaskSendCopy;
-    @NotEmpty
+
     private TextView mTvTaskEndTime;
 
     private RelativeLayout mReTaskSendCopy;
@@ -81,6 +82,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
     private Validator validator;
     private String ip;
     private RelativeLayout mReTaskStartTime;
+
     private TextView mTvTaskStartTime;
 
     @Override
@@ -125,7 +127,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
 
         mTvTaskStartTime = (TextView) findViewById(R.id.tv_create_task_start_time);
 
-        mIvadd.setImageResource(R.mipmap.left_jian_tou);
+        mIvadd.setImageResource(R.mipmap.back);
         mTvTitle.setText("发起任务");
         mTvSend.setVisibility(View.VISIBLE);
         initListener();
@@ -183,56 +185,84 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
 
     //发送任务
     private void SendTask() {
-        long l = TimeUtil.parseTime(mTvTaskEndTime.getText().toString());
-        String time = TimeUtil.getTime(l);
-        long l1 = TimeUtil.parseTime(mTvTaskStartTime.getText().toString());
-        String time1 = TimeUtil.getTime(l1);
-        CreateTaskJsonBean createTaskJsonBean = new CreateTaskJsonBean();
 
-        CreateTaskJsonBean.RowsBean rowsBean = new CreateTaskJsonBean.RowsBean();
+        String time = mTvTaskEndTime.getText().toString();
 
-        CreateTaskJsonBean.RowsBean.ListBean.InsertedBean insertedBean =
-                new CreateTaskJsonBean.RowsBean.ListBean.InsertedBean();
-        insertedBean.setCreateUserId(userId);
-        insertedBean.setDueDate(time);
-        insertedBean.setTaskDesc(mEditContent.getText().toString().trim());
-        insertedBean.setTenantId(TenantId);
-        insertedBean.setCreateDate(time1);
-        insertedBean.setCurrentOperateUserId(userId);
-        List<CreateTaskJsonBean.RowsBean.ListBean.InsertedBean> list = new ArrayList<>();
-        list.add(insertedBean);
-        rowsBean.setList(new CreateTaskJsonBean.RowsBean.ListBean(list));
-        createTaskJsonBean.setApiCode(ConstantS.EDITTASK);
-        createTaskJsonBean.setAppCode(ConstantS.CEOASSIST);
-        createTaskJsonBean.setUser(new CreateTaskJsonBean.UserBean(CCUserId, ToDoUserId));
-        createTaskJsonBean.setRows(rowsBean);
-        String json = GsonUtil.getGson().toJson(createTaskJsonBean);
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+        String time1 = mTvTaskStartTime.getText().toString();
 
-        RetrofitClients.getInstance(this, ip).create(WorkAPi.class)
-                .CreateTask(body)
-                .compose(RxUtils.schedulersTransformer())  // 线程调度
-                .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showDialog("加载中");
-                    }
-                })
-                .subscribe(new Consumer<CreateTaskEntity>() {
-                    @Override
-                    public void accept(CreateTaskEntity entity) throws Exception {
-                        dismissDialog();
-                        if (entity.isStatus()) {
-                            //成功
-                            AppManager.getAppManager().finishActivity();
-                            //发消息通知任务列表刷新数据
+        if (!TextViewUtils.isEmpty(this,mTvTaskSend,"执行人不能为空")){
+             return;
+        }
+        if (!TextViewUtils.isEmpty(this,mTvTaskSendCopy,"抄送人不能为空")){
+            return;
+        }
+        if (!TextViewUtils.isEmpty(this,mTvTaskStartTime,"开始时间不能为空")){
+            return;
+        }
+        if (!TextViewUtils.isEmpty(this,mTvTaskEndTime,"结束时间不能为空")){
+            return;
+        }
 
-                        } else {
-                            Toasty.INSTANCE.showToast(CreateTaskActivity.this, entity.getMessage());
+
+        if (TimeUtil.getTimeCompareSize(time1,time)==2){
+
+            CreateTaskJsonBean createTaskJsonBean = new CreateTaskJsonBean();
+
+            CreateTaskJsonBean.RowsBean rowsBean = new CreateTaskJsonBean.RowsBean();
+
+            CreateTaskJsonBean.RowsBean.ListBean.InsertedBean insertedBean =
+                    new CreateTaskJsonBean.RowsBean.ListBean.InsertedBean();
+            insertedBean.setCreateUserId(userId);
+            insertedBean.setDueDate(time);
+            insertedBean.setTaskDesc(mEditContent.getText().toString().trim());
+            insertedBean.setTenantId(TenantId);
+            insertedBean.setCreateDate(time1);
+            insertedBean.setCurrentOperateUserId(userId);
+            List<CreateTaskJsonBean.RowsBean.ListBean.InsertedBean> list = new ArrayList<>();
+            list.add(insertedBean);
+            rowsBean.setList(new CreateTaskJsonBean.RowsBean.ListBean(list));
+            createTaskJsonBean.setApiCode(ConstantS.EDITTASK);
+            createTaskJsonBean.setAppCode(ConstantS.CEOASSIST);
+            createTaskJsonBean.setUser(new CreateTaskJsonBean.UserBean(CCUserId, ToDoUserId));
+            createTaskJsonBean.setRows(rowsBean);
+            String json = GsonUtil.getGson().toJson(createTaskJsonBean);
+            RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+
+            RetrofitClients.getInstance(this, ip).create(WorkAPi.class)
+                    .CreateTask(body)
+                    .compose(RxUtils.schedulersTransformer())  // 线程调度
+                    .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            showDialog("加载中");
                         }
-                    }
-                });
+                    })
+                    .subscribe(new Consumer<CreateTaskEntity>() {
+                        @Override
+                        public void accept(CreateTaskEntity entity) throws Exception {
+                            dismissDialog();
+                            if (entity.isStatus()) {
+                                //成功
+                                AppManager.getAppManager().finishActivity();
+                                //发消息通知任务列表刷新数据
+
+                            } else {
+                                Toasty.INSTANCE.showToast(CreateTaskActivity.this, entity.getMessage());
+                            }
+                        }
+                    });
+        }else if (TimeUtil.getTimeCompareSize(time1,time)==1){
+            Toasty.INSTANCE.showToast(CreateTaskActivity.this,"开始时间不能大于结束时间");
+
+        }else{
+            Toasty.INSTANCE.showToast(CreateTaskActivity.this,"开始时间不能等于结束时间");
+
+        }
+
+
+
+
     }
 
 

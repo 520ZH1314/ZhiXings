@@ -8,11 +8,11 @@
     <!--cloor修改，调整标题高度为titleheight和标题文字大小为统一 -->
     <ImageView
         android:id="@+id/iv_work_add_work"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/x30"
+        android:layout_height="@dimen/x30"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/ball_radius_sidebar"
-        android:src="@mipmap/add_more" />
+        android:src="@drawable/add_more" />
 
     <TextView
         android:id="@+id/tv_work_title"

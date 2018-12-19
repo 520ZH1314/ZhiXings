@@ -49,7 +49,7 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,Base
                     helper.setText(R.id.tv_item_meet_message_address, bean.getMeetingPlace());//会议地址
                     helper.setText(R.id.tv_item_meet_message_originator, bean.getCreateUserName());//会议创建人
                     helper.setText(R.id.tv_item_meet_message_dynamic, bean.getCount()+"");//会议动态
-                    helper.setText(R.id.tv_item_meet_message_total, bean.getHostCount()+bean.getParticipantCount()+bean.getRecorderCount()+"");//会议参与人
+                    helper.setText(R.id.tv_item_meet_message_total, bean.getParticipantsCount());//会议参与人
                 }
 
 

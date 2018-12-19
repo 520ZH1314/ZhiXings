@@ -16,6 +16,7 @@ import com.base.zhixing.www.view.Toasty;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.orhanobut.logger.Logger;
 import com.shuben.contact.lib.common.ConstantS;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
@@ -32,6 +33,7 @@ import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
 import com.zhixing.work.ui.MeetStatusTypeDialog;
+import com.zhixing.work.utils.TextViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -146,7 +148,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
         mRlMeetRemind=(RelativeLayout) findViewById(R.id.rl_create_meet_remind);
         mTvMeetRemind=(TextView) findViewById(R.id.tv_create_meet_remind);
 
-        mIvadd.setImageResource(R.mipmap.left_jian_tou);
+        mIvadd.setImageResource(R.mipmap.back);
         mTvTitle.setText("发起会议");
         mTvSend.setVisibility(View.VISIBLE);
 
@@ -203,6 +205,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
 
         } else if (i == R.id.tv_work_send) {
             validator.validate();
+
         }else if(i==R.id.rl_create_meet_remind){
 
             List<MeetStatusType> data=new ArrayList<>();
@@ -290,67 +293,102 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
     }
 
     private void SendMeet() {
-        //
+
         setBeanData();
-
-        String json = GsonUtil.getGson().toJson(postCreateMeetJson);
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
-        RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
-                .CreateMeet(body)
-                .compose(RxUtils.schedulersTransformer())  // 线程调度
-                .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showDialog("加载中");
-                    }
-                })
-                .subscribe(new Consumer<CreateTaskEntity>() {
-                    @Override
-                    public void accept(CreateTaskEntity entity) throws Exception {
-                        dismissDialog();
-                        if (entity.isStatus()) {
-                            //成功
-                            AppManager.getAppManager().finishActivity();
-                            //发消息通知任务列表刷新数据
-
-                        } else {
-                            Toasty.INSTANCE.showToast(CreateMeettingActivity.this, entity.getMessage());
-                        }
-                    }
-                });
 
 
 
     }
-     //设置bean数据
+     //设置bean数据 并联网发送
     private void setBeanData() {
-        long l = TimeUtil.parseTime(mTvTimeStart.getText().toString());
-        String startTime = TimeUtil.getTime(l);
-        long l1 = TimeUtil.parseTime(mTvTimeEnd.getText().toString());
-        String endTime = TimeUtil.getTime(l1);
-         MeetingReminder = 1;
-        postCreateMeetJson = new PostCreateMeetJson();
-        PostCreateMeetJson.UserBean userBean = new PostCreateMeetJson.UserBean();
-        userBean.setParticipantID(ParticipantID);
-        userBean.setHostID(HostID);
-        userBean.setRecorderID(RecorderID);
-        PostCreateMeetJson.RowsBean rowsBean = new PostCreateMeetJson.RowsBean();
-        List<PostCreateMeetJson.RowsBean.ListBean.InsertedBean> list = new ArrayList<>();
-        PostCreateMeetJson.RowsBean.ListBean.InsertedBean listBeans = new PostCreateMeetJson.RowsBean.ListBean.InsertedBean();
-        listBeans.setCreateUserID(CreateUserId);
-        listBeans.setEndDate(endTime);
-        listBeans.setStartDate(startTime);
-        listBeans.setMeetingContent(mEditContent.getText().toString().trim());
-        listBeans.setMeetingPlace(mEditAddress.getText().toString().trim());
-        listBeans.setTenantId(TenantId);
-        listBeans.setMeetingReminder(MeetingReminder);
-        list.add(listBeans);
-        rowsBean.setList(new PostCreateMeetJson.RowsBean.ListBean(list));
-        postCreateMeetJson.setApiCode(ApiCode);
-        postCreateMeetJson.setAppCode(AppCode);
-        postCreateMeetJson.setRows(rowsBean);
-        postCreateMeetJson.setUser(userBean);
+
+        String startTime = mTvTimeStart.getText().toString();
+        String endTime = mTvTimeEnd.getText().toString();
+
+        if (!TextViewUtils.isEmpty(this,mTvMeetOrganizingPeople,"主持人不能为空")){
+            return;
+        }
+        if (!TextViewUtils.isEmpty(this,mTvMeetJoinPeople,"参与人不能为空")){
+            return;
+        }
+        if (!TextViewUtils.isEmpty(this,mTvMeetRecordPeople,"记录人不能为空")){
+            return;
+        }
+        if (!TextViewUtils.isEmpty(this,mTvTimeStart,"开始时间不能为空")){
+            return;
+        }
+        if (!TextViewUtils.isEmpty(this,mTvTimeEnd,"结束时间不能为空")){
+            return;
+        }
+
+
+
+        if (TimeUtil.getTimeCompareSize(startTime,endTime)==2){
+
+
+
+            MeetingReminder = 1;
+            postCreateMeetJson = new PostCreateMeetJson();
+            PostCreateMeetJson.UserBean userBean = new PostCreateMeetJson.UserBean();
+            userBean.setParticipantID(ParticipantID);
+            userBean.setHostID(HostID);
+            userBean.setRecorderID(RecorderID);
+            PostCreateMeetJson.RowsBean rowsBean = new PostCreateMeetJson.RowsBean();
+            List<PostCreateMeetJson.RowsBean.ListBean.InsertedBean> list = new ArrayList<>();
+            PostCreateMeetJson.RowsBean.ListBean.InsertedBean listBeans = new PostCreateMeetJson.RowsBean.ListBean.InsertedBean();
+            listBeans.setCreateUserID(CreateUserId);
+            listBeans.setEndDate(endTime);
+            listBeans.setStartDate(startTime);
+            listBeans.setMeetingContent(mEditContent.getText().toString().trim());
+            listBeans.setMeetingPlace(mEditAddress.getText().toString().trim());
+            listBeans.setTenantId(TenantId);
+            listBeans.setMeetingReminder(MeetingReminder);
+            list.add(listBeans);
+            rowsBean.setList(new PostCreateMeetJson.RowsBean.ListBean(list));
+            postCreateMeetJson.setApiCode(ApiCode);
+            postCreateMeetJson.setAppCode(AppCode);
+            postCreateMeetJson.setRows(rowsBean);
+            postCreateMeetJson.setUser(userBean);
+
+
+            String json = GsonUtil.getGson().toJson(postCreateMeetJson);
+            RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+            RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
+                    .CreateMeet(body)
+                    .compose(RxUtils.schedulersTransformer())  // 线程调度
+                    .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            showDialog("加载中");
+                        }
+                    })
+                    .subscribe(new Consumer<CreateTaskEntity>() {
+                        @Override
+                        public void accept(CreateTaskEntity entity) throws Exception {
+                            dismissDialog();
+                            if (entity.isStatus()) {
+                                //成功
+                                AppManager.getAppManager().finishActivity();
+                                //发消息通知任务列表刷新数据
+
+                            } else {
+                                Toasty.INSTANCE.showToast(CreateMeettingActivity.this, entity.getMessage());
+                            }
+                        }
+                    });
+
+
+        }else if (TimeUtil.getTimeCompareSize(startTime,endTime)==1){
+            Toasty.INSTANCE.showToast(CreateMeettingActivity.this,"开始时间不能大于结束时间");
+
+        }else{
+            Toasty.INSTANCE.showToast(CreateMeettingActivity.this,"开始时间不能等于结束时间");
+
+        }
+
+
+
     }
 
     @Override

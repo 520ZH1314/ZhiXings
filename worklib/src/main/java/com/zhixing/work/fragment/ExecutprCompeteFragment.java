@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.base.zhixing.www.BaseFragment;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
@@ -58,7 +57,7 @@ public class ExecutprCompeteFragment extends BaseFragment {
     private void initData() {
          ip = SharedPreferencesTool.getMStool(getActivity()).getIp();
         String tenantId = SharedPreferencesTool.getMStool(getActivity()).getTenantId();
-        String TaskId = SharedPreferencesTool.getMStool(getActivity()).getString("TaskId");
+        String TaskId = SharedPreferencesTool.getMStool(getActivity()).getString("TaskID");
         PostTaskDetailJson jsonBean = new PostTaskDetailJson();
         jsonBean.setApiCode("GetCompletedUsers");
         jsonBean.setAppCode("CEOAssist");

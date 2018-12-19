@@ -16,11 +16,11 @@
         <ImageView
 
             android:id="@+id/iv_work_add_work"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/ball_radius_sidebar"
-            android:src="@mipmap/left_jian_tou" />
+            android:src="@mipmap/back" />
 
         <TextView
             android:id="@+id/tv_work_title"
@@ -64,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="10dp"
                 android:background="@color/divider"
+                app:layout_constraintBottom_toTopOf="@+id/tablayout_meet_detail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recy_meet_record_list" />
@@ -230,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:maxEms="16"
+                android:maxEms="13"
                 android:maxLines="5"
                 android:text="今天下午在胎位参加8点的,会议主要内容是关于,请大家代号自闭内容懂不"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
@@ -254,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="11月18日 10:00~12:00"
-                android:textSize="@dimen/content_txt_"
+                android:textSize="@dimen/list_txt_s"
                 app:layout_constraintBottom_toBottomOf="@+id/textView8"
                 app:layout_constraintStart_toEndOf="@+id/textView8"
                 app:layout_constraintTop_toTopOf="@+id/textView8" />
@@ -267,7 +268,7 @@
                 android:text="主持人:  李三"
                 android:textColor="@color/black"
 
-                android:textSize="@dimen/content_txt_"
+                android:textSize="@dimen/list_txt_s"
                 app:layout_constraintStart_toStartOf="@+id/textView14"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -288,7 +289,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="会议开始时"
-                android:textSize="@dimen/content_txt_"
+                android:textSize="@dimen/list_txt_s"
                 app:layout_constraintBottom_toBottomOf="@+id/textView14"
                 app:layout_constraintStart_toStartOf="@+id/tv_work_meet_detail_open_time"
                 app:layout_constraintTop_toTopOf="@+id/textView14" />
@@ -418,7 +419,6 @@
                 android:id="@+id/tablayout_meet_detail"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
-                android:layout_marginTop="9dp"
                 android:background="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/view_pager_meet_detail"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -450,58 +450,77 @@
         android:visibility="visible"
         android:background="@color/white"
         android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x50">
-            <Button
-                android:textColor="@color/white"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="@dimen/x3"
-                android:layout_marginTop="@dimen/x3"
-                android:layout_marginEnd="@dimen/x3"
-                android:layout_marginBottom="@dimen/x3"
-                android:visibility="visible"
-                android:layout_centerVertical="true"
-                android:id="@+id/btn_work_meet_detail"
-                android:text="确认参加"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/x40" />
 
-            <EditText
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:padding="@dimen/x3"
+                android:background="@color/divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50">
+                    <Button
+                        android:textColor="@color/white"
+                        android:layout_centerVertical="true"
+                        android:visibility="visible"
+                        android:id="@+id/btn_work_meet_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/x3"
+                        android:layout_marginTop="@dimen/x3"
+                        android:layout_marginEnd="@dimen/x3"
+                        android:layout_marginBottom="@dimen/x3"
+                        android:text="确认参加" />
 
-                android:layout_marginLeft="@dimen/x8"
-                android:id="@+id/ed_meet_detail_respon"
-                android:layout_width="@dimen/x170"
-                android:layout_height="@dimen/x30"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x8"
-                android:layout_toLeftOf="@+id/btn_meet_detail_send"
-                android:layout_toRightOf="@+id/btn_work_meet_detail"
-                android:background="@drawable/edit_bg"
-                android:gravity="start"
-                android:hint="回复内容"
-                android:padding="@dimen/x5"
-                android:textSize="@dimen/s13" />
-            <Button
-                android:textColor="@color/white"
-                android:visibility="gone"
-                android:id="@+id/btn_meet_detail_send"
-                android:layout_marginRight="@dimen/x5"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:text="发送"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/iv_meet_detail_add_message"
-                android:layout_marginRight="@dimen/x24"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:src="@mipmap/add_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                    <EditText
+
+                        android:id="@+id/ed_meet_detail_respon"
+                        android:layout_width="@dimen/x170"
+                        android:layout_height="@dimen/x35"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x8"
+                        android:layout_marginRight="@dimen/x8"
+                        android:layout_toLeftOf="@+id/btn_meet_detail_send"
+                        android:layout_toRightOf="@+id/btn_work_meet_detail"
+                        android:background="@drawable/edit_bg"
+                        android:gravity="start"
+                        android:hint="回复内容"
+                        android:padding="@dimen/x5"
+                        android:textSize="@dimen/s13" />
+                    <Button
+                        android:textColor="@color/white"
+                        android:visibility="gone"
+                        android:id="@+id/btn_meet_detail_send"
+                        android:layout_marginRight="@dimen/x5"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:text="发送"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/iv_meet_detail_add_message"
+                        android:layout_marginRight="@dimen/x24"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/add_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
 
 
+
+
+        </LinearLayout>
     </RelativeLayout>
+
+
+
 
 </RelativeLayout>

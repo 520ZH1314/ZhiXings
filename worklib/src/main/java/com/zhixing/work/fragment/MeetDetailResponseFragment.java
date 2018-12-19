@@ -45,7 +45,6 @@ public class MeetDetailResponseFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         EventBus.getDefault().register(this);
         View view = inflater.inflate(R.layout.fragment_meet_response, container, false);
         String meetResponseData = SharedPreferencesTool.getMStool(getActivity()).getString("meetResponseData");

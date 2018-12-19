@@ -250,7 +250,7 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
                         mTvContent.setText(o.getMeetingContent());
                         String time = endDate[0] + " " + endDate[1];
                         String time1 = startDate[0] + " " + startDate[1];
-                        mTvOpenTime.setText(TimeUtil.getFormatData(time) + TimeUtil.getFormatData(time1));
+                        mTvOpenTime.setText(TimeUtil.getFormatData(time1));
                         mTvRemind.setText(getmettingRemind(o.getMeetingReminder()));//会议提醒
                         mTvHostName.setText("主持人:" + o.getHostName());//主持人名字第一行
                         mTvHostNames.setText(o.getHostName());//主持人名字第二行
@@ -721,6 +721,7 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
 
                             dismissDialog();
                             if (entity.isStatus()) {
+                                mEdit.getText().clear();
                                 //保存成功
                                 initData();//重新刷新下数据
                             }

@@ -92,7 +92,7 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
         mTvTitle=(TextView) findViewById(R.id.tv_work_title);
         mTvSend=(TextView) findViewById(R.id.tv_work_send);
 
-        mIvadd.setImageResource(R.mipmap.left_jian_tou);
+        mIvadd.setImageResource(R.mipmap.back);
         mIvadd.setOnClickListener(this);
         mTvTitle.setText("任务");
         mTvSend.setVisibility(View.GONE);

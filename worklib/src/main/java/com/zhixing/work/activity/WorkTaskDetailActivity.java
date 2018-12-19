@@ -45,6 +45,7 @@ import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
 import com.zhixing.work.ui.CloseTaskDialog;
+import com.zhixing.work.ui.CommonTips;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -103,6 +104,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     private int taskStatus;
     private  boolean isCCuser=false;
     private String ToDoListId;
+    private  boolean isToDoUser=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +165,11 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         dismissDialog();
 
                         SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).setString("TaskID",entity.getSourceId());
+
+
+
+
+
                         if (entity.getTaskStatus()==10) {
                             //已经完成
                                 mCheckBox.setChecked(true);
@@ -186,6 +193,22 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             mBtn_Diss.setClickable(false);
                         } else {
 
+                            String[] toDoUseId = entity.getToDoUserId().split(",");
+                            List <String> data1=new ArrayList<>();
+                            for (int i = 0; i < toDoUseId.length; i++) {
+                                data1.add(toDoUseId[i]);
+                            }
+
+                            if (data1.contains(userId)){
+                                isToDoUser=true;
+                                mCheckBox.setChecked(false);
+                                mCheckBox.setClickable(true);
+                            }else{
+                                isToDoUser=false;
+                                mCheckBox.setChecked(true);
+                                mCheckBox.setClickable(false);
+                            }
+
                             String ccUserId = entity.getCCUserId();
                             String[] split = ccUserId.split(",");
                             List <String> data=new ArrayList<>();
@@ -204,16 +227,13 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             }else{
                                 if (userId.equals(entity.getCreateUserId())){
                                     isCreate=true;
-                                    mCheckBox.setChecked(false);
-                                    mCheckBox.setClickable(true);
+
                                     mTv_task_details_status.setVisibility(View.GONE);
                                     mBtnDiss.setVisibility(View.VISIBLE);
                                     mBtn_Diss.setText("取消任务");
                                     mBtn_Diss.setClickable(true);
                                 }else{
                                     isCreate=false;
-                                    mCheckBox.setChecked(false);
-                                    mCheckBox.setClickable(true);
                                     mTv_task_details_status.setVisibility(View.GONE);
                                     mBtnDiss.setVisibility(View.VISIBLE);
                                     mBtn_Diss.setText("任务进行时");
@@ -224,7 +244,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
                         }
 
-                        mTv_task_detail_content.setText("内容:"+" "+entity.getContents());//任务描述
+                        mTv_task_detail_content.setText(entity.getContents());//任务描述
                         String[] createtime = entity.getCreateDate().split("T");
                         mTv_task_detail_create_time.setText("时间"+createtime[0].toString() + " " + createtime[1].toString()); //创建时间
                         String[] compete_time = entity.getDueDate().split("T");
@@ -375,11 +395,26 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
              intentCopy.putExtra("WorkDetailType","copyJson");
              startActivity(intentCopy);
         } else if (id==R.id.check_task_detail){
-             if (isCreate||isCCuser){
+             if (isToDoUser){
+                 CommonTips tips = new CommonTips(this, getHandler());
+                 tips.init("取消", "确定", "是否完成任务");
+                 tips.setI(new CommonTips.Tips() {
+                     @Override
+                     public void cancel() {
+
+                     }
+                     @Override
+                     public void sure() {
+                         CompeteTask();
+
+                     }
+                 });
+                 tips.showSheet();
+
+             }else {
                  Toasty.INSTANCE.showToast(this,"只有执行人才能完成任务");
-             }else{
-                 CompeteTask();
              }
+
 
         }else if(id==R.id.iv_task_left){
             Logger.d("点击了");
@@ -390,6 +425,11 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     }
      //完成任务
     private void CompeteTask() {
+
+
+
+
+
         PostTaskCompeteJsonBean bean =new PostTaskCompeteJsonBean();
         bean.setApiCode("EditCompletedTask");
         bean.setAppCode("CEOAssist");
@@ -477,6 +517,8 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
                         dismissDialog();
                         if (entity.isStatus()) {
+
+                            mEdit.getText().clear();
                             //保存成功
                             initData();//重新刷新下数据
                         }
@@ -545,7 +587,12 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         @Override
         protected void convert(BaseViewHolder baseViewHolder, TaskDetailEntity.CommentListBean.RowsBean menuItem) {
             baseViewHolder.setText(R.id.tv_task_detail_reply_name, menuItem.getCommentUserName());//名字
-            baseViewHolder.setText(R.id.tv_task_detail_reply_time, menuItem.getCommentDate());//时间
+            String[] ts = menuItem.getCommentDate().split("T");
+             String time1=ts[0]+" "+ts[1];
+
+
+
+            baseViewHolder.setText(R.id.tv_task_detail_reply_time,time1);//时间
             baseViewHolder.setText(R.id.tv_task_detail_reply_content, menuItem.getCommentText());
         }
     }

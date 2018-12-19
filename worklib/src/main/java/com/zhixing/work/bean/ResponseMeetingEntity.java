@@ -67,9 +67,9 @@ public class ResponseMeetingEntity {
         private String IsEnable;
         private String TenantId;
         private int Count;
-        private int HostCount;
-        private int ParticipantCount;
-        private int RecorderCount;
+
+        private int ParticipantsCount;
+
         private String CreateUserName;
 
         public String getMeetingDataID() {
@@ -192,31 +192,16 @@ public class ResponseMeetingEntity {
             this.Count = Count;
         }
 
-        public int getHostCount() {
-            return HostCount;
+
+
+        public int getParticipantsCount() {
+            return ParticipantsCount;
         }
 
-        public void setHostCount(int HostCount) {
-            this.HostCount = HostCount;
+        public void setParticipantsCount(int ParticipantsCount) {
+            this.ParticipantsCount = ParticipantsCount;
         }
-
-        public int getParticipantCount() {
-            return ParticipantCount;
-        }
-
-        public void setParticipantCount(int ParticipantCount) {
-            this.ParticipantCount = ParticipantCount;
-        }
-
-        public int getRecorderCount() {
-            return RecorderCount;
-        }
-
-        public void setRecorderCount(int RecorderCount) {
-            this.RecorderCount = RecorderCount;
-        }
-
-        public String getCreateUserName() {
+           public String getCreateUserName() {
             return CreateUserName;
         }
 

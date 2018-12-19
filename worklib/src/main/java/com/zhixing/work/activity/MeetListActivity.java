@@ -100,7 +100,7 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
         mRecycleViewMeetList=(RecyclerView) findViewById(R.id.recy_meet_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MeetListActivity.this);
         mRecycleViewMeetList.setLayoutManager(layoutManager);
-        mIvadd.setImageResource(R.mipmap.left_jian_tou);
+        mIvadd.setImageResource(R.mipmap.back);
         mTvTitle.setText("会议");
         mTvSend.setVisibility(View.GONE);
         mRelativeLayout.setOnClickListener(this);
@@ -336,9 +336,7 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
             baseViewHolder.setText(R.id.tv_item_meet_message_address, menuItem.getMeetingPlace());//会议地址
             baseViewHolder.setText(R.id.tv_item_meet_message_originator, menuItem.getCreateUserName());//会议创建人
             baseViewHolder.setText(R.id.tv_item_meet_message_dynamic, menuItem.getCount()+"");//会议动态
-            baseViewHolder.setText(R.id.tv_item_meet_message_total, menuItem.getHostCount()+menuItem.getParticipantCount()+menuItem.getRecorderCount()+"");//会议参与人
-
-
+            baseViewHolder.setText(R.id.tv_item_meet_message_total, menuItem.getParticipantsCount()+"");//会议参与人
 
         }
     }

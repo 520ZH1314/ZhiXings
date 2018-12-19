@@ -61,8 +61,8 @@ public class DepartmentSendFragment  extends BaseFragment {
     }
 
     private void initData() {
-        List<MySendWorkEntity> entityList = new ArrayList<>();
-        setMeetListData(); //获取我发出的会议列表
+//        List<MySendWorkEntity> entityList = new ArrayList<>();
+//        setMeetListData(); //获取我发出的会议列表
     }
 
 
