@@ -99,10 +99,14 @@ public class MeetDetailIsSureFragment extends BaseFragment {
                 Logger.d(o.getRows().size());
                 List<MeetJoinStatusBean> data=new ArrayList<>();
                 List<ResponseJoinBean.RowsBean> rows = o.getRows();
+
                 for (ResponseJoinBean.RowsBean bean:rows) {
-                    data.add(new MeetJoinStatusBean(bean.getParticipantsName(),bean.getMeetingStatusName(),bean.getCreateTime()));
+
+                    if (!bean.getParticipantsName().equals("")){
+                        data.add(new MeetJoinStatusBean(bean.getParticipantsName(),bean.getMeetingStatusName(),bean.getCreateTime()));
+                    }
+
                 }
-                Logger.d(data.size());
                  adapter = new MeetDetailIsSureListAdapter(R.layout.item_meet_detail_join_recyle, data);
                  mRecyleView.setAdapter(adapter);
 

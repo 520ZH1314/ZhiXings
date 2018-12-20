@@ -13,6 +13,7 @@ import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.ChangeTime;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -28,6 +29,7 @@ import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
 import com.zhixing.work.ui.MeetStatusTypeDialog;
+import com.zhixing.work.utils.TextViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,16 +181,46 @@ public class CreateCalendarActivity extends BaseActvity  implements View.OnClick
 
     @Override
     public void onValidationSucceeded() {
-         //发送日程
-        RequestBody body = setPostData();
 
-        sendDateData(body);
+        if (!TextViewUtils.isEmpty(this,mTvTimeStart,"开始时间")){
+            return ;
+        }
+        if (!TextViewUtils.isEmpty(this,mTvTimeEnd,"结束时间"))
+        {
+            return ;
+        }
+
+        String time = mTvTimeStart.getText().toString();
+
+        String time1 = mTvTimeEnd.getText().toString();
+
+        if (TimeUtil.getTimeCompareSize(time1,time)==2){
+            //发送日程
+            RequestBody body = setPostData();
+
+            sendDateData(body);
+
+        }else if (TimeUtil.getTimeCompareSize(time1,time)==1){
+            Toasty.INSTANCE.showToast(CreateCalendarActivity.this,"开始时间不能大于结束时间");
+
+        }else{
+            Toasty.INSTANCE.showToast(CreateCalendarActivity.this,"开始时间不能等于结束时间");
+
+        }
 
     }
 
    //设置请求的json数据
     @NonNull
     private RequestBody setPostData() {
+
+
+
+
+
+
+
+
         PostDateJson postDateJson=new PostDateJson();
         postDateJson.setApiCode("EditSchedule");
         postDateJson.setAppCode("CEOAssist");
