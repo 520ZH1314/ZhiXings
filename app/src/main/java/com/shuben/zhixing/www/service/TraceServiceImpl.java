@@ -1,18 +1,26 @@
 package com.shuben.zhixing.www.service;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-
+import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.base.zhixing.www.util.TimeUtil;
 import com.sdk.chat.ChatSdk;
+import com.sdk.chat.callback.IConnectListener;
+import com.sdk.chat.contact.ErrorCode;
+import com.sdk.chat.message.Message;
+import com.shuben.zhixing.module.andon.AndonRecive;
+import com.shuben.zhixing.push.LoginServer;
 import com.shuben.zhixing.www.BaseApplication;
 import com.xdandroid.hellodaemon.AbsWorkService;
 import com.base.zhixing.www.common.P;
-
-
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
 import io.reactivex.disposables.*;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public class TraceServiceImpl extends AbsWorkService {
 
@@ -51,9 +59,10 @@ public class TraceServiceImpl extends AbsWorkService {
                     cancelJobAlarmSub();
                 })
                 .subscribe(count -> {
-                  //  P.c(ChatSdk.isConnectSuccess()+"连接情况");
+                    P.c(ChatSdk.isConnectSuccess()+"连接情况"+TimeUtil.getTime(System.currentTimeMillis()));
                     if(!ChatSdk.isConnectSuccess()){
-                        BaseApplication.application.loadPush();
+                         ChatSdk.close();
+                         loadPush();
                     }
 
 //                    P.c("每 3 秒采集一次数据... count = " + count);
@@ -85,5 +94,72 @@ public class TraceServiceImpl extends AbsWorkService {
     public void onServiceKilled(Intent rootIntent) {
         //BaseApplication.application.startServiceKeep();
         P.c("保存数据到磁盘");
+    }
+
+
+    public void loadPush(){
+        final String userId =SharedPreferencesTool.getMStool(this).getUserId();
+        if(!userId.equals("")){
+            ChatSdk.close();
+            ChatSdk.init(this);
+            ChatSdk.setConnectListener(new IConnectListener() {
+                @Override
+                public void onConnectSuccess() {
+                    //123是用户的Id
+                    P.c("发送ID"+userId);
+                    ChatSdk.INSTANCE.sendDataBuf(new LoginServer(userId), null);
+                    rev();
+                }
+
+                @Override
+                public void onConnectError(ErrorCode code) {
+
+                }
+            });
+        }
+    }
+    private void rev(){
+        ChatSdk.setReceiveMessageListener(new Function1<Message, Unit>() {
+            @Override
+            public Unit invoke(Message message) {
+                //收到了服务器推送的消息
+                //NotificationTool.showDefaultNotification(getApplicationContext(), message.getContent());
+                Context context=getApplicationContext();
+
+                int flag = 0;
+                String txt= message.getContent();
+//
+                P.c("application接收"+message.getContent());
+
+                try {
+                    JSONObject jsonObject = new JSONObject(txt);
+                    flag = jsonObject.getInt("flag");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                switch (flag){
+                    case 0:
+                        //默认错误界面
+
+                        break;
+                    case 3:
+                        //安灯
+                        P.c("发送安灯推送"+txt);
+                        sendReviceTo(AndonRecive.action,txt);
+                        break;
+                }
+                return null;
+            }
+        });
+    }
+
+    private void sendReviceTo(String action,String txt){
+        Intent intent = new Intent();
+        intent.setPackage(getPackageName());
+        intent.setAction(action);
+        intent.putExtra("msg",txt);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        sendBroadcast(intent);
     }
 }

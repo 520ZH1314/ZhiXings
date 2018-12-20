@@ -26,6 +26,7 @@ import com.sdk.chat.server.SdkConfig;
 import com.shuben.zhixing.push.UrlConfig;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
+import com.xdandroid.hellodaemon.DaemonEnv;
 import com.xdandroid.hellodaemon.IntentWrapper;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
@@ -204,21 +205,8 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                         SdkConfig.setIP(IP);
 
                         EventBus.getDefault().postSticky("");
-                        ChatSdk.close();
-                        ChatSdk.init(LoginActivity.this);
-                        ChatSdk.setConnectListener(new IConnectListener() {
-                            @Override
-                            public void onConnectSuccess() {
-                                //123是用户的Id
-                                P.c("发送"+new LoginServer(from));
-                                ChatSdk.INSTANCE.sendDataBuf(new LoginServer(from), null);
-                            }
 
-                            @Override
-                            public void onConnectError(ErrorCode code) {
-
-                            }
-                        });
+                        startServiceKeep();
 
 
                         Intent intent=new Intent();
@@ -271,7 +259,13 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
        // dialog.show();
      //   requestQueue.add(newMissRequest);
     }
+    //启动保活服务
+    public void startServiceKeep(){
+        DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+        TraceServiceImpl.sShouldStopService = false;
+        DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
 
+    }
     private void init() {
         LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(this)
                 .setMessage("加载中...")

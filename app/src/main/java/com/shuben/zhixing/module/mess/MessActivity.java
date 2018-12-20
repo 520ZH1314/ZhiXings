@@ -174,6 +174,7 @@ public class MessActivity extends BaseActvity {
         } else if (getIntent().hasExtra("content")) {
 
         } else if (getIntent().hasExtra("file")) {
+            P.c("mess地址"+getIntent().getStringExtra("file"));
             commonView.loadUrl(getIntent().getStringExtra("file"));
         }
 

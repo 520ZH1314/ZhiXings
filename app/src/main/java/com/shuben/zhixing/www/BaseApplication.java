@@ -12,28 +12,17 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.sdk.chat.ChatSdk;
-import com.sdk.chat.callback.IConnectListener;
-import com.sdk.chat.contact.ErrorCode;
-import com.sdk.chat.message.Message;
 import com.sdk.chat.server.SdkConfig;
-import com.shuben.zhixing.module.andon.AndonRecive;
-import com.shuben.zhixing.push.UrlConfig;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.tencent.smtt.sdk.QbSdk;
 import com.xdandroid.hellodaemon.DaemonEnv;
 import com.base.zhixing.www.common.Common;
 import com.base.zhixing.www.common.P;
-import com.shuben.zhixing.push.LoginServer;
 import com.shuben.zhixing.www.service.TraceServiceImpl;
 import com.shuben.zhixing.www.util.NotificationUtils;
 import com.shuben.zhixing.www.util.SMEDTools;
 import com.zhixing.kpilib.utils.KLog;
 import com.zhixing.kpilib.utils.Utils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -42,8 +31,6 @@ import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 public class BaseApplication extends BaseApp {
     public static BaseApplication application;
@@ -137,76 +124,18 @@ public class BaseApplication extends BaseApp {
         }
         notificationUtils = new NotificationUtils(this);
 
-        loadPush();
+//        loadPush();
 
 
-        ChatSdk.setReceiveMessageListener(new Function1<Message, Unit>() {
-            @Override
-            public Unit invoke(Message message) {
-                //收到了服务器推送的消息
-                //NotificationTool.showDefaultNotification(getApplicationContext(), message.getContent());
-                Context context=getApplicationContext();
 
-                int flag = 0;
-                String txt= message.getContent();
-//
-                P.c("application接收"+message.getContent());
-
-                try {
-                    JSONObject jsonObject = new JSONObject(txt);
-                    flag = jsonObject.getInt("flag");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-              switch (flag){
-                  case 0:
-                      //默认错误界面
-
-                      break;
-                  case 3:
-                      //安灯
-                     P.c("发送安灯推送"+txt);
-                     sendReviceTo(AndonRecive.action,txt);
-                     break;
-              }
-                return null;
-            }
-        });
         SMEDTools.init();
         initImageLoader(this);
         startServiceKeep();
     }
-    public void loadPush(){
-        final String userId =SharedPreferencesTool.getMStool(application).getUserId();
-        if(!userId.equals("")){
-            ChatSdk.close();
-            ChatSdk.init(application);
-            ChatSdk.setConnectListener(new IConnectListener() {
-                @Override
-                public void onConnectSuccess() {
-                    //123是用户的Id
-                    P.c("发送ID"+userId);
-                    ChatSdk.INSTANCE.sendDataBuf(new LoginServer(userId), null);
-                }
-
-                @Override
-                public void onConnectError(ErrorCode code) {
-
-                }
-            });
-        }
-    }
 
 
-    private void sendReviceTo(String action,String txt){
-        Intent intent = new Intent();
-        intent.setPackage(getPackageName());
-        intent.setAction(action);
-        intent.putExtra("msg",txt);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        sendBroadcast(intent);
-    }
+
+
 
 
     //启动保活服务
