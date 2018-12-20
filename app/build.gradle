@@ -161,7 +161,9 @@ dependencies {
     implementation project(path: ':one-drawable')
     implementation files('libs/httpclient-4.5.jar')
     implementation files('libs/xUtils.jar')
-
+    //room 数据库
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
     //用于延时动画显示
     implementation 'com.mcxiaoke.volley:library:1.0.+'
     implementation files('libs/library.jar')

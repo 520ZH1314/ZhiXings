@@ -14,6 +14,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.android.volley.VolleyError;
+import com.base.zhixing.www.inter.VolleyResult;
+import com.base.zhixing.www.util.GsonUtil;
+import com.base.zhixing.www.util.UrlUtil;
+import com.google.gson.reflect.TypeToken;
+import com.orhanobut.logger.Logger;
 import com.shuben.contact.lib.ConstantActivity;
 import com.shuben.zhixing.module.mass.ScanMassActivity;
 import com.base.zhixing.www.BaseFragment;
@@ -24,6 +30,17 @@ import com.shuben.zhixing.www.common.ImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.widget.CharAvatarView;
 import com.base.zhixing.www.widget.CircularImage;
+import com.shuben.zhixing.www.data.UseEntity;
+import com.shuben.zhixing.www.data.UserData;
+import com.shuben.zhixing.www.dataBase.UserDatabase;
+import com.zhixing.work.bean.CopyPeopleBean;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/8/21.智行力设置
@@ -33,15 +50,17 @@ public class Fragment04 extends BaseFragment {
     private View view_layout;
     private Context context;
     private ImageView tetle_back;
-    private TextView tetle_text,me_user_name_tv;
-    private LinearLayout tongxunlu,richeng;
+    private TextView tetle_text, me_user_name_tv;
+    private LinearLayout tongxunlu, richeng;
     private CharAvatarView txt_head;
     private CircularImage image_head;
-    private RelativeLayout setting,sao_layout;
+    private RelativeLayout setting, sao_layout;
+    private String ip;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view_layout = inflater.inflate(R.layout.fragment04,container,false);
+        view_layout = inflater.inflate(R.layout.fragment04, container, false);
         context = getActivity();
         return view_layout;
     }
@@ -54,12 +73,13 @@ public class Fragment04 extends BaseFragment {
 
     //id初始化
     private void init() {
+        ip = SharedPreferencesTool.getMStool(getActivity()).getIp();
         sao_layout = view_layout.findViewById(R.id.sao_layout);
         txt_head = view_layout.findViewById(R.id.txt_head);
         image_head = view_layout.findViewById(R.id.image_head);
         setStatus(-1);
 
-        tetle_back = (ImageView)view_layout.findViewById(R.id.tetle_back);
+        tetle_back = (ImageView) view_layout.findViewById(R.id.tetle_back);
         tetle_back.setVisibility(View.GONE);
 
         tetle_text = (TextView) view_layout.findViewById(R.id.tetle_text);
@@ -72,7 +92,7 @@ public class Fragment04 extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent personIntent = new Intent();
-                personIntent.setClass(getActivity(),ConstantActivity.class);
+                personIntent.setClass(getActivity(), ConstantActivity.class);
                 startActivity(personIntent);
             }
         });
@@ -88,16 +108,16 @@ public class Fragment04 extends BaseFragment {
             public void onClick(View view) {
 
                 Intent personIntent = new Intent();
-                personIntent.setClass(getActivity(),SettingComActivity.class);
+                personIntent.setClass(getActivity(), SettingComActivity.class);
                 startActivity(personIntent);
             }
         });
         sao_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),ScanMassActivity.class);
-                intent.putExtra("type",1);
-                startActivityForResult(intent,1000);
+                Intent intent = new Intent(getActivity(), ScanMassActivity.class);
+                intent.putExtra("type", 1);
+                startActivityForResult(intent, 1000);
             }
         });
 
@@ -106,6 +126,83 @@ public class Fragment04 extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+
+        Logger.d(hidden);
+        if (hidden) {
+            return;
+        } else {
+            load(); //网络数据刷新
+        }
+    }
+
+
+    /**
+     * @author zjq
+     * create at 2018/12/20 下午4:33 网络请求
+     */
+    private void load() {
+        Map<String, String> params = new HashMap<>();
+        params.put("AppCode", "EPS");
+        params.put("ApiCode", "GetUserInfo");
+        params.put("UserId", SharedPreferencesTool.getMStool(getActivity()).getUserId());
+
+        httpPostVolley(ip + UrlUtil.GetUseInfo, params, new VolleyResult() {
+            @Override
+            public void success(JSONObject jsonObject) {
+
+                String json = jsonObject.toString();
+
+                  Logger.d(json);
+
+                Type mType = new TypeToken<List<UserData>>() {
+                }.getType();
+                List<UserData> ListBeans = GsonUtil.getGson().fromJson(json, mType);
+                UserData bean = ListBeans.get(0);
+
+                UseEntity entity = new UseEntity();
+                entity.setDeptName(bean.getDeptName());
+                entity.setEmail(bean.getEmail());
+                entity.setHeadShip(bean.getHeadShip());
+                entity.setPhoneNumber(bean.getPhoneNumber());
+                entity.setPhotoURL(bean.getPhotoURL());
+                entity.setSex(bean.getSex());
+                entity.setTenantId(bean.getTenantId());
+                entity.setTenantName(bean.getTenantName());
+                entity.setUserId(bean.getUserId());
+                entity.setUserName(bean.getUserName());
+                entity.setUserCode(bean.getUserCode());
+                entity.setId(1);
+                 Logger.d(entity.getPhoneNumber());
+
+                List<UseEntity> allUsers = UserDatabase
+                        .getInstance(context)
+                        .getUserDao()
+                        .getAllUsers();
+                if (allUsers.isEmpty()) {
+                    UserDatabase
+                            .getInstance(context)
+                            .getUserDao()
+                            .insert(entity);
+
+                }else{
+                    UserDatabase
+                            .getInstance(context)
+                            .getUserDao()
+                            .update(entity);
+
+                }
+
+
+            }
+
+            @Override
+            public void error(VolleyError error) {
+
+
+
+            }
+        }, false);
+
 
     }
 
@@ -116,19 +213,16 @@ public class Fragment04 extends BaseFragment {
         String name = SharedPreferencesTool.getMStool(getActivity()).getUserName();
         me_user_name_tv.setText(name);
         String path = SharedPreferencesTool.getMStool(getActivity()).getString("head_ico");//头像
-        if(path.length()==0){
+        if (path.length() == 0) {
             image_head.setVisibility(View.GONE);
             txt_head.setVisibility(View.VISIBLE);
             txt_head.setText(name);
-        }else{
+        } else {
             image_head.setVisibility(View.VISIBLE);
             txt_head.setVisibility(View.GONE);
-            ImageLoader.load(path,image_head,R.mipmap.person_icon);
+            ImageLoader.load(path, image_head, R.mipmap.person_icon);
         }
     }
-
-
-
 
 
     @Override
