@@ -70,4 +70,10 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!--<item name="android:windowAnimationStyle">@style/config_pop_anim</item>-->
     </style>
+    <declare-styleable name="NiceSpinner">
+        <attr name="arrowTint" format="color" />
+        <attr name="hideArrow" format="boolean" />
+        <attr name="backgroundSelector" format="integer"/>
+        <attr name="textTint" format="color"/>
+    </declare-styleable>
 </resources>

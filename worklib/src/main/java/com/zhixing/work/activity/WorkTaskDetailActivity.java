@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
@@ -279,8 +280,12 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     private void initView() {
            ip = SharedPreferencesTool.getMStool(this).getIp();
            ToDoListId = getIntent().getStringExtra("ToDoListId");
-          name = getIntent().getStringExtra("name");
-          apiCode = getIntent().getStringExtra("ApiCode");
+           if(getIntent().hasExtra("name")){
+               name = getIntent().getStringExtra("name");
+               apiCode = getIntent().getStringExtra("ApiCode");
+           }
+           P.c("测试"+ToDoListId);
+
          tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
          Tv_work_title = (TextView) findViewById(R.id.tv_work_title);
          Tv_work_title.setText("任务详情");

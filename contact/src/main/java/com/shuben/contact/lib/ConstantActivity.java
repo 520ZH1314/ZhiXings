@@ -69,6 +69,7 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
                 }
                 break;
             case 0:
+
                 fragment0.updata(types0);
                 break;
             case 1:
@@ -225,6 +226,7 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
     ArrayList<Bean> beans = new ArrayList<>();
 
     private void getData() {
+        showDialog("同步数据中");
         Map<String, String> params = new HashMap<>();
         params.put("AppCode", "EPS");
         params.put("ApiCode", "GetOrganizeUserForApp");
@@ -232,6 +234,7 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
         httpPostVolley(SharedPreferencesTool.getMStool(ConstantActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
             public void success(final JSONObject jsonObject) {
+                dismissDialog();
                 new Thread() {
                     @Override
                     public void run() {

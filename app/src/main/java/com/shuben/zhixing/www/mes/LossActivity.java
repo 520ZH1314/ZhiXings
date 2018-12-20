@@ -26,11 +26,11 @@ import com.base.zhixing.www.BaseActvity;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.mes.adapter.LossAdapter;
 import com.shuben.zhixing.www.mes.bean.LossInfo;
-import com.zhixing.patrol.util.CalendarUtil;
-import com.zhixing.patrol.util.DateUtil;
-import com.zhixing.patrol.util.ScrollListview;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
+import com.shuben.zhixing.www.util.CalendarUtil;
+import com.shuben.zhixing.www.util.DateUtil;
+import com.shuben.zhixing.www.util.ScrollListview;
 import com.shuben.zhixing.www.view.NiceSpinner;
 
 import org.json.JSONArray;

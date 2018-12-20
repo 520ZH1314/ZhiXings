@@ -38,10 +38,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compileOnly project(path: ':basecommon')
     implementation 'org.greenrobot:eventbus:3.0.0'
-
+    implementation 'com.mcxiaoke.volley:library:1.0.+'
     implementation 'cc.solart:turbo-recyclerview-helper:1.0.3-beta'
     implementation 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
-    compileOnly files('libs/volley.jar')
+
     implementation 'com.github.bumptech.glide:glide:3.6.0'
     implementation "com.alibaba:arouter-api:$arouter_api"
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"

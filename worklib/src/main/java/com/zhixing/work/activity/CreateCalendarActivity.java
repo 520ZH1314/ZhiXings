@@ -106,7 +106,7 @@ public class CreateCalendarActivity extends BaseActvity  implements View.OnClick
         mTvSend = (TextView) findViewById(R.id.tv_work_send);
         mTvTimeStart = (TextView) findViewById(R.id.tv_date_min);//选择开始时间
         mTvTimeEnd = (TextView) findViewById(R.id.tv_date_end_min);//选择结束时间
-
+        mTvTitle.setText("创建日程");
         //会议提醒
         mRlDateRemind=(RelativeLayout) findViewById(R.id.rl_create_date_remind);
         mRlDateRepeatRemind=(RelativeLayout) findViewById(R.id.rl_create_repeat_remind);//重复

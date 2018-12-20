@@ -154,19 +154,19 @@ public class ScheduleActivity extends BaseActvity {
                     startActivity(intent);*/
 
                     ARouter.getInstance().build(ARouterContants.WorkTaskDetailActivity)
-                            .withString("TaskId",pos.getStuId())
-                            .withString("name",type)
-                            .withString("ApiCode","GetUnfinishedTask")
+                            .withString("ToDoListId",pos.getStuId())
+
                             .navigation();
 
                     break;
                 case "高效会议":
-                    Intent intent1 =new Intent();
-                    // intent.setPackage("com.zhixing.work");
-                    intent1.setAction("com.zhixing.meet.outer.detail");
-                    intent1.putExtra("meetingID",pos.getStuId());
-                    intent1.putExtra("meetingDataID",pos.getStuId());
-                    startActivity(intent1);
+
+                    ARouter.getInstance().build(ARouterContants.MeetDetailActivity)
+                            .withString("meetingDataID",pos.getStuId())
+
+                            .navigation();
+
+
                     break;
             }
         });

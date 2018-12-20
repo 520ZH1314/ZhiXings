@@ -54,7 +54,9 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
         mLoader.load(item.getImgUrl())
                 .asBitmap()
                 .centerCrop()
+                .error(R.mipmap.ic_calendar)
                 .into(h.mImageView);
+
         h.schedule_layout.setOnClickListener(c ->{
             if(click!=null){
                 click.clickItem(item);

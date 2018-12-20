@@ -27,12 +27,7 @@
         <!--<attr name="mwScaleX" format="float"/>-->
         <!--<attr name="mwScaleY" format="float"/>-->
     <!--</declare-styleable>-->
-    <declare-styleable name="NiceSpinner">
-        <attr name="arrowTint" format="color" />
-        <attr name="hideArrow" format="boolean" />
-        <attr name="backgroundSelector" format="integer"/>
-        <attr name="textTint" format="color"/>
-    </declare-styleable>
+
 
 
     <attr name="item_count" format="integer"></attr>
