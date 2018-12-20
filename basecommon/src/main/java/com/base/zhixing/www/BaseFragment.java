@@ -35,10 +35,6 @@ import java.util.Map;
 
 public abstract class BaseFragment extends Fragment {
     private LoadingDailog dialog;//加载动画
-
-
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

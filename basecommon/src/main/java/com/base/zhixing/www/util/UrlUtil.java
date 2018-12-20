@@ -6,6 +6,7 @@ public class UrlUtil {
 //	public static String LOCALIP = SharedPreferencesTool.getMStool(BaseApplication.application).getIp();
 	public static String IP = "http://www.m3lean.com:8080";//服务器地址
 	public static String LOGIN = "/login/doAction";//登录
+	public static String GetUseInfo="/api/CMP/ApiRegistrator/PostApiGateWay";//我的信息
 	public static String NoticeList = "/api/Business/NoticeList/GetList?";//首页->新通知（列表）
 	public static String GetNewTaskList = "/api/Business/ToDoList/GetNewTaskList?";//首页->新任务（列表）
 	public static String GetMyCalendar = "/api/Business/Task/GetMyCalendar?";//首页->任务日历
