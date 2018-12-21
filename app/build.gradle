@@ -59,7 +59,7 @@ android {
         multiDexEnabled true
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [moduleName: project.getName()]
             }
         }
     }
@@ -83,13 +83,13 @@ android {
     sourceSets {
 
         main {
-         //   jniLibs.srcDirs = ['libs']
+            //   jniLibs.srcDirs = ['libs']
 
             res.srcDirs =
                     [
                             'src/main/res/layouts/mess',
                             'src/main/res/layouts/mass',
-                             'src/main/res/layouts/schedule',
+                            'src/main/res/layouts/schedule',
                             'src/main/res/layouts/setting',
                             'src/main/res/layouts/center_room',
                             'src/main/res/layouts/stand',
@@ -102,7 +102,7 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-  /*  configurations {
+    /*  configurations {
         all *.exclude group: 'com.android.volley'
     }
 */
@@ -149,7 +149,7 @@ dependencies {
     implementation project(path: ':schedulelib')
     //    implementation 'com.android.support:appcompat-v7:25.3.1'
     //    implementation "com.android.support:$support_version"
-   // testImplementation 'junit:junit:4.12'
+    // testImplementation 'junit:junit:4.12'
     //    api "com.android.support:appcompat-v7:25.3.1"
     //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:$support_version"
@@ -161,9 +161,7 @@ dependencies {
     implementation project(path: ':one-drawable')
     implementation files('libs/httpclient-4.5.jar')
     implementation files('libs/xUtils.jar')
-    //room 数据库
-    implementation 'android.arch.persistence.room:runtime:1.0.0'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
+
     //用于延时动画显示
     implementation 'com.mcxiaoke.volley:library:1.0.+'
     implementation files('libs/library.jar')
@@ -185,4 +183,5 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation "com.alibaba:arouter-api:$arouter_api"
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
+
 }

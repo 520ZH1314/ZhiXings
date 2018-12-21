@@ -16,9 +16,10 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.inter.VolleyResult;
+import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.UrlUtil;
-import com.google.gson.reflect.TypeToken;
+import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
 import com.shuben.contact.lib.ConstantActivity;
 import com.shuben.zhixing.module.mass.ScanMassActivity;
@@ -30,10 +31,8 @@ import com.shuben.zhixing.www.common.ImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.widget.CharAvatarView;
 import com.base.zhixing.www.widget.CircularImage;
-import com.shuben.zhixing.www.data.UseEntity;
 import com.shuben.zhixing.www.data.UserData;
-import com.shuben.zhixing.www.dataBase.UserDatabase;
-import com.zhixing.work.bean.CopyPeopleBean;
+
 
 import org.json.JSONObject;
 
@@ -56,6 +55,9 @@ public class Fragment04 extends BaseFragment {
     private CircularImage image_head;
     private RelativeLayout setting, sao_layout;
     private String ip;
+    private ACache aCache;
+    private TextView mTvDepartName;
+    private TextView mTvPhone;
 
     @Nullable
     @Override
@@ -74,6 +76,7 @@ public class Fragment04 extends BaseFragment {
     //id初始化
     private void init() {
         ip = SharedPreferencesTool.getMStool(getActivity()).getIp();
+        aCache=ACache.get(getActivity());
         sao_layout = view_layout.findViewById(R.id.sao_layout);
         txt_head = view_layout.findViewById(R.id.txt_head);
         image_head = view_layout.findViewById(R.id.image_head);
@@ -81,6 +84,8 @@ public class Fragment04 extends BaseFragment {
 
         tetle_back = (ImageView) view_layout.findViewById(R.id.tetle_back);
         tetle_back.setVisibility(View.GONE);
+        mTvDepartName=(TextView) view_layout.findViewById(R.id.tv_my_depart_name);
+        mTvPhone=(TextView) view_layout.findViewById(R.id.tv_my_phone);
 
         tetle_text = (TextView) view_layout.findViewById(R.id.tetle_text);
         tetle_text.setText("设置");
@@ -127,12 +132,6 @@ public class Fragment04 extends BaseFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
 
-        Logger.d(hidden);
-        if (hidden) {
-            return;
-        } else {
-            load(); //网络数据刷新
-        }
     }
 
 
@@ -149,50 +148,12 @@ public class Fragment04 extends BaseFragment {
         httpPostVolley(ip + UrlUtil.GetUseInfo, params, new VolleyResult() {
             @Override
             public void success(JSONObject jsonObject) {
-
                 String json = jsonObject.toString();
-
-                  Logger.d(json);
-
-                Type mType = new TypeToken<List<UserData>>() {
-                }.getType();
-                List<UserData> ListBeans = GsonUtil.getGson().fromJson(json, mType);
-                UserData bean = ListBeans.get(0);
-
-                UseEntity entity = new UseEntity();
-                entity.setDeptName(bean.getDeptName());
-                entity.setEmail(bean.getEmail());
-                entity.setHeadShip(bean.getHeadShip());
-                entity.setPhoneNumber(bean.getPhoneNumber());
-                entity.setPhotoURL(bean.getPhotoURL());
-                entity.setSex(bean.getSex());
-                entity.setTenantId(bean.getTenantId());
-                entity.setTenantName(bean.getTenantName());
-                entity.setUserId(bean.getUserId());
-                entity.setUserName(bean.getUserName());
-                entity.setUserCode(bean.getUserCode());
-                entity.setId(1);
-                 Logger.d(entity.getPhoneNumber());
-
-                List<UseEntity> allUsers = UserDatabase
-                        .getInstance(context)
-                        .getUserDao()
-                        .getAllUsers();
-                if (allUsers.isEmpty()) {
-                    UserDatabase
-                            .getInstance(context)
-                            .getUserDao()
-                            .insert(entity);
-
-                }else{
-                    UserDatabase
-                            .getInstance(context)
-                            .getUserDao()
-                            .update(entity);
-
-                }
-
-
+                //保存 json
+                aCache.put("App_MyInfo",json);
+                UserData bean = GsonUtil.getGson().fromJson(json, UserData.class);
+                mTvDepartName.setText(bean.getDeptName());
+                mTvPhone.setText(bean.getPhoneNumber());
             }
 
             @Override
@@ -209,7 +170,7 @@ public class Fragment04 extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        load(); //网络数据刷新
         String name = SharedPreferencesTool.getMStool(getActivity()).getUserName();
         me_user_name_tv.setText(name);
         String path = SharedPreferencesTool.getMStool(getActivity()).getString("head_ico");//头像

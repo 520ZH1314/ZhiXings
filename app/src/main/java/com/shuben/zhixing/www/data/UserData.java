@@ -1,6 +1,9 @@
 package com.shuben.zhixing.www.data;
 
-public class UserData {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class UserData implements Parcelable {
     private String UserId;
     private String TenantId;
     private String UserCode;
@@ -101,4 +104,53 @@ public class UserData {
     private String PhotoURL;
     private String DeptName;
     private String TenantName;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.UserId);
+        dest.writeString(this.TenantId);
+        dest.writeString(this.UserCode);
+        dest.writeString(this.UserName);
+        dest.writeString(this.Sex);
+        dest.writeString(this.PhoneNumber);
+        dest.writeString(this.Email);
+        dest.writeString(this.HeadShip);
+        dest.writeString(this.PhotoURL);
+        dest.writeString(this.DeptName);
+        dest.writeString(this.TenantName);
+    }
+
+    public UserData() {
+    }
+
+    protected UserData(Parcel in) {
+        this.UserId = in.readString();
+        this.TenantId = in.readString();
+        this.UserCode = in.readString();
+        this.UserName = in.readString();
+        this.Sex = in.readString();
+        this.PhoneNumber = in.readString();
+        this.Email = in.readString();
+        this.HeadShip = in.readString();
+        this.PhotoURL = in.readString();
+        this.DeptName = in.readString();
+        this.TenantName = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserData> CREATOR = new Parcelable.Creator<UserData>() {
+        @Override
+        public UserData createFromParcel(Parcel source) {
+            return new UserData(source);
+        }
+
+        @Override
+        public UserData[] newArray(int size) {
+            return new UserData[size];
+        }
+    };
 }
