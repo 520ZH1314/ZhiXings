@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.jakewharton.butterknife'
 android {
 
     compileSdkVersion 28
@@ -161,7 +162,8 @@ dependencies {
     implementation project(path: ':one-drawable')
     implementation files('libs/httpclient-4.5.jar')
     implementation files('libs/xUtils.jar')
-
+    implementation 'com.jakewharton:butterknife:9.0.0-rc3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
     //用于延时动画显示
     implementation 'com.mcxiaoke.volley:library:1.0.+'
     implementation files('libs/library.jar')
@@ -183,5 +185,6 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation "com.alibaba:arouter-api:$arouter_api"
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 
 }

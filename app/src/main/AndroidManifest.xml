@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="com.shuben.zhixing.www">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -16,128 +15,111 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-    <uses-permission android:name="android.permission.BATTERY_STATS"/>
-    <uses-permission android:name="android.permission.DEVICE_POWER"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:hardwareAccelerated="true"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
         android:theme="@style/ThemeActivity">
-
-
-
         <receiver android:name="com.shuben.zhixing.module.andon.AndonRecive">
             <intent-filter>
-                <action android:name="com.shuben.zhixing.andon"/>
+                <action android:name="com.shuben.zhixing.andon" />
             </intent-filter>
         </receiver>
-        <activity android:name="com.shuben.zhixing.module.mass.chart.qj.QJ_Line_Chart"
+
+        <activity
+            android:name="com.shuben.zhixing.module.mass.chart.qj.QJ_Line_Chart"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart1"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart2"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart3"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart3"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass.chart.cj.Cj_Chart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.chart.cj.Cj_Chart"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass.chart.cj.CjLineOk_Chart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.chart.cj.CjLineOk_Chart"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass.AddMassActivity3_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.AddMassActivity3_"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass.chart.qj.QJ_Chart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.chart.qj.QJ_Chart"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
 
-        </activity>
         <service android:name=".service.TraceServiceImpl" />
-        <activity android:name="com.shuben.zhixing.module.mass.ScanMassActivity"
+
+        <activity
+            android:name="com.shuben.zhixing.module.mass.ScanMassActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mess.ScanMessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mess.ScanMessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity android:name="com.shuben.zhixing.module.mess.MessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mess.MessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass.AddMassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.AddMassActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity android:name="com.shuben.zhixing.module.mass.AddMassActivity1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.AddMassActivity1"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.shuben.zhixing.module.mass.AddMassActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.AddMassActivity2"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.shuben.zhixing.module.mass.AddMassActivity3"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.AddMassActivity3"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name="com.shuben.zhixing.module.mass.EnterMassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.EnterMassActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass._SomeCheckActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass._SomeCheckActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.mass._AllCheckActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass._AllCheckActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity android:name="com.shuben.zhixing.module.mass.MassMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mass.MassMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -145,31 +127,30 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.shuben.zhixing.module.center_room.Kxzzts"
+        <activity
+            android:name="com.shuben.zhixing.module.center_room.Kxzzts"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape">
-
-        </activity>
-        <activity android:name="com.shuben.zhixing.module.center_room.CenterRoomActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.shuben.zhixing.module.center_room.CenterRoomActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <!--元数据-->
+
+            <!-- 元数据 -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
 
         <activity
             android:name=".NavigationActivity"
@@ -191,7 +172,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="新任务"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.MyAccountActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -207,7 +187,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="个人资料"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.DataAnalysisActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -253,11 +232,13 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="任务子菜单"
             android:screenOrientation="portrait" />
-       <!-- <activity
+        <!--
+            <activity
             android:name=".calendars.SyllabusActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="任务子菜单"
-            android:screenOrientation="portrait" />-->
+            android:screenOrientation="portrait" />
+        -->
         <activity
             android:name=".reminder.ReplyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -268,8 +249,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="采购紧急催单创建"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name="com.shuben.zhixing.module.andon.AndonActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -361,9 +340,7 @@
         <activity
             android:name=".patrol.twoclass.CallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".patrol.PatrolTaskActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -389,7 +366,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 
-        <!--<provider
+        <!--
+        <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities=".fileprovider"
             android:exported="false"
@@ -397,7 +375,8 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>-->
+        </provider>
+        -->
 
         <activity
             android:name=".patrol.twoclass.CallUserActivity"
@@ -426,7 +405,6 @@
         <activity
             android:name="com.photopicker.PhotoPagerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-
             android:screenOrientation="portrait" />
         <activity
             android:name=".patrol.OrganizeActivity"
@@ -528,6 +506,15 @@
             android:name=".inspection.fragment.SolvePActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.MySettingActivity" />
+        <activity android:name=".activity.MyInfoDetailActivity" />
+        <activity android:name=".activity.OutSideBusinessCardActivity" />
+        <activity android:name=".activity.AccountSecurityActivity" />
+        <activity android:name=".activity.NewMessageNotificationActivity" />
+        <activity android:name=".activity.SecretActivity" />
+        <activity android:name=".activity.ContactSecretSettingActivity" />
+        <activity android:name=".activity.RoutineActivity" />
+        <activity android:name=".activity.AboutUsActivity"></activity>
     </application>
 
 </manifest>

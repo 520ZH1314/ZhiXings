@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.RoutineActivity">
+    <include layout="@layout/titles_layout"/>
+      <!--字体大小设置-->
+    <RelativeLayout
+        android:background="@color/white"
+        android:id="@+id/rl_set_text_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/x15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/set_tip"
+            android:text="字体大小设置"
+            android:textColor="@color/txt_viw"
+            android:textSize="@dimen/content_txt_" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/next01" />
+    </RelativeLayout>
+    <View
+        android:background="@color/content_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"/>
+    <!--清楚本地缓存-->
+    <RelativeLayout
+        android:background="@color/white"
+        android:id="@+id/rl_clear_cache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/x15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/set_tip"
+            android:text="清除本地缓存"
+            android:textColor="@color/txt_viw"
+            android:textSize="@dimen/content_txt_" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/next01" />
+    </RelativeLayout>
+    <View
+        android:background="@color/content_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"/>
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/x15">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="来电身份识别"
+            android:textColor="@color/txt_viw"
+            android:textSize="@dimen/content_txt_" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/sb_routine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            app:sb_checked_color="@color/green" />
+    </RelativeLayout>
+
+
+</LinearLayout>

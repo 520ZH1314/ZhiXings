@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AboutUsActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/titles_layout"/>
+        <ImageView
+            android:layout_marginTop="@dimen/x15"
+
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/std"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="@dimen/x15"
+            android:textColor="@color/gray"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/title_center_size"
+            android:text="数本科技V2.0.0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+
+            android:text="已通过ISO8001信息安全认证  "
+            android:textColor="@color/gray02"
+            android:textSize="@dimen/content_txt_" />
+        <RelativeLayout
+            android:layout_marginTop="@dimen/x15"
+            android:background="@color/white"
+            android:id="@+id/rl_new_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/set_tip"
+                android:text="新版本介绍"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/content_txt_" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/next01" />
+        </RelativeLayout>
+        <View
+            android:background="@color/content_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"/>
+        <RelativeLayout
+
+            android:background="@color/white"
+            android:id="@+id/rl_check_new_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/set_tip"
+                android:text="检查新版本"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/content_txt_" />
+
+            <Button
+                android:textSize="@dimen/content_txt_s"
+                android:layout_marginRight="@dimen/x8"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/iv_check_new_version"
+                android:textColor="@color/white"
+                android:text="发现v2.1.0"
+                android:id="@+id/btn_check_new_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/iv_check_new_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/next01" />
+        </RelativeLayout>
+        <View
+            android:background="@color/content_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"/>
+        <RelativeLayout
+
+            android:background="@color/white"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/set_tip"
+                android:text="客服电话"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/content_txt_" />
+
+
+
+            <TextView
+                android:textSize="@dimen/content_txt_"
+                android:textColor="@color/black"
+                android:text="0755-82709014"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+        <View
+            android:background="@color/content_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"/>
+    </LinearLayout>
+
+   <TextView
+       android:layout_marginBottom="@dimen/x30"
+       android:layout_centerHorizontal="true"
+       android:layout_alignParentBottom="true"
+       android:text=" @Copyright2018-2028深圳市数本科技有限公司"
+       android:textColor="@color/gray"
+       android:textSize="@dimen/content_txt_s"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+
+</RelativeLayout>

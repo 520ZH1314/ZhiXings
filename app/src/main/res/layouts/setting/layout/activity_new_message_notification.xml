@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.NewMessageNotificationActivity">
+
+    <include layout="@layout/titles_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/x15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/xuexi_tip"
+                    android:text="新消息通知"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/content_txt_" />
+
+                <TextView
+                    android:textSize="@dimen/content_txt_"
+                    android:text="去设置"
+                    android:textColor="@color/title_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+
+           <!--提示-->
+          <TextView
+              android:layout_gravity="center_horizontal"
+              android:textColor="@color/gray"
+              android:layout_marginBottom="@dimen/x15"
+              android:layout_marginTop="@dimen/x15"
+              android:maxLines="3"
+              android:layout_marginLeft="@dimen/x15"
+              android:layout_marginRight="@dimen/x15"
+              android:textSize="@dimen/content_txt_s"
+              android:text="在系统的应用列表中，找到应用程序“执行力”更改通知选项"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+            <!--通知显示消息详情-->
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/x15">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="通知显示消息详情"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/content_txt_" />
+
+                <com.suke.widget.SwitchButton
+                    app:sb_checked_color="@color/green"
+                    android:id="@+id/sb_message_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+            <!--提示-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/x15"
+                android:layout_marginTop="@dimen/x15"
+                android:layout_marginRight="@dimen/x15"
+                android:layout_marginBottom="@dimen/x15"
+                android:maxLines="3"
+                android:text="关闭后，当收到消息，通知显示将不显示发信人和内容摘要  "
+                android:textColor="@color/gray"
+                android:textSize="@dimen/content_txt_s" />
+            <!--声音-->
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/x15">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="声音"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/content_txt_" />
+
+                <com.suke.widget.SwitchButton
+                    app:sb_checked_color="@color/green"
+                    android:id="@+id/sb_message_notification_sound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+            <View
+                android:background="@color/content_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"/>
+            <!--震动-->
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/x15">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="震动"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/content_txt_" />
+
+                <com.suke.widget.SwitchButton
+                    app:sb_checked_color="@color/green"
+                    android:id="@+id/sb_message_notification_shock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+
+            <View
+                android:background="@color/content_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x10"/>
+
+            <!--免打扰-->
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/x15">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="免打扰"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/content_txt_" />
+
+                <com.suke.widget.SwitchButton
+                    app:sb_checked_color="@color/green"
+                    android:id="@+id/sb_message_notification_do_not_disturb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+            <!--提示-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/x15"
+                android:layout_marginTop="@dimen/x15"
+                android:layout_marginRight="@dimen/x15"
+                android:layout_marginBottom="@dimen/x15"
+                android:maxLines="3"
+                android:text="开启后，在设定的时间范围内，手机不会震动与发出提示音"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/content_txt_s" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

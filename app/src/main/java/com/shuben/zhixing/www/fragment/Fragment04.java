@@ -25,6 +25,7 @@ import com.shuben.contact.lib.ConstantActivity;
 import com.shuben.zhixing.module.mass.ScanMassActivity;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.www.R;
+import com.shuben.zhixing.www.activity.MySettingActivity;
 import com.shuben.zhixing.www.activity.SettingComActivity;
 import com.shuben.zhixing.www.common.ARouterContants;
 import com.shuben.zhixing.www.common.ImageLoader;
@@ -111,9 +112,9 @@ public class Fragment04 extends BaseFragment {
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent personIntent = new Intent();
-                personIntent.setClass(getActivity(), SettingComActivity.class);
+//                SettingComActivity
+                personIntent.setClass(getActivity(), MySettingActivity.class);
                 startActivity(personIntent);
             }
         });
@@ -154,6 +155,7 @@ public class Fragment04 extends BaseFragment {
                 UserData bean = GsonUtil.getGson().fromJson(json, UserData.class);
                 mTvDepartName.setText(bean.getDeptName());
                 mTvPhone.setText(bean.getPhoneNumber());
+                aCache.put("UserPhone",bean.getPhoneNumber());
             }
 
             @Override

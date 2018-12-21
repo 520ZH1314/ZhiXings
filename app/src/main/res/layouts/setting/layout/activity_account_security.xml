@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AccountSecurityActivity">
+
+    <include layout="@layout/titles_layout"/>
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--绑定手机号-->
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/x15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/xuexi_tip"
+                    android:text="绑定手机号"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/content_txt_" />
+
+                <TextView
+                    android:layout_marginRight="@dimen/x10"
+                    android:text="1357607323"
+                    android:layout_toLeftOf="@+id/iv_my_info_account_security_iv"
+                    android:textSize="@dimen/list_txt_"
+                    android:textColor="@color/txt_viw"
+                    android:id="@+id/tv_account_security_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/iv_my_info_account_security_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@mipmap/next01" />
+            </RelativeLayout>
+            <View
+                android:background="@color/content_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x10"/>
+              <!--修改密码-->
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/x15">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+
+                    android:text="修改密码"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/content_txt_" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@mipmap/next01" />
+            </RelativeLayout>
+            <View
+                android:background="@color/content_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x1"/>
+
+
+
+            <!--开启密码锁屏-->
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/x15">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="开启密码锁屏"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/content_txt_" />
+
+                <com.suke.widget.SwitchButton
+                    app:sb_checked_color="@color/green"
+                    android:id="@+id/sb_account_secuity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                     />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</LinearLayout>
