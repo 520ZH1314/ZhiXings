@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.widget.IDialog;
+import com.base.zhixing.www.widget.RecycleViewDivider;
 import com.shuben.zhixing.www.DialogHttp;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.adapter.SetSelectAdapter;

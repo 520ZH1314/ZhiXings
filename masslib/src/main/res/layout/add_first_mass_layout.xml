@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/l_title"
+        layout="@layout/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/content_bg">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/x10"
+                    android:layout_height="@dimen/x75">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:paddingLeft="@dimen/x10"
+                        android:paddingRight="@dimen/x10"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/shape_mass_first_addtip"
+                        android:layout_height="match_parent">
+
+                        <com.base.zhixing.www.widget.XEditText
+                            android:id="@+id/edit"
+                            android:gravity="center_vertical"
+                            android:layout_toLeftOf="@+id/scan_view"
+                            android:layout_width="match_parent"
+                            android:background="@color/no_color"
+                            android:textSize="@dimen/content_txt_"
+                            android:hint="请输入工单号"
+                            app:x_disableEmoji="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="4dp"
+                            android:textColorHint="@color/txt_bor"
+                            android:textColor="@color/txt_bor"
+                            app:x_clearDrawable="@mipmap/ic_clear"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:id="@+id/scan_view"
+                            android:layout_width="@dimen/x25"
+                            android:layout_height="@dimen/x25"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/saoyisao"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/sure"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x50"
+                    android:layout_margin="@dimen/x15"
+                    android:text="确定"
+                    android:background="@drawable/shape_mass_first_addsure"
+                    android:textSize="@dimen/content_txt_"
+                    android:textColor="@color/white"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

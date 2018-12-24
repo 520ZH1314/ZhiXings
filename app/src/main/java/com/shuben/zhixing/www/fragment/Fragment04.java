@@ -18,14 +18,10 @@ import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.UrlUtil;
-import com.bumptech.glide.Glide;
-import com.orhanobut.logger.Logger;
 import com.shuben.contact.lib.ConstantActivity;
-import com.shuben.zhixing.module.mass.ScanMassActivity;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.activity.MySettingActivity;
-import com.shuben.zhixing.www.activity.SettingComActivity;
 import com.shuben.zhixing.www.common.ARouterContants;
 import com.shuben.zhixing.www.common.ImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
@@ -36,9 +32,7 @@ import com.shuben.zhixing.www.data.UserData;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -120,9 +114,9 @@ public class Fragment04 extends BaseFragment {
         sao_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScanMassActivity.class);
+               /* Intent intent = new Intent(getActivity(), ScanMassActivity.class);
                 intent.putExtra("type", 1);
-                startActivityForResult(intent, 1000);
+                startActivityForResult(intent, 1000);*/
             }
         });
 

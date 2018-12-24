@@ -21,7 +21,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.common.SharedUtils;
 import com.sdk.chat.ChatSdk;
-import com.shuben.zhixing.module.mass.MassMainActivity;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.module.mess.MessActivity;
 import com.shuben.zhixing.www.R;
@@ -39,9 +38,8 @@ import com.shuben.zhixing.www.common.T;
 import com.shuben.zhixing.www.fragment.adapter.FoucsAdapter;
 import com.shuben.zhixing.www.inspection.InspectionActivity;
 import com.shuben.zhixing.www.inter.ScreenSelect;
-import com.shuben.zhixing.www.inter.Tips;
+import com.base.zhixing.www.inter.Tips;
 import com.base.zhixing.www.inter.VolleyResult;
-import com.shuben.zhixing.www.mes.MiniMesActivity;
 import com.shuben.zhixing.www.patrol.PatrolActivity;
 import com.shuben.zhixing.www.reminder.ReminderActivity;
 import com.shuben.zhixing.www.reminder.Reminder_CaiGouActivity;
@@ -49,9 +47,8 @@ import com.shuben.zhixing.www.util.IPQCLTBAlertDialog;
 import com.shuben.zhixing.www.util.SelectPicPopupWindow;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
-import com.shuben.zhixing.www.widget.CommonTips;
-import com.shuben.zhixing.www.widget.InGridView;
-import com.zhixing.kpilib.activity.KpiMainActivity;
+import com.base.zhixing.www.widget.CommonTips;
+import com.base.zhixing.www.widget.InGridView;
 import com.zhixing.work.activity.WorkMainActivity;
 
 import org.json.JSONArray;
@@ -277,9 +274,15 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 startActivity(patrolIntent);
                 break;
             case 7:
-                Intent personIntent = new Intent();
+               /* Intent personIntent = new Intent();
                 personIntent.setClass(getActivity(),MassMainActivity.class);
-                startActivity(personIntent);
+                startActivity(personIntent);*/
+               /**
+               * @author cloor
+               * @time   2018-12-24 16:18
+               * @describe  :
+               */
+                ARouter.getInstance().build(ARouterContants.MassMainActivity).navigation();
                 //通讯
                 break;
             case 8://更多

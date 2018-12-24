@@ -18,7 +18,7 @@ import cn.bingoogolapple.qrcode.zxing.ZXingView;
 public class ScanMessActivity extends BaseActvity {
     @Override
     public int getLayoutId() {
-        return R.layout.scan_mass_layout;
+        return R.layout.scan_mess_layout;
     }
 
     @Override

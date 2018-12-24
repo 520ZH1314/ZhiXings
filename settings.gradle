@@ -1,1 +1,1 @@
-include ':app',':one-drawable', ':mylibrary', ':push.chat', ':sdk.chat', ':boommenu', ':upversionlibrary', ':datalib', ':MPChartLib', ':ServiceKeep', ':calendarview', ':qrcodecore', ':basecommon', ':kpilib', ':contact', ':schedulelib','worklib'
+include ':app',':one-drawable', ':mylibrary', ':push.chat', ':sdk.chat', ':boommenu', ':upversionlibrary', ':datalib', ':MPChartLib', ':ServiceKeep', ':calendarview', ':qrcodecore', ':basecommon', ':kpilib', ':contact', ':schedulelib', ':masslib','worklib'

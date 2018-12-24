@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">masslib</string>
+    <string name="degree_centigrade">&#176;C</string>
+</resources>

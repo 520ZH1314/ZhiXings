@@ -37,49 +37,11 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name="com.shuben.zhixing.module.mass.chart.qj.QJ_Line_Chart"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart1"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart2"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.chart.wx.WX_Chart3"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.chart.cj.Cj_Chart"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.chart.cj.CjLineOk_Chart"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.AddMassActivity3_"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.chart.qj.QJ_Chart"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+
 
         <service android:name=".service.TraceServiceImpl" />
 
-        <activity
-            android:name="com.shuben.zhixing.module.mass.ScanMassActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.shuben.zhixing.module.mess.ScanMessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -88,38 +50,7 @@
             android:name="com.shuben.zhixing.module.mess.MessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.AddMassActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.AddMassActivity1"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.AddMassActivity2"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.AddMassActivity3"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.EnterMassActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass._SomeCheckActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass._AllCheckActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.shuben.zhixing.module.mass.MassMainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
