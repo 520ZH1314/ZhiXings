@@ -11,8 +11,11 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.base.zhixing.www.common.Common;
+import com.base.zhixing.www.common.SharedUtils;
 import com.sdk.chat.ChatSdk;
 import com.shuben.zhixing.module.mess.ScanMessActivity;
+import com.shuben.zhixing.www.common.T;
 import com.shuben.zhixing.www.inter.ScreenSelect;
 import com.base.zhixing.www.inter.SelectTime;
 import com.shuben.zhixing.www.inter.SetSelect;
@@ -38,9 +41,11 @@ public class JavaScriptAndon {
 	Activity mContxt;
     Handler handler;
     private WebView commonView;
+    private SharedUtils sharedUtils;
     public JavaScriptAndon(Activity mContxt, Handler handler,WebView commonView) {
         this.mContxt = mContxt;
         this.commonView = commonView;
+        sharedUtils = new SharedUtils(T.SET_F);
     }
     //------Mini mess
 
@@ -252,8 +257,8 @@ public class JavaScriptAndon {
             @Override
             public void select(String id, String code, String name) {
                     if(isSave){
-                        SharedPreferencesTool.getMStool(mContxt).setString("factory_id",id);
-                        SharedPreferencesTool.getMStool(mContxt).setString("factory_name",name);
+                        sharedUtils.setStringValue("factory_id",id);
+                        sharedUtils.setStringValue("factory_name",name);
                     }
                 if(STEP==stemp){
                     screenBack(elements,new String[]{id,code,name},null,null,null);
@@ -279,9 +284,9 @@ public class JavaScriptAndon {
             @Override
             public void select(String id, String code, String name) {
                 if(isSave){
-                    SharedPreferencesTool.getMStool(mContxt).setString("workshop_id",id);
-                    SharedPreferencesTool.getMStool(mContxt).setString("workshop_code",code);
-                    SharedPreferencesTool.getMStool(mContxt).setString("workshop_name",name);
+                    sharedUtils.setStringValue("workshop_id",id);
+                    sharedUtils.setStringValue("workshop_code",code);
+                    sharedUtils.setStringValue("workshop_name",name);
                 }
                 if(STEP==stemp){
                     screenBack(elements,id0,new String[]{id,code,name},null,null);
@@ -308,8 +313,8 @@ public class JavaScriptAndon {
             @Override
             public void select(String id, String code, String name) {
                 if(isSave){
-                    SharedPreferencesTool.getMStool(mContxt).setString("line_id",id);
-                    SharedPreferencesTool.getMStool(mContxt).setString("line_name",name);
+                    sharedUtils.setStringValue("line_id",id);
+                    sharedUtils.setStringValue("line_name",name);
                 }
 
                 if(STEP==stemp){
@@ -336,8 +341,8 @@ public class JavaScriptAndon {
             public void select(String id, String code, String name) {
 
                 if(isSave){
-                    SharedPreferencesTool.getMStool(mContxt).setString("station_id",id);
-                    SharedPreferencesTool.getMStool(mContxt).setString("station_name",name);
+                    sharedUtils.setStringValue("station_id",id);
+                    sharedUtils.setStringValue("station_name",name);
                 }
                     if(commonView==null){
                         if(screenSelect!=null){

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 public class SharedPreferencesTool {
-    private static SharedPreferencesTool mStool;
+    private static volatile SharedPreferencesTool mStool;
     private SharedPreferences preferences;
 
 
@@ -20,7 +20,6 @@ public class SharedPreferencesTool {
     public static SharedPreferencesTool getMStool(Context context) {
         if (mStool == null && context!=null) {
             mStool = new SharedPreferencesTool(context);
-
         }
         return mStool;
     }
@@ -99,10 +98,17 @@ public class SharedPreferencesTool {
             editor.commit();
         }
 
+        public void clearAll(){
+        Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+        }
+
 
     /**
      *获取UserId
      */
+
     public String getUserId() {
        return preferences.getString("UserId","");
     }

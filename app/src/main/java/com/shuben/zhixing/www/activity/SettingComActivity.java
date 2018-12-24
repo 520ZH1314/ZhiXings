@@ -7,9 +7,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.SharedUtils;
 import com.shuben.zhixing.www.R;
+import com.shuben.zhixing.www.common.T;
 import com.shuben.zhixing.www.inter.SetSelect;
-import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.shuben.zhixing.www.widget.CommonSetSelectPop;
 
 public class SettingComActivity extends BaseActvity {
@@ -19,8 +20,10 @@ public class SettingComActivity extends BaseActvity {
     }
     private RelativeLayout layout0,layout1,layout2,layout3;
     private TextView tetle_text,item1,item0,item2,item3;
+    private SharedUtils sharedUtils;
     @Override
     public void initLayout() {
+        sharedUtils = new SharedUtils(T.SET_F);
         item1 = findViewById(R.id.item1);
         item0 = findViewById(R.id.item0);
         item2 = findViewById(R.id.item2);
@@ -40,8 +43,8 @@ public class SettingComActivity extends BaseActvity {
                 setSelectPop.setSelect(new SetSelect() {
                     @Override
                     public void select(String id, String code, String name) {
-                        SharedPreferencesTool.getMStool(SettingComActivity.this).setString("factory_id",id);
-                        SharedPreferencesTool.getMStool(SettingComActivity.this).setString("factory_name",name);
+                        sharedUtils.setStringValue("factory_id",id);
+                        sharedUtils.setStringValue("factory_name",name);
                         setTe();
                     }
                 });
@@ -53,14 +56,14 @@ public class SettingComActivity extends BaseActvity {
             public void onClick(View view) {
                 CommonSetSelectPop setSelectPop = new CommonSetSelectPop(SettingComActivity.this,getHandler(),"车间");
                 setSelectPop.getSet().put("ApiCode", "GetWorkShopList");
-                setSelectPop.getSet().put("FactoryId",SharedPreferencesTool.getMStool(SettingComActivity.this).getString("factory_id"));
+                setSelectPop.getSet().put("FactoryId",sharedUtils.getStringValue("factory_id"));
                 setSelectPop.setMidH(true);
                 setSelectPop.setSelect(new SetSelect() {
                     @Override
                     public void select(String id, String code, String name) {
-                        SharedPreferencesTool.getMStool(SettingComActivity.this).setString("workshop_id",id);
-                        SharedPreferencesTool.getMStool(SettingComActivity.this).setString("workshop_code",code);
-                        SharedPreferencesTool.getMStool(SettingComActivity.this).setString("workshop_name",name);
+                        sharedUtils.setStringValue("workshop_id",id);
+                        sharedUtils.setStringValue("workshop_code",code);
+                        sharedUtils.setStringValue("workshop_name",name);
                         setTe();
                     }
 
@@ -75,13 +78,13 @@ public class SettingComActivity extends BaseActvity {
             public void onClick(View view) {
                 CommonSetSelectPop setSelectPop = new CommonSetSelectPop(SettingComActivity.this,getHandler(),"产线");
                 setSelectPop.getSet().put("ApiCode", "GetLineList");
-                setSelectPop.getSet().put("WorkShopId",SharedPreferencesTool.getMStool(SettingComActivity.this).getString("workshop_id"));
+                setSelectPop.getSet().put("WorkShopId",sharedUtils.getStringValue("workshop_id"));
                 setSelectPop.setMidH(true);
                 setSelectPop.setSelect(new SetSelect() {
                     @Override
                     public void select(String id, String code, String name) {
-                        SharedPreferencesTool.getMStool(SettingComActivity.this).setString("line_id",id);
-                        SharedPreferencesTool.getMStool(SettingComActivity.this).setString("line_name",name);
+                        sharedUtils.setStringValue("line_id",id);
+                        sharedUtils.setStringValue("line_name",name);
                         setTe();
                     }
 
@@ -95,13 +98,13 @@ public class SettingComActivity extends BaseActvity {
             public void onClick(View view) {
                 CommonSetSelectPop setSelectPop = new CommonSetSelectPop(SettingComActivity.this,getHandler(),"工位");
                 setSelectPop.getSet().put("ApiCode", "GetLineStationList");
-                setSelectPop.getSet().put("LineId",SharedPreferencesTool.getMStool(SettingComActivity.this).getString("line_id"));
+                setSelectPop.getSet().put("LineId",sharedUtils.getStringValue("line_id"));
                 setSelectPop.setMidH(true);
                 setSelectPop.setSelect(new SetSelect() {
                     @Override
                     public void select(String id, String code, String name) {
-                        SharedPreferencesTool.getMStool(SettingComActivity.this).setString("station_id",id);
-                        SharedPreferencesTool.getMStool(SettingComActivity.this).setString("station_name",name);
+                        sharedUtils.setStringValue("station_id",id);
+                        sharedUtils.setStringValue("station_name",name);
                         setTe();
                     }
 
@@ -130,9 +133,9 @@ public class SettingComActivity extends BaseActvity {
       setTe();
     }
     private void setTe(){
-        item0.setText(SharedPreferencesTool.getMStool(SettingComActivity.this).getString("factory_name"));
-        item1.setText(SharedPreferencesTool.getMStool(SettingComActivity.this).getString("line_name"));
-        item2.setText(SharedPreferencesTool.getMStool(SettingComActivity.this).getString("station_name"));
-        item3.setText(SharedPreferencesTool.getMStool(SettingComActivity.this).getString("workshop_name"));
+        item0.setText(sharedUtils.getStringValue("factory_name"));
+        item1.setText(sharedUtils.getStringValue("line_name"));
+        item2.setText(sharedUtils.getStringValue("station_name"));
+        item3.setText(sharedUtils.getStringValue("workshop_name"));
     }
 }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
+import com.base.zhixing.www.common.SharedUtils;
 import com.sdk.chat.ChatSdk;
 import com.shuben.zhixing.module.mass.MassMainActivity;
 import com.base.zhixing.www.BaseFragment;
@@ -34,6 +35,7 @@ import com.shuben.zhixing.module.andon.JavaScriptAndon;
 import com.shuben.zhixing.module.center_room.CenterRoomActivity;
 import com.base.zhixing.www.common.P;
 import com.shuben.zhixing.www.common.ARouterContants;
+import com.shuben.zhixing.www.common.T;
 import com.shuben.zhixing.www.fragment.adapter.FoucsAdapter;
 import com.shuben.zhixing.www.inspection.InspectionActivity;
 import com.shuben.zhixing.www.inter.ScreenSelect;
@@ -155,6 +157,14 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                     public void sure() {
                         ChatSdk.close();
                         SharedPreferencesTool.getMStool(getActivity()).clear("UserId");
+                        /**
+                        * @author cloor
+                        * @time   2018-12-21 11:30
+                        * @describe  :  清除
+                        */
+                      SharedUtils sharedUtils = new SharedUtils(T.SET_F);
+                      sharedUtils.clear();
+                      P.c("数据"+SharedPreferencesTool.getMStool(getActivity()).getIp());
                         Intent intent=new Intent();
                         intent.setClass(context, LoginActivity.class);
                         startActivity(intent);
@@ -205,12 +215,13 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 String p1 =  SharedPreferencesTool.getMStool(getActivity()).getUserCode();
                 String p2 = "";
                 String p3 = SharedPreferencesTool.getMStool(getActivity()).getTenantId();
-                String p4 =SharedPreferencesTool.getMStool(getActivity()).getString("factory_id");
-                String p7 = SharedPreferencesTool.getMStool(getActivity()).getString("workshop_id");
-                String p5 = SharedPreferencesTool.getMStool(getActivity()).getString("line_id");
-                String p6 = SharedPreferencesTool.getMStool(getActivity()).getString("station_id");
+                SharedUtils sharedUtils = new SharedUtils(T.SET_F);
+                String p4 =sharedUtils.getStringValue("factory_id");
+                String p7 = sharedUtils.getStringValue("workshop_id");
+                String p5 = sharedUtils.getStringValue("line_id");
+                String p6 = sharedUtils.getStringValue("station_id");
 
-                if(SharedPreferencesTool.getMStool(getActivity()).getString("station_id").length()==0){
+                if(sharedUtils.getStringValue("station_id").length()==0){
                     JavaScriptAndon andon =  new JavaScriptAndon(getActivity(),null,null);
                     andon.setSaveInfo(true);
                     andon.setScreenListen(new ScreenSelect() {

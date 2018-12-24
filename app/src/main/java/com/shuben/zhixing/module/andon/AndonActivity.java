@@ -19,8 +19,6 @@ import com.base.zhixing.www.common.P;
 import java.io.UnsupportedEncodingException;
 
 public class AndonActivity extends BaseActvity {
-
-
     @Override
     public void process(Message msg) {
 
