@@ -105,7 +105,7 @@ public abstract class BaseActvity extends FragmentActivity   {
         if(color!=-1){
             StatusBarCompat.setStatusBarColor(this,ContextCompat.getColor(this,color), true);
         }else{
-                StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg), true);
+            StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg), true);
         }
 
     }

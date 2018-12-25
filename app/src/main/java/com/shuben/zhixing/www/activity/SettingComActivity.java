@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.common.SharedUtils;
+import com.base.zhixing.www.inter.SetSelect;
+import com.base.zhixing.www.widget.CommonSetSelectPop;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.common.T;
-import com.shuben.zhixing.www.inter.SetSelect;
-import com.shuben.zhixing.www.widget.CommonSetSelectPop;
 
 public class SettingComActivity extends BaseActvity {
     @Override

@@ -1,4 +1,4 @@
-package com.shuben.zhixing.www.adapter;
+package com.base.zhixing.www.adapter;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.shuben.zhixing.www.R;
+import com.base.zhixing.www.R;
 import com.base.zhixing.www.util.DensityUtil;
 
 import java.util.ArrayList;
