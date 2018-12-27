@@ -17,7 +17,9 @@ import com.base.zhixing.www.widget.CommonSetSelectPop;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+/**
+ *
+ */
 public class SelectFac {
     Activity mContxt;
     private WebView commonView;

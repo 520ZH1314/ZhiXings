@@ -10,7 +10,6 @@ import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.JsRet;
 import com.base.zhixing.www.inter.SetSelect;
@@ -235,10 +234,18 @@ public class JavaScriptAndon {
     public void setSaveInfo(boolean isSave){
         this.isSave = isSave;
     }
+    public boolean isSave(){
+        return isSave;
+    }
 
     @JavascriptInterface
     public void selectScreen(int STEP){
         SelectFac fac = new SelectFac(mContxt,handler,commonView);
+        fac.setSaveInfo(isSave());
+        if(screenSelect!=null){
+            fac.setScreenListen(screenSelect);
+        }
+
         fac.setJsRet(new JsRet() {
             @Override
             public void result(StackTraceElement[] elements, String result) {
