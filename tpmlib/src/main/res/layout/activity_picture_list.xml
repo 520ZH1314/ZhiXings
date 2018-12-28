@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.PictureListActivity">
+    <LinearLayout
+        android:background="@color/title_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x50">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:text="图片选择"
+            android:gravity="center"
+            android:textColor="@color/white_color"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.zhixing.tpmlib.view.CustomGridView
+        android:id="@+id/gv_leave_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:horizontalSpacing="3dp"
+        android:verticalSpacing="3dp"
+        android:numColumns="4"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>
