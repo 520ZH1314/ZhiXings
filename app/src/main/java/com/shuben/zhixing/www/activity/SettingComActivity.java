@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.common.SharedUtils;
+import com.base.zhixing.www.inter.SetSelect;
+import com.base.zhixing.www.widget.CommonSetSelectPop;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.common.T;
-import com.shuben.zhixing.www.inter.SetSelect;
-import com.shuben.zhixing.www.widget.CommonSetSelectPop;
 
 public class SettingComActivity extends BaseActvity {
     @Override
@@ -34,22 +34,19 @@ public class SettingComActivity extends BaseActvity {
         layout1 = findViewById(R.id.layout1);
         layout2 = findViewById(R.id.layout2);
         layout3  = findViewById(R.id.layout3);
-        layout0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CommonSetSelectPop setSelectPop = new CommonSetSelectPop(SettingComActivity.this,getHandler(),"工厂");
-                setSelectPop.getSet().put("ApiCode", "GetFactoryList");
-                setSelectPop.setMidH(true);
-                setSelectPop.setSelect(new SetSelect() {
-                    @Override
-                    public void select(String id, String code, String name) {
-                        sharedUtils.setStringValue("factory_id",id);
-                        sharedUtils.setStringValue("factory_name",name);
-                        setTe();
-                    }
-                });
-                setSelectPop.showSheet();
-            }
+        layout0.setOnClickListener(view -> {
+            CommonSetSelectPop setSelectPop = new CommonSetSelectPop(SettingComActivity.this,getHandler(),"工厂");
+            setSelectPop.getSet().put("ApiCode", "GetFactoryList");
+            setSelectPop.setMidH(true);
+            setSelectPop.setSelect(new SetSelect() {
+                @Override
+                public void select(String id, String code, String name) {
+                    sharedUtils.setStringValue("factory_id",id);
+                    sharedUtils.setStringValue("factory_name",name);
+                    setTe();
+                }
+            });
+            setSelectPop.showSheet();
         });
         layout3.setOnClickListener(new View.OnClickListener() {
             @Override

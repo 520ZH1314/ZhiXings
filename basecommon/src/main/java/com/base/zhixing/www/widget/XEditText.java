@@ -37,7 +37,6 @@ import com.base.zhixing.www.R;
 /**
  * XEditText
  * <p>
- * GitHub: https://github.com/woxingxiao/XEditText
  * <p>
  * Created by woxingxiao on 2017-03-22.
  */

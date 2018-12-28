@@ -1,4 +1,4 @@
-package com.shuben.zhixing.www.widget;
+package com.base.zhixing.www.widget;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -20,12 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
-import com.base.zhixing.www.widget.IDialog;
-import com.base.zhixing.www.widget.RecycleViewDivider;
-import com.shuben.zhixing.www.DialogHttp;
-import com.shuben.zhixing.www.R;
-import com.shuben.zhixing.www.adapter.SetSelectAdapter;
-import com.shuben.zhixing.www.inter.SetSelect;
+import com.base.zhixing.www.R;
+import com.base.zhixing.www.adapter.SetSelectAdapter;
+import com.base.zhixing.www.inter.SetSelect;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.DensityUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;

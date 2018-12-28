@@ -10,15 +10,16 @@ import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.base.zhixing.www.common.Common;
 import com.base.zhixing.www.common.SharedUtils;
+import com.base.zhixing.www.inter.JsRet;
+import com.base.zhixing.www.inter.SetSelect;
+import com.base.zhixing.www.util.SelectFac;
+import com.base.zhixing.www.widget.CommonSetSelectPop;
 import com.sdk.chat.ChatSdk;
 import com.shuben.zhixing.module.mess.ScanMessActivity;
 import com.shuben.zhixing.www.common.T;
-import com.shuben.zhixing.www.inter.ScreenSelect;
+import com.base.zhixing.www.inter.ScreenSelect;
 import com.base.zhixing.www.inter.SelectTime;
-import com.shuben.zhixing.www.inter.SetSelect;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.wxx.net.HttpResult;
 import com.base.zhixing.www.AppManager;
@@ -27,11 +28,8 @@ import com.shuben.zhixing.push.PushMessageModel;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.ChangeTime;
-import com.shuben.zhixing.www.widget.CommonSetSelectPop;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -236,9 +234,28 @@ public class JavaScriptAndon {
     public void setSaveInfo(boolean isSave){
         this.isSave = isSave;
     }
-    //
+    public boolean isSave(){
+        return isSave;
+    }
+
     @JavascriptInterface
     public void selectScreen(int STEP){
+        SelectFac fac = new SelectFac(mContxt,handler,commonView);
+        fac.setSaveInfo(isSave());
+        if(screenSelect!=null){
+            fac.setScreenListen(screenSelect);
+        }
+
+        fac.setJsRet(new JsRet() {
+            @Override
+            public void result(StackTraceElement[] elements, String result) {
+                callBK(elements,result);
+            }
+        });
+        fac.selectScreen(STEP);
+        if(true){
+            return;
+        }
         P.c("深度"+STEP);
         if(STEP<1||STEP>4){
             Toasty.INSTANCE.showToast(mContxt,"参数传入错误");
@@ -351,10 +368,6 @@ public class JavaScriptAndon {
                     }else{
                         screenBack(elements,id0,id1,id2,new String[]{id,code,name});
                     }
-
-
-
-
             }
         });
         setSelectPop.showSheet();

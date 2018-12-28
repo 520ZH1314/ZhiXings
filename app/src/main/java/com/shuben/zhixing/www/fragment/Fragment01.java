@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.common.SharedUtils;
+import com.example.testlib.TestA;
 import com.sdk.chat.ChatSdk;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.module.mess.MessActivity;
@@ -37,10 +38,9 @@ import com.shuben.zhixing.www.common.ARouterContants;
 import com.shuben.zhixing.www.common.T;
 import com.shuben.zhixing.www.fragment.adapter.FoucsAdapter;
 import com.shuben.zhixing.www.inspection.InspectionActivity;
-import com.shuben.zhixing.www.inter.ScreenSelect;
+import com.base.zhixing.www.inter.ScreenSelect;
 import com.base.zhixing.www.inter.Tips;
 import com.base.zhixing.www.inter.VolleyResult;
-import com.shuben.zhixing.www.patrol.PatrolActivity;
 import com.shuben.zhixing.www.reminder.ReminderActivity;
 import com.shuben.zhixing.www.reminder.Reminder_CaiGouActivity;
 import com.shuben.zhixing.www.util.IPQCLTBAlertDialog;
@@ -270,7 +270,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
             case 5://巡线管理
                 //showRefundDialogs("暂无开放");
                 Intent patrolIntent=new Intent();
-                patrolIntent.setClass(getActivity(), PatrolActivity.class);
+                patrolIntent.setClass(getActivity(), TestA.class);
                 startActivity(patrolIntent);
                 break;
             case 7:
