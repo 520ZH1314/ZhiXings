@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.luck.picture.lib.tools.PictureFileUtils;
+
 import com.watermark.androidwm.WatermarkBuilder;
 import com.watermark.androidwm.bean.WatermarkText;
 
@@ -94,7 +94,6 @@ public class MyImageLoader {
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        PictureFileUtils.deleteCacheDirFile(context);
                         if (b) {
                             WatermarkText watermarkText = new WatermarkText(name)
                                     .setTextColor(Color.WHITE)
