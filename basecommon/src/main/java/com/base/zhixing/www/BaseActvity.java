@@ -21,7 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.base.zhixing.www.AppManager;
+
 import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.inter.VolleyResult;
@@ -161,6 +161,7 @@ public abstract class BaseActvity extends FragmentActivity   {
     //volley方式数据加载构造
     public void httpPostVolley(String URL, Map<String,String> params, final VolleyResult result, final boolean isShow){
         httpPostSONVolley(URL,params,result);
+
         dis(isShow);
     }
     /**

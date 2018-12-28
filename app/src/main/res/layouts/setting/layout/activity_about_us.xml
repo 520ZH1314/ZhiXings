@@ -81,16 +81,7 @@
                 android:textColor="@color/txt_viw"
                 android:textSize="@dimen/content_txt_" />
 
-            <Button
-                android:textSize="@dimen/content_txt_s"
-                android:layout_marginRight="@dimen/x8"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/iv_check_new_version"
-                android:textColor="@color/white"
-                android:text="发现v2.1.0"
-                android:id="@+id/btn_check_new_version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
 
             <ImageView
                 android:id="@+id/iv_check_new_version"

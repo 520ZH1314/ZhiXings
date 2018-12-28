@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
-
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.shuben.zhixing.www.R;
 
 import java.util.ArrayList;
@@ -55,11 +55,12 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         final String path=listUrls.get(position);
-
+        RequestOptions options = new RequestOptions()
+                .centerCrop();
         com.bumptech.glide.Glide.with(mContext)
                 .load(path)
-                .centerCrop()
-                .crossFade()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                 .apply(options)
                 .into(holder.image);
 
         return convertView;

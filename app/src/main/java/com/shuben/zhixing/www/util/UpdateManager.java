@@ -52,10 +52,8 @@ import java.util.Map;
 
 public class UpdateManager {
 	 private Activity mContext;
-
 	    //提示语  
-	    private String updateMsg = "有最新的软件包哦，亲快下载吧~";  
-	      
+	    private String updateMsg = "有最新的软件包哦，亲快下载吧~";
 	    //返回的安装包url  
 	    //private static String apkUrl = "http://192.168.1.201:8090/Files/APK/Byd.apk";  
 	    private Dialog noticeDialog;  

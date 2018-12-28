@@ -12,12 +12,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.UrlUtil;
+import com.base.zhixing.www.view.Toasty;
+import com.orhanobut.logger.Logger;
+import com.photopicker.OnPhotoPickListener;
+import com.photopicker.PhotoPicker;
+import com.photopicker.entity.Photo;
 import com.shuben.contact.lib.ConstantActivity;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.www.R;
@@ -32,7 +38,9 @@ import com.shuben.zhixing.www.data.UserData;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,7 +60,7 @@ public class Fragment04 extends BaseFragment {
     private ACache aCache;
     private TextView mTvDepartName;
     private TextView mTvPhone;
-
+   private  List<String> selectedList=new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +78,7 @@ public class Fragment04 extends BaseFragment {
     //id初始化
     private void init() {
         ip = SharedPreferencesTool.getMStool(getActivity()).getIp();
-        aCache=ACache.get(getActivity());
+        aCache = ACache.get(getActivity());
         sao_layout = view_layout.findViewById(R.id.sao_layout);
         txt_head = view_layout.findViewById(R.id.txt_head);
         image_head = view_layout.findViewById(R.id.image_head);
@@ -78,8 +86,8 @@ public class Fragment04 extends BaseFragment {
 
         tetle_back = (ImageView) view_layout.findViewById(R.id.tetle_back);
         tetle_back.setVisibility(View.GONE);
-        mTvDepartName=(TextView) view_layout.findViewById(R.id.tv_my_depart_name);
-        mTvPhone=(TextView) view_layout.findViewById(R.id.tv_my_phone);
+        mTvDepartName = (TextView) view_layout.findViewById(R.id.tv_my_depart_name);
+        mTvPhone = (TextView) view_layout.findViewById(R.id.tv_my_phone);
 
         tetle_text = (TextView) view_layout.findViewById(R.id.tetle_text);
         tetle_text.setText("设置");
@@ -106,9 +114,9 @@ public class Fragment04 extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent personIntent = new Intent();
-//                SettingComActivity
                 personIntent.setClass(getActivity(), MySettingActivity.class);
                 startActivity(personIntent);
+
             }
         });
         sao_layout.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +128,11 @@ public class Fragment04 extends BaseFragment {
             }
         });
 
+
     }
+
+
+
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -144,16 +156,15 @@ public class Fragment04 extends BaseFragment {
             public void success(JSONObject jsonObject) {
                 String json = jsonObject.toString();
                 //保存 json
-                aCache.put("App_MyInfo",json);
+                aCache.put("App_MyInfo", json);
                 UserData bean = GsonUtil.getGson().fromJson(json, UserData.class);
                 mTvDepartName.setText(bean.getDeptName());
                 mTvPhone.setText(bean.getPhoneNumber());
-                aCache.put("UserPhone",bean.getPhoneNumber());
+                aCache.put("UserPhone", bean.getPhoneNumber());
             }
 
             @Override
             public void error(VolleyError error) {
-
 
 
             }
@@ -177,6 +188,7 @@ public class Fragment04 extends BaseFragment {
             image_head.setVisibility(View.VISIBLE);
             txt_head.setVisibility(View.GONE);
             ImageLoader.load(path, image_head, R.mipmap.person_icon);
+
         }
     }
 
