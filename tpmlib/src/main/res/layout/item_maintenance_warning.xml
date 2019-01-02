@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/item_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+
+        >
+      <RelativeLayout
+
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <android.support.constraint.ConstraintLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <View
+                  android:id="@+id/view"
+                  android:layout_width="@dimen/x5"
+                  android:layout_height="@dimen/x15"
+                  android:layout_marginTop="8dp"
+                  android:background="@color/title_bg"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent" />
+
+              <TextView
+                  android:id="@+id/textView3"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:text="设备名称:"
+                  android:textColor="#4A4A4A"
+                  android:textSize="@dimen/content_txt_"
+                  app:layout_constraintStart_toStartOf="@+id/tv_machine_num"
+                  app:layout_constraintTop_toBottomOf="@+id/view" />
+
+              <TextView
+
+                  android:id="@+id/textView4"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:text="设备编号:"
+                  android:textColor="#4A4A4A"
+                  android:textSize="@dimen/content_txt_"
+                  app:layout_constraintEnd_toEndOf="@+id/textView3"
+                  app:layout_constraintStart_toStartOf="@+id/textView3"
+                  app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+              <TextView
+                  android:id="@+id/textView6"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginBottom="16dp"
+                  android:text="保养类别:"
+                  android:textColor="#4A4A4A"
+                  android:textSize="@dimen/content_txt_"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintEnd_toEndOf="@+id/textView4"
+                  app:layout_constraintStart_toStartOf="@+id/textView4"
+                  app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+              <TextView
+                  android:id="@+id/tv_machine_name"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="8dp"
+                  android:layout_marginLeft="8dp"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginBottom="8dp"
+                  android:text="Xsadjksaljdsadj"
+                  android:textColor="@color/black"
+                  android:textSize="@dimen/list_txt_"
+                  app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                  app:layout_constraintStart_toEndOf="@+id/textView3"
+                  app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+              <TextView
+                  android:id="@+id/tv_machine_id"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginBottom="8dp"
+                  android:text="xsaihdashdas"
+                  android:textColor="@color/black"
+                  android:textSize="@dimen/list_txt_"
+                  app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                  app:layout_constraintStart_toStartOf="@+id/tv_machine_name"
+                  app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+              <TextView
+                  android:id="@+id/tv_maintain_type"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginBottom="8dp"
+                  android:text="周保养"
+                  android:textColor="@color/black"
+                  android:textSize="@dimen/list_txt_"
+                  app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                  app:layout_constraintStart_toStartOf="@+id/tv_machine_id"
+                  app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+              <TextView
+                  android:id="@+id/tv_overdue"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginEnd="32dp"
+                  android:layout_marginRight="32dp"
+                  android:gravity="center"
+                  android:maxEms="4"
+                  android:maxLines="2"
+
+                  android:text="-97天"
+                  android:textColor="#F04630"
+                  android:textSize="@dimen/title_center_size"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintTop_toTopOf="@+id/tv_machine_name" />
+
+              <TextView
+                  android:textColor="#9b9b9b"
+                  android:textSize="@dimen/list_txt_"
+                  android:id="@+id/textView"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:text="倒计时"
+                  app:layout_constraintEnd_toEndOf="@+id/tv_overdue"
+                  app:layout_constraintStart_toStartOf="@+id/tv_overdue"
+                  app:layout_constraintTop_toBottomOf="@+id/tv_overdue" />
+
+              <TextView
+                  android:id="@+id/tv_machine_num"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="16dp"
+                  android:layout_marginLeft="16dp"
+                  android:text="01"
+                  android:textColor="#4A4A4A"
+                  android:textSize="17sp"
+                  app:layout_constraintBottom_toBottomOf="@+id/view"
+                  app:layout_constraintStart_toEndOf="@+id/view"
+                  app:layout_constraintTop_toTopOf="@+id/view" />
+          </android.support.constraint.ConstraintLayout>
+          <com.zhixing.tpmlib.view.LabelView
+              android:layout_alignParentRight="true"
+              android:layout_alignParentTop="true"
+              app:backgroundColor="#FF943D"
+              app:labelBottomPadding="@dimen/x10"
+              app:labelCenterPadding="@dimen/x10"
+              app:labelTopPadding="@dimen/x10"
+              app:primaryText="待审批"
+              app:corner="rightTop"
+              app:secondaryText="  "
+              app:primaryTextColor="@color/white"
+              app:primaryTextSize="@dimen/content_txt_"
+              android:id="@+id/tv_rotate"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              />
+      </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>
