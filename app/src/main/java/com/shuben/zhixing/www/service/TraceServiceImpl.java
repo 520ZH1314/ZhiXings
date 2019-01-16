@@ -1,7 +1,9 @@
 package com.shuben.zhixing.www.service;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.IBinder;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
@@ -9,9 +11,9 @@ import com.sdk.chat.ChatSdk;
 import com.sdk.chat.callback.IConnectListener;
 import com.sdk.chat.contact.ErrorCode;
 import com.sdk.chat.message.Message;
+import com.shuben.common.IPush;
 import com.shuben.zhixing.module.andon.AndonRecive;
 import com.shuben.zhixing.push.LoginServer;
-import com.shuben.zhixing.www.BaseApplication;
 import com.xdandroid.hellodaemon.AbsWorkService;
 import com.base.zhixing.www.common.P;
 import org.json.JSONException;
@@ -82,6 +84,7 @@ public class TraceServiceImpl extends AbsWorkService {
     @Override
     public Boolean isWorkRunning(Intent intent, int flags, int startId) {
         //若还没有取消订阅, 就说明任务仍在运行.
+
         return sDisposable != null && !sDisposable.isDisposed();
     }
 
@@ -94,6 +97,7 @@ public class TraceServiceImpl extends AbsWorkService {
     public void onServiceKilled(Intent rootIntent) {
         //BaseApplication.application.startServiceKeep();
         P.c("保存数据到磁盘");
+
     }
 
 
@@ -106,7 +110,7 @@ public class TraceServiceImpl extends AbsWorkService {
                 @Override
                 public void onConnectSuccess() {
                     //123是用户的Id
-                    P.c("发送ID"+userId);
+                    P.c("绑定推送ID"+userId);
                     ChatSdk.INSTANCE.sendDataBuf(new LoginServer(userId), null);
                     rev();
                 }

@@ -19,8 +19,15 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
+import com.base.zhixing.www.common.Common;
+import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.SharedUtils;
-import com.example.testlib.TestA;
+import com.base.zhixing.www.view.Toasty;
+import com.leo618.zip.IZipCallback;
+import com.leo618.zip.ZipManager;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadLargeFileListener;
+import com.liulishuo.filedownloader.FileDownloader;
 import com.sdk.chat.ChatSdk;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.module.mess.MessActivity;
@@ -31,7 +38,7 @@ import com.shuben.zhixing.www.activity.NewNotificationActivity;
 import com.shuben.zhixing.www.activity.SquareActivity;
 import com.shuben.zhixing.www.adapter.ViewPagerAdapter;
 import com.shuben.zhixing.module.andon.AndonActivity;
-import com.shuben.zhixing.module.andon.JavaScriptAndon;
+import com.shuben.zhixing.module.jsf.JavaScriptAndon;
 import com.shuben.zhixing.module.center_room.CenterRoomActivity;
 import com.base.zhixing.www.common.P;
 import com.shuben.zhixing.www.common.ARouterContants;
@@ -41,6 +48,8 @@ import com.shuben.zhixing.www.inspection.InspectionActivity;
 import com.base.zhixing.www.inter.ScreenSelect;
 import com.base.zhixing.www.inter.Tips;
 import com.base.zhixing.www.inter.VolleyResult;
+import com.shuben.zhixing.www.inter.EnterI;
+import com.shuben.zhixing.www.patrol.PatrolActivity;
 import com.shuben.zhixing.www.reminder.ReminderActivity;
 import com.shuben.zhixing.www.reminder.Reminder_CaiGouActivity;
 import com.shuben.zhixing.www.util.IPQCLTBAlertDialog;
@@ -51,10 +60,13 @@ import com.base.zhixing.www.widget.CommonTips;
 import com.base.zhixing.www.widget.InGridView;
 import com.zhixing.work.activity.WorkMainActivity;
 
+import net.lingala.zip4j.util.Zip4jUtil;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,6 +108,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
     private ViewPagerAdapter adapter;
     private ScheduledExecutorService scheduledExecutorService;
     private InGridView foucs;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -130,7 +143,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
     private void init() {
         setStatus(-1);
         initItems();
-        load();
+       // load();
         foucsAdapter = new FoucsAdapter(getActivity(),items);
         foucs = view_layout.findViewById(R.id.foucs);
         foucs.setAdapter(foucsAdapter);
@@ -191,6 +204,192 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         setOnclick();
         setviewpager();
     }
+    private void downRar(String MOUDLE,String ur,String current,EnterI enterI){
+        SharedUtils sharedUtils = new SharedUtils(MOUDLE);
+        showDialog("正在更新安灯模块");
+        P.c("正在更新安灯模块");
+        //解析就统一解析到模块的module文件夹下面
+        String path = Common.SD+MOUDLE+"/"+MOUDLE+ur.substring(ur.lastIndexOf("."));
+        FileDownloader.getImpl().create(ur).setPath(path).setListener(new FileDownloadLargeFileListener() {
+            @Override
+            protected void pending(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+
+            }
+
+            @Override
+            protected void progress(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+                P.c("下载"+soFarBytes);
+            }
+
+            @Override
+            protected void paused(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+
+            }
+
+            @Override
+            protected void completed(BaseDownloadTask task) {
+               P.c( task.getPath());
+
+
+
+                try {
+                    String dir = Common.SD+MOUDLE+"/MODULE/";
+                    if(path.endsWith("zip")){
+
+                        ZipManager.unzip(task.getPath(), dir, new IZipCallback() {
+                            @Override
+                            public void onStart() {
+
+                            }
+
+                            @Override
+                            public void onProgress(int percentDone) {
+
+                            }
+
+                            @Override
+                            public void onFinish(boolean success) {
+                                dismissDialog();
+                                sharedUtils.setStringValue("CurrentVersion",current);
+                                if(enterI!=null){
+                                    enterI.enter(MOUDLE);
+                                }
+                            }
+                        });
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected void error(BaseDownloadTask task, Throwable e) {
+
+            }
+
+            @Override
+            protected void warn(BaseDownloadTask task) {
+
+            }
+        }).start();
+    }
+    /**
+    * @author cloor
+    * @time   2019-1-11 10:20
+    * @describe  : 下载模块
+    */
+    private void downModule(String MOUDLE,EnterI enterI){
+        SharedUtils sharedUtils = new SharedUtils(MOUDLE);
+        File andonDir = new File(Common.SD+MOUDLE);
+        if(!andonDir.exists()) {
+            andonDir.mkdirs();
+        }
+        Map<String,String> params = new HashMap<>();
+        params.put("AppCode","EPS");
+        params.put("ApiCode","GetAppCodeVersion");
+        params.put("AppVerCode",MOUDLE);
+        httpPostSONVolley(SharedPreferencesTool.getMStool(getActivity()).getIp() + UrlUtil.Url, params, new VolleyResult() {
+            @Override
+            public void success(JSONObject jsonObject) {
+                try {
+                    if(jsonObject.getBoolean("status")){
+                        String old = sharedUtils.getStringValue("CurrentVersion");
+                       JSONArray array = jsonObject.getJSONArray("rows");
+                       if(array.length()==0){
+                           return;
+                       }
+                       JSONObject object = array.getJSONObject(0);
+                      String current =  object.getString("CurrentVersion");
+                      File file = new File(Common.SD+MOUDLE+"/MODULE/index.html");
+                      if(!old.equals(current)||!file.exists()){
+                         CommonTips commonTips = new CommonTips(getActivity(),null);
+                         commonTips.init("暂时不用","现在下载","检测到新版本"+current);
+                         commonTips.setI(new Tips() {
+                             @Override
+                             public void cancel() {
+
+                             }
+
+                             @Override
+                             public void sure() {
+                                 try {
+                                     downRar(MOUDLE,SharedPreferencesTool.getMStool(getActivity()).getIp()+object.getString("AndroidURL"),current,enterI);
+                                 } catch (JSONException e) {
+                                     e.printStackTrace();
+                                 }
+                             }
+                         });
+                         commonTips.showSheet();
+                      }else{
+                          //相同的，可以进入
+                          //Toasty.INSTANCE.showToast(getActivity(),"相同");
+
+                          if(enterI!=null){
+                              enterI.enter(MOUDLE);
+                          }
+                      }
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void error(VolleyError error) {
+
+            }
+        });
+    }
+    private void enterMes(String MOUDLE){
+        Intent intent2=new Intent(getActivity(),MessActivity.class);
+        intent2.putExtra("file",Common.SD+MOUDLE+"/MODULE/index.html");
+        startActivity(intent2);
+    }
+
+    private void enterAndon(String MOUDLE){
+        Intent intent2=new Intent();
+        String user= SharedPreferencesTool.getMStool(getActivity()).getPhone();
+        String psw= SharedPreferencesTool.getMStool(getActivity()).getPassword();
+        intent2.putExtra("file",Common.SD+MOUDLE+"/MODULE/index.html");
+       // intent2.putExtra("url",SharedPreferencesTool.getMStool(getActivity()).getString("AndonApp_config"));
+        P.c("地址"+intent2.getStringExtra("url"));
+        String p0 =  SharedPreferencesTool.getMStool(getActivity()).getUserId();
+        String p1 =  SharedPreferencesTool.getMStool(getActivity()).getUserCode();
+        String p2 = "";
+        String p3 = SharedPreferencesTool.getMStool(getActivity()).getTenantId();
+        SharedUtils sharedUtils = new SharedUtils(T.SET_F);
+        String p4 =sharedUtils.getStringValue("factory_id");
+        String p7 = sharedUtils.getStringValue("workshop_id");
+        String p5 = sharedUtils.getStringValue("line_id");
+        String p6 = sharedUtils.getStringValue("station_id");
+
+        if(sharedUtils.getStringValue("station_id").length()==0){
+            JavaScriptAndon andon =  new JavaScriptAndon(getActivity(),null,null);
+            andon.setSaveInfo(true);
+            andon.setScreenListen(new ScreenSelect() {
+                @Override
+                public void select(String id0[], String id1[], String id2[], String id3[]) {
+                    String js = "javascript:loginInfoMsg("+params(p0)+","+params(p1)+","+params(p2)+","+params(p3)+","+params(id0[0])+","+params(id1[0])+","+params(id2[0])+","+params(id3[0])+","+params("-1")+")";
+                    intent2.putExtra("js",js);
+                    intent2.setClass(getActivity(), AndonActivity.class);
+                    startActivity(intent2);
+                }
+            });
+            andon.selectScreen(4);
+            return;
+        }
+        //安灯
+        String js = "javascript:loginInfoMsg("+params(p0)+","+params(p1)+","+params(p2)+","+params(p3)+","+params(p4)+","+params(p7)+","+params(p5)+","+params(p6)+")";
+        P.c(js);
+        intent2.putExtra("init_value",js);
+        intent2.setClass(getActivity(), AndonActivity.class);
+        startActivity(intent2);
+
+    }
+
     private void clickItem(int p){
         switch (p){
             case 0://紧急催单
@@ -202,43 +401,14 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
                 break;
             case 6:
+                downModule(T.ANDON, new EnterI() {
+                    @Override
+                    public void enter(String moudle) {
+                        enterAndon(moudle);
+                    }
+                });
 
-                Intent intent2=new Intent();
-                String user= SharedPreferencesTool.getMStool(getActivity()).getPhone();
-                String psw= SharedPreferencesTool.getMStool(getActivity()).getPassword();
-                intent2.putExtra("url",SharedPreferencesTool.getMStool(getActivity()).getString("AndonApp_config"));
-                P.c("地址"+intent2.getStringExtra("url"));
-                String p0 =  SharedPreferencesTool.getMStool(getActivity()).getUserId();
-                String p1 =  SharedPreferencesTool.getMStool(getActivity()).getUserCode();
-                String p2 = "";
-                String p3 = SharedPreferencesTool.getMStool(getActivity()).getTenantId();
-                SharedUtils sharedUtils = new SharedUtils(T.SET_F);
-                String p4 =sharedUtils.getStringValue("factory_id");
-                String p7 = sharedUtils.getStringValue("workshop_id");
-                String p5 = sharedUtils.getStringValue("line_id");
-                String p6 = sharedUtils.getStringValue("station_id");
 
-                if(sharedUtils.getStringValue("station_id").length()==0){
-                    JavaScriptAndon andon =  new JavaScriptAndon(getActivity(),null,null);
-                    andon.setSaveInfo(true);
-                    andon.setScreenListen(new ScreenSelect() {
-                        @Override
-                        public void select(String id0[], String id1[], String id2[], String id3[]) {
-                            String js = "javascript:loginInfoMsg("+params(p0)+","+params(p1)+","+params(p2)+","+params(p3)+","+params(id0[0])+","+params(id1[0])+","+params(id2[0])+","+params(id3[0])+","+params("-1")+")";
-                            intent2.putExtra("js",js);
-                            intent2.setClass(getActivity(), AndonActivity.class);
-                            startActivity(intent2);
-                        }
-                    });
-                    andon.selectScreen(4);
-                    return;
-                }
-                //安灯
-                String js = "javascript:loginInfoMsg("+params(p0)+","+params(p1)+","+params(p2)+","+params(p3)+","+params(p4)+","+params(p7)+","+params(p5)+","+params(p6)+")";
-                P.c(js);
-                intent2.putExtra("init_value",js);
-                intent2.setClass(getActivity(), AndonActivity.class);
-                startActivity(intent2);
                 break;
             case 1://任务交办
                 //showRefundDialogs("当前用户未开启任务交办功能");
@@ -254,10 +424,16 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
             case 3://80管理
                 //showRefundDialogs("暂无开放");
-                Intent intent1=new Intent();
+               /* Intent intent1=new Intent();
                 intent1.setClass(getActivity(), MessActivity.class);
                 intent1.putExtra("url",SharedPreferencesTool.getMStool(getActivity()).getString("MiniMesApp_config"));
-                startActivity(intent1);
+                startActivity(intent1);*/
+                downModule(T.SMESS, new EnterI() {
+                    @Override
+                    public void enter(String moudle) {
+                        enterMes(moudle);
+                    }
+                });
                 break;
 
             case 4://巡检
@@ -268,10 +444,11 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 break;
 
             case 5://巡线管理
-                //showRefundDialogs("暂无开放");
-                Intent patrolIntent=new Intent();
-                patrolIntent.setClass(getActivity(), TestA.class);
-                startActivity(patrolIntent);
+              //  showRefundDialogs("暂无开放");
+                Intent po=new Intent();
+                po.setClass(getActivity(), PatrolActivity.class);
+                startActivity(po);
+
                 break;
             case 7:
                /* Intent personIntent = new Intent();
@@ -406,7 +583,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         } else {
 
             enqueueBannerLoopMessage();
-            load();
+           // load();
         }
     }
 

@@ -180,7 +180,7 @@ public class Fragment04 extends BaseFragment {
         String name = SharedPreferencesTool.getMStool(getActivity()).getUserName();
         me_user_name_tv.setText(name);
         String path = SharedPreferencesTool.getMStool(getActivity()).getString("head_ico");//头像
-        if (path.length() == 0) {
+        if (path.length() == 1) {
             image_head.setVisibility(View.GONE);
             txt_head.setVisibility(View.VISIBLE);
             txt_head.setText(name);

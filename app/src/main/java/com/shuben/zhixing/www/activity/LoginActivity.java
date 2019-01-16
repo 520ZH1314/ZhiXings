@@ -3,9 +3,13 @@ package com.shuben.zhixing.www.activity;
 import android.Manifest;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -23,6 +27,7 @@ import com.sdk.chat.ChatSdk;
 import com.sdk.chat.callback.IConnectListener;
 import com.sdk.chat.contact.ErrorCode;
 import com.sdk.chat.server.SdkConfig;
+import com.shuben.common.IPush;
 import com.shuben.zhixing.push.UrlConfig;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
@@ -82,8 +87,12 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
       /*  File file = new File("/storage/emulated/0/UpApkPath/shuben_updata.apk");
         AppInstall.openFile(LoginActivity.this, file);*/
+      P.c("登录凌乱了");
+            blind();
        startKeep();
         if(SharedPreferencesTool.getMStool(LoginActivity.this).getUserId().length()!=0){
             Intent intent=new Intent();
@@ -93,7 +102,25 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
 
         }
     }
+    IPush iPush;
+    ServiceConnection pushConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            iPush = IPush.Stub.asInterface(iBinder);
+            P.c("服务端"+componentName);
+        }
 
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            iPush = null;
+            P.c("服务端断开");
+        }
+    };
+    private void blind(){
+        Intent intent = new Intent(this,IPush.class);
+        bindService(intent,pushConnection,Context.BIND_AUTO_CREATE);
+
+    }
 
     private boolean isServiceRunning(String ServicePackageName) {
         ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
@@ -266,6 +293,7 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
 
     }
+
     private void init() {
         LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(this)
                 .setMessage("加载中...")

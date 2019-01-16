@@ -1,19 +1,27 @@
 package com.shuben.zhixing.www;
 
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Environment;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
 import com.base.zhixing.www.BaseApp;
+import com.liulishuo.filedownloader.FileDownloader;
+import com.liulishuo.filedownloader.util.FileDownloadLog;
+import com.liulishuo.filedownloader.util.FileDownloadUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.sdk.chat.server.SdkConfig;
 import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.shuben.common.IPush;
+import com.shuben.zhixing.www.activity.LoginActivity;
 import com.tencent.smtt.sdk.QbSdk;
 import com.xdandroid.hellodaemon.DaemonEnv;
 import com.base.zhixing.www.common.Common;
@@ -90,14 +98,18 @@ public class BaseApplication extends BaseApp {
         String IP = SharedPreferencesTool.getMStool(this).getString("IP");
 
 //        UrlConfig.BASE_IP = IP;
-        P.c("推送IP"+IP);
+
         if(IP.startsWith("http")){
             //无论是http还是https开头都这么认为
-            IP = IP.split("://")[1];
+            try {
+                IP = IP.split("://")[1];
+            }catch (ArrayIndexOutOfBoundsException e){
+
+            }
+
         }
         SdkConfig.setIP(IP);
-
-        P.c("连接推送"+IP);
+        P.c("推送服务初始化"+IP);
         preinitX5WebCore();
 
         /*ChatSdk.init(this);
@@ -131,8 +143,28 @@ public class BaseApplication extends BaseApp {
         SMEDTools.init();
         initImageLoader(this);
         startServiceKeep();
+        initFiled();
+
     }
 
+    /**
+    * @author cloor
+    * @time   2019-1-10 17:54
+    * @describe  :
+    */
+    private void initFiled(){
+        FileDownloadLog.NEED_LOG = DEVELOPER_MODE;
+        FileDownloader.setupOnApplicationOnCreate(this)
+                /*.connectionCreator(new FileDownloadUrlConnection
+                        .Creator(new FileDownloadUrlConnection.Configuration()
+                        .connectTimeout(15_000) // set connection timeout.
+                        .readTimeout(15_000) // set read timeout.
+                ))*/
+                .commit();
+
+
+
+    }
 
 
 
@@ -143,7 +175,6 @@ public class BaseApplication extends BaseApp {
         DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
         TraceServiceImpl.sShouldStopService = false;
         DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
-
     }
 
 

@@ -8,4 +8,9 @@ public class T {
     public static String UserImg = "UserImg";
     public static String SET_F = "JR_SET";//产线配置
 
+
+    //安灯模块
+    public static String ANDON = "ANDON";
+     public static String SMESS = "SMES";
+
 }

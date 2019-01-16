@@ -13,8 +13,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import com.base.zhixing.www.BaseActvity;
-import com.shuben.zhixing.www.R;
 import com.base.zhixing.www.common.P;
+import com.shuben.zhixing.module.jsf.JavaScriptAndon;
+import com.shuben.zhixing.www.R;
 
 import java.io.UnsupportedEncodingException;
 
@@ -151,7 +152,7 @@ public class AndonActivity extends BaseActvity {
         } else if (getIntent().hasExtra("content")) {
 
         } else if (getIntent().hasExtra("file")) {
-            commonView.loadUrl(getIntent().getStringExtra("file"));
+            commonView.loadUrl("file://"+getIntent().getStringExtra("file"));
         }
 
 
@@ -163,7 +164,7 @@ public class AndonActivity extends BaseActvity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.common_web;
+        return R.layout.andon_web;
     }
     private String INIT_VALUE ;
     @Override

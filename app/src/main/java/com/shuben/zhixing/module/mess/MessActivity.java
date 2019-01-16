@@ -3,9 +3,11 @@ package com.shuben.zhixing.module.mess;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.ValueCallback;
@@ -19,13 +21,16 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.Common;
 import com.base.zhixing.www.common.P;
-import com.shuben.zhixing.module.andon.JavaScriptAndon;
+import com.shuben.zhixing.module.jsf.JavaScriptAndon;
+import com.shuben.zhixing.www.BaseApplication;
 import com.shuben.zhixing.www.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 
 public class MessActivity extends BaseActvity {
@@ -82,8 +87,11 @@ public class MessActivity extends BaseActvity {
                 return true;
             }
         });
+
+
         WebSettings webSettings = commonView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowFileAccess(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setDomStorageEnabled(true);
@@ -174,8 +182,11 @@ public class MessActivity extends BaseActvity {
         } else if (getIntent().hasExtra("content")) {
 
         } else if (getIntent().hasExtra("file")) {
-            P.c("mess地址"+getIntent().getStringExtra("file"));
-            commonView.loadUrl(getIntent().getStringExtra("file"));
+
+            commonView.loadUrl("file://"+getIntent().getStringExtra("file"));
+
+
+
         }
 
 

@@ -12,7 +12,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 import com.base.zhixing.www.BaseActvity;
 import com.shuben.zhixing.www.R;
 import com.base.zhixing.www.common.P;
-import com.shuben.zhixing.module.andon.JavaScriptAndon;
+import com.shuben.zhixing.module.jsf.JavaScriptAndon;
 
 import java.io.UnsupportedEncodingException;
 

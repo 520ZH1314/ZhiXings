@@ -1,4 +1,4 @@
-package com.shuben.zhixing.module.andon;
+package com.shuben.zhixing.module.jsf;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -210,7 +210,8 @@ public class JavaScriptAndon {
                 object.put("action",action);
                 String from  = SharedPreferencesTool.getMStool(mContxt).getUserId();
                 P.c( object.toString( ));
-                PushMessageModel push=new PushMessageModel(object.toString(),from,tos,module);
+                String IP = SharedPreferencesTool.getMStool(mContxt).getString("IP");
+                PushMessageModel push=new PushMessageModel(object.toString(),from,tos,module,IP);
                 push.getSource(new Function1<HttpResult<String>, Unit>() {
                     @Override
                     public Unit invoke(HttpResult<String> stringHttpResult) {
