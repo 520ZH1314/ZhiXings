@@ -9,6 +9,13 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.widget.CommonSetSelectPop;
 import com.zhixing.tpmlib.activity.TpmActivity;
 import com.zhixing.work.http.base.RetrofitClients;
+
+
+/**
+ *
+ *@author zjq
+ *create at 2019/1/17 下午5:28
+ */
 public class TpmSetting {
 
     private static TpmSetting mTpmSetting;
