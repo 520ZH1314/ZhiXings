@@ -49,7 +49,7 @@ public void onDailyClicked(View view) {
 }
     @OnClick(R2.id.rl_planned_maintenance)
     public void onPlanneClicked(View view) {
-        startActivity(new Intent(this,PlannedMaintenanceActivity.class));;
+        startActivity(new Intent(this,MyTextActivity.class));;
     }
     @OnClick(R2.id.rl_matche_warming)
     public void onWarmingClicked(View view) {
