@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhixing.tpmlib">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application>
         <activity
             android:name=".activity.TpmActivity"
@@ -25,9 +27,12 @@
         <activity
             android:name=".activity.DailyCheckDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.PictureListActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            />
+        <activity
+            android:name=".activity.PictureListActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.CurrencyRecordActivity" />
+        <activity android:name=".activity.CurrencyRecordDetailActivity" />
+        <activity android:name=".activity.MyTextActivity" android:windowSoftInputMode="stateHidden|adjustResize"></activity>
     </application>
 
 </manifest>

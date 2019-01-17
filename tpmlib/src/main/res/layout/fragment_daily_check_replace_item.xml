@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+ <android.support.constraint.ConstraintLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:background="@color/white">
+
+  <TextView
+      android:textSize="@dimen/content_txt_"
+      android:textColor="@color/black"
+      android:id="@+id/tv_daily_check_replace_equiment_namess"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginLeft="24dp"
+      android:layout_marginTop="16dp"
+      android:text="当前装备:卧式注塑机"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:textSize="@dimen/content_txt_"
+      android:textColor="@color/black"
+      android:id="@+id/tv_daily_check_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="单元:注塑机台"
+      app:layout_constraintStart_toStartOf="@+id/tv_daily_check_replace_equiment_namess"
+      app:layout_constraintTop_toBottomOf="@+id/tv_daily_check_replace_equiment_namess" />
+
+  <TextView
+      android:textSize="@dimen/content_txt_"
+      android:textColor="@color/black"
+      android:id="@+id/tv_daily_check_adress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="16dp"
+      android:text="位置:注塑机台"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/tv_daily_check_text"
+      app:layout_constraintTop_toBottomOf="@+id/tv_daily_check_text" />
+ </android.support.constraint.ConstraintLayout>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+ <com.zhixing.tpmlib.view.DiscreteScrollView
+     android:descendantFocusability="beforeDescendants"
+     android:fastScrollEnabled="false"
+     app:dsv_orientation="horizontal"
+     android:layout_marginTop="@dimen/x24"
+     android:id="@+id/recyleview_daily_check_item_replace_one"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+
+ </com.zhixing.tpmlib.view.DiscreteScrollView>
+
+</ScrollView>
+
+</LinearLayout>

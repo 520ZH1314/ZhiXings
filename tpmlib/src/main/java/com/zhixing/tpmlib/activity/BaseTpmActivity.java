@@ -14,4 +14,11 @@ public abstract class BaseTpmActivity extends BaseActvity {
         newIniLayout();
     }
     public abstract void newIniLayout();
+
+    public String getFormartTime(String data) {
+        String buyDate = data;
+        String t[] = buyDate.split("T");
+        String string=t[0]+" "+t[1];
+        return string;
+    }
 }

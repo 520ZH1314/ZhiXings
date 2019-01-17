@@ -10,8 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
+import com.base.zhixing.www.AppManager;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.bean.ColumnarBean;
 import com.zhixing.tpmlib.viewModel.ColumnarViewModel;
@@ -65,6 +68,13 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
         flPicCondtionTpm = (FrameLayout) findViewById(R.id.fl_pic_condtion_tpms);
         leftMenu=(RecyclerView) findViewById(R.id.left_menu);
         drawerLayout=(DrawerLayout) findViewById(R.id.drawer_layout);
+        TextView textView=(TextView) findViewById(R.id.tpm_statical_close);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppManager.getAppManager().finishActivity();
+            }
+        });
     }
 
     private void initToobar() {

@@ -320,7 +320,7 @@ public class UpdateManager {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("AppCode", "EPS");
 		params.put("ApiCode", "GetAppVersion");
-
+		params.put("AppVerCode","Android");
 		JsonObjectRequest newMissRequest = new JsonObjectRequest(
 				Request.Method.POST, SharedPreferencesTool.getMStool(mContext).getIp()+UrlUtil.Url,
 				new JSONObject(params), new Response.Listener<JSONObject>() {

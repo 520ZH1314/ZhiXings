@@ -3,6 +3,7 @@ package com.shuben.zhixing.push;
 import com.base.zhixing.www.BaseApp;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.shuben.zhixing.www.BaseApplication;
 import com.shuben.zhixing.www.activity.LoginActivity;
 import com.wxx.net.HttpEngine;
 import com.wxx.net.HttpResult;
@@ -20,11 +21,13 @@ public class PushMessageModel extends ResponseModel<String> {
     String from;
     String receivers;
     String module = "";
-    public PushMessageModel(String message, String from, String receivers,String module) {
+    String IP;
+    public PushMessageModel(String message, String from, String receivers,String module,String IP) {
         this.message = message;
         this.from = from;
         this.receivers = receivers;
         this.module = module;
+        this.IP = IP;
     }
     public PushMessageModel(String message, String from, String receivers) {
         this.message = message;
@@ -36,7 +39,7 @@ public class PushMessageModel extends ResponseModel<String> {
     public void getSource(@NotNull Function1<? super HttpResult<String>, Unit> callback) {
      //   UrlConfig config = new UrlConfig();
 
-        String IP = SharedPreferencesTool.getMStool(BaseApp.application).getString("IP");
+       // String IP = SharedPreferencesTool.getMStool(BaseApplication.application).getString("IP");
 
         if(IP.startsWith("http")){
             //无论是http还是https开头都这么认为

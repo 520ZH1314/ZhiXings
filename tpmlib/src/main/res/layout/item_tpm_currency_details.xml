@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+
+        >
+
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="@dimen/x5"
+                    android:layout_height="@dimen/x15"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/title_bg"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_tpm_currency_tv1s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="时间:"
+                    android:textColor="#4A4A4A"
+                    android:textSize="@dimen/content_txt_"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+
+                    android:id="@+id/tv_tpm_currency_tv2s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="异常小类:"
+                    android:textColor="#4A4A4A"
+                    android:textSize="@dimen/content_txt_"
+                    app:layout_constraintStart_toStartOf="@+id/tv_tpm_currency_tv1s"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tpm_currency_tv1s" />
+
+                <TextView
+                    android:id="@+id/tv_tpm_currency_tv3s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="处理人:"
+                    android:textColor="#4A4A4A"
+                    android:textSize="@dimen/content_txt_"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_tpm_currency_tv2s"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tpm_currency_tv2s" />
+
+                <TextView
+                    android:id="@+id/tv_tpm_currency_tv3_values"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:text="哆啦A梦"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/list_txt_"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_tpm_currency_tv3s"
+                    app:layout_constraintStart_toEndOf="@+id/tv_tpm_currency_tv2s"
+                    app:layout_constraintTop_toTopOf="@+id/tv_tpm_currency_tv3s" />
+
+                <TextView
+                    android:id="@+id/tv_tpm_currency_tv2_values"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:text="设备异常"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/list_txt_"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_tpm_currency_tv3s"
+                    app:layout_constraintStart_toEndOf="@+id/tv_tpm_currency_tv2s"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tpm_currency_tv1s" />
+
+                <TextView
+                    android:id="@+id/tv_tpm_currency_tv1_values"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:text="2019-01-01"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/list_txt_"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_tpm_currency_tv1s"
+                    app:layout_constraintStart_toEndOf="@+id/tv_tpm_currency_tv2s"
+                    app:layout_constraintTop_toTopOf="@+id/tv_tpm_currency_tv1s" />
+
+
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <com.zhixing.tpmlib.view.LabelView
+                android:id="@+id/tv_currency_statuss"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                app:backgroundColor="#FF943D"
+                app:corner="rightTop"
+                app:labelBottomPadding="@dimen/x10"
+                app:labelCenterPadding="@dimen/x10"
+                app:labelTopPadding="@dimen/x10"
+                app:primaryText="待审批"
+                app:primaryTextColor="@color/white"
+                app:primaryTextSize="@dimen/content_txt_"
+                app:secondaryText="  " />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

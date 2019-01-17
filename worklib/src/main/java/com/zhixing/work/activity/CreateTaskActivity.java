@@ -62,34 +62,24 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
     @NotEmpty
     private EditText mEditContent;
     private static final String SEPARATOR = ",";
-
     private RelativeLayout mReTaskSend;
-
     private TextView mTvTaskSend;
-
     private TextView mTvTaskSendCopy;
-
     private TextView mTvTaskEndTime;
-
     private RelativeLayout mReTaskSendCopy;
-
     private RelativeLayout mReTaskEndTime;
     private String CCUserId;//执行人oid
     private String ToDoUserId;//抄送人oid
-
     private String TenantId;
     private String userId;
     private Validator validator;
     private String ip;
     private RelativeLayout mReTaskStartTime;
-
     private TextView mTvTaskStartTime;
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_create_task;
     }
-
 
     @Override
     public void process(Message msg) {
@@ -161,7 +151,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
             startActivity(mRlMeetOrganizingIntent);
         } else if (i == R.id.rl_create_task_end_time) {
 
-            ChangeTime changeTime = new ChangeTime(this, "", 0, mTvTaskEndTime);
+            ChangeTime changeTime = new ChangeTime(this, "", 0,mTvTaskEndTime);
             changeTime.showSheet();
 
 

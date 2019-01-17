@@ -40,7 +40,13 @@
         </receiver>
 
         <service android:name=".service.TraceServiceImpl" />
-
+        <service android:name=".service.ZPush"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.shuben.aidl.push" />
+            </intent-filter>
+        </service>
         <activity
             android:name="com.shuben.zhixing.module.mess.ScanMessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -74,7 +80,6 @@
             android:authorities="${applicationId}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <!-- 元数据 -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
@@ -185,7 +190,8 @@
         <activity
             android:name="com.shuben.zhixing.module.mess.MessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="DuplicateActivity" />
         <activity
             android:name=".activity.CommonWebActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -329,10 +335,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.photopicker.PhotoPickerActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="portrait" />
+            android:theme="@style/Theme.AppCompat"
+            />
         <activity
             android:name="com.photopicker.PhotoPagerActivity"
+
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity

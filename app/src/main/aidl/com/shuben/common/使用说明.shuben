@@ -1,0 +1,31 @@
+   /**
+     * 测试aidl第三方服务调用
+     */
+    IPush iPush;
+    ServiceConnection connection;
+    private void test(){
+              connection = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                    iPush = IPush.Stub.asInterface(iBinder);
+                    
+                    try {
+                        String from = SharedPreferencesTool.getMStool(ConstantActivity.this).getUserId();
+                        iPush.push(SharedPreferencesTool.getMStool(ConstantActivity.this).getString("IP"),from,"1","2","3","{}",5,6,"7");
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onServiceDisconnected(ComponentName componentName) {
+                    iPush = null;
+                    
+                }
+            };
+            Intent intent = new Intent();
+            intent.setPackage("com.shuben.zhixing.www");//必须字符
+            intent.setAction("com.shuben.aidl.push");//同样必须字符
+            bindService(intent,connection,Context.BIND_AUTO_CREATE);
+            unbindService(connection);//退出应用需要调用
+        }
