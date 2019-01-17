@@ -11,6 +11,7 @@ import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.util.UpdateManager;
 
@@ -40,6 +41,7 @@ public class AboutUsActivity extends BaseActvity {
 
     @Override
     public int getLayoutId() {
+
         return R.layout.activity_about_us;
     }
 
@@ -66,7 +68,7 @@ public class AboutUsActivity extends BaseActvity {
                 AppManager.getAppManager().finishActivity();
                 break;
             case R.id.rl_new_version:
-                startActivity(VmActivity.class);
+
                 break;
             case R.id.rl_check_new_version:
                 UpdateManager updateManager=new UpdateManager(this);
