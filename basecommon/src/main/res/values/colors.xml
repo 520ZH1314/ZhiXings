@@ -66,6 +66,7 @@
     <color name="photopicker_background">#323232</color>
 
     <color name="moren">#13A4D3</color>
+    <color name="tpm_blue">#2196f3</color>
 
     <color name="white">#ffffff</color>
 
@@ -88,4 +89,6 @@
     <color name="content_line">#EEEEEE</color>
     <color name="frame_l">#FFAC38</color>
     <color name="mass_tip">#FF7F00</color>
+
+
 </resources>

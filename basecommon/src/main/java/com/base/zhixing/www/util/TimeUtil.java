@@ -324,7 +324,7 @@ public class TimeUtil {
  *
  *@author zjq
  *create at 2018/12/19 上午8:36
- * 比较两个时间的大小
+ * 比较两个时间的大小(yy-mm-dd:hh:mm)
  */
 	public static int getTimeCompareSize(String startTime, String endTime){
 		int i=0;
@@ -348,8 +348,33 @@ public class TimeUtil {
 			return i;
 		}
 
+		/**
+		 *
+		 *@author zjq
+		 *create at 2019/1/8 上午11:31
+		 * 比较两个时间大小(yy-mm-dd)
+		 */
+	public static int getTimeCompareSizes(String startTime, String endTime){
+		int i=0;
 
 
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date dt1 = df.parse(startTime);
+			Date dt2 = df.parse(endTime);
+			if (dt1.getTime() > dt2.getTime()) {
+				i=1;
+			} else if (dt1.getTime() < dt2.getTime()) {
+
+				i=2;
+			} else  if (dt1.getTime()==dt2.getTime()){
+				i=0;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return i;
+	}
 
 
 	/**
