@@ -52,13 +52,13 @@ public class BaseApplication extends BaseApp {
     public NotificationUtils getNotificationUtils(){
         return  notificationUtils;
     }
-        private void preinitX5WebCore() {
+    private void preinitX5WebCore() {
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
             @Override
             public void onViewInitFinished(boolean arg0) {
 //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-              P.c("onViewInitFinished");
+                P.c("onViewInitFinished");
             }
 
             @Override
@@ -148,10 +148,10 @@ public class BaseApplication extends BaseApp {
     }
 
     /**
-    * @author cloor
-    * @time   2019-1-10 17:54
-    * @describe  :
-    */
+     * @author cloor
+     * @time   2019-1-10 17:54
+     * @describe  :
+     */
     private void initFiled(){
         FileDownloadLog.NEED_LOG = DEVELOPER_MODE;
         FileDownloader.setupOnApplicationOnCreate(this)
@@ -225,7 +225,7 @@ public class BaseApplication extends BaseApp {
         printWriter.close();
         String sb = writer.toString();
         P.c("日志" + sb);
-       // Toasty.INSTANCE.showToast(application,sb);
+        // Toasty.INSTANCE.showToast(application,sb);
         try {
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
             String time = formatter.format(new Date());

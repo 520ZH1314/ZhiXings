@@ -412,9 +412,11 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 break;
             case 1://任务交办
                 //showRefundDialogs("当前用户未开启任务交办功能");
+                TpmSetting.getInstance(getActivity()).isSetting();
 
-                    Intent intent =new Intent(getActivity(),WorkMainActivity.class);
-                    startActivity(intent);
+//
+//                    Intent intent =new Intent(getActivity(),WorkMainActivity.class);
+//                    startActivity(intent);
 
                 break;
 
