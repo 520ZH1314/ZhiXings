@@ -80,12 +80,15 @@ public class UrlUtil {
 	//public static String BaseUrl= "http://192.168.2.253:9090";//公司服务器地址
 	//public static String BaseUrl= "http://192.168.0.102:9001";//泰威服务器地址
 	 public static String BaseUrl= "http://192.168.2.253:9001";//傲雷服务器地址
-	//public static String BaseUrl= "http://www.m3lean.com:501";//云服务器地址
+//	public static String BaseUrl= "http://www.m3lean.com:501";//云服务器地址
 
 	public  static String Url="/api/CMP/ApiRegistrator/PostApiGateWay";
+	public  static String BaseImgUrl="http://192.168.2.29:9008/";
+	public  static String CheckUrl="/api/TPM/TPMViewer/EditEveryDayRecordForAndroid";
 	public  static String SeveImageUrl="/api/CMP/AppRegistrator?AppCode=LinePatrol";
 	public  static String SeveLinePatrolImageUrl="/api/CMP/AppRegistrator?AppCode=PatrolInspection";
 	public  static String UpdateUrl="/api/Sys/AppVersion/Get";
+	public  static String TpmUrl="/api/TPM/TPMAndroid/GetMaintananceItemInfo";
 	public static String LinkedTable01="linepatrol_problem01";//问题改善前图片
 	public static String LinkedTable02="linepatrol_problem02";//问题改善后图片
 	public static String LinkedTable03="linepatrol_highLight";//亮点图片
