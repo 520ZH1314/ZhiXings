@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/bg_tpm"
     tools:context=".activity.DailyCheckActivity">
     <include
         android:layout_width="match_parent"
         android:layout_height="50dp"
         layout="@layout/title_layout"/>
     />
+
     <com.liaoinstan.springview.widget.SpringView
     android:id="@+id/spring"
     android:layout_width="match_parent"
@@ -19,5 +21,9 @@
         android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/tRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 </com.liaoinstan.springview.widget.SpringView>
 </LinearLayout>

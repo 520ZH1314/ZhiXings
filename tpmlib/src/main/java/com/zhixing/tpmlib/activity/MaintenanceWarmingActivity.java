@@ -150,8 +150,6 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity implements Sprin
             }
         }, 1000);
     }
-
-
     @Override
     public void onRefresh() {
         TotalPage = Total / rows;//总页数
@@ -168,7 +166,6 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity implements Sprin
                                 "0" + i + 1));
                     }
                     adapt.setNewData(beans);
-
                 }
 
             });

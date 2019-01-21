@@ -1,70 +1,176 @@
 package com.zhixing.tpmlib.bean;
 
 public class DailyCheckItemBean {
-    public  int  imageUrl;
-    public String checkBody;
+    /**
+     * ItemCode : 000027
+     * Operator : 保养员
+     * Period : 1
+     * Cell : 注塑机台
+     * Position : 塑胶车间
+     * Description : 保持机台干净无油污
+     * StandardImage :
+     * ItemId : 85d24eef-6cef-40f6-8071-4450121867fe
+     * Paramater : 1
+     * GradeId : EB0FD77C-2C49-4547-B914-C993336DFBFA
+     * ClassId : DC100F07-62F5-4C2A-891F-2B7E3562850D
+     * ActuallyImage : null
+     * Fruit : null
+     * ExceptionStatus : null
+     * Seq : 1
+     * MaintananceId : null
+     */
 
-    public String  checkStatus;
-
-    public  String equipmentName;
-
-    public  String equipmentAdress;
-    public  String equipmentText;
-
-    public DailyCheckItemBean(int imageUrl, String checkBody, String checkStatus, String equipmentName, String equipmentAdress, String equipmentText) {
-        this.imageUrl = imageUrl;
-        this.checkBody = checkBody;
-        this.checkStatus = checkStatus;
-        this.equipmentName = equipmentName;
-        this.equipmentAdress = equipmentAdress;
-        this.equipmentText = equipmentText;
+    private String ItemCode;
+    private String Operator;
+    private int Period;
+    private String Cell;
+    private String Position;
+    private String Description;
+    private String StandardImage;
+    private String ItemId;
+    private int Paramater;
+    private String GradeId;
+    private String ClassId;
+    private String ActuallyImage;
+    private String Fruit;
+    private String ExceptionStatus;
+    private int Seq;
+    private String MaintananceId;
+    private String ExceptionGroupName;
+    public String getExceptionGroupName() {
+        return ExceptionGroupName;
     }
 
-    public int getImageUrl() {
-        return imageUrl;
+    public void setExceptionGroupName(String exceptionGroupName) {
+        ExceptionGroupName = exceptionGroupName;
     }
 
-    public void setImageUrl(int imageUrl) {
-        this.imageUrl = imageUrl;
+    public String getItemCode() {
+        return ItemCode;
     }
 
-    public String getCheckBody() {
-        return checkBody;
+    public void setItemCode(String ItemCode) {
+        this.ItemCode = ItemCode;
     }
 
-    public void setCheckBody(String checkBody) {
-        this.checkBody = checkBody;
+    public String getOperator() {
+        return Operator;
     }
 
-    public String getCheckStatus() {
-        return checkStatus;
+    public void setOperator(String Operator) {
+        this.Operator = Operator;
     }
 
-    public void setCheckStatus(String checkStatus) {
-        this.checkStatus = checkStatus;
+    public int getPeriod() {
+        return Period;
     }
 
-    public String getEquipmentName() {
-        return equipmentName;
+    public void setPeriod(int Period) {
+        this.Period = Period;
     }
 
-    public void setEquipmentName(String equipmentName) {
-        this.equipmentName = equipmentName;
+    public String getCell() {
+        return Cell;
     }
 
-    public String getEquipmentAdress() {
-        return equipmentAdress;
+    public void setCell(String Cell) {
+        this.Cell = Cell;
     }
 
-    public void setEquipmentAdress(String equipmentAdress) {
-        this.equipmentAdress = equipmentAdress;
+    public String getPosition() {
+        return Position;
     }
 
-    public String getEquipmentText() {
-        return equipmentText;
+    public void setPosition(String Position) {
+        this.Position = Position;
     }
 
-    public void setEquipmentText(String equipmentText) {
-        this.equipmentText = equipmentText;
+    public String getDescription() {
+        return Description;
     }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
+    }
+
+    public String getStandardImage() {
+        return StandardImage;
+    }
+
+    public void setStandardImage(String StandardImage) {
+        this.StandardImage = StandardImage;
+    }
+
+    public String getItemId() {
+        return ItemId;
+    }
+
+    public void setItemId(String ItemId) {
+        this.ItemId = ItemId;
+    }
+
+    public int getParamater() {
+        return Paramater;
+    }
+
+    public void setParamater(int Paramater) {
+        this.Paramater = Paramater;
+    }
+
+    public String getGradeId() {
+        return GradeId;
+    }
+
+    public void setGradeId(String GradeId) {
+        this.GradeId = GradeId;
+    }
+
+    public String getClassId() {
+        return ClassId;
+    }
+
+    public void setClassId(String ClassId) {
+        this.ClassId = ClassId;
+    }
+
+    public String getActuallyImage() {
+        return ActuallyImage;
+    }
+
+    public void setActuallyImage(String ActuallyImage) {
+        this.ActuallyImage = ActuallyImage;
+    }
+
+    public String getFruit() {
+        return Fruit;
+    }
+
+    public void setFruit(String Fruit) {
+        this.Fruit = Fruit;
+    }
+
+    public String getExceptionStatus() {
+        return ExceptionStatus;
+    }
+
+    public void setExceptionStatus(String ExceptionStatus) {
+        this.ExceptionStatus = ExceptionStatus;
+    }
+
+    public int getSeq() {
+        return Seq;
+    }
+
+    public void setSeq(int Seq) {
+        this.Seq = Seq;
+    }
+
+    public String getMaintananceId() {
+        return MaintananceId;
+    }
+
+    public void setMaintananceId(String MaintananceId) {
+        this.MaintananceId = MaintananceId;
+    }
+
 }

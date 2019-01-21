@@ -15,17 +15,32 @@
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_centerVertical="true"
+                android:id="@+id/ll_line"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_width="@dimen/x5"
+                android:layout_height="@dimen/x15"
+                android:background="@color/title_bg"
+                />
     <TextView
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
         android:text="点检标准"
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@id/ll_line"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentLeft="true"
         android:textSize="15sp"
         android:textColor="@color/text_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+        </RelativeLayout>
     <TextView
         android:layout_marginLeft="5dp"
-        android:textSize="@dimen/s14"
+        android:textSize="@dimen/s12"
         android:textColor="@color/text_color"
         android:id="@+id/tv_check_item"
         android:text="保持锁磨射台机构油泵等活动部件有润滑油脂无渣"
@@ -34,6 +49,7 @@
         android:layout_height="wrap_content"
         />
         <LinearLayout
+            android:layout_marginTop="@dimen/x5"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -44,13 +60,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="#c4c4c4"
+                    android:background="@drawable/show_view"
                     android:layout_width="100dp"
                     android:layout_height="70dp" />
                 <TextView
                     android:id="@+id/tv_pic_num"
-                    android:textSize="@dimen/s16"
-                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/s14"
+                    android:textColor="@color/white_color"
                     android:gravity="center"
                     android:text="0/0"
                     android:layout_width="100dp"
@@ -63,12 +79,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="#c4c4c4"
+                    android:background="@drawable/show_view"
                     android:layout_width="100dp"
                     android:layout_height="70dp" />
                 <TextView
-                    android:textSize="@dimen/s16"
-                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/s14"
+                    android:textColor="@color/white_color"
                     android:gravity="center"
                     android:text="查看更多"
                     android:layout_width="100dp"
@@ -82,14 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="#c4c4c4"
-                    android:layout_width="100dp"
-                    android:layout_height="70dp" />
-                <TextView
-                    android:textSize="@dimen/s16"
-                    android:textColor="@color/white_color"
-                    android:gravity="center"
-                    android:text="+"
+                    android:src="@mipmap/icon_add_pic"
                     android:layout_width="100dp"
                     android:layout_height="70dp" />
             </RelativeLayout>
@@ -102,6 +111,9 @@
             android:text="实际结果"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <EditText
             android:gravity="center"
             android:textColor="@color/gray02"
@@ -114,6 +126,16 @@
             android:textSize="@dimen/s12"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_tip_close"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_width="20dp"
+                android:src="@mipmap/delete_img"
+                android:layout_height="20dp" />
+        </RelativeLayout>
         <RelativeLayout
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"

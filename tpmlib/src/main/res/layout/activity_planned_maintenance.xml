@@ -7,8 +7,17 @@
     android:orientation="vertical"
     tools:context=".activity.PlannedMaintenanceActivity">
     <include
+        layout="@layout/title_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        layout="@layout/title_layout"/>
+        android:layout_height="50dp" />
     />
+    <com.liaoinstan.springview.widget.SpringView
+        android:id="@+id/spring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.liaoinstan.springview.widget.SpringView>
 </LinearLayout>

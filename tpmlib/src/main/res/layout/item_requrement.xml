@@ -1,123 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_marginTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:test="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@color/white_color"
+    android:orientation="vertical">
+
     <android.support.v7.widget.CardView
-        app:cardCornerRadius="10dp"
-        app:cardMaxElevation="5dp"
-        app:cardElevation="3dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
 
 
-    <RelativeLayout
-        android:padding="5dp"
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="150dp">
         <RelativeLayout
-            android:id="@+id/ll_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <View
-                android:layout_centerVertical="true"
-                android:id="@+id/ll_line"
-                android:layout_marginLeft="@dimen/x20"
-                android:layout_width="@dimen/x5"
-                android:layout_height="@dimen/x15"
-                android:background="@color/title_bg"
-                />
-            <TextView
-                android:layout_centerInParent="true"
-                android:layout_toRightOf="@id/ll_line"
-                android:layout_marginLeft="30dp"
-                android:layout_alignParentLeft="true"
-                android:id="@+id/tv_requiment"
-                android:gravity="center"
-                android:text="卧式注册机"
-                android:textSize="14sp"
-                android:textColor="#4a4a4a"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_marginRight="@dimen/x20"
-                android:layout_alignParentRight="true"
-                android:textSize="12sp"
-                android:textColor="#FF943D"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="未开始"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-        <ImageView
-            android:layout_marginTop="@dimen/x5"
-            android:scaleType="fitXY"
-            android:layout_marginLeft="@dimen/x20"
-            android:layout_below="@id/ll_name"
-            android:id="@+id/iv_matche_default"
-            android:src="@mipmap/ic_matche_default"
-            android:layout_width="100dp"
-            android:layout_height="80dp" />
-        <LinearLayout
-            android:layout_marginTop="15dp"
-           android:layout_marginLeft="10dp"
-            android:layout_below="@id/ll_name"
-            android:layout_toRightOf="@id/iv_matche_default"
+            android:layout_height="150dp"
+            android:background="@color/white"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        <TextView
-            android:text="编号:"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:textSize="12sp"
-                android:text="AHI58640"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <TextView
-                android:textSize="14sp"
-                android:text="点检人:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:padding="5dp">
 
-            <TextView
+            <com.zhixing.tpmlib.view.ShapedImageView
+                android:id="@+id/iv_matche_default"
+                android:layout_width="@dimen/x100"
+                android:layout_height="@dimen/x100"
+                android:layout_below="@id/ll_name"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_marginTop="@dimen/x10"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_matche_default"
+                test:round_radius="10dp"
+                test:shape_mode="round_rect" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_name"
                 android:layout_marginLeft="10dp"
-                android:text="李秋兵"
-                android:textSize="12sp" />
-        </LinearLayout>
-        </LinearLayout>
-        <Button
-            android:id="@+id/btn_check_item"
-            android:layout_marginRight="10dp"
-            android:textSize="15sp"
-            android:text="开始点检"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_light_blue_click"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/iv_matche_default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-    </RelativeLayout>
+                android:layout_marginTop="@dimen/x15"
+                android:layout_toRightOf="@id/iv_matche_default"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_requiment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="卧式注塑机"
+                        android:textColor="#4a4a4a"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/x5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="编号:"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_matche_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="AHI58640"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="点检人:"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_machine_operator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="@dimen/x5"
+                        android:text="李秋兵"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/x5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="状态:"
+                        android:textColor="#FF943D"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text="未开始"
+                        android:textColor="#FF943D"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_check_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_matche_default"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/btn_blue_strores"
+                android:text="开始点检"
+                android:textColor="@color/moren"
+                android:textSize="15sp" />
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

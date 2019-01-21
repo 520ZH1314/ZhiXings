@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="dialog_bottom" parent="@style/dialog_common">
+        <!--<item name="android:windowBackground">@drawable/dialog_bottom_background</item>-->
+        <!--<item name="android:windowAnimationStyle">@style/dialog_animation</item>-->
+    </style>
+    <style name="dialog_common" parent="@style/Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+    <style name="TabInvLayoutTextStyle">
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/indigo</item>
+        <item name="colorControlActivated">@color/indigo</item>
+    </style>
+</resources>
