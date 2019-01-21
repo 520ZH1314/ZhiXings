@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.os.Message;
 
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.inter.VolleyResult;
+
+import java.util.Map;
 
 import butterknife.ButterKnife;
 

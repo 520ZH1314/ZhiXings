@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.os.Message;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -27,27 +28,41 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.P;
+import com.base.zhixing.www.common.SharedUtils;
+import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.base.zhixing.www.util.UrlUtil;
+import com.google.gson.JsonObject;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.bean.PicEntity;
+import com.zhixing.tpmlib.bean.PicturesBean;
+import com.zhixing.tpmlib.service.RetrofitInterface;
 import com.zhixing.tpmlib.utils.AppUtils;
+import com.zhixing.tpmlib.utils.Base64Utils;
 import com.zhixing.tpmlib.utils.BitmapUtils;
 import com.zhixing.tpmlib.utils.PermissionsUtil;
+import com.zhixing.tpmlib.utils.RetrofitUtil;
 import com.zhixing.tpmlib.view.CustomGridView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import me.nereo.multi_image_selector.MultiImageSelector;
-import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 /*
  * @Author smart
  * @Date 2018/12/27
@@ -59,10 +74,13 @@ public class PictureListActivity extends AppCompatActivity implements Permission
     private List<String> imageList=new ArrayList<>();
     private LeaveImageAdapter leaveImageAdapter;
     private PermissionsUtil permissionsUtil;
+    private SharedUtils sharedUtils;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_list);
+        sharedUtils = new SharedUtils("TPM");
         //        初始化控件
         initView();
     }
@@ -111,13 +129,47 @@ public class PictureListActivity extends AppCompatActivity implements Permission
                    List<String> pathList=new ArrayList<>();
                    for (int i=0;i<selectList.size();i++){
                        pathList.add(selectList.get(i).getCompressPath());
+//                       上传图片到服务器
+                       Map<String,String> map=new HashMap<>();
+                       map.put("type","data");
+                       map.put("image",Base64Utils.imageToBase64(selectList.get(i).getCompressPath()));
+                       uploadPic(map);
                    }
+
+                   SharedPreferencesTool.getMStool(this).setString("imgUrl", pathList.get(0));
                    imageList.addAll(pathList);
                    leaveImageAdapter.notifyDataSetChanged();
                    break;
            }
        }
    }
+
+    public void uploadPic(Map<String,String> map) {
+        // File file = new File(path);
+        RetrofitInterface retrofitInterface = RetrofitUtil.getInstance().getRetrofitInterface();
+        retrofitInterface.getPicturesBean(map).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<PicturesBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) { }
+                    @Override
+                    public void onNext(PicturesBean picturesBean) {
+                        // getView().onSuccess(picturesBean,3);
+                        String imgUrl=picturesBean.getFile();
+                        sharedUtils.setStringValue("imgPicUrl",imgUrl);
+                        Log.e("Mian",picturesBean.toString());
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("myMessage", e.toString());
+                    }
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
 
     @Override
     public void onPermissionsGranted(int requestCode, String... permission) {
@@ -174,7 +226,7 @@ public class PictureListActivity extends AppCompatActivity implements Permission
             //如果是最后一个item,就是拍照按钮
             if (position == imageList.size()) {
                 //设置拍照按钮图片
-                iv_image.setImageResource(R.mipmap.changchuanzhaopian);
+                iv_image.setImageResource(R.mipmap.icon_add_pic);
                 //删除按钮隐藏
                 btn_delete.setVisibility(View.INVISIBLE);
             } else {
@@ -260,9 +312,7 @@ public class PictureListActivity extends AppCompatActivity implements Permission
                     .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
                     .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
                     .setOutputCameraPath("/CustomPath")// 自定义拍照保存路径,可不填
-                    .enableCrop(true)// 是否裁剪 true or false
                     .compress(true)// 是否压缩 true or false// int glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
-
                     .hideBottomControls(true)// 是否显示uCrop工具栏，默认不显示 true or false
                     .isGif(true)// 是否显示gif图片 true or false
                     //压缩图片保存地址

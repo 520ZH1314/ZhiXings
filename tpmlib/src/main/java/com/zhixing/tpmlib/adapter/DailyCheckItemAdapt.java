@@ -20,12 +20,12 @@ public class DailyCheckItemAdapt extends BaseQuickAdapter<DailyCheckItemBean,Bas
 
     @Override
     protected void convert(BaseViewHolder helper, DailyCheckItemBean item) {
-         helper.setText(R.id.tv_daily_check_item_body,item.checkBody);
+         helper.setText(R.id.tv_daily_check_item_body,item.getDescription());
         CardView cardView =helper.itemView.findViewById(R.id.card_daily_check_item);
-         if ("1".equals(item.checkStatus)){
+         if ("1".equals(item.getFruit())){
              status="OK";
              cardView.setCardBackgroundColor(Color.parseColor("#15BC84"));
-         }else if ("2".equals(item.checkStatus)){
+         }else if ("0".equals(item.getFruit())){
               status="NG";
              cardView.setCardBackgroundColor(Color.parseColor("#FF943D"));
 

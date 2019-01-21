@@ -27,7 +27,7 @@ public class MyTextActivityViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<DailyCheckItemBean>>  getData(){
         List<DailyCheckItemBean> beans =new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+       /* for (int i = 0; i < 3; i++) {
              bean=new DailyCheckItemBean(R.drawable.check_test,"按实际的拉升的卢卡斯的卢卡斯的合理卡仕达安静的撒娇的撒娇大速冻机"+i,"1","卧式注塑机"+i,"注塑间","注塑机台");
          beans.add(bean);
         }
@@ -38,7 +38,7 @@ public class MyTextActivityViewModel extends AndroidViewModel {
         for (int i = 6; i < 9; i++) {
              bean=new DailyCheckItemBean(R.drawable.check_test,"按实际的拉升的卢卡斯的卢卡斯的合理卡仕达安静的撒娇的撒娇大速冻机"+i,"3","卧式注塑机"+i,"注塑间","注塑机台");
             beans.add(bean);
-        }
+        }*/
         DailyCheckItemValue.setValue(beans);
         return  DailyCheckItemValue;
 

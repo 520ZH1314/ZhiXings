@@ -5,39 +5,106 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/gray02"
+    android:background="@color/bg_tpm"
     tools:context=".activity.TpmActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <include
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         layout="@layout/title_layout"/>
-<RelativeLayout
-    android:id="@+id/rl_daily_check"
-    android:background="@drawable/btn_light_white_click"
-    android:layout_marginLeft="13dp"
-    android:layout_marginRight="13dp"
-    android:layout_marginTop="8dp"
-    android:layout_width="match_parent"
-    android:layout_height="60dp">
-    <ImageView
-        android:id="@+id/iv_daily_check"
-        android:layout_marginLeft="@dimen/x20"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/icon_daily_chek"
-        android:layout_width="48dp"
-        android:layout_height="match_parent"/>
-    <TextView
-        android:layout_toRightOf="@id/iv_daily_check"
-        android:layout_centerVertical="true"
-        android:id="@+id/tv_daily_check"
-        android:textColor="#4a4a4a"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:text="日常点检"
-        android:layout_marginLeft="@dimen/x10"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-</RelativeLayout>
+        <android.support.v7.widget.CardView
+            android:layout_marginTop="@dimen/x50"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp"
+            app:cardMaxElevation="3dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rl_matche_warming"
+                android:background="@drawable/btn_light_white_click"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <ImageView
+                    android:id="@+id/iv_matche_warming"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_matche_warming"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x10"
+                    android:id="@+id/tv_maintenance_warming"
+                    android:textColor="#4a4a4a"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:text="保养预警"
+                    android:layout_toRightOf="@id/iv_matche_warming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/btn_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+    <android.support.v7.widget.CardView
+
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/rl_daily_check"
+            android:background="@drawable/btn_light_white_click"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+                android:id="@+id/iv_daily_check"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_daily_chek"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:layout_toRightOf="@id/iv_daily_check"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_daily_check"
+                android:textColor="#4a4a4a"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="日常点检"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/rl_planned_maintenance"
         android:layout_marginLeft="13dp"
@@ -63,6 +130,16 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/rl__equipment_resume"
         android:background="@drawable/btn_light_white_click"
@@ -88,6 +165,16 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/rl_statistical_analysis"
         android:background="@drawable/btn_light_white_click"
@@ -114,30 +201,5 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl_matche_warming"
-        android:background="@drawable/btn_light_white_click"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="13dp"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <ImageView
-            android:id="@+id/iv_matche_warming"
-            android:layout_marginLeft="@dimen/x20"
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/ic_matche_warming"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"/>
-        <TextView
-            android:layout_marginLeft="@dimen/x10"
-            android:id="@+id/tv_maintenance_warming"
-            android:textColor="#4a4a4a"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:text="设备警告"
-          android:layout_toRightOf="@id/iv_matche_warming"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

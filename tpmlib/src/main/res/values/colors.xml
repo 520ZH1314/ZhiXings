@@ -7,4 +7,7 @@
     <color name="theme_color">#2882c4</color>
     <color name="base_color">#f0f0f0</color>
     <color name="text_color">#4a4a4a</color>
+    <color name="table_text_color">#383831</color>
+    <color name="bg_tpm">#f4f4f4</color>
+    <color name="indigo">#f6f6f6</color>
 </resources>

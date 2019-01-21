@@ -15,6 +15,5 @@
         android:id="@+id/fl_daily_check"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </FrameLayout>
 </LinearLayout>

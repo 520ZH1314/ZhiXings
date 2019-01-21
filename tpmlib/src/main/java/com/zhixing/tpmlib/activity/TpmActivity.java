@@ -1,14 +1,19 @@
 package com.zhixing.tpmlib.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.base.zhixing.www.view.Toasty;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.R2;
+import com.zhixing.tpmlib.bean.CheckItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,10 +39,13 @@ public class TpmActivity extends BaseTpmActivity {
     }
     @Override
     public void newIniLayout() {
+      setStatus(R.color.title_bg);
         initData();
     }
 
     private void initData() {
+
+      //initWindow();
     tvTtitle.setText("TPM管理");
   }
 
@@ -53,19 +61,14 @@ public void onDailyClicked(View view) {
     }
     @OnClick(R2.id.rl_matche_warming)
     public void onWarmingClicked(View view) {
-        startActivity(new Intent(this,MaintenanceWarmingActivity.class));
+        startActivity(new Intent(this,PlannedMaintenanceActivity.class));
     }
     @OnClick(R2.id.rl__equipment_resume)
     public void onEquipmentClicked(View view) {
-        startActivity(new Intent(this,EquipmentResumeActivity.class));
+        startActivity(new Intent(this,PlannedMaintenanceActivity.class));
     }
     @OnClick(R2.id.rl_statistical_analysis)
     public void onStatisticalClicked(View view) {
-        startActivity(new Intent(this,StatisticalAnalysisActivity.class));
+        startActivity(new Intent(this,PlannedMaintenanceActivity.class));
     }
-   /* @OnClick(R2.id.tetle_back)
-    public void onBackClicked(View view) {
-//      结束当前界面
-       finish();
-    }*/
 }
