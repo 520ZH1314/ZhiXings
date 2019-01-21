@@ -9,6 +9,8 @@ import com.zhixing.tpmlib.bean.EquipmentBaseDateEntity;
 import com.zhixing.tpmlib.bean.LineStationResponEntity;
 import com.zhixing.tpmlib.bean.MaintenanceListDataEntity;
 import com.zhixing.tpmlib.bean.MaintenanceRecordEntity;
+import com.zhixing.tpmlib.bean.StaticticalAnalAnalyEntity;
+import com.zhixing.tpmlib.bean.WarnRecordDataEntity;
 
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
@@ -46,5 +48,30 @@ public interface TpmApi {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("api/CMP/ApiRegistrator/PostApiGateWay")
     Flowable<BaseResponse<CheckRecordDataEntity>> getCheckRecordData(@Body RequestBody body);
+
+
+
+    //获取异常记录
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Flowable<BaseResponse<WarnRecordDataEntity>> getWarnRecordData(@Body RequestBody body);
+
+
+
+    //获取统计分析
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Flowable<BaseResponse<StaticticalAnalAnalyEntity>> getStaticticalAnalAnalyData(@Body RequestBody body);
+
+
+    //获取设备数据
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Flowable<BaseResponse<EquipmentBaseDateEntity>> getEquipmentBaseDatas(@Body RequestBody body);
+
+
+
 
 }

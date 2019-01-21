@@ -145,7 +145,6 @@
             app:layout_constraintTop_toTopOf="@+id/btn_ng" />
     </android.support.constraint.ConstraintLayout>
 
-
 </android.support.v7.widget.CardView>
 
 

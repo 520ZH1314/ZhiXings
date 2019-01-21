@@ -93,10 +93,10 @@
 
 
     </android.support.v7.widget.CardView>
-    <com.liaoinstan.springview.widget.SpringView
-        android:id="@+id/springview_currency"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<com.liaoinstan.springview.widget.SpringView-->
+        <!--android:id="@+id/springview_currency"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
 
     <android.support.v7.widget.RecyclerView
@@ -105,6 +105,6 @@
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-    </com.liaoinstan.springview.widget.SpringView>
+    <!--</com.liaoinstan.springview.widget.SpringView>-->
 
 </LinearLayout>

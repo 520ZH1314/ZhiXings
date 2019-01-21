@@ -13,6 +13,7 @@ import com.zhixing.tpmlib.api.TpmApi;
 import com.zhixing.tpmlib.bean.CheckRecordDataEntity;
 import com.zhixing.tpmlib.bean.MaintenanceRecordEntity;
 import com.zhixing.tpmlib.bean.MaintenanceRecordPostBean;
+import com.zhixing.tpmlib.bean.WarnRecordDataEntity;
 
 /**
  *
@@ -56,6 +57,16 @@ public class RecordDataRepertory {
         return repository.request(Api.getCheckRecordData(bean,context,ip)).send().get();
     }
 
+    //获取异常记录
 
+    public MutableLiveData<BaseResponse<WarnRecordDataEntity>> getWarnRecordData(String EquipmentId, String startTime, String endTime){
+        MyBaseRepository repository=new MyBaseRepository<MaintenanceRecordEntity>(context);
+        String TenantId=SharedPreferencesTool.getMStool(context).getTenantId();
+        String ip=SharedPreferencesTool.getMStool(context).getIp();
+        String AppCode="TPM";
+        String ApiCode="GetEquipmentYRecord";
+        MaintenanceRecordPostBean bean =new MaintenanceRecordPostBean(TenantId,startTime,endTime,EquipmentId,AppCode,ApiCode);
+        return repository.request(Api.getWarnRecordData(bean,context,ip)).send().get();
+    }
 
 }

@@ -10,4 +10,10 @@
     <color name="table_text_color">#383831</color>
     <color name="bg_tpm">#f4f4f4</color>
     <color name="indigo">#f6f6f6</color>
+    <color name="total1">#2297F3</color>
+    <color name="total2">#5AC7ED</color>
+    <color name="total3">#2271F3</color>
+    <color name="total4">#628CFE</color>
+    <color name="total5">#7A69FE</color>
+    <color name="total6">#CB85F3</color>
 </resources>

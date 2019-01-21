@@ -25,6 +25,7 @@ import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.adapter.MaintenanceWarmingAdapt;
 import com.zhixing.tpmlib.bean.MaintenanceListDataEntity;
 import com.zhixing.tpmlib.bean.MaintenanceWarnBean;
+import com.zhixing.tpmlib.utils.DialogUtils;
 import com.zhixing.tpmlib.viewModel.MaintenanceWarnViewModel;
 
 import java.util.ArrayList;
@@ -38,15 +39,15 @@ import butterknife.OnClick;
  * @Date 2018/12/24
  * @Des 进入保养警告界面
  */
-public class MaintenanceWarmingActivity extends BaseTpmActivity implements SpringView.OnFreshListener {
+public class MaintenanceWarmingActivity extends BaseTpmActivity  {
     @BindView(R2.id.tetle_text)
     TextView tvTitle;
     @BindView(R2.id.tetle_back)
     ImageView tetleBack;
     @BindView(R2.id.recyle_maintenance_warning)
     RecyclerView recyleMaintenanceWarning;
-    @BindView(R2.id.springview_maintenance_warning)
-    SpringView springviewMaintenanceWarning;
+//    @BindView(R2.id.springview_maintenance_warning)
+//    SpringView springviewMaintenanceWarning;
     @BindView(R2.id.tetle_tv_ok)
     TextView tetleTvOk;
     private MaintenanceWarnViewModel mMaintenanceWarnViewModel;
@@ -103,13 +104,13 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity implements Sprin
 
                             adapt = new MaintenanceWarmingAdapt(R.layout.item_maintenance_warning, beans);
                             recyleMaintenanceWarning.setAdapter(adapt);
-                            dismissDialog();
+                                 dismissDialog();
                         }
                     }
                 });
 
             } else {
-                dismissDialog();
+                DialogUtils.getInsteance().diss("");
             }
 
         });
@@ -126,12 +127,12 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity implements Sprin
         String[] split = lineListId.split(",");
         WorkShopId = split[0];
 
-        springviewMaintenanceWarning.setListener(this);
-        //设置springview的头和尾
-        //设置上下控件
-        springviewMaintenanceWarning.setType(SpringView.Type.FOLLOW);
-        springviewMaintenanceWarning.setHeader(new DefaultHeader(this));
-        springviewMaintenanceWarning.setFooter(new DefaultFooter(this));
+//        springviewMaintenanceWarning.setListener(this);
+//        //设置springview的头和尾
+//        //设置上下控件
+//        springviewMaintenanceWarning.setType(SpringView.Type.FOLLOW);
+//        springviewMaintenanceWarning.setHeader(new DefaultHeader(this));
+//        springviewMaintenanceWarning.setFooter(new DefaultFooter(this));
         mMaintenanceWarnViewModel = ViewModelProviders.of(this).get(MaintenanceWarnViewModel.class);
         recyleMaintenanceWarning.setLayoutManager(new LinearLayoutManager(this));
 
@@ -142,72 +143,75 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity implements Sprin
     }
 
 
-    private void finishFreshAndLoad() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                springviewMaintenanceWarning.onFinishFreshAndLoad();
-            }
-        }, 1000);
-    }
-    @Override
-    public void onRefresh() {
-        TotalPage = Total / rows;//总页数
-        if (page <= TotalPage) {
-            mMaintenanceWarnViewModel.RefrshData(LineListCode, LineStationCode, page, rows, Total).observe(this, (BaseResponse<MaintenanceListDataEntity> maintenanceListDataEntity) -> {
-                if (maintenanceListDataEntity.getRows() != null) {
-                    Total = maintenanceListDataEntity.getTotal();
-                    List<MaintenanceWarnBean> beans = new ArrayList<>();
-                    for (MaintenanceListDataEntity  rows : maintenanceListDataEntity.getRows()) {
-                        int i = 0;
-                        beans.add(new MaintenanceWarnBean(rows.getEquipmentName(),
-                                rows.getEquipmentCode(), rows.getGradeName(),
-                                rows.getStatus(), rows.getMaintanceDate(),
-                                "0" + i + 1));
-                    }
-                    adapt.setNewData(beans);
-                }
-
-            });
-            page++;
-
-        } else {
-            Toast.makeText(this, "暂无更多数据", Toast.LENGTH_SHORT).show();
-        }
-
-        finishFreshAndLoad();
+//    private void finishFreshAndLoad() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                springviewMaintenanceWarning.onFinishFreshAndLoad();
+//            }
+//        }, 1000);
+//    }
 
 
-    }
-
-    @Override
-    public void onLoadmore() {
-        TotalPage = Total / rows;//总页数
-        if (page <= TotalPage) {
-            mMaintenanceWarnViewModel.RefrshData(LineListCode, LineStationCode, page, rows, Total).observe(this, maintenanceListDataEntity -> {
-                if (maintenanceListDataEntity.getRows() != null) {
-                    Total = maintenanceListDataEntity.getTotal();
-                    List<MaintenanceWarnBean> beans = new ArrayList<>();
-                    for (MaintenanceListDataEntity rows : maintenanceListDataEntity.getRows()) {
-                        int i = 0;
-                        beans.add(new MaintenanceWarnBean(rows.getEquipmentName(),
-                                rows.getEquipmentCode(), rows.getGradeName(),
-                                rows.getStatus(), rows.getMaintanceDate(),
-                                "0" + i + 1));
-                    }
-                    adapt.addData(beans);
-
-                }
-
-            });
-            page++;
-
-        } else {
-            Toast.makeText(this, "暂无更多数据", Toast.LENGTH_SHORT).show();
-        }
-        finishFreshAndLoad();
-
-    }
+//    @Override
+//    public void onRefresh() {
+//        TotalPage = Total / rows;//总页数
+//        if (page <= TotalPage) {
+//            mMaintenanceWarnViewModel.RefrshData(LineListCode, LineStationCode, page, rows, Total).observe(this, (BaseResponse<MaintenanceListDataEntity> maintenanceListDataEntity) -> {
+//                if (maintenanceListDataEntity.getRows() != null) {
+//                    Total = maintenanceListDataEntity.getTotal();
+//                    List<MaintenanceWarnBean> beans = new ArrayList<>();
+//                    for (MaintenanceListDataEntity  rows : maintenanceListDataEntity.getRows()) {
+//                        int i = 0;
+//                        beans.add(new MaintenanceWarnBean(rows.getEquipmentName(),
+//                                rows.getEquipmentCode(), rows.getGradeName(),
+//                                rows.getStatus(), rows.getMaintanceDate(),
+//                                "0" + i + 1));
+//                    }
+//                    adapt.setNewData(beans);
+//
+//                }
+//
+//            });
+//            page++;
+//
+//        } else {
+//            Toast.makeText(this, "暂无更多数据", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        finishFreshAndLoad();
+//
+//
+//    }
+//
+//    @Override
+//    public void onLoadmore() {
+//        TotalPage = Total / rows;//总页数
+//        if (page <= TotalPage) {
+//            mMaintenanceWarnViewModel.RefrshData(LineListCode, LineStationCode, page, rows, Total).observe(this, maintenanceListDataEntity -> {
+//                if (maintenanceListDataEntity.getRows() != null) {
+//                    Total = maintenanceListDataEntity.getTotal();
+//                    List<MaintenanceWarnBean> beans = new ArrayList<>();
+//                    for (MaintenanceListDataEntity rows : maintenanceListDataEntity.getRows()) {
+//                        int i = 0;
+//                        beans.add(new MaintenanceWarnBean(rows.getEquipmentName(),
+//                                rows.getEquipmentCode(), rows.getGradeName(),
+//                                rows.getStatus(), rows.getMaintanceDate(),
+//                                "0" + i + 1));
+//                    }
+//                    adapt.addData(beans);
+//
+//                }
+//
+//            });
+//            page++;
+//
+//        } else {
+//            Toast.makeText(this, "暂无更多数据", Toast.LENGTH_SHORT).show();
+//        }
+//        finishFreshAndLoad();
+//
+//    }
 
 
     @OnClick({R2.id.tetle_back, R2.id.tetle_tv_ok})

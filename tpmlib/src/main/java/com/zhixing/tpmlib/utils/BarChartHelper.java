@@ -7,23 +7,27 @@ import android.util.TypedValue;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.bean.ColumnarBean;
+import com.zhixing.tpmlib.view.MyBarChart.MyBarChart;
+import com.zhixing.tpmlib.view.MyBarChart.MyBarChartRenderer;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author :ChenYangYi
+ *
  * @date :2018/08/02/11:09
  * @description :柱状图工具类
  * @github :https://github.com/chenyy0708
@@ -33,7 +37,7 @@ public class BarChartHelper {
     private Context mContext;
 
     private int i;//第几个数据index
-    private BarChart mBarChart;
+    private MyBarChart mBarChart;
     /**
      * 单个柱状图数据
      */
@@ -46,6 +50,7 @@ public class BarChartHelper {
      * 标签Label名字
      */
     private List<String> mLabels;
+    private boolean mUsePercentValues;
     /**
      * 背景颜色
      */
@@ -128,6 +133,7 @@ public class BarChartHelper {
 
     private BarChartHelper(Builder builder) {
         this.mBarChart = builder.barChart;
+        this.mUsePercentValues = builder.mUsePercentValues;
         this.mContext = builder.mContext;
         this.barData = builder.barData;
         this.barSetData = builder.barSetData;
@@ -224,10 +230,12 @@ public class BarChartHelper {
             }
             // 数据集合标签名
             BarDataSet barDataSet = new BarDataSet(entries, mLabels.get(i));
-            barDataSet.setColor(mBarColors.get(i));
-            barDataSet.setValueTextColor(mBarColors.get(i));
-            barDataSet.setValueTextSize(valueTextSize);
-            data.addDataSet(barDataSet);
+             barDataSet.setHighlightEnabled(false);
+             barDataSet.setDrawValues(true);
+             barDataSet.setColor(mBarColors.get(i));
+             barDataSet.setValueTextColor(mBarColors.get(i));
+             barDataSet.setValueTextSize(valueTextSize);
+             data.addDataSet(barDataSet);
         }
         //折线图例 标签 设置
         mBarChart.getLegend().setEnabled(mLegendEnable);
@@ -280,6 +288,8 @@ public class BarChartHelper {
         }
 
 
+
+
 //        Description description = new Description();
 //        description.setText());
 //        description.setTextColor(Color.BLACK);
@@ -291,11 +301,20 @@ public class BarChartHelper {
         if (xValueEnable) {
             xAxis.setValueFormatter(new IndexAxisValueFormatter(xValue));
         }
+        if (mUsePercentValues){
+            yAxis.setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    return (int) value + "%";
+                }
+            });
+        }
         // 每一个BarDataSet代表一类柱状图
         BarDataSet barDataSet = new BarDataSet(entries, "");
         barDataSet.setColor(barColor);
         barDataSet.setValueTextColor(barColor);
         barDataSet.setValueTextSize(valueTextSize);
+        barDataSet.setHighlightEnabled(false);
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(barDataSet);
         BarData data = new BarData(dataSets);
@@ -318,9 +337,11 @@ public class BarChartHelper {
 
     public static class Builder {
 
+
+        private boolean mUsePercentValues = false;
         private Context mContext;
 
-        private BarChart barChart;
+        private MyBarChart barChart;
 
         private List<ColumnarBean> menusListBean;
         private int i;//第几个数据index
@@ -416,12 +437,16 @@ public class BarChartHelper {
         public Builder() {
         }
 
+        public Builder setmUsePercentValues(boolean mUsePercentValues) {
+            this.mUsePercentValues = mUsePercentValues;
+            return this;
+        }
         public Builder setContext(Context mContext) {
             this.mContext = mContext;
             return this;
         }
 
-        public Builder setBarChart(BarChart barChart) {
+        public Builder setBarChart(MyBarChart barChart) {
             this.barChart = barChart;
             return this;
         }

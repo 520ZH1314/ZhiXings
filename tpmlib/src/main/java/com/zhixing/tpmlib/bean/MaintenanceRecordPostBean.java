@@ -44,6 +44,13 @@ public class MaintenanceRecordPostBean {
         this.ApiCode=ApiCode;
     }
 
+    public MaintenanceRecordPostBean(String appCode, String apiCode, String tenantId, String equipmentId) {
+        AppCode = appCode;
+        ApiCode = apiCode;
+        TenantId = tenantId;
+        EquipmentId = equipmentId;
+    }
+
     public String getTenantId() {
         return TenantId;
     }

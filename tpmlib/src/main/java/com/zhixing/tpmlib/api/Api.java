@@ -7,6 +7,7 @@ import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.netlib.base.RetrofitClients;
 import com.zhixing.tpmlib.bean.CheckRecordDataEntity;
 import com.zhixing.tpmlib.bean.EquipmentBaseDataPostBean;
+import com.zhixing.tpmlib.bean.EquipmentBaseDataPostBeans;
 import com.zhixing.tpmlib.bean.EquipmentBaseDateEntity;
 import com.zhixing.tpmlib.bean.LineStationPostBean;
 import com.zhixing.tpmlib.bean.LineStationResponEntity;
@@ -14,6 +15,8 @@ import com.zhixing.tpmlib.bean.MaintenanceListDataEntity;
 import com.zhixing.tpmlib.bean.MaintenanceListDataPostBean;
 import com.zhixing.tpmlib.bean.MaintenanceRecordEntity;
 import com.zhixing.tpmlib.bean.MaintenanceRecordPostBean;
+import com.zhixing.tpmlib.bean.StaticticalAnalAnalyEntity;
+import com.zhixing.tpmlib.bean.WarnRecordDataEntity;
 
 import io.reactivex.Flowable;
 
@@ -48,5 +51,27 @@ public class Api {
     public static Flowable<BaseResponse<CheckRecordDataEntity>> getCheckRecordData(MaintenanceRecordPostBean bean, Context mContext, String url) {
         return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).getCheckRecordData((new BaseHttpUtil<MaintenanceRecordPostBean>().convertVo2Json(bean)));
     }
+
+
+    //获取设备异常记录列表
+
+    public static Flowable<BaseResponse<WarnRecordDataEntity>> getWarnRecordData(MaintenanceRecordPostBean bean, Context mContext, String url) {
+        return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).getWarnRecordData((new BaseHttpUtil<MaintenanceRecordPostBean>().convertVo2Json(bean)));
+    }
+
+
+
+    //获取统计分析
+
+    public static Flowable<BaseResponse<StaticticalAnalAnalyEntity>> getStaticticalAnalAnalyData(MaintenanceRecordPostBean bean, Context mContext, String url) {
+        return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).getStaticticalAnalAnalyData((new BaseHttpUtil<MaintenanceRecordPostBean>().convertVo2Json(bean)));
+    }
+
+
+//获取设备列表
+    public static Flowable<BaseResponse<EquipmentBaseDateEntity>> getEquipmentBaseDatas(EquipmentBaseDataPostBeans bean, Context mContext, String url) {
+        return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).getEquipmentBaseData((new BaseHttpUtil<EquipmentBaseDataPostBeans>().convertVo2Json(bean)));
+    }
+
 
 }
