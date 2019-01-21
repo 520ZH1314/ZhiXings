@@ -15,11 +15,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.base.zhixing.www.BaseFragment;
+import com.base.zhixing.www.common.P;
+import com.base.zhixing.www.common.SharedUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.adapter.DailyCheckIReplacetemAdapt;
+import com.zhixing.tpmlib.bean.AnomalousBean;
 import com.zhixing.tpmlib.bean.DailyCheckItemBean;
 
 import com.zhixing.tpmlib.view.DSVOrientation;
@@ -31,6 +35,11 @@ import com.zhixing.tpmlib.view.transform.Pivot;
 import com.zhixing.tpmlib.view.transform.ScaleTransformer;
 import com.zhixing.tpmlib.viewModel.MyTextActivityViewModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,9 +57,12 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
     DiscreteScrollView recyleviewDailyCheckItemReplaceOne;
     Unbinder unbinder;
     private MyTextActivityViewModel mViewModel;
-
+    List<AnomalousBean> anomalousBeanList = new ArrayList<>();
 
     private List<DailyCheckItemBean> dailyCheckItemBean;
+    private SharedUtils sharedUtils;
+    private List<DailyCheckItemBean> dailyCheckItemBeans;
+
     public static DailyCheckItemReplaceFragment newInstance() {
         DailyCheckItemReplaceFragment fragment = new DailyCheckItemReplaceFragment();
         return fragment;
@@ -59,7 +71,7 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        sharedUtils = new SharedUtils("TPM");
     }
 
     @Override
@@ -72,14 +84,18 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_daily_check_replace_item, container, false);
 
-         unbinder = ButterKnife.bind(this, view);
-         mViewModel=ViewModelProviders.of(getActivity()).get(MyTextActivityViewModel.class);
-         InitData();
+        unbinder = ButterKnife.bind(this, view);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MyTextActivityViewModel.class);
+        InitData();
 
         return view;
     }
+
     private void InitData() {
-        mViewModel.getData().observe(this, new Observer<List<DailyCheckItemBean>>() {
+        String checkItemJson = sharedUtils.getStringValue("checkItemJson");
+        String exceptionJson = sharedUtils.getStringValue("exceptionJson");
+
+        /*mViewModel.getData().observe(this, new Observer<List<DailyCheckItemBean>>() {
             @Override
             public void onChanged(@Nullable List<DailyCheckItemBean> dailyCheckItemBeans) {
                 dailyCheckItemBean=dailyCheckItemBeans;
@@ -89,9 +105,9 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
                         @Override
                         public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
 
-                            tvDailyCheckReplaceEquimentName.setText(dailyCheckItemBean.get(adapterPosition).equipmentName);
-                            tvDailyCheckText.setText(dailyCheckItemBean.get(adapterPosition).equipmentText);
-                            tvDailyCheckAdress.setText(dailyCheckItemBean.get(adapterPosition).equipmentAdress);
+                            tvDailyCheckReplaceEquimentName.setText(dailyCheckItemBean.get(adapterPosition).getExceptionGroupName());
+                            tvDailyCheckText.setText(dailyCheckItemBean.get(adapterPosition).getDescription());
+                            tvDailyCheckAdress.setText(dailyCheckItemBean.get(adapterPosition).getItemCode());
 
 
                         }
@@ -121,20 +137,99 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
             public void onChanged(@Nullable Integer integer) {
                 if (integer!=null){
                     recyleviewDailyCheckItemReplaceOne.scrollToPosition(integer);
-                    tvDailyCheckReplaceEquimentName.setText(dailyCheckItemBean.get(integer).equipmentName);
-                    tvDailyCheckText.setText(dailyCheckItemBean.get(integer).equipmentText);
-                    tvDailyCheckAdress.setText(dailyCheckItemBean.get(integer).equipmentAdress);
+                    tvDailyCheckReplaceEquimentName.setText(dailyCheckItemBean.get(integer).getDescription());
+                    tvDailyCheckText.setText(dailyCheckItemBean.get(integer).getExceptionGroupName());
+                    tvDailyCheckAdress.setText(dailyCheckItemBean.get(integer).getCell());
 
 
 
                 }
             }
-        });
+        });*/
+        parseEJson(exceptionJson);
+        parseJson(checkItemJson);
+    }
+
+    private void parseEJson(String exceptionJson) {
+
+
+        try {
+            JSONObject jsonObject = new JSONObject(exceptionJson);
+            JSONArray rows = jsonObject.getJSONArray("rows");
+            for (int i = 0; i < rows.length(); i++) {
+                String exceptionGroupName = rows.getJSONObject(i).getString("ExceptionGroupName");
+                String ExceptionId = rows.getJSONObject(i).getString("ExceptionId");
+                AnomalousBean anomalousBean = new AnomalousBean();
+                anomalousBean.setExceptionGroupName(exceptionGroupName);
+                anomalousBean.setExceptionId(ExceptionId);
+                P.c("exceptionGroupName" + exceptionGroupName);
+                anomalousBeanList.add(anomalousBean);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
+
+    private void parseJson(String checkItemJson) {
+        try {
+            JSONObject jsonObject = new JSONObject(checkItemJson);
+            JSONArray rows = jsonObject.getJSONArray("rows");
+            dailyCheckItemBeans = new ArrayList<>();
+            for (int i = 0; i < rows.length(); i++) {
+                JSONObject jsonObject1 = rows.getJSONObject(i);
+//                       获取单元
+                String cell = jsonObject1.getString("Cell");
+//                       获取位置
+                String position = jsonObject1.getString("Position");
+//                       获取点检项
+                String description = jsonObject1.getString("Description");
+//                       获取itemid
+                String itemId = jsonObject1.getString("ItemId");
+//                       获取
+                String maintananceId = jsonObject1.getString("MaintananceId");
+                int seq = jsonObject1.getInt("Seq");
+                String fruit = jsonObject1.getString("Fruit");
+                String standardImage = jsonObject1.getString("StandardImage");
+                String gradeId = jsonObject1.getString("GradeId");
+                String classId = jsonObject1.getString("ClassId");
+                String actuallyImage = jsonObject1.getString("ActuallyImage");
+                DailyCheckItemBean dailyCheckItemBean = new DailyCheckItemBean();
+                dailyCheckItemBean.setCell(cell);
+                dailyCheckItemBean.setPosition(position);
+                dailyCheckItemBean.setItemId(itemId);
+                dailyCheckItemBean.setSeq(seq);
+                dailyCheckItemBean.setMaintananceId(maintananceId);
+                dailyCheckItemBean.setDescription(description);
+                dailyCheckItemBean.setFruit(fruit);
+                dailyCheckItemBean.setGradeId(gradeId);
+                dailyCheckItemBean.setClassId(classId);
+                dailyCheckItemBean.setActuallyImage(actuallyImage);
+                dailyCheckItemBeans.add(dailyCheckItemBean);
+            }
+            DailyCheckIReplacetemAdapt adapt = new DailyCheckIReplacetemAdapt(R.layout.item_recyleview_daily_check_replace_item, dailyCheckItemBeans, getActivity());
+            recyleviewDailyCheckItemReplaceOne.setOffscreenItems(2);
+            recyleviewDailyCheckItemReplaceOne.setClampTransformProgressAfter(2);
+            recyleviewDailyCheckItemReplaceOne.setOrientation(DSVOrientation.HORIZONTAL);
+            recyleviewDailyCheckItemReplaceOne.setAdapter(adapt);
+            recyleviewDailyCheckItemReplaceOne.setItemTransformer(new ScaleTransformer.Builder()
+                    .setMaxScale(1.05f)
+                    .setMinScale(0.8f)
+                    .setPivotX(Pivot.X.CENTER) // CENTER is a default one
+                    .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
+                    .build());
+            adapt.setEList(anomalousBeanList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+
 }
