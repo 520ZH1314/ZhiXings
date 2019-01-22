@@ -11,6 +11,7 @@ import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
+import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.XEditText;
 import com.base.zhixing.www.widget.nicespinner.NiceSpinner;
 import com.github.mikephil.charting.charts.LineChart;
@@ -21,6 +22,7 @@ import com.zhixing.masslib.bean.LineBean;
 import com.zhixing.masslib.bean.QC_Reason;
 import com.zhixing.masslib.chart.LineManager;
 import com.zhixing.masslib.dataBase.MassDB;
+import com.zhixing.masslib.util.Common;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -134,7 +136,7 @@ public class CjLineOk_Chart extends BaseActvity {
     //加载数据
     private void loadData(){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetRandomPicCheckList");
         params.put("workNO","");//WORK015149
         params.put("productCode","");
@@ -154,6 +156,10 @@ public class CjLineOk_Chart extends BaseActvity {
                     try {
                         jsonArray = jsonObject.getJSONArray("rows");
                         int len = jsonArray.length();
+                        if(len==0){
+                            Toasty.INSTANCE.showToast(CjLineOk_Chart.this,"暂无数据");
+                            return;
+                        }
                         Map<String,ArrayList<Integer>> temp = new HashMap<>();//统计所有
                         for(int i=0;i<len;i++){
                             //遍历数据

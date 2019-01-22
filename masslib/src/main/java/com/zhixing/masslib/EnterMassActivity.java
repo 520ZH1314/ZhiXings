@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.BaseActvity;
@@ -30,12 +29,16 @@ import com.zhixing.masslib.chart.cj.CjLineOk_Chart;
 import com.zhixing.masslib.chart.cj.Cj_Chart;
 import com.zhixing.masslib.chart.qj.QJ_Chart;
 import com.zhixing.masslib.chart.qj.QJ_Line_Chart;
+import com.zhixing.masslib.chart.sj.Sj_Chart;
+import com.zhixing.masslib.chart.sj.Sj_Line_Chart;
 import com.zhixing.masslib.chart.wx.WX_Chart;
 import com.zhixing.masslib.chart.wx.WX_Chart1;
 import com.zhixing.masslib.chart.wx.WX_Chart2;
 import com.zhixing.masslib.chart.wx.WX_Chart3;
 import com.zhixing.masslib.frame.MassFrame0;
 import com.zhixing.masslib.frame.MassFrame1;
+import com.zhixing.masslib.util.Common;
+import com.zhixing.masslib.util.SyLinearLayoutManager;
 import com.zhixing.masslib.widget.AddWxList;
 
 import org.json.JSONArray;
@@ -76,13 +79,13 @@ TenantId：租列号
          */
         MassItemBean bean = massItemBeans.get(pos);
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "EditAddRepairCount");
         params.put("ProductCode",bean.getProductCode());
         params.put("AbnormalCause",item.getNoC());
         params.put("RepairContent",item.getOkC());
         params.put("Result","报废");
-        params.put("CreatePerson",SharedPreferencesTool.getMStool(EnterMassActivity.this).getUserName());
+        params.put("CreatePerson",SharedPreferencesTool.getMStool(EnterMassActivity.this).getUserCode()+SharedPreferencesTool.getMStool(EnterMassActivity.this).getUserName());
         params.put("RepairCount",item.getNum());
         params.put("WorkNo",bean.getNo());
 
@@ -173,7 +176,7 @@ TenantId：租列号
         switch (type){
 
             case 0:
-
+                loadData(String.valueOf(type),SharedPreferencesTool.getMStool(EnterMassActivity.this).getString("mass_cache"+type));
                 break;
             case 1:
                 //mass_cache是记录不同模块的最后一次访问记录
@@ -204,7 +207,7 @@ TenantId：租列号
         }
         NOW_WORKNO = ret;
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetWorkBasicCheckInfo");
         params.put("WorkNO",ret);//WORK015149
         params.put("PlanDate",TimeUtil.getTimeCh(System.currentTimeMillis()));
@@ -235,6 +238,9 @@ TenantId：租列号
                         bean.setCount(object.getInt("PlanCount")*1000);
                         bean.setLineCode(object.getString("LineCode"));
                         bean.setLineId(object.getString("LineId"));
+                        bean.setSingleQuantity(object.getString("SingleQuantity"));
+                        bean.setCustomer(object.getString("Customer"));
+                        bean.setCreateDate(TimeUtil.getTime(TimeUtil.parseTimeC(object.getString("CreateDate"))));
                         if(type==2){
                             //抽检处理
                             bean.setpNo(PC_NO);
@@ -242,7 +248,7 @@ TenantId：租列号
                            // bean.setCreatePerson(object.getString("createPerson"));
                         }
                         String time = object.getString("PlanDate");
-                        bean.setAll_t(time);
+                        bean.setAll_t(TimeUtil.getTime(TimeUtil.parseTimeC(time)));
                         String[] tps = time.split("T");
                         bean.setData(tps[0]);
                         bean.setTime(tps[1]);
@@ -272,7 +278,7 @@ TenantId：租列号
      */
     private  void loadDataRight(String time ){
             Map<String,String> params  = new HashMap<>();
-            params.put("AppCode", "QC");
+            params.put("AppCode", Common.APPCODE);
             params.put("ApiCode", "GetWorkBasicCheckInfo");
             params.put("WorkNO","");//WORK015149
             params.put("PlanDate",time);
@@ -325,7 +331,7 @@ TenantId：租列号
      */
     private void loadDataCjRight(String picNo){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetRandomPicCheckList");
         params.put("workNO","");//WORK015149
         params.put("productCode","");
@@ -383,11 +389,10 @@ TenantId：租列号
         menus.clear();
             switch (type){
                 case 0:
-                            menus.add("产品型号不合格率柏拉图");
-                            menus.add("首件合格率趋势图");
+                    menus.add("产品型号不合格率柏拉图");
+                    menus.add("首件不合格率趋势图");
                     break;
                 case 1:
-
                     menus.add("总体不良柏拉图");
                     menus.add("工单层别不良现象柏拉图");
                     menus.add("产品型号不良现象柏拉图 ");
@@ -453,7 +458,7 @@ TenantId：租列号
             }
         });
         left_list = findViewById(R.id.left_list);
-        LinearLayoutManager manager = new LinearLayoutManager(EnterMassActivity.this);
+        SyLinearLayoutManager manager = new SyLinearLayoutManager(EnterMassActivity.this,LinearLayoutManager.VERTICAL,false);
         leftListAdapter = new LeftListAdapter(EnterMassActivity.this,menus,getHandler());
         left_list.addItemDecoration(new RecycleViewDivider(EnterMassActivity.this,LinearLayoutManager.HORIZONTAL,1,getResources().getColor(R.color.content_line)));
         left_list.setLayoutManager(manager);
@@ -471,6 +476,27 @@ TenantId：租列号
                 leftListAdapter.updata(menus);
                 drawerLayout.openDrawer(Gravity.LEFT);
                 switch (type) {
+                    case 0:
+                        leftListAdapter.setOnItemClick(pos -> {
+                            Intent intent = null;
+                            switch (pos) {
+                                case 0:
+
+
+                                    intent = new Intent(EnterMassActivity.this, Sj_Chart.class);
+                                    intent.putExtra("titleName", menus.get(pos));
+                                    intent.putExtra("index", pos);
+                                    break;
+                                case 1:
+                                    intent = new Intent(EnterMassActivity.this, Sj_Line_Chart.class);
+                                    intent.putExtra("titleName", menus.get(pos));
+                                    intent.putExtra("index", pos);
+
+                                    break;
+                            }
+                            startActivity(intent);
+                        });
+                        break;
                     case 1:
 
 //                        Intent intent = new Intent(EnterMassActivity.this,QJ_Chart.class);
@@ -578,7 +604,8 @@ TenantId：租列号
         fragmentList.add(fragment0);
         titleList.clear();
         titleList.add(leftT);
-        if(type!=3){
+        //暂时关闭首件和维修的右边页面
+        if(type!=3&&type!=0){
             fragment1 =  MassFrame1.newInstance();
             fragment1.setHandler(getHandler());
             //  fragment1.init(types1);
@@ -623,7 +650,11 @@ TenantId：租列号
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
        if(requestCode==0&&resultCode==1000){
-
+           if( data.hasExtra("ret")){
+               //进行查询
+               //扫码返回的
+               loadData(String.valueOf(requestCode),data.getStringExtra("ret"));
+           }
        }else if(requestCode==1&&resultCode==1000){
             //全检
           if( data.hasExtra("ret")){

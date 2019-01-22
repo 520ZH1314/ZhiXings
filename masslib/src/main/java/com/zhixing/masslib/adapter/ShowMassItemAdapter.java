@@ -61,8 +61,8 @@ public class ShowMassItemAdapter extends RecyclerView.Adapter<ShowMassItemAdapte
         public ViewHolder(View itemView) {
             super(itemView);
             layout = itemView.findViewById(R.id.layout);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,DensityUtil.dip2px(context,40));
-            layout.setLayoutParams(params);
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,DensityUtil.dip2px(context,40));
+//            layout.setLayoutParams(params);
             item0 = layout.findViewById(R.id.item0);
             item1 = layout.findViewById(R.id.item1);
             item2 = layout.findViewById(R.id.item2);

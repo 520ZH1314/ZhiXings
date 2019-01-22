@@ -10,6 +10,7 @@ import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
+import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.XEditText;
 import com.base.zhixing.www.widget.nicespinner.NiceSpinner;
 import com.github.mikephil.charting.charts.LineChart;
@@ -19,12 +20,13 @@ import com.zhixing.masslib.R;
 import com.zhixing.masslib.bean.LineBean;
 import com.zhixing.masslib.bean.QC_Reason;
 import com.zhixing.masslib.chart.LineManager;
+import com.zhixing.masslib.chart.sj.Sj_Line_Chart;
 import com.zhixing.masslib.dataBase.MassDB;
+import com.zhixing.masslib.util.Common;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -138,7 +140,7 @@ public class QJ_Line_Chart extends BaseActvity {
     private void loadData(){
         Map<String,String> params = new HashMap<>();
         params.put("ApiCode", "GetCheckTrendMap");
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("beginDate",startTime);
         params.put("endDate",endTime);
         params.put("CheckType","1");//根据传入的类型判断是全检单还是抽检单
@@ -164,6 +166,10 @@ public class QJ_Line_Chart extends BaseActvity {
                     try {
                         JSONArray array0 = jsonObject.getJSONArray("situationArrt");
                         lineBeans.clear();
+                        if(array0.length()==0){
+                            Toasty.INSTANCE.showToast(QJ_Line_Chart.this,"暂无数据");
+                            return;
+                        }
                         for(int i=0;i<array0.length();i++){
                             LineBean b = new LineBean();
                             b.setName(array0.getString(i));

@@ -18,6 +18,33 @@ public class MassItemBean implements Serializable {
     private String createPerson;
     private int state;
     private ArrayList<WxItem> wxItems;
+    private String customer;
+    private String SingleQuantity;
+    private String CreateDate;
+
+    public String getCreateDate() {
+        return CreateDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        CreateDate = createDate;
+    }
+
+    public String getSingleQuantity() {
+        return SingleQuantity;
+    }
+
+    public void setSingleQuantity(String singleQuantity) {
+        SingleQuantity = singleQuantity;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
 
     public ArrayList<WxItem> getWxItems() {
         return wxItems;

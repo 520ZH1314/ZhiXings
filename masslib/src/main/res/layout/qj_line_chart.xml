@@ -55,7 +55,7 @@
                 android:paddingRight="@dimen/x10"
                 android:paddingLeft="@dimen/x10"
                 android:layout_height="@dimen/x40">
-                <com.shuben.zhixing.www.view.NiceSpinner
+                <com.base.zhixing.www.widget.nicespinner.NiceSpinner
                     android:id="@+id/spi0"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -65,7 +65,7 @@
                     app:arrowTint="@color/txt_viw"
                     app:textTint="@color/txt_viw"
                     android:layout_height="match_parent" />
-                <com.shuben.zhixing.www.view.NiceSpinner
+                <com.base.zhixing.www.widget.nicespinner.NiceSpinner
                     android:id="@+id/spi1"
                     android:layout_width="0dp"
                     android:layout_weight="1"

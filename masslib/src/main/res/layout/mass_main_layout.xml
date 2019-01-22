@@ -51,6 +51,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_weight="1"
+                                android:visibility="gone"
                                 android:gravity="center_vertical"
                                 android:textSize="@dimen/content_txt_s"
                                 android:textColor="@color/txt_bor"
@@ -62,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:textColor="@color/txt_bor"
                         android:layout_alignParentRight="true"
-                        android:text="13:06"
+                        android:text=" "
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
                 <View
@@ -95,7 +96,7 @@
                             android:gravity="center_vertical"
                             android:textSize="@dimen/content_txt_"
                             android:textColor="@color/txt_viw"
-                            android:text="全检"
+                            android:text="生产全检"
                             android:layout_height="0dp" />
                         <TextView
                             android:layout_width="match_parent"
@@ -103,6 +104,7 @@
                             android:gravity="center_vertical"
                             android:textSize="@dimen/content_txt_s"
                             android:textColor="@color/txt_bor"
+                            android:visibility="gone"
                             android:text="张三:刚检验完"
                             android:layout_height="0dp" />
                     </LinearLayout>
@@ -111,7 +113,7 @@
                         android:layout_width="wrap_content"
                         android:textColor="@color/txt_bor"
                         android:layout_alignParentRight="true"
-                        android:text="13:06"
+                        android:text=" "
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
                 <View
@@ -144,13 +146,14 @@
                             android:gravity="center_vertical"
                             android:textSize="@dimen/content_txt_"
                             android:textColor="@color/txt_viw"
-                            android:text="抽检"
+                            android:text="生产抽检"
                             android:layout_height="0dp" />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:textSize="@dimen/content_txt_s"
+                            android:visibility="gone"
                             android:textColor="@color/txt_bor"
                             android:text="张三:刚检验完"
                             android:layout_height="0dp" />
@@ -160,7 +163,7 @@
                         android:layout_width="wrap_content"
                         android:textColor="@color/txt_bor"
                         android:layout_alignParentRight="true"
-                        android:text="13:06"
+                        android:text=" "
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
                 <View
@@ -193,7 +196,7 @@
                             android:gravity="center_vertical"
                             android:textSize="@dimen/content_txt_"
                             android:textColor="@color/txt_viw"
-                            android:text="维修"
+                            android:text="产品维修"
                             android:layout_height="0dp" />
                         <TextView
                             android:layout_width="match_parent"
@@ -202,6 +205,7 @@
                             android:textSize="@dimen/content_txt_s"
                             android:textColor="@color/txt_bor"
                             android:text="张三:刚检验完"
+                            android:visibility="gone"
                             android:layout_height="0dp" />
                     </LinearLayout>
                     <TextView
@@ -209,7 +213,7 @@
                         android:layout_width="wrap_content"
                         android:textColor="@color/txt_bor"
                         android:layout_alignParentRight="true"
-                        android:text="13:06"
+                        android:text=""
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
                 <View

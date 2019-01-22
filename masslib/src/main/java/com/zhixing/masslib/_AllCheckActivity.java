@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.util.DensityUtil;
+import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.XEditText;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieEntry;
@@ -20,6 +21,7 @@ import com.base.zhixing.www.util.UrlUtil;
 import com.zhixing.masslib.bean.MassItemBean;
 import com.zhixing.masslib.bean.QC_NoListBean;
 import com.zhixing.masslib.chart.PieManager;
+import com.zhixing.masslib.util.Common;
 import com.zhixing.masslib.widget.AddNoList;
 import com.zhixing.masslib.widget.ShowMassDetailNo;
 import com.zhixing.masslib.widget.ShowMassDetailOk;
@@ -193,14 +195,14 @@ public class _AllCheckActivity extends BaseActvity {
         get_detail_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowMassDetailNo detail =new ShowMassDetailNo(_AllCheckActivity.this,"全检不良数明细",itemBean.getNo(),"1");
+                ShowMassDetailNo detail =new ShowMassDetailNo(_AllCheckActivity.this,"全检不良数明细",itemBean.getNo(),"1",itemBean.getData());
                 detail.showSheet();
             }
         });
         get_detail_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowMassDetailOk detailOk = new ShowMassDetailOk(_AllCheckActivity.this,"全检合格数明细","1",itemBean.getNo());
+                ShowMassDetailOk detailOk = new ShowMassDetailOk(_AllCheckActivity.this,"全检合格数明细","1",itemBean.getNo(),itemBean.getData());
                 detailOk.showSheet();
             }
         });
@@ -237,7 +239,7 @@ public class _AllCheckActivity extends BaseActvity {
      */
     private void addOkOrNo(String count,String type,String reson){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "EditCheckInfo");
         params.put("count",count);
         params.put("noreason",reson);
@@ -249,11 +251,13 @@ public class _AllCheckActivity extends BaseActvity {
         params.put("CheckType","1");//根据传入的类型判断是全检单还是抽检单
         params.put("ProductType",type);//不良品
         params.put("CreatePerson", SharedPreferencesTool.getMStool(_AllCheckActivity.this).getString("UserName"));
-        params.put("TenentId",SharedPreferencesTool.getMStool(_AllCheckActivity.this).getTenantId());
+        params.put("TenantId",SharedPreferencesTool.getMStool(_AllCheckActivity.this).getTenantId());
         params.put("PlanDate",itemBean.getAll_t());
+        showDialog("增加"+(type.equals("1")?"合格":"不良"));
         httpPostVolley(SharedPreferencesTool.getMStool(_AllCheckActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
             public void success(JSONObject jsonObject) {
+
                 JSONObject o = null;
                 try {
                     o = jsonObject.getJSONObject("result");
@@ -266,6 +270,11 @@ public class _AllCheckActivity extends BaseActvity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    try {
+                        Toasty.INSTANCE.showToast(_AllCheckActivity.this,jsonObject.getString("msg"));
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
             @Override
@@ -281,11 +290,13 @@ public class _AllCheckActivity extends BaseActvity {
     //查询不良
     private  void loadDataNo(){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetAllProductCheckList");
         params.put("WorkNo",itemBean.getNo());
+
         params.put("CheckType","1");//根据传入的类型判断是全检单还是抽检单
         params.put("ProductType","0");//不良品
+        params.put("WorkDate",itemBean.getData());
 //        params.put("TenantId",SharedPreferencesTool.getMStool(context).getTenantId());
         httpPostVolley(SharedPreferencesTool.getMStool(_AllCheckActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
@@ -320,11 +331,12 @@ public class _AllCheckActivity extends BaseActvity {
     //查询合格
     private  void loadDataOk(){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetAllProductCheckList");
         params.put("WorkNo",itemBean.getNo());
         params.put("CheckType","1");//根据传入的类型判断是全检单还是抽检单
         params.put("ProductType","1");//良品
+        params.put("WorkDate",itemBean.getData());
 //        params.put("TenantId",SharedPreferencesTool.getMStool(context).getTenantId());
         httpPostVolley(SharedPreferencesTool.getMStool(_AllCheckActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override

@@ -4,6 +4,8 @@ import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.XEditText;
@@ -43,11 +45,14 @@ public class AddMassActivity extends BaseActvity {
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if(edit.getTextEx().length()==0){
-                        Toasty.INSTANCE.showToast(AddMassActivity.this,"请输入工单号");
-                        return;
-                    }
-                Toasty.INSTANCE.showToast(AddMassActivity.this,"添加操作");
+                if(edit.getTextEx().length()==0){
+                    Toasty.INSTANCE.showToast(AddMassActivity.this,"请输入工单号");
+                    return;
+                }
+                Intent intent = new Intent();
+                intent.putExtra("ret",edit.getTextEx().toString());
+                setResult(1000,intent);
+                AppManager.getAppManager().finishActivity();
             }
         });
     }
@@ -55,8 +60,9 @@ public class AddMassActivity extends BaseActvity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==1000&&resultCode==1000){
-            if(data.hasExtra("ret"))
+            if(data.hasExtra("ret")) {
                 edit.setText(data.getStringExtra("ret"));
+            }
         }
     }
 }

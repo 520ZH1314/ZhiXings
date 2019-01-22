@@ -79,8 +79,8 @@ public class EnterMassAdapter extends RecyclerView.Adapter<EnterMassAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
             layout = itemView.findViewById(R.id.layout);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,DensityUtil.dip2px(context,150));
-            layout.setLayoutParams(params);
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,DensityUtil.dip2px(context,150));
+//            layout.setLayoutParams(params);
             item0 = itemView.findViewById(R.id.item0);
             item1 = itemView.findViewById(R.id.item1);
             item2 = itemView.findViewById(R.id.item2);

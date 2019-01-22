@@ -30,6 +30,7 @@ import com.zhixing.masslib._SomeCheckActivity;
 import com.zhixing.masslib.adapter.EnterMassAdapter;
 import com.zhixing.masslib.adapter.EnterMassCjAdapter;
 import com.zhixing.masslib.bean.MassItemBean;
+import com.zhixing.masslib.util.SyLinearLayoutManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -88,12 +89,12 @@ public class MassFrame1 extends ScrollAbleFragment implements ScrollableHelper.S
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = null;
+        SyLinearLayoutManager manager = new SyLinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         if(type==3){
             view = inflater.inflate(R.layout.mass_frame0_layout, container, false);
             mRecyclerView =view. findViewById(R.id.recycler_view);
             mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL,10,getResources().getColor(R.color.content_line)));
-            LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-            manager.setOrientation(RecyclerView.VERTICAL);
+
             mRecyclerView.setLayoutManager(manager);
 
         }else if(type==2){
@@ -105,8 +106,8 @@ public class MassFrame1 extends ScrollAbleFragment implements ScrollableHelper.S
             refreshLayout.setLoadMoreEnable(false);
             refreshLayout.setRefreshEnable(false);
             mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL,10,getResources().getColor(R.color.content_line)));
-            LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-            manager.setOrientation(RecyclerView.VERTICAL);
+
+
             mRecyclerView.setLayoutManager(manager);
         }else if(type==1){
             view = inflater.inflate(R.layout.mass_frame0_r_layout, container, false);
@@ -116,8 +117,7 @@ public class MassFrame1 extends ScrollAbleFragment implements ScrollableHelper.S
             refreshLayout.setLoadMoreEnable(false);
             refreshLayout.setRefreshEnable(false);
             mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL,10,getResources().getColor(R.color.content_line)));
-            LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-            manager.setOrientation(RecyclerView.VERTICAL);
+
             mRecyclerView.setLayoutManager(manager);
 
         }

@@ -20,6 +20,7 @@ import com.zhixing.masslib.R;
 import com.zhixing.masslib.bean.Cj0Bean;
 import com.zhixing.masslib.chart.CombinedChartManager;
 import com.zhixing.masslib.inter.DialogClose;
+import com.zhixing.masslib.util.Common;
 import com.zhixing.masslib.widget.ShowMassPie;
 
 import org.json.JSONArray;
@@ -171,7 +172,7 @@ public class Cj_Chart extends BaseActvity {
     private  void loadData(){
 
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetRandomPicCheckList");
         params.put("workNO","");//WORK015149
         params.put("productCode","");
@@ -194,7 +195,9 @@ public class Cj_Chart extends BaseActvity {
                     jsonArray = jsonObject.getJSONArray("rows");
                     int len = jsonArray.length();
                     Map<String,ArrayList<Integer>> temp = new HashMap<>();//统计所有
-
+                    if(len==0){
+                        return;
+                    }
                     for(int i=0;i<len;i++){
                         JSONObject o = jsonArray.getJSONObject(i);
                        String key =  o.getString("ProductCode");

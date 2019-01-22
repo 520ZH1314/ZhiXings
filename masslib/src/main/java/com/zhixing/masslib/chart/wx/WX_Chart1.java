@@ -20,6 +20,7 @@ import com.zhixing.masslib.R;
 import com.zhixing.masslib.bean.WxBean;
 import com.zhixing.masslib.chart.CombinedChartManager;
 import com.zhixing.masslib.inter.DialogClose;
+import com.zhixing.masslib.util.Common;
 import com.zhixing.masslib.widget.ShowMassPie;
 
 import org.json.JSONArray;
@@ -166,7 +167,7 @@ public class WX_Chart1 extends BaseActvity {
     private  void loadData(){
 
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetRapairInfo");
         params.put("WorkNo",edit.getTextEx().intern());//WORK015149
         params.put("productCode","");

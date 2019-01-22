@@ -74,6 +74,7 @@ public class AddWxList {
                         list.add(qc_reasons.get(i).getName());
                         P.c("不良"+qc_reasons.get(i).getName());
                     }
+                    if(list.size()!=0)
                 spi0.attachDataSource(list);
 
 
@@ -85,6 +86,7 @@ public class AddWxList {
                         list1.add(qc_reasons1.get(i).getName());
                         P.c("不良原因"+qc_reasons1.get(i).getName());
                     }
+                    if(list1.size()!=0)
                     spi1.attachDataSource(list1);
 
 

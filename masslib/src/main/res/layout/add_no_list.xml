@@ -64,7 +64,7 @@
                         android:background="@color/no_color"
                         android:textSize="@dimen/content_txt_"
                         android:hint="请输入数字"
-                        android:numeric="signed"
+                        android:numeric="integer"
                         app:x_disableEmoji="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="4dp"
@@ -86,7 +86,7 @@
                 android:layout_marginBottom="@dimen/x20"
                 android:background="@drawable/shape_mass_first_addtip"
                 android:layout_height="@dimen/x55">
-                <com.shuben.zhixing.www.view.NiceSpinner
+                <com.base.zhixing.www.widget.nicespinner.NiceSpinner
                     android:id="@+id/spil"
                     android:layout_width="match_parent"
                     android:textSize="@dimen/content_txt_"

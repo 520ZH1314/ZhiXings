@@ -55,7 +55,15 @@ public class EnterMassCjAdapter extends RecyclerView.Adapter<EnterMassCjAdapter.
             MassItemBean bean = massItemBeans.get(position);
             holder.item0.setText("工单号:"+bean.getNo() );
             holder.item1.setText(bean.getTime());
-            holder.item4.setText("抽检状态:"+bean.getState());
+            String status = "";
+            if(bean.getState()==-1){
+                status = "检验中";
+            }else if(bean.getState()==1){
+                status = "合格";
+            }else if (bean.getState()==0){
+                status = "不合格";
+            }
+            holder.item4.setText("抽检状态:"+status);
             holder.item2.setText("批次号:"+bean.getpNo());
             holder.item3.setText("抽检数量:"+bean.getCount());
             holder.item5.setText("送检时间:"+bean.getData());
@@ -73,8 +81,8 @@ public class EnterMassCjAdapter extends RecyclerView.Adapter<EnterMassCjAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
             layout = itemView.findViewById(R.id.layout);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,DensityUtil.dip2px(context,150));
-            layout.setLayoutParams(params);
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,DensityUtil.dip2px(context,150));
+//            layout.setLayoutParams(params);
             item0 = itemView.findViewById(R.id.item0);
             item1 = itemView.findViewById(R.id.item1);
             item2 = itemView.findViewById(R.id.item2);
