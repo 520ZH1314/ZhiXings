@@ -9,6 +9,7 @@ import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.netlib.base.MyBaseRepository;
 import com.zhixing.tpmlib.api.Api;
 import com.zhixing.tpmlib.bean.EquipmentBaseDataPostBean;
+import com.zhixing.tpmlib.bean.EquipmentBaseDataPostBeans;
 import com.zhixing.tpmlib.bean.EquipmentBaseDateEntity;
 import com.zhixing.tpmlib.bean.LineStationPostBean;
 import com.zhixing.tpmlib.bean.MaintenanceListDataPostBean;
@@ -40,6 +41,15 @@ public class EquipmentBaseDateRepertory extends MyBaseRepository<EquipmentBaseDa
     }
 
 
+    //获得设备列表
 
+    public MutableLiveData<BaseResponse<EquipmentBaseDateEntity>>getBaseDatas(String LineStationCode){
+        String AppCode="EPS";
+        String ApiCode="GetEquipmentList";
+        String TenantId=SharedPreferencesTool.getMStool(mContext).getTenantId();
+        String ip=SharedPreferencesTool.getMStool(mContext).getIp();
+        EquipmentBaseDataPostBeans bean=new EquipmentBaseDataPostBeans(AppCode,ApiCode,TenantId,LineStationCode);
+        return request(Api.getEquipmentBaseDatas(bean,mContext,ip)).send().get();
+    }
 
 }

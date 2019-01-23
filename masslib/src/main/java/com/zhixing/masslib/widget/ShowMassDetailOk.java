@@ -27,6 +27,8 @@ import com.base.zhixing.www.widget.IDialog;
 import com.zhixing.masslib.R;
 import com.zhixing.masslib.adapter.ShowMassItemOkAdapter;
 import com.zhixing.masslib.bean.QC_NoListBean;
+import com.zhixing.masslib.util.Common;
+import com.zhixing.masslib.util.SyLinearLayoutManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,11 +52,13 @@ public class ShowMassDetailOk extends DialogHttp {
     private ShowMassItemOkAdapter itemAdapter;
     private String CHECK_TYPE;
     private String WORKNO;
-    public ShowMassDetailOk(Activity activity, String titleValue,String CHECK_TYPE, String WORKNO){
+    private String PlanDate;
+    public ShowMassDetailOk(Activity activity, String titleValue,String CHECK_TYPE, String WORKNO,String PlanDate){
         this.context = activity;
         this.WORKNO = WORKNO;
         this.CHECK_TYPE = CHECK_TYPE;
         this.titleValue = titleValue;
+        this.PlanDate = PlanDate;
         inflater  = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         initDialogHttp(context);
@@ -75,8 +79,10 @@ public class ShowMassDetailOk extends DialogHttp {
         layout.setMinimumHeight(DensityUtil.getWindowHeight(context));
         recycler_view = layout.findViewById(R.id.recycler_view);
         itemAdapter = new ShowMassItemOkAdapter(context,okListBeans);
-        LinearLayoutManager manager = new LinearLayoutManager(context);
-        manager.setOrientation(RecyclerView.VERTICAL);
+       /* LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(RecyclerView.VERTICAL);*/
+        SyLinearLayoutManager manager =new SyLinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
+
         recycler_view.setLayoutManager(manager);
         recycler_view.setAdapter(itemAdapter);
         tetle_text = layout.findViewById(R.id.tetle_text);
@@ -137,11 +143,12 @@ public class ShowMassDetailOk extends DialogHttp {
     private ArrayList<QC_NoListBean> okListBeans = new ArrayList<>();
     private  void loadData(){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetAllProductCheckList");
         params.put("WorkNo",WORKNO);
         params.put("CheckType",CHECK_TYPE);//根据传入的类型判断是全检单还是抽检单
         params.put("ProductType","1");//良品
+        params.put("WorkDate",PlanDate);
         if(PiCiNo!=null){
             params.put("PiCiNo",PiCiNo);
         }

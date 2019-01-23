@@ -2,7 +2,9 @@
     package="com.zhixing.masslib" >
     <uses-permission android:name="android.permission.VIBRATE" />
     <application>
-
+        <activity android:name=".SjDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".chart.qj.QJ_Line_Chart"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -23,6 +25,13 @@
             android:name=".chart.wx.WX_Chart3"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+        <activity android:name=".chart.sj.Sj_Chart"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".chart.sj.Sj_Line_Chart"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".chart.cj.Cj_Chart"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -32,47 +41,47 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib.AddMassActivity3_"
+            android:name=".AddMassActivity3_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="chart.qj.QJ_Chart"
+            android:name=".chart.qj.QJ_Chart"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib.ScanMassActivity"
+            android:name=".ScanMassActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib.AddMassActivity"
+            android:name=".AddMassActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib.AddMassActivity1"
+            android:name=".AddMassActivity1"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib.AddMassActivity2"
+            android:name=".AddMassActivity2"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib.AddMassActivity3"
+            android:name=".AddMassActivity3"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib.EnterMassActivity"
+            android:name=".EnterMassActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib._SomeCheckActivity"
+            android:name="._SomeCheckActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib._AllCheckActivity"
+            android:name="._AllCheckActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zhixing.masslib.MassMainActivity"
+            android:name=".MassMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
     </application>

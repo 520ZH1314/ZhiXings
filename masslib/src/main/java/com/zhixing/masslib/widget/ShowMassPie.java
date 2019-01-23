@@ -26,6 +26,7 @@ import com.base.zhixing.www.widget.IDialog;
 import com.zhixing.masslib.R;
 import com.zhixing.masslib.chart.PieManager;
 import com.zhixing.masslib.inter.DialogClose;
+import com.zhixing.masslib.util.Common;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -149,7 +150,7 @@ public class ShowMassPie extends DialogHttp {
     private ArrayList<PieEntry> pieEntries = new ArrayList<>();
     private  void loadData(){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         if(type==0){
 
             params.put("NoName",titleValue);

@@ -16,12 +16,15 @@ import com.base.zhixing.www.widget.RecycleViewDivider;
 import com.base.zhixing.www.widget.pullrefreshlayout.PullRefreshLayout;
 import com.base.zhixing.www.widget.scrollablelayoutlib.ScrollAbleFragment;
 import com.base.zhixing.www.widget.scrollablelayoutlib.ScrollableHelper;
+import com.zhixing.masslib.EnterMassActivity;
 import com.zhixing.masslib.R;
+import com.zhixing.masslib.SjDetailActivity;
 import com.zhixing.masslib._AllCheckActivity;
 import com.zhixing.masslib._SomeCheckActivity;
 import com.zhixing.masslib.adapter.EnterMass3Adapter;
 import com.zhixing.masslib.adapter.EnterMassAdapter;
 import com.zhixing.masslib.bean.MassItemBean;
+import com.zhixing.masslib.util.SyLinearLayoutManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -83,8 +86,9 @@ public class MassFrame0 extends ScrollAbleFragment implements ScrollableHelper.S
             mRecyclerView =view. findViewById(R.id.recycler_view);
           //  mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL,20,getResources().getColor(R.color.content_line)));
-            LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-            manager.setOrientation(RecyclerView.VERTICAL);
+//            LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+//            manager.setOrientation(RecyclerView.VERTICAL);
+            SyLinearLayoutManager manager = new SyLinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
             mRecyclerView.setLayoutManager(manager);
 
         }
@@ -95,8 +99,22 @@ public class MassFrame0 extends ScrollAbleFragment implements ScrollableHelper.S
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if(type==0){
+            adapter = new EnterMassAdapter(getActivity(),massItemBeans);
+            adapter.setOnItemClick(new EnterMassAdapter.onItemClick() {
+                @Override
+                public void clickItem(int pos) {
 
-        if(type==1){
+                    Intent intent = new Intent(getActivity(),SjDetailActivity.class);
+                    intent.putExtra("obj",massItemBeans.get(pos));
+                    startActivity(intent);
+
+                }
+            });
+            mRecyclerView.setAdapter(adapter);
+        }
+
+        else if(type==1){
             adapter = new EnterMassAdapter(getActivity(),massItemBeans);
             adapter.setOnItemClick(new EnterMassAdapter.onItemClick() {
                 @Override

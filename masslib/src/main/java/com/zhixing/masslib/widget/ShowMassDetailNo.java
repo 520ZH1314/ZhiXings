@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.android.volley.VolleyError;
+import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.util.DensityUtil;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.SharedPreferencesTool;
@@ -25,6 +26,8 @@ import com.base.zhixing.www.widget.IDialog;
 import com.zhixing.masslib.R;
 import com.zhixing.masslib.adapter.ShowMassItemAdapter;
 import com.zhixing.masslib.bean.QC_NoListBean;
+import com.zhixing.masslib.util.Common;
+import com.zhixing.masslib.util.SyLinearLayoutManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,14 +51,17 @@ public class ShowMassDetailNo extends DialogHttp {
     private ShowMassItemAdapter itemAdapter;
     private String CHECK_TYPE;
     private String WORKNO;
-    public ShowMassDetailNo(Activity activity, String titleValue, String WORKNO,String CHECK_TYPE){
+    private String PlanDate;
+    public ShowMassDetailNo(Activity activity, String titleValue, String WORKNO,String CHECK_TYPE,String PlanDate){
         this.context = activity;
         this.WORKNO = WORKNO;
         this.CHECK_TYPE = CHECK_TYPE;
         this.titleValue = titleValue;
+        this.PlanDate = PlanDate;
         inflater  = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         initDialogHttp(context);
+        P.c("时间"+PlanDate);
     }
     public IDialog showSheet(){
         dlg = new IDialog(context, R.style.meet_pop_style);
@@ -68,8 +74,9 @@ public class ShowMassDetailNo extends DialogHttp {
         layout.setMinimumHeight(DensityUtil.getWindowHeight(context));
         recycler_view = layout.findViewById(R.id.recycler_view);
         itemAdapter = new ShowMassItemAdapter(context,noListBeans);
-        LinearLayoutManager manager = new LinearLayoutManager(context);
-        manager.setOrientation(RecyclerView.VERTICAL);
+      /*  LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(RecyclerView.VERTICAL);*/
+        SyLinearLayoutManager manager =new SyLinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
         recycler_view.setLayoutManager(manager);
         recycler_view.setAdapter(itemAdapter);
         tetle_text = layout.findViewById(R.id.tetle_text);
@@ -131,11 +138,12 @@ public class ShowMassDetailNo extends DialogHttp {
     private ArrayList<QC_NoListBean> noListBeans = new ArrayList<>();
     private  void loadData(){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetAllProductCheckList");
         params.put("WorkNo",WORKNO);
         params.put("CheckType",CHECK_TYPE);//根据传入的类型判断是全检单还是抽检单
         params.put("ProductType","0");//不良品
+        params.put("WorkDate",PlanDate);
 //        params.put("TenantId",SharedPreferencesTool.getMStool(context).getTenantId());
             httpPostVolley(SharedPreferencesTool.getMStool(context).getIp() + UrlUtil.Url, params, new VolleyResult() {
                 @Override

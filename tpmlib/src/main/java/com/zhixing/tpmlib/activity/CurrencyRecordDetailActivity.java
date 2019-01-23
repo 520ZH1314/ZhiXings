@@ -24,6 +24,7 @@ import com.zhixing.tpmlib.bean.MaintenanceBean;
 import com.zhixing.tpmlib.bean.MaintenanceRecordEntity;
 import com.zhixing.tpmlib.bean.SpotCheckBean;
 import com.zhixing.tpmlib.bean.WarnBean;
+import com.zhixing.tpmlib.bean.WarnRecordDataEntity;
 import com.zhixing.tpmlib.viewModel.CurrencyRecordDetailViewModel;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import butterknife.OnClick;
  * create at 2019/1/8 下午2:36
  * 公共的设备履历详情
  */
-public class CurrencyRecordDetailActivity extends BaseTpmActivity implements SpringView.OnFreshListener {
+public class CurrencyRecordDetailActivity extends BaseTpmActivity  {
 
 
     @BindView(R2.id.tetle_back)
@@ -50,8 +51,8 @@ public class CurrencyRecordDetailActivity extends BaseTpmActivity implements Spr
     TextView tvTpmCurrencyDetailName;
     @BindView(R2.id.recy_tpm_currency_record_detail)
     RecyclerView recyTpmCurrencyRecordDetail;
-    @BindView(R2.id.springview_currency)
-    SpringView springviewCurrency;
+//    @BindView(R2.id.springview_currency)
+//    SpringView springviewCurrency;
     @BindView(R2.id.tv_tpm_currency_detail_time)
     TextView tvTpmCurrencyDetailTime;
     private CurrencyRecordDetailViewModel mCurrencyRecordDetailViewModel;
@@ -121,24 +122,32 @@ public class CurrencyRecordDetailActivity extends BaseTpmActivity implements Spr
 
         } else {
             //异常
-            mCurrencyRecordDetailViewModel.getWarnData().observe(this, new Observer<List<WarnBean>>() {
-                @Override
-                public void onChanged(@Nullable List<WarnBean> warnBeans) {
-                    adapt = new CurrencyAdapt(R.layout.item_tpm_currency_detail, warnBeans);
+            mCurrencyRecordDetailViewModel.getWarnData(equipmentId, currencyRecordStartTime, currencyRecordEndTime).observe(this,  warnBeans -> {
+
+                if (warnBeans.getRows()!=null){
+                    List<WarnBean> list = new ArrayList<>();
+                    for (WarnRecordDataEntity bean: warnBeans.getRows()) {
+                        list.add(new WarnBean(bean.getCreateTime(),"",bean.getDescription(),bean.getUserInfo(),bean.getMeasure(),"未关闭"));
+                    }
+                    adapt = new CurrencyAdapt(R.layout.item_tpm_currency_detail, list);
                     recyTpmCurrencyRecordDetail.setAdapter(adapt);
+                    dismissDialog();
+                }else{
+                    dismissDialog();
                 }
+
             });
         }
     }
 
     private void initView() {
         getTitleData();
-        springviewCurrency.setType(SpringView.Type.FOLLOW);
-        springviewCurrency.setHeader(new DefaultHeader(this));
-        springviewCurrency.setFooter(new DefaultFooter(this));
+//        springviewCurrency.setType(SpringView.Type.FOLLOW);
+//        springviewCurrency.setHeader(new DefaultHeader(this));
+//        springviewCurrency.setFooter(new DefaultFooter(this));
         mCurrencyRecordDetailViewModel = ViewModelProviders.of(this).get(CurrencyRecordDetailViewModel.class);
         recyTpmCurrencyRecordDetail.setLayoutManager(new LinearLayoutManager(this));
-        springviewCurrency.setListener(this);
+//        springviewCurrency.setListener(this);
 
 
     }
@@ -193,92 +202,92 @@ public class CurrencyRecordDetailActivity extends BaseTpmActivity implements Spr
 
     }
 
-    @Override
-    public void onRefresh() {
-        adapt.getData().clear();
+//    @Override
+//    public void onRefresh() {
+//        adapt.getData().clear();
+//
+//        if ("3".equals(type)) {
+//            //点检
+//            mCurrencyRecordDetailViewModel.RefreshSpotCheckData().observe(this, new Observer<List<SpotCheckBean>>() {
+//                @Override
+//                public void onChanged(@Nullable List<SpotCheckBean> spotCheckBeans) {
+//                    adapt.setNewData(spotCheckBeans);
+//
+//                }
+//            });
+//            finishFreshAndLoad();
+//
+//        } else if ("2".equals(type)) {
+//
+//            //保养
+//            mCurrencyRecordDetailViewModel.RefreshMaintenanceData().observe(this, new Observer<List<MaintenanceBean>>() {
+//                @Override
+//                public void onChanged(@Nullable List<MaintenanceBean> maintenanceBeans) {
+//                    adapt.setNewData(maintenanceBeans);
+//                }
+//            });
+//            finishFreshAndLoad();
+//
+//        } else {
+//            //异常
+//
+//            mCurrencyRecordDetailViewModel.RefreshWarnData().observe(this, new Observer<List<WarnBean>>() {
+//                @Override
+//                public void onChanged(@Nullable List<WarnBean> warnBeans) {
+//                    adapt.setNewData(warnBeans);
+//                }
+//            });
+//            finishFreshAndLoad();
+//
+//        }
+//
+//
+//    }
+//
+//    @Override
+//    public void onLoadmore() {
+//
+//        if ("3".equals(type)) {
+//            mCurrencyRecordDetailViewModel.LoadSpotCheckData().observe(this, new Observer<List<SpotCheckBean>>() {
+//                @Override
+//                public void onChanged(@Nullable List<SpotCheckBean> spotCheckBeans) {
+//                    adapt.addData(spotCheckBeans);
+//                }
+//            });
+//            finishFreshAndLoad();
+//
+//
+//        } else if ("2".equals(type)) {
+//            mCurrencyRecordDetailViewModel.LoadMaintenanceData().observe(this, new Observer<List<MaintenanceBean>>() {
+//                @Override
+//                public void onChanged(@Nullable List<MaintenanceBean> maintenanceBeans) {
+//                    adapt.addData(maintenanceBeans);
+//                }
+//            });
+//            finishFreshAndLoad();
+//        } else {
+//
+//            mCurrencyRecordDetailViewModel.LoadWarnData().observe(this, new Observer<List<WarnBean>>() {
+//                @Override
+//                public void onChanged(@Nullable List<WarnBean> warnBeans) {
+//                    adapt.addData(warnBeans);
+//                }
+//            });
+//            finishFreshAndLoad();
+//        }
+//
+//
+//    }
 
-        if ("3".equals(type)) {
-            //点检
-            mCurrencyRecordDetailViewModel.RefreshSpotCheckData().observe(this, new Observer<List<SpotCheckBean>>() {
-                @Override
-                public void onChanged(@Nullable List<SpotCheckBean> spotCheckBeans) {
-                    adapt.setNewData(spotCheckBeans);
 
-                }
-            });
-            finishFreshAndLoad();
-
-        } else if ("2".equals(type)) {
-
-            //保养
-            mCurrencyRecordDetailViewModel.RefreshMaintenanceData().observe(this, new Observer<List<MaintenanceBean>>() {
-                @Override
-                public void onChanged(@Nullable List<MaintenanceBean> maintenanceBeans) {
-                    adapt.setNewData(maintenanceBeans);
-                }
-            });
-            finishFreshAndLoad();
-
-        } else {
-            //异常
-
-            mCurrencyRecordDetailViewModel.RefreshWarnData().observe(this, new Observer<List<WarnBean>>() {
-                @Override
-                public void onChanged(@Nullable List<WarnBean> warnBeans) {
-                    adapt.setNewData(warnBeans);
-                }
-            });
-            finishFreshAndLoad();
-
-        }
-
-
-    }
-
-    @Override
-    public void onLoadmore() {
-
-        if ("3".equals(type)) {
-            mCurrencyRecordDetailViewModel.LoadSpotCheckData().observe(this, new Observer<List<SpotCheckBean>>() {
-                @Override
-                public void onChanged(@Nullable List<SpotCheckBean> spotCheckBeans) {
-                    adapt.addData(spotCheckBeans);
-                }
-            });
-            finishFreshAndLoad();
-
-
-        } else if ("2".equals(type)) {
-            mCurrencyRecordDetailViewModel.LoadMaintenanceData().observe(this, new Observer<List<MaintenanceBean>>() {
-                @Override
-                public void onChanged(@Nullable List<MaintenanceBean> maintenanceBeans) {
-                    adapt.addData(maintenanceBeans);
-                }
-            });
-            finishFreshAndLoad();
-        } else {
-
-            mCurrencyRecordDetailViewModel.LoadWarnData().observe(this, new Observer<List<WarnBean>>() {
-                @Override
-                public void onChanged(@Nullable List<WarnBean> warnBeans) {
-                    adapt.addData(warnBeans);
-                }
-            });
-            finishFreshAndLoad();
-        }
-
-
-    }
-
-
-    private void finishFreshAndLoad() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                springviewCurrency.onFinishFreshAndLoad();
-            }
-        }, 1000);
-    }
+//    private void finishFreshAndLoad() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                springviewCurrency.onFinishFreshAndLoad();
+//            }
+//        }, 1000);
+//    }
 
 
 }

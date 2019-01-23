@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.base.zhixing.www.widget.XEditText
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:background="@drawable/shape_mass3_add_bg1"
+    android:textSize="@dimen/content_txt_"
+
+    android:padding="@dimen/x8"
+    android:inputType="text|textMultiLine"
+    android:cursorVisible="true"
+    android:textCursorDrawable="@drawable/color_cursor"
+    android:textColor="@color/txt_bor"
+    android:layout_height="match_parent">
+
+</com.base.zhixing.www.widget.XEditText>

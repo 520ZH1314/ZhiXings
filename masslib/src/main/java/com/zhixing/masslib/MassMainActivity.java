@@ -5,22 +5,19 @@ import android.os.Message;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.BaseActvity;
-import com.base.zhixing.www.dataBase.DB;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
 import com.zhixing.masslib.bean.QC_Reason;
 import com.zhixing.masslib.dataBase.MassDB;
-
+import com.zhixing.masslib.util.Common;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,21 +50,17 @@ public class MassMainActivity extends BaseActvity {
         item1_layout = findViewById(R.id.item1_layout);
         item2_layout = findViewById(R.id.item2_layout);
         item3_layout = findViewById(R.id.item3_layout);
-
-
-
         item0_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toasty.INSTANCE.showToast(MassMainActivity.this,"功能完善中");
 
-              /*  Intent intent = new Intent(MassMainActivity.this,EnterMassActivity.class);
+               Intent intent = new Intent(MassMainActivity.this,EnterMassActivity.class);
                 intent.putExtra("title","首件检验");
                 intent.putExtra("left_t","首件检验");
                 intent.putExtra("right_t","首件报告记录");
                 intent.putExtra("btn_t","添加首件检验");
                 intent.putExtra("type",0);
-                startActivity(intent);*/
+                startActivity(intent);
             }
         });
         item1_layout.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +105,7 @@ public class MassMainActivity extends BaseActvity {
     //初始化加载数据
     private void initData(){
         Map<String, String> params = new HashMap<String, String>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetAbnormalList");
         params.put("TenantId",SharedPreferencesTool.getMStool(MassMainActivity.this).getTenantId());
         httpPostVolley(SharedPreferencesTool.getMStool(MassMainActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {

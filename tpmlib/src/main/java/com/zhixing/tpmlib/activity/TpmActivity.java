@@ -61,14 +61,14 @@ public void onDailyClicked(View view) {
     }
     @OnClick(R2.id.rl_matche_warming)
     public void onWarmingClicked(View view) {
-        startActivity(new Intent(this,PlannedMaintenanceActivity.class));
+        startActivity(new Intent(this,MaintenanceWarmingActivity.class));
     }
     @OnClick(R2.id.rl__equipment_resume)
     public void onEquipmentClicked(View view) {
-        startActivity(new Intent(this,PlannedMaintenanceActivity.class));
+        startActivity(new Intent(this,EquipmentResumeActivity.class));
     }
     @OnClick(R2.id.rl_statistical_analysis)
     public void onStatisticalClicked(View view) {
-        startActivity(new Intent(this,PlannedMaintenanceActivity.class));
+        startActivity(new Intent(this,StatisticalAnalysisActivity.class));
     }
 }

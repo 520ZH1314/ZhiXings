@@ -44,12 +44,13 @@
 
 
             <ImageView
-                android:layout_marginLeft="@dimen/x5"
+                android:layout_width="@dimen/x10"
+                android:layout_height="@dimen/x10"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x5"
                 android:layout_toRightOf="@+id/tv_tpm_eqipment_select"
                 android:src="@drawable/tpm_right"
-                android:layout_width="@dimen/x10"
-                android:layout_height="@dimen/x10" />
+                android:visibility="gone" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
@@ -195,65 +196,64 @@
                                     android:id="@+id/tv_tpm_equipment_id"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
-
                                     android:layout_centerVertical="true"
+
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="ZJS001"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
-                                <TextView
-                                    android:layout_marginTop="@dimen/x8"
 
+                                <TextView
                                     android:id="@+id/tv_tpm_equipment_name"
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="卧式注塑机"
+
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
-                                <TextView
-                                    android:layout_marginTop="@dimen/x8"
 
+                                <TextView
                                     android:id="@+id/tv_tpm_equipment_model"
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="a-s100iA"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
-                                <TextView
-                                    android:layout_marginTop="@dimen/x8"
 
+                                <TextView
                                     android:id="@+id/tv_tpm_equipment_manufacturer"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="@dimen/x50"
-                                    android:text="日本发那科	"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/content_txt_" />
-                                <TextView
-                                    android:layout_marginTop="@dimen/x8"
 
-                                    android:id="@+id/tv_tpm_equipment_type"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="注塑机	"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
+
                                 <TextView
+                                    android:id="@+id/tv_tpm_equipment_type"
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/x50"
                                     android:layout_marginTop="@dimen/x8"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/content_txt_" />
+
+                                <TextView
                                     android:id="@+id/tv_tpm_equipment_control_type"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="ZJS001"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
                             </LinearLayout>
@@ -384,40 +384,39 @@
                                     android:id="@+id/tv_tpm_equipment_buy_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="2015/8/6 0:00:00"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
+
                                 <TextView
                                     android:id="@+id/tv_tpm_equipment_start_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="2015/8/6 0:00:00"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
+
                                 <TextView
                                     android:id="@+id/tv_tpm_equipment_money"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="100w"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
+
                                 <TextView
                                     android:id="@+id/tv_tpm_equipment_guarantee"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="10"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
 
@@ -425,60 +424,59 @@
                                     android:id="@+id/tv_tpm_equipment_power"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="18.1"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
+
                                 <TextView
                                     android:id="@+id/tv_tpm_equipment_voltage"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="220"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
+
                                 <TextView
                                     android:id="@+id/tv_tpm_equipment_pressure"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="0"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
+
                                 <TextView
                                     android:id="@+id/tv_tpm_equipment_products"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="1000"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
+
                                 <TextView
                                     android:id="@+id/tv_tpm_equipment_stop_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="2015/8/6 0:00:00"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
+
                                 <TextView
                                     android:id="@+id/tv_tpm_equipment_manger"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/x8"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/x50"
-                                    android:text="李老八"
+                                    android:layout_marginTop="@dimen/x8"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/content_txt_" />
 

@@ -23,6 +23,7 @@ import com.base.zhixing.www.view.Toasty;
 import com.zhixing.masslib.bean.MassItemBean;
 import com.zhixing.masslib.bean.QC_NoListBean;
 import com.zhixing.masslib.chart.PieManager;
+import com.zhixing.masslib.util.Common;
 import com.zhixing.masslib.widget.AddNoList;
 import com.zhixing.masslib.widget.ShowMassDetailNo;
 import com.zhixing.masslib.widget.ShowMassDetailOk;
@@ -251,14 +252,14 @@ public class _SomeCheckActivity extends BaseActvity {
         get_detail_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowMassDetailNo detail =new ShowMassDetailNo(_SomeCheckActivity.this,"抽检不良数明细",itemBean.getNo(),"2");
+                ShowMassDetailNo detail =new ShowMassDetailNo(_SomeCheckActivity.this,"抽检不良数明细",itemBean.getNo(),"2",itemBean.getData());
                 detail.showSheet();
             }
         });
         get_detail_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowMassDetailOk detailOk = new ShowMassDetailOk(_SomeCheckActivity.this,"抽检合格数明细","2",itemBean.getNo());
+                ShowMassDetailOk detailOk = new ShowMassDetailOk(_SomeCheckActivity.this,"抽检合格数明细","2",itemBean.getNo(),itemBean.getData());
                 detailOk.showSheet();
             }
         });
@@ -322,7 +323,7 @@ createPerson：添加人
 
          */
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "EditAddProReport");
         params.put("productCode",itemBean.getProductCode());
         params.put("workNO",itemBean.getNo());
@@ -330,7 +331,7 @@ createPerson：添加人
         params.put("state",String.valueOf(state));
         params.put("TenantId",SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getTenantId());
         params.put("picCount",itemBean.getpNum());
-        params.put("createPerson",SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getUserName());
+        params.put("createPerson",SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getUserCode()+SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getUserName());
         httpPostSONVolley(SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
             public void success(JSONObject jsonObject) {
@@ -365,7 +366,7 @@ createPerson：添加人
      */
     private void addOkOrNo(String count, final String type, String reson){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "EditCheckInfo");
         params.put("count",count);
         params.put("noreason",reson);
@@ -378,9 +379,10 @@ createPerson：添加人
         params.put("PiCiNo",itemBean.getpNo());
         params.put("workPicCount",itemBean.getpNum());
         params.put("ProductType",type);//不良品
-        params.put("CreatePerson", SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getString("UserName"));
-        params.put("TenentId",SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getTenantId());
+        params.put("CreatePerson", SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getUserCode()+SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getUserName());
+        params.put("TenantId",SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getTenantId());
         params.put("PlanDate",itemBean.getAll_t());
+        showDialog("增加"+(type.equals("1")?"合格":"不良"));
         httpPostVolley(SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
             public void success(JSONObject jsonObject) {
@@ -411,12 +413,13 @@ createPerson：添加人
     //查询不良
     private  void loadDataNo(){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetAllProductCheckList");
         params.put("WorkNo",itemBean.getNo());
         params.put("CheckType","2");//根据传入的类型判断是全检单还是抽检单
         params.put("ProductType","0");//不良品
         params.put("PiCiNo",itemBean.getpNo());
+        params.put("WorkDate",itemBean.getData());
 //        params.put("TenantId",SharedPreferencesTool.getMStool(context).getTenantId());
         httpPostVolley(SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
@@ -451,12 +454,13 @@ createPerson：添加人
     //查询合格
     private  void loadDataOk(){
         Map<String,String> params  = new HashMap<>();
-        params.put("AppCode", "QC");
+        params.put("AppCode", Common.APPCODE);
         params.put("ApiCode", "GetAllProductCheckList");
         params.put("WorkNo",itemBean.getNo());
         params.put("CheckType","2");//根据传入的类型判断是全检单还是抽检单
         params.put("ProductType","1");//良品
         params.put("PiCiNo",itemBean.getpNo());
+        params.put("WorkDate",itemBean.getData());
 //        params.put("TenantId",SharedPreferencesTool.getMStool(context).getTenantId());
         httpPostVolley(SharedPreferencesTool.getMStool(_SomeCheckActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override

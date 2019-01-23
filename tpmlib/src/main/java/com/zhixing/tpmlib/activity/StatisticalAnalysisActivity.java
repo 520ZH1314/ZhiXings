@@ -1,11 +1,14 @@
 package com.zhixing.tpmlib.activity;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,12 +18,29 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
+import com.base.zhixing.www.common.SharedUtils;
+import com.base.zhixing.www.inter.SetSelect;
+import com.base.zhixing.www.util.ACache;
+import com.base.zhixing.www.util.GsonUtil;
+import com.base.zhixing.www.widget.CommonSetSelectPop;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.R;
+import com.zhixing.tpmlib.adapter.TpmTableAdapt;
 import com.zhixing.tpmlib.bean.ColumnarBean;
+import com.zhixing.tpmlib.bean.EquipmentBaseDateEntity;
+import com.zhixing.tpmlib.bean.LineStationResponEntity;
+import com.zhixing.tpmlib.bean.MaintenanceListDataEntity;
+import com.zhixing.tpmlib.bean.MaintenanceWarnBean;
+import com.zhixing.tpmlib.bean.StaticticalAnalAnalyEntity;
+import com.zhixing.tpmlib.fragment.TpmClounarTableFragment;
+import com.zhixing.tpmlib.fragment.TpmColumnarFragment;
 import com.zhixing.tpmlib.viewModel.ColumnarViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class StatisticalAnalysisActivity extends BaseTpmActivity {
@@ -35,6 +55,19 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
     private DrawerLayout drawerLayout;
     private ColumnarViewModel mColumnarViewModel;
 
+    private boolean isReplace = false;
+    private TpmColumnarFragment tpmColumnarFragment;
+    private TpmClounarTableFragment tpmClounarTableFragment;
+    private TextView tvType;
+    private SharedUtils sharedUtils;
+    private String LineListCode;
+    private String EquipmentId;
+    private List<String> Key;
+    private TpmTableAdapt adapt;
+    private RecyclerView recyclerView;
+    private boolean isFrist = true;
+    private ACache aCache;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_statistical_analysis;
@@ -48,27 +81,159 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
 
     @Override
     public void newIniLayout() {
-
+        setStatus(-1);
+        aCache = ACache.get(this);
         initView();
 
         FragmentTransaction ft =
                 getSupportFragmentManager().beginTransaction();
-
+        tpmColumnarFragment = new TpmColumnarFragment();
         //添加首页
-        ft.add(R.id.fl_pic_condtion_tpms, new TpmColumnarFragment()).commit();
+        ft.add(R.id.fl_pic_condtion_tpms, tpmColumnarFragment).show(tpmColumnarFragment).commit();
         mColumnarViewModel = ViewModelProviders.of(this).get(ColumnarViewModel.class);
-
-        initToobar();
+//
+//        mColumnarViewModel.getEquipmentBaseData(LineListCode).observe(this, lineStationResponEntityBaseResponse -> {
+//            if (lineStationResponEntityBaseResponse.getRows() != null) {
+//                EquipmentId = lineStationResponEntityBaseResponse.getRows().get(0).getEquipmentId();
+//                //加载默认数据
+//
+//                getData(EquipmentId);
+//            }
+//
+//        });
         //        初始化数据
         initData();
+
+        //切换布局
+        mColumnarViewModel.getIsReplace().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (aBoolean != null) {
+                    isReplace = aBoolean;
+                }
+                if (isReplace) {
+                    FragmentTransaction ft =
+                            getSupportFragmentManager().beginTransaction();
+
+                    if (tpmColumnarFragment != null) {
+                        ft.hide(tpmColumnarFragment);
+                    }
+                    if (tpmClounarTableFragment == null) {
+                        tpmClounarTableFragment = new TpmClounarTableFragment();
+                        ft.add(R.id.fl_pic_condtion_tpms, tpmClounarTableFragment);
+                    }
+
+                    ft.show(tpmClounarTableFragment).commit();
+
+                } else {
+                    FragmentTransaction ft =
+                            getSupportFragmentManager().beginTransaction();
+
+                    if (tpmClounarTableFragment != null) {
+                        ft.hide(tpmClounarTableFragment);
+                    }
+                    if (tpmColumnarFragment == null) {
+                        tpmColumnarFragment = new TpmColumnarFragment();
+                        ft.add(R.id.fl_pic_condtion_tpms, tpmColumnarFragment);
+                    }
+
+                    ft.show(tpmColumnarFragment).commit();
+
+
+                }
+
+
+            }
+        });
+
+        initToobar();
+
+    }
+
+
+    /**
+     * @author zjq
+     * create at 2019/1/18 下午2:47
+     * 获取数据
+     */
+    private void getData(String lineStationCode) {
+        showDialog("加载中.....");
+        mColumnarViewModel.getStaticticalAnalAnalyData(lineStationCode).observe(this, new Observer<BaseResponse<StaticticalAnalAnalyEntity>>() {
+            @Override
+            public void onChanged(@Nullable BaseResponse<StaticticalAnalAnalyEntity> staticticalAnalAnalyEntityBaseResponse) {
+
+                if (staticticalAnalAnalyEntityBaseResponse.getRows() != null) {
+                    Key = new ArrayList<>();
+                    Map<String, List<StaticticalAnalAnalyEntity>> map = new HashMap<>();
+                    for (StaticticalAnalAnalyEntity bean : staticticalAnalAnalyEntityBaseResponse.getRows()) {
+                        if (map.containsKey(bean.getGradeName())) {//map中存在此id，将数据存放当前key的map中
+                            map.get(bean.getGradeName()).add(bean);
+                        } else {//map中不存在，新建key，用来存放数据
+
+                            Key.add(bean.getGradeName());
+                            List<StaticticalAnalAnalyEntity> tmpList = new ArrayList<>();
+                            tmpList.add(bean);
+                            map.put(bean.getGradeName(), tmpList);
+                        }
+                    }
+                    String json = GsonUtil.getGson().toJson(map);
+                    aCache.put("mapData", json);
+                    mColumnarViewModel.key.setValue(Key);
+
+                        mColumnarViewModel.nomalKey.setValue(Key.get(0));
+
+
+                   dismissDialog();
+                }else{
+                   dismissDialog();
+                }
+            }
+        });
+
+
     }
 
     private void initView() {
-        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        sharedUtils = new SharedUtils("TpmSetting");
+
+        LineListCode = sharedUtils.getStringValue("LineListCode");
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         flPicCondtionTpm = (FrameLayout) findViewById(R.id.fl_pic_condtion_tpms);
-        leftMenu=(RecyclerView) findViewById(R.id.left_menu);
-        drawerLayout=(DrawerLayout) findViewById(R.id.drawer_layout);
-        TextView textView=(TextView) findViewById(R.id.tpm_statical_close);
+        leftMenu = (RecyclerView) findViewById(R.id.tpm_left_menu);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        TextView textView = (TextView) findViewById(R.id.tpm_statical_close);
+        recyclerView = (RecyclerView) findViewById(R.id.tpm_left_menu);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        tvType = (TextView) findViewById(R.id.tv_tpm_statistics_type);
+
+        tvType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonSetSelectPop commonSetSelectPop = new CommonSetSelectPop(StatisticalAnalysisActivity.this, null, "产线");
+                commonSetSelectPop.setMidH(true);
+                commonSetSelectPop.isDoall(false);
+                commonSetSelectPop.getSet().put("ApiCode", "GetLineList");
+                commonSetSelectPop.setSelect(new SetSelect() {
+                    @Override
+                    public void select(String id, String code, String name) {
+                        LineListCode = code;
+                        mColumnarViewModel.getEquipmentBaseData(LineListCode).observe(StatisticalAnalysisActivity.this, new Observer<BaseResponse<EquipmentBaseDateEntity>>() {
+                            @Override
+                            public void onChanged(@Nullable BaseResponse<EquipmentBaseDateEntity> equipmentBaseDateEntityBaseResponse) {
+                                if (equipmentBaseDateEntityBaseResponse.getRows() != null) {
+                                    String equipmentId = equipmentBaseDateEntityBaseResponse.getRows().get(0).getEquipmentId();
+                                    tvType.setText(equipmentBaseDateEntityBaseResponse.getRows().get(0).getEquipmentName());
+                                    getData(equipmentId);
+                                }
+                            }
+                        });
+                    }
+                });
+                commonSetSelectPop.showSheet();
+            }
+
+        });
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +241,7 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
             }
         });
     }
+
 
     private void initToobar() {
 
@@ -88,11 +254,42 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
 
     private void initData() {
 
-          List<ColumnarBean> data=new ArrayList<>();
-          data.add(new ColumnarBean("准时完成数","2018-10","4","2","50","月"));
-          data.add(new ColumnarBean("准时完成数","2018-11","10","4","40","月"));
-          data.add(new ColumnarBean("准时完成数","2018-12","11","22","50","月"));
-          mColumnarViewModel.ColumnarValue.setValue(data);
+        mColumnarViewModel.getEquipmentBaseData(LineListCode).observe(StatisticalAnalysisActivity.this, new Observer<BaseResponse<EquipmentBaseDateEntity>>() {
+            @Override
+            public void onChanged(@Nullable BaseResponse<EquipmentBaseDateEntity> equipmentBaseDateEntityBaseResponse) {
+                if (equipmentBaseDateEntityBaseResponse.getRows() != null) {
+                    String equipmentId = equipmentBaseDateEntityBaseResponse.getRows().get(0).getEquipmentId();
+                    tvType.setText(equipmentBaseDateEntityBaseResponse.getRows().get(0).getEquipmentName());
+                    getData(equipmentId);
+                }
+            }
+        });
+
+
+        //设置左边布局数据
+
+        mColumnarViewModel.getAllKey().observe(this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(@Nullable List<String> strings) {
+                if (strings != null) {
+                    if (adapt == null) {
+                        adapt = new TpmTableAdapt(R.layout.item_recy_tpm_left, strings);
+                        recyclerView.setAdapter(adapt);
+                    }
+                    adapt.setNewData(strings);
+
+                    adapt.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            mColumnarViewModel.nomalKey.setValue(strings.get(position));
+                            drawerLayout.closeDrawers();
+                        }
+                    });
+
+
+                }
+            }
+        });
 
     }
 
@@ -108,7 +305,7 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
             drawerLayout.openDrawer(GravityCompat.START);
             return true;
         }
-        return  false;
+        return false;
 //        if (super.onOptionsItemSelected(item)) return true;
 //        else return false;
     }
@@ -132,5 +329,6 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
             // super.onBackPressed();
         }
     }
+
 
 }

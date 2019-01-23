@@ -11,6 +11,7 @@ import com.zhixing.tpmlib.bean.MaintenanceBean;
 import com.zhixing.tpmlib.bean.MaintenanceRecordEntity;
 import com.zhixing.tpmlib.bean.SpotCheckBean;
 import com.zhixing.tpmlib.bean.WarnBean;
+import com.zhixing.tpmlib.bean.WarnRecordDataEntity;
 import com.zhixing.tpmlib.repertory.CurrencyRecordDetailRepertory;
 import com.zhixing.tpmlib.repertory.RecordDataRepertory;
 
@@ -30,9 +31,9 @@ public class CurrencyRecordDetailViewModel extends AndroidViewModel {
 
     //获取异常记录
 
-    public MutableLiveData<List<WarnBean>> getWarnData(){
+    public MutableLiveData<BaseResponse<WarnRecordDataEntity>> getWarnData(String id, String time1, String time2){
 
-          return  recordDetailRepertory.getWarnData();
+          return  maintenanceRecordRepertory.getWarnRecordData(id,time1,time2);
     }
 
     //获取刷新异常记录

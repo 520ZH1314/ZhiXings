@@ -3,13 +3,31 @@ package com.zhixing.tpmlib.bean;
 public class EquipmentBaseDataPostBean {
 
 
-    public EquipmentBaseDataPostBean(String appCode, String apiCode, String tenantId, String stationCode) {
+    public EquipmentBaseDataPostBean(String lineCode, String appCode, String apiCode, String tenantId, String stationCode) {
+        LineCode = lineCode;
         AppCode = appCode;
         ApiCode = apiCode;
         TenantId = tenantId;
         StationCode = stationCode;
     }
 
+    public EquipmentBaseDataPostBean(String appCode, String apiCode, String tenantId, String stationCode) {
+        AppCode = appCode;
+        ApiCode = apiCode;
+        TenantId = tenantId;
+
+        StationCode = stationCode;
+    }
+
+    public String getLineCode() {
+        return LineCode;
+    }
+
+    public void setLineCode(String lineCode) {
+        LineCode = lineCode;
+    }
+
+    public  String LineCode;
     public String AppCode;
 
     public String getAppCode() {

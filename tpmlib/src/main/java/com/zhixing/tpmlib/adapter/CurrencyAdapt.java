@@ -43,7 +43,7 @@ public class CurrencyAdapt<T> extends BaseQuickAdapter<T, BaseViewHolder> {
                helper.setText(R.id.tv_tpm_currency_tv5,"处理措施:");
 
 
-               helper.setText(R.id.tv_tpm_currency_tv1_value,getFormartTime(warnBean.time));
+               helper.setText(R.id.tv_tpm_currency_tv1_value,warnBean.time);
                helper.setText(R.id.tv_tpm_currency_tv2_value,warnBean.warnType);
                helper.setText(R.id.tv_tpm_currency_tv3_value, warnBean.doPeople);
                helper.setText(R.id.tv_tpm_currency_tv5_value,warnBean.howDo);

@@ -35,9 +35,14 @@ public class CombinedChartManager {
     private YAxis rightAxis;
     private XAxis xAxis;
     private Handler handler;
+    private int type;
+    public void type(int type){
+        this.type = type;
+    }
     public void setCanClick(boolean isClick){
         this.isClick = isClick;
         mCombinedChart.setTouchEnabled(true);
+
 
 //        mCombinedChart.setHighlightFullBarEnabled(false);
 //        mCombinedChart.setHighlightFullBarEnabled(true);
@@ -303,10 +308,13 @@ public class CombinedChartManager {
                     //  h.getX();
                     isClick = false;
                     mCombinedChart.setTouchEnabled(false);
-                    Message msg = new Message();
-                    msg.what = 0;
-                    msg.arg1 = (int) h.getX();
-                    handler.sendMessage(msg);
+                    if(type!=-1){
+                        Message msg = new Message();
+                        msg.what = 0;
+                        msg.arg1 = (int) h.getX();
+                        handler.sendMessage(msg);
+                    }
+
                 } catch (NullPointerException e1) {
                     e1.printStackTrace();
                 }
