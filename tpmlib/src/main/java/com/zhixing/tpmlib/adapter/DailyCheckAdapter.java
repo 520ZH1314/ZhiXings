@@ -25,11 +25,17 @@ import com.android.volley.toolbox.Volley;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.VolleyResult;
+import com.base.zhixing.www.util.ACache;
+import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.MyImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.activity.DailyCheckActivity;
 import com.zhixing.tpmlib.activity.DailyCheckDetailActivity;
@@ -38,18 +44,22 @@ import com.zhixing.tpmlib.activity.MyTextActivity;
 import com.zhixing.tpmlib.bean.EquipmentBean;
 import com.zhixing.tpmlib.bean.EquipmentEtity;
 import com.zhixing.tpmlib.bean.ImageEntity;
+import com.zhixing.tpmlib.bean.StaticticalAnalAnalyEntity;
 import com.zhixing.tpmlib.view.ShapedImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 //f
 public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentEtity,BaseViewHolder> {
+    private  ListMultimap<String, String> imgMap;
+    private  ACache aCache;
     List<String> titleList=new ArrayList<>();
     List<String> contentList=new ArrayList<>();
     private Button btnSure;
@@ -57,25 +67,43 @@ public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentEtity,BaseViewH
     private String equipmentCode;
     private SharedUtils sharedUtils;
     private String equipmentCodes;
-    private Map<String, String> imgMap;
+
     private List<EquipmentEtity> data;
-    public DailyCheckAdapter(List<EquipmentEtity> data) {
-        super(R.layout.item_requrement, data);
+    public DailyCheckAdapter(int layoutResId,List<EquipmentEtity> data) {
+        super(layoutResId, data);
+        sharedUtils = new SharedUtils("TPM");
+        SharedUtils sharedUtil = new SharedUtils("TpmSetting");
+        imgMap =MultimapBuilder.hashKeys().arrayListValues().build();
+        String tpm_dailyCheck =  sharedUtil.getStringValue("Tpm_DailyCheck");;
+        Type type = new TypeToken<List<ImageEntity>>() {}.getType();
+        if (tpm_dailyCheck!=null){
+            List<ImageEntity> datas = GsonUtil.getGson().fromJson(tpm_dailyCheck, type);
+            for (ImageEntity bean: datas) {
+                imgMap.put(bean.getClassId(),bean.getFilePath());
+            }
+        }
+
+
         this.data=data;
     }
     @Override
     protected void convert(BaseViewHolder helper, final EquipmentEtity entity) {
-        imgMap = new HashMap<>();
+        String Url="";
         ShapedImageView ivDefault =  helper.itemView.findViewById(R.id.iv_matche_default);
+        boolean hasImag = imgMap.containsKey(entity.getClassId());
+        if (hasImag){
+            Url=SharedPreferencesTool.getMStool(mContext).getIp()+imgMap.get(entity.getClassId()).get(0);
+
+        }
+        MyImageLoader.load(mContext,Url,ivDefault);
 
 
-        sharedUtils = new SharedUtils("TPM");
-            sharedUtils.setStringValue("EquipmentName",entity.getEquipmentName());
-            helper.setText(R.id.tv_requiment,entity.getEquipmentName());
+              helper.setText(R.id.tv_requiment,entity.getEquipmentName());
 //            设置设备编号
              equipmentCode = entity.getEquipmentCode();
-            sharedUtils.setStringValue("equipmentCode",entity.getEquipmentCode());
-            sharedUtils.setStringValue("equipmentID",entity.getEquipmentId());
+//             sharedUtils.setStringValue("EquipmentName",entity.getEquipmentName());
+//            sharedUtils.setStringValue("equipmentCode",entity.getEquipmentCode());
+//            sharedUtils.setStringValue("equipmentID",entity.getEquipmentId());
             helper.setText(R.id.tv_matche_num,entity.getEquipmentCode());
         equipmentCodes = sharedUtils.getStringValue("equipmentCode");
         helper.setOnClickListener(R.id.btn_check_item, new View.OnClickListener() {
