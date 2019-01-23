@@ -20,10 +20,14 @@
             />
         <TextView
             android:id="@+id/tetle_text"
-            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/tetle_back"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tetle_tv_ok"
             android:layout_centerHorizontal="true"
             android:textSize="@dimen/title_center_size"
+            android:gravity="center"
+            android:ellipsize="end"
             android:layout_centerVertical="true"
             android:textColor="@color/white"/>
         <TextView
@@ -32,13 +36,13 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="@dimen/content_txt_"
+            android:layout_toLeftOf="@+id/title_rl"
             android:maxLength="10"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:visibility="gone"
             android:layout_marginRight="10dp"
             android:text="确认"/>
-
         <RelativeLayout
             android:id="@+id/title_rl"
             android:layout_width="wrap_content"
@@ -47,8 +51,6 @@
             android:layout_centerVertical="true"
             android:visibility="gone"
             android:layout_marginRight="10dp">
-
-
             <ImageView
                 android:id="@+id/tetle_tv_img"
                 android:layout_width="@dimen/x20"

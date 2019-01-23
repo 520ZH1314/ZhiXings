@@ -14,12 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.android.tu.loadingdialog.LoadingDailog;
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.base.zhixing.www.common.FileUtils;
@@ -50,6 +52,7 @@ public abstract class BaseActvity extends FragmentActivity   {
             "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
             "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
             "Party Y", "Party Z"
+
     };
 
     /**
@@ -75,6 +78,7 @@ public abstract class BaseActvity extends FragmentActivity   {
         requestQueue = Volley.newRequestQueue(BaseActvity.this);
         setContentView(getLayoutId());
         AppManager.getAppManager().addActivity(this);
+        
 
         //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//横屏
         // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
@@ -85,20 +89,14 @@ public abstract class BaseActvity extends FragmentActivity   {
     public Handler getHandler(){
         return  base_handler;
     }
-    public void initDialog(){
-        LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(BaseActvity.this)
-                .setMessage("加载中...")
-                .setCancelable(true)
-                .setCancelOutside(true);
-        dialog=loadBuilder.create();
-    }
+
 
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        initDialog();
         initLayout();
     }
+
     @TargetApi(Build.VERSION_CODES.M)
     public void setStatus(int color){
 

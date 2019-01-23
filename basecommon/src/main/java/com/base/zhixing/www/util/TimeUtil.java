@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * @author
@@ -111,7 +112,8 @@ public class TimeUtil {
 	}
 
 	public static long parseTimeC(String time){
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 		try {
 			return  format.parse(time).getTime();
 		} catch (ParseException e) {

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.base.zhixing.www.R;
+import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.inter.SelectDoubleTime;
 import com.base.zhixing.www.view.Toasty;
 import java.util.Calendar;
@@ -65,7 +66,11 @@ public class ChangeDoubleTime {
         TextView cancle = (TextView) layout.findViewById(R.id.cancle);
         TextView clear = layout.findViewById(R.id.clear);
         final GregorianLunarCalendarView calendarView = (GregorianLunarCalendarView) layout.findViewById(R.id.calendar_view_start);
+       int x = 5;
+        P.c(String.valueOf(x*=x/=x+x)+"几个");
         calendarView.init();
+
+
         final GregorianLunarCalendarView calendarView1 = (GregorianLunarCalendarView) layout.findViewById(R.id.calendar_view_end);
         calendarView1.init();
 

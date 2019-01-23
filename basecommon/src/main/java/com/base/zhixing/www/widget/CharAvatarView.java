@@ -100,5 +100,8 @@ public class CharAvatarView extends ImageView {
         // 重绘
         invalidate();
     }
+    public String getText(){
+        return text;
+    }
 
 }

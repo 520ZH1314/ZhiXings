@@ -2,11 +2,8 @@ package com.base.zhixing.www.common;
 
 import android.content.Context;
 import android.util.Base64;
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -65,7 +62,7 @@ public class FileUtils {
 	 * 打印参数表，排查错误用
 	 * @param parsm
 	 */
-	public static void parms(Map<String,String> parsm){
+	public static void parms(Map  parsm){
 		Set<String> ey = parsm.keySet();
 		Iterator it = ey.iterator();
 		JSONObject object =new JSONObject();
@@ -79,6 +76,25 @@ public class FileUtils {
 			}
 		}
 		P.c(object.toString());
+	}
+	/**
+	 * 打印参数表，排查错误用
+	 * @param parsm
+	 */
+	public static String parmsRet(Map  parsm){
+		Set<String> ey = parsm.keySet();
+		Iterator it = ey.iterator();
+		JSONObject object =new JSONObject();
+		while(it.hasNext()){
+			String key = it.next().toString();
+			P.c(key+"==="+parsm.get(key));
+			try {
+				object.put(key,parsm.get(key));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return  object.toString();
 	}
 	/**
 	 * 文件转base64字符串

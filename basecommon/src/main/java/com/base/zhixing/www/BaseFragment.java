@@ -166,7 +166,9 @@ public abstract class BaseFragment extends Fragment {
             LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(getActivity())
                     .setMessage(title)
                     .setCancelable(true)
+                    .setShowMessage(title==null?false:true)
                     .setCancelOutside(true);
+
             dialog=loadBuilder.create();
             dialog.show();
         }
