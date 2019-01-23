@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+//f
 public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentEtity,BaseViewHolder> {
     List<String> titleList=new ArrayList<>();
     List<String> contentList=new ArrayList<>();
