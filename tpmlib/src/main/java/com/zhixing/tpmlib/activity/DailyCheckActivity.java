@@ -30,6 +30,7 @@ import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.JsRet;
 import com.base.zhixing.www.inter.SetSelect;
 import com.base.zhixing.www.inter.VolleyResult;
+import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.MyImageLoader;
 import com.base.zhixing.www.util.SelectFac;
@@ -48,10 +49,12 @@ import com.google.gson.reflect.TypeToken;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
+import com.orhanobut.logger.Logger;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.adapter.DailyCheckAdapter;
 import com.zhixing.tpmlib.adapter.DialogContentAdapter;
+
 import com.zhixing.tpmlib.bean.EquipmentBean;
 import com.zhixing.tpmlib.bean.EquipmentEtity;
 import com.zhixing.tpmlib.bean.ImageEntity;
@@ -100,6 +103,8 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
     @BindView(R2.id.btn_select)
     LinearLayout btn_select;
     private List<ImageEntity> imgList;
+    private ACache aCache;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_daily_check;
@@ -110,7 +115,8 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
     }
 
     @Override
-    public void newIniLayout() {   //        实例化查看明细的实体类
+    public void newIniLayout() {
+       //        实例化查看明细的实体类
         shareUtil = new SharedUtils("TpmSetting");
         tpmLinecode = shareUtil.getStringValue("tpmLinecode");
         tpmLineName = shareUtil.getStringValue("tpmLineName");
@@ -119,6 +125,7 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
     }
 
     private void initData() {
+
         //设置上下拉事件
         springView.setListener(this);
         //设置springview的头和尾
@@ -128,11 +135,12 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         springView.setFooter(new DefaultFooter(this));
         tvTite.setText("日常点检");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         getFroData(tpmLinecode);
-        getImgeData();
+
     }
 
-    private void getImgeData() {
+    private void getImgeData(List<EquipmentEtity> equipmentEtityList) {
         RequestQueue requestQueue1 = Volley.newRequestQueue(this);
         Map<String, String> imageParams = new HashMap<String, String>();
         imageParams.put("TenantId", tenantId);
@@ -147,8 +155,8 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                 P.c(jsonObject.toString());
                 try {
                     JSONArray rows = jsonObject.getJSONArray("rows");
+                    imgList = new ArrayList<>();
                     for(int i=0;i<rows.length();i++){
-                        imgList = new ArrayList<>();
                         ImageEntity imageEntity=new ImageEntity();
                         JSONObject jsonObject1 = rows.getJSONObject(i);
                         String classId = jsonObject1.getString("ClassId");
@@ -156,7 +164,27 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                         String filePath = jsonObject1.getString("FilePath");
                         imageEntity.setFilePath(filePath);
                         imgList.add(imageEntity);
+
                     }
+                    Logger.d(imgList.get(0));
+                    String json = GsonUtil.getGson().toJson(imgList);
+                    shareUtil.setStringValue("Tpm_DailyCheck",json);
+                    dailyCheckAdapter = new DailyCheckAdapter(R.layout.item_requrement,equipmentEtityList);
+                    View headerView = getLayoutInflater().inflate(R.layout.item_line_select, null);
+                    headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    //   LinearLayout btn_select = headerView.findViewById(R.id.btn_select);
+                    // tvCell = (TextView) headerView.findViewById(R.id.tv_cell);
+//                                tvCell.setText(tpmLineName);
+                    // dailyCheckAdapter.addHeaderView(headerView);
+                    mRecyclerView.setAdapter(dailyCheckAdapter);
+                    btn_select.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            getWorkPosition();
+                        }
+                    });
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -196,6 +224,7 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                 try {
                     JSONArray rows = jsonObject.getJSONArray("rows");
                     equipmentEtityList = new ArrayList<>();
+
                     for (int i = 0; i < rows.length(); i++) {
                         EquipmentEtity equipmentBean = new EquipmentEtity();
                         JSONObject jsonObject1 = rows.getJSONObject(i);
@@ -209,21 +238,10 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                         equipmentBean.setEquipmentId(equipmentId);
                         equipmentEtityList.add(equipmentBean);
 
+
                     }
-                    dailyCheckAdapter = new DailyCheckAdapter(equipmentEtityList);
-                    View headerView = getLayoutInflater().inflate(R.layout.item_line_select, null);
-                    headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                 //   LinearLayout btn_select = headerView.findViewById(R.id.btn_select);
-                   // tvCell = (TextView) headerView.findViewById(R.id.tv_cell);
-//                                tvCell.setText(tpmLineName);
-                   // dailyCheckAdapter.addHeaderView(headerView);
-                    mRecyclerView.setAdapter(dailyCheckAdapter);
-                    btn_select.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            getWorkPosition();
-                        }
-                    });
+                    getImgeData(equipmentEtityList);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
