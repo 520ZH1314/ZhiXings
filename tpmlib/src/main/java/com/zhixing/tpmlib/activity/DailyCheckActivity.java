@@ -71,7 +71,7 @@ import butterknife.BindView;
 /*
  * @Author smart
  * @Date 2018/12/24
- * @Des 进入日常点检的界面
+ * @Des 进入日常点检的界面发挥发挥发挥
  */
 public class DailyCheckActivity extends BaseTpmActivity implements SpringView.OnFreshListener {
     @BindView(R2.id.tetle_text)
