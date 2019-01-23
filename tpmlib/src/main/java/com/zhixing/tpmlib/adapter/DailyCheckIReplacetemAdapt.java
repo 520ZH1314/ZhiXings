@@ -60,7 +60,6 @@ import java.util.List;
 import java.util.Map;
 
 public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemBean, BaseViewHolder> {
-
     private MyTextActivityViewModel mViewModel;
     private String status;
     private List<DailyCheckItemBean> data;
@@ -101,7 +100,7 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
         helper.setText(R.id.tv_daily_check_replace_body, item.getDescription());
         Button btn2 = helper.itemView.findViewById(R.id.btn_ng);
         RoundAngleImageView roundAngleImageView = helper.itemView.findViewById(R.id.roundAngleImageView);
-        MyImageLoader.load(mContext,UrlUtil.BaseImgUrl+item.getActuallyImage(),roundAngleImageView);
+        MyImageLoader.load(mContext, UrlUtil.BaseImgUrl + item.getActuallyImage(), roundAngleImageView);
         Button btn1 = helper.itemView.findViewById(R.id.btn_ok);
         ImageView iv_add = (ImageView) helper.itemView.findViewById(R.id.iv_add);
         DevShapeUtils
@@ -173,13 +172,12 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
                 JsonObjectRequest newMissRequest = new JsonObjectRequest(
                         Request.Method.POST, SharedPreferencesTool.getMStool(mContext).getIp() + UrlUtil.Url,
                         new JSONObject(params), new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject jsonobj) {
                         try {
                             if (jsonobj.getString("result").equals("1")) {
                                 item.setFruit("1");
-                                sharedUtils.setStringValue("imgPicUrl","");
+                                sharedUtils.setStringValue("imgPicUrl", "");
                                 Toast.makeText(mContext, "提交成功", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(mContext, "提交失败", Toast.LENGTH_SHORT).show();
@@ -261,18 +259,15 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
                             try {
                                 if (jsonobj.getString("result").equals("1")) {
                                     item.setFruit("0");
-                                    sharedUtils.setStringValue("imgPicUrl","");
+                                    sharedUtils.setStringValue("imgPicUrl", "");
                                     Toast.makeText(mContext, "提交成功", Toast.LENGTH_SHORT).show();
                                     System.out.println(jsonobj.toString() + "5555555");
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
                         }
-                    }, new Response.ErrorListener()
-
-                    {
+                    }, new Response.ErrorListener() {
 
                         @Override
                         public void onErrorResponse(VolleyError error) {
@@ -280,8 +275,6 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
                         }
                     });
                     requestQueue1.add(newMissRequest);
-
-
                 } else {
                     showSexTypeDialog(anomalousBeanLists);
                 }
@@ -297,7 +290,6 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
                 mContext.startActivity(new Intent(mContext, PictureListActivity.class));
             }
         });
-
     }
 
     private void showSexTypeDialog(List<AnomalousBean> anomalousBeanLists) {/* 列表弹窗 */

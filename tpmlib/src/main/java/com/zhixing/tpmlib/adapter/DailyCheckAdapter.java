@@ -16,9 +16,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.common.SharedUtils;
+import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.MyImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.base.zhixing.www.util.UrlUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhixing.tpmlib.R;
@@ -27,11 +36,20 @@ import com.zhixing.tpmlib.activity.DailyCheckDetailActivity;
 import com.zhixing.tpmlib.activity.DailyCheckItemActivity;
 import com.zhixing.tpmlib.activity.MyTextActivity;
 import com.zhixing.tpmlib.bean.EquipmentBean;
+import com.zhixing.tpmlib.bean.EquipmentEtity;
+import com.zhixing.tpmlib.bean.ImageEntity;
 import com.zhixing.tpmlib.view.ShapedImageView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentBean,BaseViewHolder> {
+import java.util.Map;
+
+public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentEtity,BaseViewHolder> {
     List<String> titleList=new ArrayList<>();
     List<String> contentList=new ArrayList<>();
     private Button btnSure;
@@ -39,33 +57,26 @@ public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentBean,BaseViewHo
     private String equipmentCode;
     private SharedUtils sharedUtils;
     private String equipmentCodes;
-
-    public DailyCheckAdapter(List<EquipmentBean> data) {
+    private Map<String, String> imgMap;
+    private List<EquipmentEtity> data;
+    public DailyCheckAdapter(List<EquipmentEtity> data) {
         super(R.layout.item_requrement, data);
+        this.data=data;
     }
     @Override
-    protected void convert(BaseViewHolder helper, final EquipmentBean entity) {
-        List<EquipmentBean.ImageBean> imageBeans = entity.getImageBeans();
+    protected void convert(BaseViewHolder helper, final EquipmentEtity entity) {
+        imgMap = new HashMap<>();
         ShapedImageView ivDefault =  helper.itemView.findViewById(R.id.iv_matche_default);
-        if(imageBeans!=null){
-            for (int i = 0; i <imageBeans.size() ; i++) {
-                MyImageLoader.load(mContext,imageBeans.get(i).getFilePath(),ivDefault);
-            }
-        }
 
-        List<EquipmentBean.RowsBean> rowsBeans=entity.getRows();
+
         sharedUtils = new SharedUtils("TPM");
-        for (int i = 0; i <rowsBeans.size() ; i++) {
-            sharedUtils.setStringValue("EquipmentName",rowsBeans.get(i).getEquipmentName());
-            helper.setText(R.id.tv_requiment,rowsBeans.get(i).getEquipmentName());
+            sharedUtils.setStringValue("EquipmentName",entity.getEquipmentName());
+            helper.setText(R.id.tv_requiment,entity.getEquipmentName());
 //            设置设备编号
-             equipmentCode = rowsBeans.get(i).getEquipmentCode();
-            sharedUtils.setStringValue("equipmentCode",rowsBeans.get(i).getEquipmentCode());
-            sharedUtils.setStringValue("equipmentID",rowsBeans.get(i).getEquipmentId());
-            helper.setText(R.id.tv_matche_num,rowsBeans.get(i).getEquipmentCode());
-//        设置检查设备的点检人
-        helper.setText(R.id.tv_machine_operator,rowsBeans.get(i).getOperator());
-        }
+             equipmentCode = entity.getEquipmentCode();
+            sharedUtils.setStringValue("equipmentCode",entity.getEquipmentCode());
+            sharedUtils.setStringValue("equipmentID",entity.getEquipmentId());
+            helper.setText(R.id.tv_matche_num,entity.getEquipmentCode());
         equipmentCodes = sharedUtils.getStringValue("equipmentCode");
         helper.setOnClickListener(R.id.btn_check_item, new View.OnClickListener() {
             @Override
@@ -80,7 +91,6 @@ public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentBean,BaseViewHo
             }
         });
     }
-
     private void showSexTypeDialog(List<String> titleList,List<String> contentList) {
         /* 列表弹窗 */
         final AlertDialog dialog = new AlertDialog.Builder(mContext,R.style.dialog_common).create();
@@ -106,8 +116,7 @@ public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentBean,BaseViewHo
             @Override
             public void onClick(View v) {
                Intent intent= new Intent(mContext,MyTextActivity.class);
-                String matchName = SharedPreferencesTool.getMStool(mContext).getString("matchName");
-                intent.putExtra("matchName",matchName);
+                intent.putExtra("matchName","");
                 mContext.startActivity(intent);
                 dialog.dismiss();
             }
@@ -125,5 +134,4 @@ public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentBean,BaseViewHo
             }
         });
     }
-
 }

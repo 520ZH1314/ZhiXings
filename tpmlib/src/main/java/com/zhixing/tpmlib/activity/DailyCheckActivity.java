@@ -18,7 +18,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.common.SharedUtils;
@@ -26,6 +31,7 @@ import com.base.zhixing.www.inter.JsRet;
 import com.base.zhixing.www.inter.SetSelect;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.GsonUtil;
+import com.base.zhixing.www.util.MyImageLoader;
 import com.base.zhixing.www.util.SelectFac;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
@@ -47,7 +53,8 @@ import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.adapter.DailyCheckAdapter;
 import com.zhixing.tpmlib.adapter.DialogContentAdapter;
 import com.zhixing.tpmlib.bean.EquipmentBean;
-import com.zhixing.tpmlib.bean.T;
+import com.zhixing.tpmlib.bean.EquipmentEtity;
+import com.zhixing.tpmlib.bean.ImageEntity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,12 +90,16 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
     private ArrayList<EquipmentBean> equipmentBeans;
     //    private EquipmentBean.RowsBean rowsBean;
     private String classId;
-    private TextView tvCell;
+    @BindView(R2.id.tv_cell)
+    TextView tvCell;
     private String tenantId;
     private String tpmLinecode;
     private String tpmLineName;
     private SharedUtils shareUtil;
-
+    private List<EquipmentEtity> equipmentEtityList;
+    @BindView(R2.id.btn_select)
+    LinearLayout btn_select;
+    private List<ImageEntity> imgList;
     @Override
     public int getLayoutId() {
         return R.layout.activity_daily_check;
@@ -118,7 +129,47 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         tvTite.setText("日常点检");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         getFroData(tpmLinecode);
+        getImgeData();
+    }
 
+    private void getImgeData() {
+        RequestQueue requestQueue1 = Volley.newRequestQueue(this);
+        Map<String, String> imageParams = new HashMap<String, String>();
+        imageParams.put("TenantId", tenantId);
+        imageParams.put("AppCode", "TPM");
+        imageParams.put("ApiCode", "EditEquipmentImg");
+        P.c((new JSONObject(imageParams)).toString());
+        JsonObjectRequest newMissRequest = new JsonObjectRequest(
+                Request.Method.POST, SharedPreferencesTool.getMStool(this).getIp() + UrlUtil.Url,
+                new JSONObject(imageParams), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                P.c(jsonObject.toString());
+                try {
+                    JSONArray rows = jsonObject.getJSONArray("rows");
+                    for(int i=0;i<rows.length();i++){
+                        imgList = new ArrayList<>();
+                        ImageEntity imageEntity=new ImageEntity();
+                        JSONObject jsonObject1 = rows.getJSONObject(i);
+                        String classId = jsonObject1.getString("ClassId");
+                        imageEntity.setClassId(classId);
+                        String filePath = jsonObject1.getString("FilePath");
+                        imageEntity.setFilePath(filePath);
+                        imgList.add(imageEntity);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                P.c(jsonObject.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                P.c(error.toString());
+            }
+        });
+
+        requestQueue1.add(newMissRequest);
     }
 
     private void getFroData(String tpmLinecode) {//        获取图片的接口
@@ -142,92 +193,38 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
             @Override
             public void success(JSONObject jsonObject) {
                 P.c(jsonObject.toString() + "---------");
-                equipmentBeans = new ArrayList<>();
                 try {
                     JSONArray rows = jsonObject.getJSONArray("rows");
-
-                    System.out.println(rows.length() + "=====================");
+                    equipmentEtityList = new ArrayList<>();
                     for (int i = 0; i < rows.length(); i++) {
-                        EquipmentBean equipmentBean = new EquipmentBean();
-                        ArrayList<EquipmentBean.RowsBean> rowsBeans = new ArrayList<>();
-                        EquipmentBean.RowsBean rowsBean = new EquipmentBean.RowsBean();
+                        EquipmentEtity equipmentBean = new EquipmentEtity();
                         JSONObject jsonObject1 = rows.getJSONObject(i);
                         String equipmentName = jsonObject1.getString("EquipmentName");
                         String equipmentCode = jsonObject1.getString("EquipmentCode");
                         String equipmentId = jsonObject1.getString("EquipmentId");
                         String ClassId = jsonObject1.getString("ClassId");
-                        rowsBean.setEquipmentName(equipmentName);
-                        rowsBean.setEquipmentCode(equipmentCode);
-                        rowsBean.setClassId(ClassId);
-                        rowsBean.setEquipmentId(equipmentId);
-                        rowsBeans.add(rowsBean);
-                        equipmentBean.setRows(rowsBeans);
-                        equipmentBeans.add(equipmentBean);
-                    }
-                    //classId = rowsBean.getClassId();
-                    Map<String, String> imageParams = new HashMap<String, String>();
-                    imageParams.put("TenantId", tenantId);
-                    imageParams.put("AppCode", "EPS");
-                    imageParams.put("ApiCode", "GetFiles");
-                    imageParams.put("LinkedTableId", "");
-                    imageParams.put("LinkedTable", "sys_equipmentclass");
-                    JSONObject jsonObjects = new JSONObject();
-                    try {
-                        jsonObjects.put("AppCode", "EPS");
-                        jsonObjects.put("ApiCode", "GetFiles");
-                        jsonObjects.put("TenantId", tenantId);
-                        jsonObjects.put("LinkedTableId", classId);
-                        jsonObjects.put("LinkedTable", "sys_equipmentclass");
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    httpPostVolley(SharedPreferencesTool.getMStool(DailyCheckActivity.this).getIp() + UrlUtil.Url, imageParams, new VolleyResult() {
-                        @Override
-                        public void success(JSONObject jsonObject) {
-                            P.c("IMAGEURL" + jsonObject.toString());
-                            EquipmentBean equipmentBean = new EquipmentBean();
-                            ArrayList<EquipmentBean.ImageBean> imageBeans = new ArrayList<>();
-                            EquipmentBean.ImageBean rowsBean = new EquipmentBean.ImageBean();
-                            try {
-                                JSONArray rows = jsonObject.getJSONArray("rows");
-                                for (int i = 0; i < rows.length(); i++) {
-                                    JSONObject jsonObject1 = rows.getJSONObject(i);
-                                    String filePath = jsonObject1.getString("FilePath");
-                                    rowsBean.setFilePath(filePath);
-                                    imageBeans.add(rowsBean);
-//                        equipmentBean.setImageBeans(imageBeans);
-//                        equipmentBeans.add(equipmentBean);
-                                    try {
-                                        equipmentBeans.get(i).setImageBeans(imageBeans);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                dailyCheckAdapter = new DailyCheckAdapter(equipmentBeans);
-                                View headerView = getLayoutInflater().inflate(R.layout.item_line_select, null);
-                                headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                                LinearLayout btn_select = headerView.findViewById(R.id.btn_select);
-                                tvCell = (TextView) headerView.findViewById(R.id.tv_cell);
-//                                tvCell.setText(tpmLineName);
-                                dailyCheckAdapter.addHeaderView(headerView);
-                                mRecyclerView.setAdapter(dailyCheckAdapter);
-                                btn_select.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        getWorkPosition();
-                                    }
-                                });
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                        equipmentBean.setEquipmentName(equipmentName);
+                        equipmentBean.setEquipmentCode(equipmentCode);
+                        equipmentBean.setClassId(ClassId);
+                        equipmentBean.setEquipmentId(equipmentId);
+                        equipmentEtityList.add(equipmentBean);
 
+                    }
+                    dailyCheckAdapter = new DailyCheckAdapter(equipmentEtityList);
+                    View headerView = getLayoutInflater().inflate(R.layout.item_line_select, null);
+                    headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                 //   LinearLayout btn_select = headerView.findViewById(R.id.btn_select);
+                   // tvCell = (TextView) headerView.findViewById(R.id.tv_cell);
+//                                tvCell.setText(tpmLineName);
+                   // dailyCheckAdapter.addHeaderView(headerView);
+                    mRecyclerView.setAdapter(dailyCheckAdapter);
+                    btn_select.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void error(VolleyError error) {
-                            P.c("VolleyError" + error.toString());
+                        public void onClick(View v) {
+                            getWorkPosition();
                         }
-                    }, true);
+                    });
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -252,7 +249,6 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         commonSetSelectPop.setSelect(new SetSelect() {
             @Override
             public void select(String id, String code, String name) {
-                equipmentBeans.clear();
                 getFroData(code);
                 tvCell.setText(name);
 

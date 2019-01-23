@@ -40,6 +40,7 @@ import com.zhixing.tpmlib.adapter.PlannedMmatenceAdapter;
 import com.zhixing.tpmlib.adapter.SpinerAdapter;
 import com.zhixing.tpmlib.bean.AnomalousBean;
 import com.zhixing.tpmlib.bean.MaintenanceStatusType;
+import com.zhixing.tpmlib.bean.PlannListBean;
 import com.zhixing.tpmlib.bean.PlannetEntity;
 import com.zhixing.tpmlib.utils.TabLayoutUtils;
 import com.zhixing.tpmlib.view.SpinerPopWindow;
@@ -78,12 +79,17 @@ public class PlannedMaintenanceActivity extends BaseTpmActivity implements Sprin
     private String lineId;
     private String workId;
     private PlannedMmatenceAdapter adapter;
-    private TextView tv_value;
+    @BindView(R2.id.tv_value)
+    TextView tv_value;
     private View headerView;
-    private RelativeLayout relativeLayout;
+    @BindView(R2.id.relativelayout)
+    RelativeLayout relativeLayout;
     private String tpmLinecode;
     private String tpmStationCode;
     private String tpmLineid;
+    private String tenantId;
+    private List<MaintenanceStatusType> plannListBeans;
+    private String json;
 
     @Override
     public int getLayoutId() {
@@ -97,6 +103,7 @@ public class PlannedMaintenanceActivity extends BaseTpmActivity implements Sprin
 
     @Override
     public void newIniLayout() {
+        tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
 //        初始化控件
         initView();
         //        初始化数据
@@ -114,7 +121,7 @@ public class PlannedMaintenanceActivity extends BaseTpmActivity implements Sprin
         tpmLineid = shareUtil.getStringValue("tpmLineid");
         String tpmName = shareUtil.getStringValue("tpmName");
         tetleTvOk.setText(tpmName);
-        getFromData(tpmLinecode, tpmStationCode);
+        getFromData(tpmLinecode, tpmStationCode,"","");
         //设置上下拉事件
         springView.setListener(this);
         springView.setType(SpringView.Type.FOLLOW);
@@ -125,14 +132,71 @@ public class PlannedMaintenanceActivity extends BaseTpmActivity implements Sprin
 
     }
 
-    private void getFromData(String tpmLinecode, String tpmStationCode) {
-        String tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
+    private void getPlanListFromData() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("AppCode", "TPM");
+        params.put("TenantId", tenantId);
+        params.put("ApiCode", "GetGradeList");
+        final JSONObject jsonObjet = new JSONObject();
+        try {
+            jsonObjet.put("AppCode", "TPM");
+            jsonObjet.put("TenantId", tenantId);
+            jsonObjet.put("ApiCode", "GetGradeList");
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        httpPostVolley(SharedPreferencesTool.getMStool(this).getIp() + UrlUtil.Url, params, new VolleyResult() {
+            @Override
+            public void success(JSONObject jsonObject) {
+                P.c(jsonObject.toString());
+                try {
+                    JSONArray rows = jsonObject.getJSONArray("rows");
+                    plannListBeans = new ArrayList<>();
+                    for(int i=0;i<rows.length();i++){
+                        JSONObject jsonObject1 = rows.getJSONObject(i);
+                        String gradeName = jsonObject1.getString("GradeName");
+                        String GradeId = jsonObject1.getString("GradeId");
+                        MaintenanceStatusType maintenanceStatusType=new MaintenanceStatusType(GradeId,gradeName);
+                        PlannListBean plannListBean=new PlannListBean();
+                       // plannListBean.setGradeId(GradeId);
+                        plannListBeans.add(maintenanceStatusType);
+
+                    }
+                    json = GsonUtil.getGson().toJson(plannListBeans);
+                    P.c(plannListBeans.size()+"");
+                    TopMaintenanceTypeDialog typeDialog = TopMaintenanceTypeDialog.newInstance(json);
+                    typeDialog.show(getSupportFragmentManager(), "");
+                    typeDialog.setOnDialogInforCompleted(new TopMaintenanceTypeDialog.OnDialogInforCompleted() {
+                        @Override
+                        public void dialogInforCompleted(String name,String Graid) {
+
+                            plannetEntityLists.clear();
+                            getFromData(tpmLinecode,tpmStationCode,name,Graid);
+                            tv_value.setText(name);
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void error(VolleyError error) {
+
+            }
+        },true);
+    }
+
+    private void getFromData(String tpmLinecode, String tpmStationCode,String GradeName,String GradeId) {
         String userCode = SharedPreferencesTool.getMStool(this).getUserCode();
         Map<String, String> params = new HashMap<String, String>();
         params.put("AppCode", "TPM");
         params.put("TenantId", tenantId);
         params.put("ApiCode", "GetFirstMaintanceRecord");
         params.put("LineCode", tpmLinecode);
+        params.put("GradeName", GradeName);
+        params.put("GradeId", GradeId);
         params.put("StationCode", tpmStationCode);
         params.put("UserCode", userCode);
         final JSONObject jsonObjet = new JSONObject();
@@ -196,29 +260,17 @@ public class PlannedMaintenanceActivity extends BaseTpmActivity implements Sprin
                     P.c(plannetEntityLists.size() + "plannetEntityLists===========");
                     //        设置列表的头布局
                     headerView = getLayoutInflater().inflate(R.layout.planned_header, null);
-                    relativeLayout = (RelativeLayout) headerView.findViewById(R.id.relativelayout);
-                    tv_value = (TextView) headerView.findViewById(R.id.tv_value);
+                    //relativeLayout = (RelativeLayout) headerView.findViewById(R.id.relativelayout);
+                   // tv_value = (TextView) headerView.findViewById(R.id.tv_value);
                     adapter = new PlannedMmatenceAdapter(plannetEntityLists);
                     headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    adapter.addHeaderView(headerView);
+                    //adapter.addHeaderView(headerView);
                     //        设置RecyclerView的适配器
                     mRecyclerView.setAdapter(adapter);
                     relativeLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            List<MaintenanceStatusType> datas = new ArrayList<>();
-                            datas.add(new MaintenanceStatusType("一级保养"));
-                            datas.add(new MaintenanceStatusType("二级保养"));
-                            datas.add(new MaintenanceStatusType("三级保养"));
-                            String json = GsonUtil.getGson().toJson(datas);
-                            TopMaintenanceTypeDialog typeDialog = TopMaintenanceTypeDialog.newInstance(json);
-                            typeDialog.show(getSupportFragmentManager(), "");
-                            typeDialog.setOnDialogInforCompleted(new TopMaintenanceTypeDialog.OnDialogInforCompleted() {
-                                @Override
-                                public void dialogInforCompleted(String name) {
-                                    tv_value.setText(name);
-                                }
-                            });
+                           getPlanListFromData();
                         }
                     });
                 } catch (JSONException e) {
@@ -273,7 +325,6 @@ public class PlannedMaintenanceActivity extends BaseTpmActivity implements Sprin
     }
 
     private void getWorkPosition() {
-
         getLineStationPop(tpmLineid, tpmLinecode);
     }
 
@@ -290,10 +341,9 @@ public class PlannedMaintenanceActivity extends BaseTpmActivity implements Sprin
                 SharedPreferencesTool.getMStool(PlannedMaintenanceActivity.this).setString("lineTpmId", id);
                 tetleTvOk.setText(name);
                 plannetEntityLists.clear();
-                getFromData(tpmLinecode, code);
+                getFromData(tpmLinecode, code,"","");
             }
         });
-
         commonSetSelectPop.showSheet();
     }
 }
