@@ -14,9 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.base.zhixing.www.BaseFragment;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.common.SharedUtils;
+import com.base.zhixing.www.inter.VolleyResult;
+import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.base.zhixing.www.util.UrlUtil;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
@@ -26,6 +30,7 @@ import com.zhixing.tpmlib.adapter.DailyCheckIReplacetemAdapt;
 import com.zhixing.tpmlib.bean.AnomalousBean;
 import com.zhixing.tpmlib.bean.DailyCheckItemBean;
 
+import com.zhixing.tpmlib.bean.EquipmentEvent;
 import com.zhixing.tpmlib.view.DSVOrientation;
 import com.zhixing.tpmlib.view.DiscreteScrollView;
 import com.zhixing.tpmlib.view.InfiniteScrollAdapter;
@@ -35,12 +40,16 @@ import com.zhixing.tpmlib.view.transform.Pivot;
 import com.zhixing.tpmlib.view.transform.ScaleTransformer;
 import com.zhixing.tpmlib.viewModel.MyTextActivityViewModel;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +71,9 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
     private List<DailyCheckItemBean> dailyCheckItemBean;
     private SharedUtils sharedUtils;
     private List<DailyCheckItemBean> dailyCheckItemBeans;
+    private boolean isVisible;
+    private SharedUtils sharedUtil;
+    private String tpmLineid;
 
     public static DailyCheckItemReplaceFragment newInstance() {
         DailyCheckItemReplaceFragment fragment = new DailyCheckItemReplaceFragment();
@@ -83,7 +95,9 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_daily_check_replace_item, container, false);
-
+        sharedUtil = new SharedUtils("TpmSetting");
+        //       获取产线id
+        tpmLineid = sharedUtil.getStringValue("tpmLineid");
         unbinder = ButterKnife.bind(this, view);
         mViewModel = ViewModelProviders.of(getActivity()).get(MyTextActivityViewModel.class);
         InitData();
@@ -149,10 +163,7 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
         parseEJson(exceptionJson);
         parseJson(checkItemJson);
     }
-
     private void parseEJson(String exceptionJson) {
-
-
         try {
             JSONObject jsonObject = new JSONObject(exceptionJson);
             JSONArray rows = jsonObject.getJSONArray("rows");
@@ -168,8 +179,6 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     private void parseJson(String checkItemJson) {
@@ -208,6 +217,8 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
                 dailyCheckItemBean.setActuallyImage(actuallyImage);
                 dailyCheckItemBeans.add(dailyCheckItemBean);
             }
+            tvDailyCheckText.setText("单元:"+dailyCheckItemBeans.get(0).getCell());
+            tvDailyCheckAdress.setText("位置:"+dailyCheckItemBeans.get(0).getPosition());
             DailyCheckIReplacetemAdapt adapt = new DailyCheckIReplacetemAdapt(R.layout.item_recyleview_daily_check_replace_item, dailyCheckItemBeans, getActivity());
             recyleviewDailyCheckItemReplaceOne.setOffscreenItems(2);
             recyleviewDailyCheckItemReplaceOne.setClampTransformProgressAfter(2);
@@ -224,12 +235,61 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            isVisible = true;
+            getFromData();
+        }else{
+            isVisible=false;
+        }
+    }
 
+    private void getFromData() {
+        //        获取点检项的接口
+        String tenantId = SharedPreferencesTool.getMStool(getContext()).getTenantId();
+        //        获取设备id
+        String matheId = sharedUtils.getStringValue("equipmentID");
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("TenantId", tenantId);
+        params.put("AppCode", "TPM");
+        params.put("ApiCode", "GetMaintananceItemInfo");
+        params.put("LineId", tpmLineid);
+        params.put("EquipmentId", matheId);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("AppCode", "TPM");
+            jsonObject.put("ApiCode", "GetMaintananceItemInfo");
+            jsonObject.put("TenantId", tenantId);
+            jsonObject.put("LineId", tpmLineid);
+            jsonObject.put("EquipmentId", matheId);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        httpPostVolley(SharedPreferencesTool.getMStool(getContext()).getIp() + UrlUtil.Url, params, new VolleyResult() {
+            @Override
+            public void success(JSONObject jsonObject) {
+                parseJson(jsonObject.toString());
+                sharedUtils.setStringValue("checkItemJson", jsonObject.toString());
+                P.c("DailyCheckDetailActivity:" + jsonObject.toString());
+            }
 
+            @Override
+            public void error(VolleyError error) {
+                P.c("DailyCheckDetailActivity:" + error.toString());
+            }
+        }, true);
+
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getEquipmentnName(EquipmentEvent equipment) {
+        tvDailyCheckReplaceEquimentName.setText(equipment.getEquiptmentName());
+    }
 }

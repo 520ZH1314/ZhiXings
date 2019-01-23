@@ -22,6 +22,7 @@ import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.bean.AnomalousBean;
 import com.zhixing.tpmlib.bean.CheckItemBean;
+import com.zhixing.tpmlib.bean.EquipmentEvent;
 import com.zhixing.tpmlib.bean.RefrshBean;
 import com.zhixing.tpmlib.bean.ReplaceBean;
 import com.zhixing.tpmlib.fragment.DailyCheckItemFragment;
@@ -88,6 +89,8 @@ public class MyTextActivity extends BaseTpmActivity {
 
     private void initView() {
         // mViewModel=ViewModelProviders.of(this).get(MyTextActivityViewModel.class);
+        String equipmentName=getIntent().getStringExtra("matchName");
+        EventBus.getDefault().post(new EquipmentEvent(equipmentName));
         sharedUtils = new SharedUtils("TPM");
         sharedUtil = new SharedUtils("TpmSetting");
         tpmLineid = sharedUtil.getStringValue("tpmLineid");//       获取产线id

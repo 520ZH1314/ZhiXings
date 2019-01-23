@@ -93,18 +93,14 @@ public class TopMaintenanceTypeDialog extends DialogFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                mOnDialogInforCompleted.dialogInforCompleted(datas.get(position).getName());
+                mOnDialogInforCompleted.dialogInforCompleted(datas.get(position).getName(),datas.get(position).getStatusType());
                 dismiss();
             }
         });
-
         mRecyleView.setAdapter(adapter);
         builder.setView(view);
         return builder.create();
-
     }
-
-
 
     @Override
     public void onStart() {
@@ -145,7 +141,7 @@ public class TopMaintenanceTypeDialog extends DialogFragment {
 
    //接口回调
    public interface OnDialogInforCompleted {
-       void dialogInforCompleted(String name);
+       void dialogInforCompleted(String name,String status);
    }
 
 
