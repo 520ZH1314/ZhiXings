@@ -103,7 +103,7 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
     @BindView(R2.id.btn_select)
     LinearLayout btn_select;
     private List<ImageEntity> imgList;
-    private ACache aCache;
+
 
     @Override
     public int getLayoutId() {
