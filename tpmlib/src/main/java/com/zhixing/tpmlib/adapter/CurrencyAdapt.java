@@ -50,9 +50,9 @@ public class CurrencyAdapt<T> extends BaseQuickAdapter<T, BaseViewHolder> {
                LabelView viewById = helper.itemView.findViewById(R.id.tv_currency_status);
                viewById.setPrimaryText(warnBean.status);
                if ("未关闭".equals(warnBean.status)){
-                   viewById.setTriangleBackgroundColor(Color.parseColor("#FF943D"));
+                   viewById.setTriangleBackgroundColor(mContext.getResources().getColor(R.color.warn_color));
                }else{
-                   viewById.setTriangleBackgroundColor(Color.parseColor("#4a4a4a"));
+                   viewById.setTriangleBackgroundColor(mContext.getResources().getColor(R.color.text_color));
                }
            }else{
                SpotCheckBean spotCheckBean  =(SpotCheckBean)item;
@@ -71,9 +71,9 @@ public class CurrencyAdapt<T> extends BaseQuickAdapter<T, BaseViewHolder> {
 
                if ("5".equals(spotCheckBean.status)){
                    viewById.setPrimaryText("未完成");
-                   viewById.setTriangleBackgroundColor(Color.parseColor("#FF943D"));
+                   viewById.setTriangleBackgroundColor(mContext.getResources().getColor(R.color.warn_color));
                }else{
-                   viewById.setTriangleBackgroundColor(Color.parseColor("#4a4a4a"));
+                   viewById.setTriangleBackgroundColor(mContext.getResources().getColor(R.color.text_color));
                    viewById.setPrimaryText("已完成");
                }
 

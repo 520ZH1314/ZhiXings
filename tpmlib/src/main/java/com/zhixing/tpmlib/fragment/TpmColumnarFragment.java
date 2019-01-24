@@ -99,14 +99,9 @@ public class TpmColumnarFragment extends BaseFragment {
                 .into(btnTotal3);
         mColumnarViewModel = ViewModelProviders.of(getActivity()).get(ColumnarViewModel.class);
         initData();
-
-
         return view;
     }
-
     private void setFrist(List<List<IBarData>> data, List<Integer> chartColors, List<String> names) {
-
-
         new BarChartHelper.Builder()
                 .setContext(this.getContext())
                 .setBarChart(BarChartTpm1)

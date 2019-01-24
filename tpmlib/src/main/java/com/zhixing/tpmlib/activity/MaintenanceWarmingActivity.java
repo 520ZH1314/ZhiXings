@@ -25,7 +25,6 @@ import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.adapter.MaintenanceWarmingAdapt;
 import com.zhixing.tpmlib.bean.MaintenanceListDataEntity;
 import com.zhixing.tpmlib.bean.MaintenanceWarnBean;
-import com.zhixing.tpmlib.utils.DialogUtils;
 import com.zhixing.tpmlib.viewModel.MaintenanceWarnViewModel;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /*
- * @Author smart
+ * @Author zjq
  * @Date 2018/12/24
  * @Des 进入保养警告界面
  */
@@ -110,7 +109,7 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity  {
                 });
 
             } else {
-                DialogUtils.getInsteance().diss("");
+               dismissDialog();
             }
 
         });

@@ -32,7 +32,11 @@ import com.zhixing.tpmlib.viewModel.EquipmentEntityViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+ *
+ *@author zjq
+ *create at 2019/1/22 下午4:02
+ */
 public class EquipmentResumeActivity extends BaseTpmActivity {
     @BindView(R2.id.tetle_text)
     TextView tvTitle;
