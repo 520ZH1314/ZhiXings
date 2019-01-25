@@ -82,7 +82,7 @@ public class EquipmentEtity {
     private String LineName;
     private String StationCode;
     private String StationName;
-
+    private String Status;
     public String getEquipmentId() {
         return EquipmentId;
     }
@@ -393,5 +393,13 @@ public class EquipmentEtity {
 
     public void setStationName(String StationName) {
         this.StationName = StationName;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
     }
 }

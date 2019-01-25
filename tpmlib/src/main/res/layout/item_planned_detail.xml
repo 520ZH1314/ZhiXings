@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:test="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginTop="@dimen/x5"
     android:background="@color/white_color"
@@ -69,17 +70,19 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/ll_name">
 
-                <ImageView
+                <com.zhixing.tpmlib.view.ShapedImageView
                     android:id="@+id/iv_matche_default"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/x100"
+                    android:layout_height="@dimen/x100"
                     android:layout_marginLeft="@dimen/x20"
-                    android:layout_marginTop="@dimen/x5"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_matche_default" />
+                    android:layout_marginTop="@dimen/x10"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_matche_default"
+                    test:round_radius="10dp"
+                    test:shape_mode="round_rect" />
 
                 <TextView
-
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/iv_matche_default"
@@ -95,11 +98,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ll_name"
-                android:layout_marginRight="@dimen/x30"
-                android:layout_marginTop="15dp"
+                android:layout_marginRight="@dimen/x55"
+                android:layout_marginTop="@dimen/x30"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
@@ -121,6 +125,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
@@ -134,7 +139,7 @@
                         android:id="@+id/tv_planned_employee"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="@dimen/x5"
                         android:text="保养员"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -153,7 +158,6 @@
                         android:id="@+id/tv_check_result"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
                         android:text="OK"
                         android:textSize="12sp" />
                 </LinearLayout>

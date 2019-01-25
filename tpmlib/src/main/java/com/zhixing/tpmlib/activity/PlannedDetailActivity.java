@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,9 +106,10 @@ public class PlannedDetailActivity extends BaseTpmActivity implements SpringView
             @Override
             public void success(JSONObject jsonObject) {
                 try {
-                    JSONArray rows = jsonObject.getJSONArray("rows");
+                    JSONArray rows = jsonObject.optJSONArray("rows");
+                    planDatailBeanList = new ArrayList<>();
                     for (int i = 0; i <rows.length() ; i++) {
-                        planDatailBeanList = new ArrayList<>();
+
                         PlanDatailBean planDatailBean=new PlanDatailBean();
                         String Cell = rows.getJSONObject(i).getString("Cell");
                         planDatailBean.setCell(Cell);
@@ -125,23 +127,26 @@ public class PlannedDetailActivity extends BaseTpmActivity implements SpringView
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                //        实例化查看明细的适配器
-                PlannedDetailAdapter adapter=new PlannedDetailAdapter(planDatailBeanList);
-//        设置adapter的头布局
-                View headerView=getLayoutInflater().inflate(R.layout.item_check_header, null);
-                TextView tv_current_matche = headerView.findViewById(R.id.tv_current_matche);
-                TextView tv_cell = headerView.findViewById(R.id.tv_cell);
-                TextView tv_position = headerView.findViewById(R.id.tv_position);
-                for (int i = 0; i <planDatailBeanList.size() ; i++) {
-                    tv_cell.setText(planDatailBeanList.get(i).getCell());
-                    tv_position.setText(planDatailBeanList.get(i).getPosition());
+                if (planDatailBeanList.size()!=0&&planDatailBeanList!=null){
+                    //        实例化查看明细的适配器
+                    PlannedDetailAdapter adapter=new PlannedDetailAdapter(planDatailBeanList);
+                    //        设置adapter的头布局
+                    View headerView=getLayoutInflater().inflate(R.layout.item_check_header, null);
+                    TextView tv_current_matche = headerView.findViewById(R.id.tv_current_matche);
+                    TextView tv_cell = headerView.findViewById(R.id.tv_cell);
+                    TextView tv_position = headerView.findViewById(R.id.tv_position);
+                    for (int i = 0; i <planDatailBeanList.size() ; i++) {
+                        tv_cell.setText(planDatailBeanList.get(i).getCell());
+                        tv_position.setText(planDatailBeanList.get(i).getPosition());
+
+                    }
                     tv_current_matche.setText(equipmentName);
-                }
-                headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
-                adapter.addHeaderView(headerView);
+                    headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+                    adapter.addHeaderView(headerView);
 //        设置RecyclerView的适配器
-                 mRecyclerView.setAdapter(adapter);
-                P.c(jsonObject.toString()+"PlannedDetailActivity");
+                    mRecyclerView.setAdapter(adapter);
+                    P.c(jsonObject.toString()+"PlannedDetailActivity");
+                }
             }
             @Override
             public void error(VolleyError error) {
@@ -177,7 +182,6 @@ public class PlannedDetailActivity extends BaseTpmActivity implements SpringView
         springView.setFooter(new DefaultFooter(this));
         //        设置RecyclerView的布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     private void getFromData(Map<String,String> map) {

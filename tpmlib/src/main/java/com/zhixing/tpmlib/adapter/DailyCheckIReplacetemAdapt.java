@@ -1,20 +1,17 @@
 package com.zhixing.tpmlib.adapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -40,17 +37,17 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.shape.DevShape;
 import com.zhixing.tpmlib.R;
-import com.zhixing.tpmlib.activity.DailyCheckDetailActivity;
-import com.zhixing.tpmlib.activity.MyTextActivity;
 import com.zhixing.tpmlib.activity.PictureListActivity;
 import com.zhixing.tpmlib.bean.AnomalousBean;
 import com.zhixing.tpmlib.bean.DailyCheckItemBean;
-import com.zhixing.tpmlib.bean.RefrshBean;
 
+import com.zhixing.tpmlib.bean.EquipmentEvent;
 import com.zhixing.tpmlib.view.RoundAngleImageView;
 import com.zhixing.tpmlib.viewModel.MyTextActivityViewModel;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -86,9 +83,12 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
     List<AnomalousBean> anomalousBeanLists = new ArrayList<>();
     private String exceptionId;
     private String maintananceId;
+    private RoundAngleImageView roundAngleImageView;
+    private String imgPath;
 
     public DailyCheckIReplacetemAdapt(int layoutResId, @Nullable List<DailyCheckItemBean> data, FragmentActivity context) {
         super(layoutResId, data);
+        EventBus.getDefault().register(this);
         this.data = data;
         mViewModel = ViewModelProviders.of(context).get(MyTextActivityViewModel.class);
     }
@@ -99,18 +99,22 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
         sharedUtils = new SharedUtils("TPM");
         helper.setText(R.id.tv_daily_check_replace_body, item.getDescription());
         Button btn2 = helper.itemView.findViewById(R.id.btn_ng);
-        RoundAngleImageView roundAngleImageView = helper.itemView.findViewById(R.id.roundAngleImageView);
-        MyImageLoader.load(mContext, UrlUtil.BaseImgUrl + item.getActuallyImage(), roundAngleImageView);
+        roundAngleImageView =(RoundAngleImageView) helper.itemView.findViewById(R.id.roundAngleImageView);
+            MyImageLoader.loads(mContext, UrlUtil.BaseImgUrl+ item.getActuallyImage(), roundAngleImageView);
+      /*  String path="storage/emulated/0/Android/data/com.shuben.zhixing.www/cache/luban_disk_cache/154840046858340.png";
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        roundAngleImageView.setImageBitmap(BitmapFactory.decodeFile(path,options));*/
         Button btn1 = helper.itemView.findViewById(R.id.btn_ok);
         ImageView iv_add = (ImageView) helper.itemView.findViewById(R.id.iv_add);
         DevShapeUtils
                 .shape(DevShape.RECTANGLE)
-                .solid("#FF943D")
+                .solid(R.color.total8)
                 .radius(10)
                 .into(btn1);
         DevShapeUtils
                 .shape(DevShape.RECTANGLE)
-                .solid("#15BC84")
+                .solid(R.color.total7)
                 .radius(10)
                 .into(btn2);
 
@@ -179,6 +183,7 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
                                 item.setFruit("1");
                                 sharedUtils.setStringValue("imgPicUrl", "");
                                 Toast.makeText(mContext, "提交成功", Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
                             } else {
                                 Toast.makeText(mContext, "提交失败", Toast.LENGTH_SHORT).show();
                             }
@@ -357,5 +362,15 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
 
     public void setEList(List<AnomalousBean> anomalousBeanList) {
         anomalousBeanLists.addAll(anomalousBeanList);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EquipmentEvent event) {
+        imgPath = event.getEquiptmentName();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        roundAngleImageView.setImageBitmap(BitmapFactory.decodeFile(imgPath,options));
+        notifyDataSetChanged();
+        Toast.makeText(mContext, imgPath, Toast.LENGTH_SHORT).show();
+        P.c(imgPath);
     }
 }

@@ -54,8 +54,6 @@ import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.adapter.DailyCheckAdapter;
 import com.zhixing.tpmlib.adapter.DialogContentAdapter;
-
-import com.zhixing.tpmlib.bean.EquipmentBean;
 import com.zhixing.tpmlib.bean.EquipmentEtity;
 import com.zhixing.tpmlib.bean.ImageEntity;
 
@@ -70,7 +68,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-
 /*
  * @Author smart
  * @Date 2018/12/24
@@ -83,14 +80,10 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
     SpringView springView;
     @BindView(R2.id.mRecyclerView)
     RecyclerView mRecyclerView;
-    List<EquipmentBean> datas = new ArrayList<>();
     private DailyCheckAdapter dailyCheckAdapter;
     private TextView tvSure;
     private TextView tvCancel;
-    private List<EquipmentBean.RowsBean> rows;
     private String equipmentId;
-    private EquipmentBean equipmentBean;
-    private ArrayList<EquipmentBean> equipmentBeans;
     //    private EquipmentBean.RowsBean rowsBean;
     private String classId;
     @BindView(R2.id.tv_cell)
@@ -103,13 +96,12 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
     @BindView(R2.id.btn_select)
     LinearLayout btn_select;
     private List<ImageEntity> imgList;
-
-
+    private ACache aCache;
+    private String tpmStationCode;
     @Override
     public int getLayoutId() {
         return R.layout.activity_daily_check;
     }
-
     @Override
     public void process(Message msg) {
     }
@@ -118,7 +110,8 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
     public void newIniLayout() {
        //        实例化查看明细的实体类
         shareUtil = new SharedUtils("TpmSetting");
-        tpmLinecode = shareUtil.getStringValue("tpmLinecode");
+        tpmLinecode = shareUtil.getStringValue("LineListCode");
+        tpmStationCode = shareUtil.getStringValue("tpmStationCode");
         tpmLineName = shareUtil.getStringValue("tpmLineName");
 //    初始化数据
         initData();
@@ -136,7 +129,7 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         tvTite.setText("日常点检");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        getFroData(tpmLinecode);
+        getFroData(tpmLinecode,tpmStationCode);
 
     }
 
@@ -200,19 +193,21 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         requestQueue1.add(newMissRequest);
     }
 
-    private void getFroData(String tpmLinecode) {//        获取图片的接口
+    private void getFroData(String tpmLinecode,String tpmPosiId) {//        获取图片的接口
         tenantId = SharedPreferencesTool.getMStool(DailyCheckActivity.this).getTenantId();
         Map<String, String> params = new HashMap<String, String>();
         params.put("TenantId", tenantId);
-        params.put("AppCode", "EPS");
-        params.put("ApiCode", "GetEquipmentList");
+        params.put("AppCode", "TPM");
+        params.put("ApiCode", "GetEquipmentDailyInfo");
         params.put("LineCode", tpmLinecode);
+        params.put("StationCode", tpmPosiId);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("AppCode", "EPS");
             jsonObject.put("ApiCode", "GetEquipmentList");
             jsonObject.put("TenantId", tenantId);
             jsonObject.put("LineCode", tpmLinecode);
+            jsonObject.put("StationCode", tpmPosiId);
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -224,7 +219,6 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                 try {
                     JSONArray rows = jsonObject.getJSONArray("rows");
                     equipmentEtityList = new ArrayList<>();
-
                     for (int i = 0; i < rows.length(); i++) {
                         EquipmentEtity equipmentBean = new EquipmentEtity();
                         JSONObject jsonObject1 = rows.getJSONObject(i);
@@ -232,13 +226,13 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                         String equipmentCode = jsonObject1.getString("EquipmentCode");
                         String equipmentId = jsonObject1.getString("EquipmentId");
                         String ClassId = jsonObject1.getString("ClassId");
+                        String Status = jsonObject1.getString("Status");
                         equipmentBean.setEquipmentName(equipmentName);
                         equipmentBean.setEquipmentCode(equipmentCode);
                         equipmentBean.setClassId(ClassId);
+                        equipmentBean.setStatus(Status);
                         equipmentBean.setEquipmentId(equipmentId);
                         equipmentEtityList.add(equipmentBean);
-
-
                     }
                     getImgeData(equipmentEtityList);
 
@@ -246,17 +240,12 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
 
             @Override
             public void error(VolleyError error) {
-
             }
-
         }, true);
-
     }
 
     private void getWorkPosition() {
@@ -267,15 +256,29 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         commonSetSelectPop.setSelect(new SetSelect() {
             @Override
             public void select(String id, String code, String name) {
-                getFroData(code);
-                tvCell.setText(name);
+                getLineStationPop(id,code);
 
             }
         });
         commonSetSelectPop.showSheet();
 
     }
+    private void getLineStationPop(String tpmLineId, String Linecode) {
+        CommonSetSelectPop commonSetSelectPop = new CommonSetSelectPop(this, null, "工位");
+        commonSetSelectPop.setMidH(true);
+        commonSetSelectPop.isDoall(false);
+        commonSetSelectPop.getSet().put("ApiCode", "GetLineStationList");
+        commonSetSelectPop.getSet().put("LineCode", Linecode);
+        commonSetSelectPop.setSelect(new SetSelect() {
+            @Override
+            public void select(String id, String code, String name) {
+                getFroData(Linecode,code);
+                tvCell.setText(name);
 
+            }
+        });
+        commonSetSelectPop.showSheet();
+    }
     @Override
     public void onRefresh() {
         Toast.makeText(this, "上拉加载更多", Toast.LENGTH_SHORT).show();
@@ -293,7 +296,6 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
             }
         }, 1000);
     }
-
     @Override
     public void onLoadmore() {
         dailyCheckAdapter.notifyDataSetChanged();

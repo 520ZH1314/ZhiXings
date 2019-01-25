@@ -69,6 +69,6 @@ public void onDailyClicked(View view) {
     }
     @OnClick(R2.id.rl_statistical_analysis)
     public void onStatisticalClicked(View view) {
-        startActivity(new Intent(this,StatisticalAnalysisActivity.class));
+        startActivity(new Intent(this,PlannedMaintenanceActivity.class));
     }
 }

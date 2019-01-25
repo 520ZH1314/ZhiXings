@@ -89,18 +89,18 @@ public class MyTextActivity extends BaseTpmActivity {
 
     private void initView() {
         // mViewModel=ViewModelProviders.of(this).get(MyTextActivityViewModel.class);
-        String equipmentName=getIntent().getStringExtra("matchName");
-        EventBus.getDefault().post(new EquipmentEvent(equipmentName));
         sharedUtils = new SharedUtils("TPM");
         sharedUtil = new SharedUtils("TpmSetting");
-        tpmLineid = sharedUtil.getStringValue("tpmLineid");//       获取产线id
+        tpmLineid = sharedUtil.getStringValue("LineListId");//       获取产线id
+        String[] splits = tpmLineid.split(",");
+        tpmLineid=splits[0];
         //        获取工位id
-        tpmPosiId = sharedUtil.getStringValue("tpmPosiId");
+        tpmPosiId = sharedUtil.getStringValue("tpmStationId");
         getExceptionFromData();
 //        获取点检项列表的接口
         getFromData();
         titleRl.setVisibility(View.VISIBLE);
-        tetleTvImg.setVisibility(View.VISIBLE);
+//        tetleTvImg.setVisibility(View.VISIBLE);
         tetleTv1.setVisibility(View.GONE);
         tetleTvImg.setImageResource(R.drawable.daily_check_replace);
         tetleText.setText("日常点检项");
@@ -194,7 +194,6 @@ public class MyTextActivity extends BaseTpmActivity {
                 sharedUtils.setStringValue("checkItemJson", jsonObject.toString());
                 P.c("DailyCheckDetailActivity:" + jsonObject.toString());
             }
-
             @Override
             public void error(VolleyError error) {
                 P.c("DailyCheckDetailActivity:" + error.toString());

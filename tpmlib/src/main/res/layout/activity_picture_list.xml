@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".activity.PictureListActivity">
     <LinearLayout
+        android:orientation="horizontal"
         android:background="@color/title_bg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x50">
@@ -21,8 +22,19 @@
             android:gravity="center"
             android:textColor="@color/white_color"
             android:textSize="18sp"
+            android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_commit"
+            android:text="完成"
+            android:textColor="@color/white_color"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/x5"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <ImageView

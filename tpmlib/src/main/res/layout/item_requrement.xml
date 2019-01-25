@@ -51,6 +51,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:layout_marginTop="@dimen/x10"
                         android:id="@+id/tv_requiment"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -116,6 +117,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_daily_status"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
@@ -133,6 +135,7 @@
                 android:layout_below="@id/iv_matche_default"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:padding="@dimen/x5"
                 android:background="@drawable/btn_blue_strores"
                 android:text="开始点检"
                 android:textColor="@color/moren"

@@ -77,7 +77,9 @@ public class DailyCheckItemFragment extends BaseFragment {
     private void initData() {
         sharedUtil = new SharedUtils("TpmSetting");
         //       获取产线id
-        tpmLineid = sharedUtil.getStringValue("tpmLineid");
+        tpmLineid = sharedUtil.getStringValue("LineListId");
+        String[] tpmLineids = tpmLineid.split(",");
+        tpmLineid=tpmLineids[0];
         String checkItemJson = sharedUtils.getStringValue("checkItemJson");
         if (dailyCheckAdapter!=null){
             dailyCheckAdapter.notifyDataSetChanged();

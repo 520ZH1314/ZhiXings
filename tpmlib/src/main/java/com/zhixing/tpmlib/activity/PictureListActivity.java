@@ -1,6 +1,7 @@
 package com.zhixing.tpmlib.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.Context;
@@ -39,6 +40,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.zhixing.tpmlib.R;
+import com.zhixing.tpmlib.bean.EquipmentEvent;
 import com.zhixing.tpmlib.bean.PicEntity;
 import com.zhixing.tpmlib.bean.PicturesBean;
 import com.zhixing.tpmlib.service.RetrofitInterface;
@@ -68,18 +70,21 @@ import io.reactivex.schedulers.Schedulers;
  * @Date 2018/12/27
  * @Des 照片
  */
-public class PictureListActivity extends AppCompatActivity implements PermissionsUtil.IPermissionsCallback{
+public class PictureListActivity extends Activity implements PermissionsUtil.IPermissionsCallback{
     private static final int REQUEST_IMAGE =1 ;
     private CustomGridView gv_leave_img;
     private List<String> imageList=new ArrayList<>();
     private LeaveImageAdapter leaveImageAdapter;
     private PermissionsUtil permissionsUtil;
     private SharedUtils sharedUtils;
+    private String imgUrl;
+    private String imagePth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_list);
+
         sharedUtils = new SharedUtils("TPM");
         //        初始化控件
         initView();
@@ -87,11 +92,20 @@ public class PictureListActivity extends AppCompatActivity implements Permission
 
     private void initView() {
         gv_leave_img = (CustomGridView) findViewById(R.id.gv_leave_img);
-        ImageView ivBack = findViewById(R.id.iv_back);
+        ImageView ivBack =(ImageView) findViewById(R.id.iv_back);
+        TextView tv_commit = (TextView)findViewById(R.id.tv_commit);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new PicEntity(imageList.size()+""));
+
+                finish();
+            }
+        });
+//        设置完成的点击事件
+        tv_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new EquipmentEvent(imagePth));
                 finish();
             }
         });
@@ -135,7 +149,7 @@ public class PictureListActivity extends AppCompatActivity implements Permission
                        map.put("image",Base64Utils.imageToBase64(selectList.get(i).getCompressPath()));
                        uploadPic(map);
                    }
-
+                   imagePth = pathList.get(0);
                    SharedPreferencesTool.getMStool(this).setString("imgUrl", pathList.get(0));
                    imageList.addAll(pathList);
                    leaveImageAdapter.notifyDataSetChanged();
@@ -155,8 +169,8 @@ public class PictureListActivity extends AppCompatActivity implements Permission
                     @Override
                     public void onNext(PicturesBean picturesBean) {
                         // getView().onSuccess(picturesBean,3);
-                        String imgUrl=picturesBean.getFile();
-                        sharedUtils.setStringValue("imgPicUrl",imgUrl);
+                        imgUrl = picturesBean.getFile();
+                        sharedUtils.setStringValue("imgPicUrl", imgUrl);
                         Log.e("Mian",picturesBean.toString());
                     }
                     @Override

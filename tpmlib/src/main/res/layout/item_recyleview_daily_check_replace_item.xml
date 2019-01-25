@@ -45,7 +45,6 @@
 
 
         <View
-
             android:id="@+id/view5"
             android:layout_width="@dimen/x5"
             android:layout_height="@dimen/x15"
@@ -76,7 +75,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10">
-
             <TextView
                 android:id="@+id/tv_daily_check_replace_body"
                 android:layout_width="wrap_content"

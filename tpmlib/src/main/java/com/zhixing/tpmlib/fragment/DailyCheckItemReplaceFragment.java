@@ -84,6 +84,7 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedUtils = new SharedUtils("TPM");
+
     }
 
     @Override
@@ -97,8 +98,10 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_daily_check_replace_item, container, false);
         sharedUtil = new SharedUtils("TpmSetting");
         //       获取产线id
-        tpmLineid = sharedUtil.getStringValue("tpmLineid");
+        tpmLineid = sharedUtil.getStringValue("LineListId");
         unbinder = ButterKnife.bind(this, view);
+        String equipmentName = sharedUtils.getStringValue("EquipmentName");
+        tvDailyCheckReplaceEquimentName.setText(equipmentName);
         mViewModel = ViewModelProviders.of(getActivity()).get(MyTextActivityViewModel.class);
         InitData();
 
@@ -287,9 +290,5 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
             }
         }, true);
 
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getEquipmentnName(EquipmentEvent equipment) {
-        tvDailyCheckReplaceEquimentName.setText(equipment.getEquiptmentName());
     }
 }

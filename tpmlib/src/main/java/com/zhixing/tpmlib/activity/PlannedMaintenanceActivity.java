@@ -116,10 +116,12 @@ public class PlannedMaintenanceActivity extends BaseTpmActivity implements Sprin
         tetleTvOk.setVisibility(View.VISIBLE);
         //        实例化查看明细的实体类
         SharedUtils shareUtil = new SharedUtils("TpmSetting");
-        tpmLinecode = shareUtil.getStringValue("tpmLinecode");
+        tpmLinecode = shareUtil.getStringValue("LineListCode");
         tpmStationCode = shareUtil.getStringValue("tpmStationCode");
-        tpmLineid = shareUtil.getStringValue("tpmLineid");
-        String tpmName = shareUtil.getStringValue("tpmName");
+        tpmLineid = shareUtil.getStringValue("LineListId");
+        String[] split = tpmLineid.split(",");
+        tpmLineid=split[0];
+        String tpmName = split[1];
         tetleTvOk.setText(tpmName);
         getFromData(tpmLinecode, tpmStationCode,"","");
         //设置上下拉事件

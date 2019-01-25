@@ -42,27 +42,26 @@ public class PlannedMmatenceAdapter extends BaseQuickAdapter<PlannetEntity, Base
         } else if (status.equals("10")) {
             labelView.setPrimaryText("已保养");
         }
-        String equipmentId = entity.getEquipmentId();
-        String classId = entity.getClassId();
-        String planId = entity.getPlanId();
-        String gradeId = entity.getGradeId();
-        String equipmentName = entity.getEquipmentName();
-        planMatheBean = new PlanMatheBean();
-        planMatheBean.setEquipmentId(equipmentId);
-        planMatheBean.setClassId(classId);
-        planMatheBean.setPlanId(planId);
-        planMatheBean.setGradeId(gradeId);
-        planMatheBean.setEquipmentName(equipmentName);
         helper.setText(R.id.tv_check_date, entity.getMaintanceDate() + "天");
         helper.setOnClickListener(R.id.tv_check_detail, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                planMatheBean=new PlanMatheBean();
+                String equipmentId = entity.getEquipmentId();
+                String classId = entity.getClassId();
+                String planId = entity.getPlanId();
+                String gradeId = entity.getGradeId();
+                String equipmentName = entity.getEquipmentName();
+                planMatheBean.setEquipmentId(equipmentId);
+                planMatheBean.setClassId(entity.getClassId());
+                planMatheBean.setPlanId(planId);
+                planMatheBean.setGradeId(gradeId);
+                planMatheBean.setEquipmentName(entity.getEquipmentName());
                 Intent intent = new Intent(mContext, PlannedDetailActivity.class);
                 intent.putExtra("planMatheBean_data", planMatheBean);
                 mContext.startActivity(intent);
             }
         });
     }
-
 
 }
