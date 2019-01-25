@@ -45,7 +45,7 @@ public class MyImageLoader {
 
     public static void load(Context context,String path, ImageView v) {
         RequestOptions options = new RequestOptions()
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap. ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
         Glide.with(context).asBitmap().load(path)
@@ -53,7 +53,16 @@ public class MyImageLoader {
                 .into(v);
 
     }
+    public static void loads(Context context,String path, ImageView v) {
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.mipmap.ic_no_data)
+                .error(R.mipmap.ic_no_data)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        Glide.with(context).asBitmap().load(path)
+                .apply(options)
+                .into(v);
 
+    }
     public static void load(Context context,String path, ImageView v, int res) {
         RequestOptions options = new RequestOptions()
                 .placeholder(res)
