@@ -28,23 +28,19 @@ import com.zhixing.tpmlib.bean.ReplaceBean;
 import com.zhixing.tpmlib.fragment.DailyCheckItemFragment;
 import com.zhixing.tpmlib.fragment.DailyCheckItemReplaceFragment;
 import com.zhixing.tpmlib.viewModel.MyTextActivityViewModel;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 public class MyTextActivity extends BaseTpmActivity {
     @BindView(R2.id.tetle_back)
     ImageView tetleBack;
@@ -69,13 +65,10 @@ public class MyTextActivity extends BaseTpmActivity {
     private String tpmLineid;
     private String lineTpmId;
     private String tpmPosiId;
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_my_text;
     }
-
-
     @Override
     public void process(Message msg) {
 

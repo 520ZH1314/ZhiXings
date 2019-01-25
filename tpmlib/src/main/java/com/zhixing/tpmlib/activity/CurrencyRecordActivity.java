@@ -22,16 +22,13 @@ import com.zhixing.tpmlib.view.CommonTips;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 public class CurrencyRecordActivity extends BaseTpmActivity {
-
     @BindView(R2.id.tetle_back)
     ImageView tetleBack;
     @BindView(R2.id.tetle_tv_ok)
     TextView tetleTvOk;
     @BindView(R2.id.tv_tpm_currency_record)
     TextView tvTpmCurrencyRecord;
-
     @BindView(R2.id.tv_tpm_currency_start_time)
     TextView tvTpmCurrencyStartTime;
     @BindView(R2.id.tv_tpm_currency_end_time)
@@ -46,28 +43,19 @@ public class CurrencyRecordActivity extends BaseTpmActivity {
     private String EndTime;
     private String equipmentId;
     private String equipmentName;
-
     @Override
     public void newIniLayout() {
         initView();
     }
-
     private void initView() {
-
         if (getIntent().hasExtra("titleName")) {
-
             tetleText.setText(getIntent().getStringExtra("titleName"));
              equipmentName = getIntent().getStringExtra("equipmentName");
             tvTpmCurrencyRecord.setText(equipmentName);
-
         }
         if (getIntent().hasExtra("equipmentId")){
              equipmentId = getIntent().getStringExtra("equipmentId");
         }
-
-
-
-
         DevShapeUtils
                 .shape(DevShape.RECTANGLE)
                 .line(1, R.color.tpm_blue)
@@ -159,13 +147,11 @@ public class CurrencyRecordActivity extends BaseTpmActivity {
 
 
         } else if (i == R.id.btn_tpm_currency_clear) {
-
             CommonTips tips = new CommonTips(this, getHandler());
             tips.init("取消", "确定", "是否清楚数据");
             tips.setI(new CommonTips.Tips() {
                 @Override
                 public void cancel() {
-
                 }
                 @Override
                 public void sure() {

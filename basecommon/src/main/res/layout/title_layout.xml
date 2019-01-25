@@ -52,6 +52,7 @@
             android:visibility="gone"
             android:layout_marginRight="10dp">
             <ImageView
+
                 android:id="@+id/tetle_tv_img"
                 android:layout_width="@dimen/x20"
                 android:layout_height="@dimen/x20"
@@ -60,6 +61,7 @@
                 android:background="@mipmap/doughnutchart"
                 />
             <TextView
+
                 android:id="@+id/tetle_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -179,7 +179,6 @@ public class TpmColumnarFragment extends BaseFragment {
     private void initData() {
 
 
-
         mColumnarViewModel.getNomalKey().observe(getActivity(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

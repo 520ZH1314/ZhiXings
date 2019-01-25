@@ -86,13 +86,15 @@ public class EquipmentResumeActivity extends BaseTpmActivity {
     @BindView(R2.id.radio_btn_tpm_dj)
     RadioButton radioBtnTpmDj;
     private SharedUtils sharedUtils;
-    private String WorkShopId;
 
-    private String LineListCode;
+
+
     private EquipmentEntityViewModel mEquipmentViewModel;
-    private String LineStationCode;
     private String equipmentName;
     private String equipmentId;
+    private String tpmStationCode;
+    private String tpmStationName;
+    private String LineListCode;
 
     @Override
     public int getLayoutId() {
@@ -117,37 +119,24 @@ public class EquipmentResumeActivity extends BaseTpmActivity {
         tvTitle.setText("设备履历");
         tetleTvOk.setVisibility(View.VISIBLE);
         sharedUtils = new SharedUtils("TpmSetting");
-        String lineListId = sharedUtils.getStringValue("LineListId");
-        String[] split = lineListId.split(",");
-        WorkShopId = split[0];
         LineListCode = sharedUtils.getStringValue("LineListCode");
-        tetleTvOk.setText(split[1]);
+        tpmStationCode = sharedUtils.getStringValue("tpmStationCode");
+        tpmStationName = sharedUtils.getStringValue("tpmStationName");
+        tetleTvOk.setText(tpmStationName);
         mEquipmentViewModel = ViewModelProviders.of(EquipmentResumeActivity.this).get(EquipmentEntityViewModel.class);
     }
 
 
     private void initData() {
         showDialog("加载中..");
-        //获取工位数据
-        mEquipmentViewModel.getStationData(LineListCode).observe(this, lineStationResponEntity -> {
-            if (lineStationResponEntity != null) {
-                tetleTvOk.setText(lineStationResponEntity.getRows().get(0).getStationName());
-                LineStationCode = lineStationResponEntity.getRows().get(0).getStationCode();
+        mEquipmentViewModel.getEquipmentBaseData(tpmStationCode).observe(EquipmentResumeActivity.this, EquipmentBaseDateEntity-> {
+            if (EquipmentBaseDateEntity.getRows() != null) {
+                for (EquipmentBaseDateEntity  bean : EquipmentBaseDateEntity.getRows()) {
 
-                //获取基础数据
-                mEquipmentViewModel.getEquipmentBaseData(LineStationCode).observe(EquipmentResumeActivity.this, EquipmentBaseDateEntity-> {
-                    if (EquipmentBaseDateEntity.getRows() != null) {
-                        for (EquipmentBaseDateEntity  bean : EquipmentBaseDateEntity.getRows()) {
-
-                            setData(bean);
-                        }
-
-                    }
-                });
-
-               dismissDialog();
-            } else {
-                Toasty.INSTANCE.showToast(EquipmentResumeActivity.this, "请求数据失败");
+                    setData(bean);
+                }
+                 dismissDialog();
+            }else{
                 dismissDialog();
             }
         });
@@ -240,9 +229,9 @@ public class EquipmentResumeActivity extends BaseTpmActivity {
             public void select(String id, String code, String name) {
                 tetleTvOk.setText(name);
                 EquipmentResumeActivity.this.showDialog("加载中...");
-                LineStationCode = code;
+
                 //这边请求设备列表数据
-                mEquipmentViewModel.getEquipmentBaseData(LineStationCode).observe(EquipmentResumeActivity.this, equipmentBaseDateEntity -> {
+                mEquipmentViewModel.getEquipmentBaseData(code).observe(EquipmentResumeActivity.this, equipmentBaseDateEntity -> {
                     if (equipmentBaseDateEntity.getRows() != null) {
 
                         for (EquipmentBaseDateEntity  bean : equipmentBaseDateEntity.getRows()) {

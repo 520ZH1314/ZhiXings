@@ -88,7 +88,7 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
 
     public DailyCheckIReplacetemAdapt(int layoutResId, @Nullable List<DailyCheckItemBean> data, FragmentActivity context) {
         super(layoutResId, data);
-        EventBus.getDefault().register(this);
+
         this.data = data;
         mViewModel = ViewModelProviders.of(context).get(MyTextActivityViewModel.class);
     }
@@ -363,14 +363,5 @@ public class DailyCheckIReplacetemAdapt extends BaseQuickAdapter<DailyCheckItemB
     public void setEList(List<AnomalousBean> anomalousBeanList) {
         anomalousBeanLists.addAll(anomalousBeanList);
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EquipmentEvent event) {
-        imgPath = event.getEquiptmentName();
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
-        roundAngleImageView.setImageBitmap(BitmapFactory.decodeFile(imgPath,options));
-        notifyDataSetChanged();
-        Toast.makeText(mContext, imgPath, Toast.LENGTH_SHORT).show();
-        P.c(imgPath);
-    }
+
 }

@@ -59,6 +59,8 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity  {
     private int page = 1;//默认页
     private int TotalPage;
     private int rows = 8;//每页显示多少条
+    private String tpmStationCode;
+    private String tpmStationName;
 
     @Override
     public int getLayoutId() {
@@ -79,52 +81,41 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity  {
 
     private void initData() {
         showDialog("加载中");
-        mMaintenanceWarnViewModel.getStationData(LineListCode).observe(this, lineStationResponEntity -> {
-            if (lineStationResponEntity != null) {
-                tetleTvOk.setText(lineStationResponEntity.getRows().get(0).getStationName());
-                LineStationCode = lineStationResponEntity.getRows().get(0).getStationCode();
-                mMaintenanceWarnViewModel.initData(page, rows, Total, LineListCode, LineStationCode, this).observe(MaintenanceWarmingActivity.this, new Observer<BaseResponse<MaintenanceListDataEntity>>() {
-                    @Override
-                    public void onChanged(@Nullable BaseResponse<MaintenanceListDataEntity> maintenanceListDataEntityBaseResponse) {
-                        if (maintenanceListDataEntityBaseResponse.getMessage() == null) {
-                            Total = maintenanceListDataEntityBaseResponse.getTotal();
-                            List<MaintenanceWarnBean> beans = new ArrayList<>();
-                            List<MaintenanceListDataEntity> rows = maintenanceListDataEntityBaseResponse.getRows();
-                            int i = 1;
-                            for (MaintenanceListDataEntity bean : rows) {
-
-                                beans.add(new MaintenanceWarnBean(bean.getEquipmentName(),
-                                        bean.getEquipmentCode(), bean.getGradeName(),
-                                        bean.getStatus(), bean.getMaintanceDate(),
-                                        "0" + i )
-                                );
-                                i++;
-                            }
-
-                            adapt = new MaintenanceWarmingAdapt(R.layout.item_maintenance_warning, beans);
-                            recyleMaintenanceWarning.setAdapter(adapt);
-                                 dismissDialog();
-                        }
+        mMaintenanceWarnViewModel.initData(page, rows, Total, LineListCode, tpmStationCode, this).observe(MaintenanceWarmingActivity.this, new Observer<BaseResponse<MaintenanceListDataEntity>>() {
+            @Override
+            public void onChanged(@Nullable BaseResponse<MaintenanceListDataEntity> maintenanceListDataEntityBaseResponse) {
+                if (maintenanceListDataEntityBaseResponse.getMessage() == null) {
+                    Total = maintenanceListDataEntityBaseResponse.getTotal();
+                    List<MaintenanceWarnBean> beans = new ArrayList<>();
+                    List<MaintenanceListDataEntity> rows = maintenanceListDataEntityBaseResponse.getRows();
+                    int i = 1;
+                    for (MaintenanceListDataEntity bean : rows) {
+                        beans.add(new MaintenanceWarnBean(bean.getEquipmentName(),
+                                bean.getEquipmentCode(), bean.getGradeName(),
+                                bean.getStatus(), bean.getMaintanceDate(),
+                                "0" + i )
+                        );
+                        i++;
                     }
-                });
 
-            } else {
-               dismissDialog();
+                    adapt = new MaintenanceWarmingAdapt(R.layout.item_maintenance_warning, beans);
+                    recyleMaintenanceWarning.setAdapter(adapt);
+                    dismissDialog();
+                }else{
+                    dismissDialog();
+                }
             }
-
         });
-
     }
 
     private void initView() {
         tvTitle.setText("保养警告");
         tetleTvOk.setVisibility(View.VISIBLE);
         sharedUtils = new SharedUtils("TpmSetting");
-        String lineListId = sharedUtils.getStringValue("LineListId");
         LineListCode = sharedUtils.getStringValue("LineListCode");
-        Logger.d(LineListCode);
-        String[] split = lineListId.split(",");
-        WorkShopId = split[0];
+        tpmStationCode = sharedUtils.getStringValue("tpmStationCode");
+        tpmStationName = sharedUtils.getStringValue("tpmStationName");
+        tetleTvOk.setText(tpmStationName);
 
 //        springviewMaintenanceWarning.setListener(this);
 //        //设置springview的头和尾

@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.base.zhixing.www.AppManager;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
@@ -199,7 +200,7 @@ public class CurrencyRecordDetailActivity extends BaseTpmActivity  {
 
     @OnClick(R2.id.tetle_back)
     public void onViewClicked() {
-
+        AppManager.getAppManager().finishActivity();
     }
 
 //    @Override

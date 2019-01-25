@@ -3,6 +3,7 @@ package com.base.zhixing.www.util;
 import org.json.JSONObject;
 
 public class UrlUtil {
+	//1
 //	public static String LOCALIP = SharedPreferencesTool.getMStool(BaseApplication.application).getIp();
 	public static String IP = "http://www.m3lean.com:8080";//服务器地址
 	public static String LOGIN = "/login/doAction";//登录

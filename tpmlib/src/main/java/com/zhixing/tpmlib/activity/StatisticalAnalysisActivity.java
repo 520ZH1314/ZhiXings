@@ -24,6 +24,7 @@ import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.widget.CommonSetSelectPop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
 import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.adapter.TpmTableAdapt;
@@ -48,14 +49,9 @@ import java.util.Map;
  *create at 2019/1/22 下午4:02
  */
 public class StatisticalAnalysisActivity extends BaseTpmActivity {
-
-
     private Toolbar toolbar;
-
     private FrameLayout flPicCondtionTpm;
-
     private RecyclerView leftMenu;
-
     private DrawerLayout drawerLayout;
     private ColumnarViewModel mColumnarViewModel;
 
@@ -71,6 +67,8 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
     private RecyclerView recyclerView;
     private boolean isFrist = true;
     private ACache aCache;
+    private String tpmStationCode;
+    private String tpmStationName;
 
     @Override
     public int getLayoutId() {
@@ -95,16 +93,7 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
         //添加首页
         ft.add(R.id.fl_pic_condtion_tpms, tpmColumnarFragment).show(tpmColumnarFragment).commit();
         mColumnarViewModel = ViewModelProviders.of(this).get(ColumnarViewModel.class);
-//
-//        mColumnarViewModel.getEquipmentBaseData(LineListCode).observe(this, lineStationResponEntityBaseResponse -> {
-//            if (lineStationResponEntityBaseResponse.getRows() != null) {
-//                EquipmentId = lineStationResponEntityBaseResponse.getRows().get(0).getEquipmentId();
-//                //加载默认数据
-//
-//                getData(EquipmentId);
-//            }
-//
-//        });
+
         //        初始化数据
         initData();
 
@@ -160,9 +149,10 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
      * create at 2019/1/18 下午2:47
      * 获取数据
      */
-    private void getData(String lineStationCode) {
+    private void getData(String equipmentId) {
         showDialog("加载中.....");
-        mColumnarViewModel.getStaticticalAnalAnalyData(lineStationCode).observe(this, new Observer<BaseResponse<StaticticalAnalAnalyEntity>>() {
+
+        mColumnarViewModel.getStaticticalAnalAnalyData(equipmentId).observe(this, new Observer<BaseResponse<StaticticalAnalAnalyEntity>>() {
             @Override
             public void onChanged(@Nullable BaseResponse<StaticticalAnalAnalyEntity> staticticalAnalAnalyEntityBaseResponse) {
 
@@ -193,15 +183,12 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
                 }
             }
         });
-
-
     }
-
     private void initView() {
         sharedUtils = new SharedUtils("TpmSetting");
-
         LineListCode = sharedUtils.getStringValue("LineListCode");
-
+        tpmStationCode = sharedUtils.getStringValue("tpmStationCode");
+        tpmStationName = sharedUtils.getStringValue("tpmStationName");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         flPicCondtionTpm = (FrameLayout) findViewById(R.id.fl_pic_condtion_tpms);
         leftMenu = (RecyclerView) findViewById(R.id.tpm_left_menu);
@@ -210,31 +197,22 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
         recyclerView = (RecyclerView) findViewById(R.id.tpm_left_menu);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         tvType = (TextView) findViewById(R.id.tv_tpm_statistics_type);
-
         tvType.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 CommonSetSelectPop commonSetSelectPop = new CommonSetSelectPop(StatisticalAnalysisActivity.this, null, "产线");
                 commonSetSelectPop.setMidH(true);
-                commonSetSelectPop.isDoall(false);
+                commonSetSelectPop.isDoall(true);
                 commonSetSelectPop.getSet().put("ApiCode", "GetLineList");
                 commonSetSelectPop.setSelect(new SetSelect() {
                     @Override
                     public void select(String id, String code, String name) {
-                        LineListCode = code;
-                        mColumnarViewModel.getEquipmentBaseData(LineListCode).observe(StatisticalAnalysisActivity.this, new Observer<BaseResponse<EquipmentBaseDateEntity>>() {
-                            @Override
-                            public void onChanged(@Nullable BaseResponse<EquipmentBaseDateEntity> equipmentBaseDateEntityBaseResponse) {
-                                if (equipmentBaseDateEntityBaseResponse.getRows() != null) {
-                                    String equipmentId = equipmentBaseDateEntityBaseResponse.getRows().get(0).getEquipmentId();
-                                    tvType.setText(equipmentBaseDateEntityBaseResponse.getRows().get(0).getEquipmentName());
-                                    getData(equipmentId);
-                                }
-                            }
-                        });
+
+                        getStation(code);
                     }
                 });
                 commonSetSelectPop.showSheet();
+
             }
 
         });
@@ -244,6 +222,22 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
                 AppManager.getAppManager().finishActivity();
             }
         });
+    }
+
+    private void getStation(String code) {
+        CommonSetSelectPop commonSetSelectPop1 = new CommonSetSelectPop(StatisticalAnalysisActivity.this, null, "工位");
+        commonSetSelectPop1.setMidH(true);
+        commonSetSelectPop1.isDoall(false);
+        commonSetSelectPop1.getSet().put("ApiCode", "GetLineStationList");
+        commonSetSelectPop1.getSet().put("LineCode", code);
+        commonSetSelectPop1.setSelect(new SetSelect() {
+            @Override
+            public void select(String id, String code, String name) {
+                tpmStationCode=code;
+                mColumnarViewModel.getEquipmentBaseData(tpmStationCode);
+            }
+        });
+        commonSetSelectPop1.showSheet();
     }
 
 
@@ -257,8 +251,8 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
     }
 
     private void initData() {
-
-        mColumnarViewModel.getEquipmentBaseData(LineListCode).observe(StatisticalAnalysisActivity.this, new Observer<BaseResponse<EquipmentBaseDateEntity>>() {
+        mColumnarViewModel.getEquipmentBaseData(tpmStationCode);
+        mColumnarViewModel.BaseDateEntity.observe(StatisticalAnalysisActivity.this, new Observer<BaseResponse<EquipmentBaseDateEntity>>() {
             @Override
             public void onChanged(@Nullable BaseResponse<EquipmentBaseDateEntity> equipmentBaseDateEntityBaseResponse) {
                 if (equipmentBaseDateEntityBaseResponse.getRows() != null) {
@@ -330,7 +324,7 @@ public class StatisticalAnalysisActivity extends BaseTpmActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
 
-            // super.onBackPressed();
+             super.onBackPressed();
         }
     }
 

@@ -35,7 +35,7 @@ public class ColumnarViewModel extends AndroidViewModel {
 
     public MutableLiveData<Boolean> isReplace = new MutableLiveData<>();
     private MutableLiveData<BaseResponse<LineStationResponEntity>> StationData;
-    private MutableLiveData<BaseResponse<EquipmentBaseDateEntity>> BaseDateEntity;
+    public MutableLiveData<BaseResponse<EquipmentBaseDateEntity>> BaseDateEntity;
 
     //所有key
     public MutableLiveData<List<String>> key=new MutableLiveData<>();
@@ -44,7 +44,7 @@ public class ColumnarViewModel extends AndroidViewModel {
     public ColumnarViewModel(@NonNull Application application) {
         super(application);
          repertory=new StatisticalAnalysisRepertory(application.getApplicationContext());
-        equipmentBaseDateRepertory = new EquipmentBaseDateRepertory(application.getApplicationContext());
+         equipmentBaseDateRepertory = new EquipmentBaseDateRepertory(application.getApplicationContext());
 
     }
 
@@ -53,7 +53,7 @@ public class ColumnarViewModel extends AndroidViewModel {
 
     public LiveData<BaseResponse<EquipmentBaseDateEntity>>getEquipmentBaseData(String Code){
 
-        this.BaseDateEntity=equipmentBaseDateRepertory.getBaseDatas(Code);
+        this.BaseDateEntity=equipmentBaseDateRepertory.getBaseData(Code);
         return BaseDateEntity;
     }
 

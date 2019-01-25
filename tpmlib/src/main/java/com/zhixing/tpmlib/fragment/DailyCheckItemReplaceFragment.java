@@ -1,7 +1,7 @@
 package com.zhixing.tpmlib.fragment;
-
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -13,12 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.BaseFragment;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.VolleyResult;
+import com.base.zhixing.www.util.MyImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -29,17 +30,16 @@ import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.adapter.DailyCheckIReplacetemAdapt;
 import com.zhixing.tpmlib.bean.AnomalousBean;
 import com.zhixing.tpmlib.bean.DailyCheckItemBean;
-
 import com.zhixing.tpmlib.bean.EquipmentEvent;
 import com.zhixing.tpmlib.view.DSVOrientation;
 import com.zhixing.tpmlib.view.DiscreteScrollView;
 import com.zhixing.tpmlib.view.InfiniteScrollAdapter;
-
+import com.zhixing.tpmlib.view.RoundAngleImageView;
 import com.zhixing.tpmlib.view.TopMaintenanceTypeDialog;
 import com.zhixing.tpmlib.view.transform.Pivot;
 import com.zhixing.tpmlib.view.transform.ScaleTransformer;
 import com.zhixing.tpmlib.viewModel.MyTextActivityViewModel;
-
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
@@ -67,13 +67,14 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
     Unbinder unbinder;
     private MyTextActivityViewModel mViewModel;
     List<AnomalousBean> anomalousBeanList = new ArrayList<>();
-
+    private Integer position;//位置
     private List<DailyCheckItemBean> dailyCheckItemBean;
     private SharedUtils sharedUtils;
     private List<DailyCheckItemBean> dailyCheckItemBeans;
     private boolean isVisible;
     private SharedUtils sharedUtil;
     private String tpmLineid;
+    private DailyCheckIReplacetemAdapt adapt;
 
     public static DailyCheckItemReplaceFragment newInstance() {
         DailyCheckItemReplaceFragment fragment = new DailyCheckItemReplaceFragment();
@@ -100,14 +101,20 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
         //       获取产线id
         tpmLineid = sharedUtil.getStringValue("LineListId");
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         String equipmentName = sharedUtils.getStringValue("EquipmentName");
         tvDailyCheckReplaceEquimentName.setText(equipmentName);
         mViewModel = ViewModelProviders.of(getActivity()).get(MyTextActivityViewModel.class);
         InitData();
+        recyleviewDailyCheckItemReplaceOne.addOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
+            @Override
+            public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+                position=adapterPosition;
+            }
+        });
 
         return view;
     }
-
     private void InitData() {
         String checkItemJson = sharedUtils.getStringValue("checkItemJson");
         String exceptionJson = sharedUtils.getStringValue("exceptionJson");
@@ -149,20 +156,18 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
             }
 
         });
+        */
         mViewModel.Position.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
                 if (integer!=null){
+
+                    position=integer;
                     recyleviewDailyCheckItemReplaceOne.scrollToPosition(integer);
-                    tvDailyCheckReplaceEquimentName.setText(dailyCheckItemBean.get(integer).getDescription());
-                    tvDailyCheckText.setText(dailyCheckItemBean.get(integer).getExceptionGroupName());
-                    tvDailyCheckAdress.setText(dailyCheckItemBean.get(integer).getCell());
-
-
 
                 }
             }
-        });*/
+        });
         parseEJson(exceptionJson);
         parseJson(checkItemJson);
     }
@@ -222,11 +227,14 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
             }
             tvDailyCheckText.setText("单元:"+dailyCheckItemBeans.get(0).getCell());
             tvDailyCheckAdress.setText("位置:"+dailyCheckItemBeans.get(0).getPosition());
-            DailyCheckIReplacetemAdapt adapt = new DailyCheckIReplacetemAdapt(R.layout.item_recyleview_daily_check_replace_item, dailyCheckItemBeans, getActivity());
+             adapt = new DailyCheckIReplacetemAdapt(R.layout.item_recyleview_daily_check_replace_item, dailyCheckItemBeans, getActivity());
+
             recyleviewDailyCheckItemReplaceOne.setOffscreenItems(2);
             recyleviewDailyCheckItemReplaceOne.setClampTransformProgressAfter(2);
             recyleviewDailyCheckItemReplaceOne.setOrientation(DSVOrientation.HORIZONTAL);
             recyleviewDailyCheckItemReplaceOne.setAdapter(adapt);
+//            recyleviewDailyCheckItemReplaceOne.scrollToPosition(integer);
+
             recyleviewDailyCheckItemReplaceOne.setItemTransformer(new ScaleTransformer.Builder()
                     .setMaxScale(1.05f)
                     .setMinScale(0.8f)
@@ -291,4 +299,14 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
         }, true);
 
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EquipmentEvent event) {
+        String equiptmentName = event.getEquiptmentName();
+        if (equiptmentName!=null){
+            RoundAngleImageView roundAngleImageView = (RoundAngleImageView)adapt.getViewByPosition(recyleviewDailyCheckItemReplaceOne, position, R.id.roundAngleImageView);
+            MyImageLoader.loadSpn(getActivity(),equiptmentName,roundAngleImageView);
+        }
+    }
+
 }

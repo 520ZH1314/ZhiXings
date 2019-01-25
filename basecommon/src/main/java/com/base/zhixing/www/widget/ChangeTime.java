@@ -120,17 +120,14 @@ public class ChangeTime {
                 final Calendar calendar0 = calendarData0.getCalendar();
                 final String show = calendar0.get(Calendar.YEAR) + "-"
                         + (calendar0.get(Calendar.MONTH) + 1) + "-"
-                        + calendar0.get(Calendar.DAY_OF_MONTH)+"  "+picker_hour.getContentByCurrValue()+":"+picker_minute.getContentByCurrValue();
+                        + calendar0.get(Calendar.DAY_OF_MONTH);
 
 
                 if(selectTime!=null){
                     selectTime.select(show,calendar0.getTimeInMillis());
                     cancle();
                 }else {
-
-                    long l = TimeUtil.parseTime(show);
-                    String time = TimeUtil.getTime(l);
-                    textView.setText(time);
+                    textView.setText(show);
                     cancle();
 
                 }

@@ -171,7 +171,7 @@ public class PictureListActivity extends Activity implements PermissionsUtil.IPe
                         // getView().onSuccess(picturesBean,3);
                         imgUrl = picturesBean.getFile();
                         sharedUtils.setStringValue("imgPicUrl", imgUrl);
-                        Log.e("Mian",picturesBean.toString());
+
                     }
                     @Override
                     public void onError(Throwable e) {

@@ -41,15 +41,15 @@ public class EquipmentBaseDateRepertory extends MyBaseRepository<EquipmentBaseDa
     }
 
 
-    //获得设备列表
-
-    public MutableLiveData<BaseResponse<EquipmentBaseDateEntity>>getBaseDatas(String LineStationCode){
-        String AppCode="EPS";
-        String ApiCode="GetEquipmentList";
-        String TenantId=SharedPreferencesTool.getMStool(mContext).getTenantId();
-        String ip=SharedPreferencesTool.getMStool(mContext).getIp();
-        EquipmentBaseDataPostBeans bean=new EquipmentBaseDataPostBeans(AppCode,ApiCode,TenantId,LineStationCode);
-        return request(Api.getEquipmentBaseDatas(bean,mContext,ip)).send().get();
-    }
+//    //获得设备列表
+//
+//    public MutableLiveData<BaseResponse<EquipmentBaseDateEntity>>getBaseDatas(String LineStationCode){
+//        String AppCode="EPS";
+//        String ApiCode="GetEquipmentList";
+//        String TenantId=SharedPreferencesTool.getMStool(mContext).getTenantId();
+//        String ip=SharedPreferencesTool.getMStool(mContext).getIp();
+//        EquipmentBaseDataPostBean bean=new EquipmentBaseDataPostBean(AppCode,ApiCode,TenantId,LineStationCode);
+//        return request(Api.getEquipmentBaseDatas(bean,mContext,ip)).send().get();
+//    }
 
 }

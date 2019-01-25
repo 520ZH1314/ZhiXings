@@ -211,7 +211,7 @@ public class DailyCheckItemFragment extends BaseFragment {
              dailyCheckAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                  @Override
                  public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                     mMyTextActivityViewModel.UpdataPosition(position);
                      //发消息通知Activity改变布局
                      EventBus.getDefault().post(new ReplaceBean(true,position));
 

@@ -69,8 +69,8 @@ public class Api {
 
 
 //获取设备列表
-    public static Flowable<BaseResponse<EquipmentBaseDateEntity>> getEquipmentBaseDatas(EquipmentBaseDataPostBeans bean, Context mContext, String url) {
-        return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).getEquipmentBaseData((new BaseHttpUtil<EquipmentBaseDataPostBeans>().convertVo2Json(bean)));
+    public static Flowable<BaseResponse<EquipmentBaseDateEntity>> getEquipmentBaseDatas(EquipmentBaseDataPostBean bean, Context mContext, String url) {
+        return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).getEquipmentBaseData((new BaseHttpUtil<EquipmentBaseDataPostBean>().convertVo2Json(bean)));
     }
 
 

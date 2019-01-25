@@ -213,7 +213,7 @@ public abstract class BaseActvity extends FragmentActivity   {
         if (dialog != null) {
             dialog.show();
         } else {
-            LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(BaseActvity.this)
+            LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(AppManager.getAppManager().currentActivity())
                     .setMessage(title)
                     .setCancelable(true)
                     .setCancelOutside(true);

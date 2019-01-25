@@ -53,6 +53,9 @@ public class MyImageLoader {
                 .into(v);
 
     }
+
+
+
     public static void loads(Context context,String path, ImageView v) {
         RequestOptions options = new RequestOptions()
                 .placeholder(R.mipmap.ic_no_data)
