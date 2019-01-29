@@ -11,6 +11,9 @@ import com.zhixing.tpmlib.bean.EquipmentBaseDataPostBeans;
 import com.zhixing.tpmlib.bean.EquipmentBaseDateEntity;
 import com.zhixing.tpmlib.bean.LineStationPostBean;
 import com.zhixing.tpmlib.bean.LineStationResponEntity;
+import com.zhixing.tpmlib.bean.MaintenanceCommitPostBean;
+import com.zhixing.tpmlib.bean.MaintenanceItemCheckPostBean;
+import com.zhixing.tpmlib.bean.MaintenanceItemEntity;
 import com.zhixing.tpmlib.bean.MaintenanceListDataEntity;
 import com.zhixing.tpmlib.bean.MaintenanceListDataPostBean;
 import com.zhixing.tpmlib.bean.MaintenanceRecordEntity;
@@ -68,10 +71,19 @@ public class Api {
     }
 
 
-//获取设备列表
+    //获取设备列表
     public static Flowable<BaseResponse<EquipmentBaseDateEntity>> getEquipmentBaseDatas(EquipmentBaseDataPostBean bean, Context mContext, String url) {
         return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).getEquipmentBaseData((new BaseHttpUtil<EquipmentBaseDataPostBean>().convertVo2Json(bean)));
     }
 
+    //获取保养点检列表
+    public static Flowable<BaseResponse<MaintenanceItemEntity>> getMaintenanceItemDatas(MaintenanceItemCheckPostBean bean, Context mContext, String url) {
+        return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).getMaintenanceItemDatas((new BaseHttpUtil<MaintenanceItemCheckPostBean>().convertVo2Json(bean)));
+    }
+
+    //提交保养点检记录
+    public static Flowable<BaseResponse> SendMaintenanceItemDatas(MaintenanceCommitPostBean bean, Context mContext, String url) {
+        return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).SendMaintenanceItemDatas((new BaseHttpUtil< MaintenanceCommitPostBean>().convertVo2Json(bean)));
+    }
 
 }

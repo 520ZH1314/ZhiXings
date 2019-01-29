@@ -17,15 +17,19 @@ import com.base.zhixing.www.BaseFragment;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.VolleyResult;
+import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.JsonObject;
+import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.activity.MyTextActivity;
 import com.zhixing.tpmlib.adapter.DailyCheckItemAdapt;
 import com.zhixing.tpmlib.bean.DailyCheckItemBean;
+import com.zhixing.tpmlib.bean.MaintenanceItemEntity;
+import com.zhixing.tpmlib.bean.MaintenanceServerBean;
 import com.zhixing.tpmlib.bean.ReplaceBean;
 import com.zhixing.tpmlib.viewModel.MyTextActivityViewModel;
 
@@ -55,6 +59,9 @@ public class DailyCheckItemFragment extends BaseFragment {
     private String tpmLineid;
     private boolean isVisible;
 
+    private boolean isWarnPage;
+
+
     private static void onChanged(DailyCheckItemBean o) {
     }
 
@@ -67,10 +74,62 @@ public class DailyCheckItemFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         sharedUtils = new SharedUtils("TPM");
+        sharedUtil = new SharedUtils("TpmSetting");
+         isWarnPage = sharedUtil.getBooleanValue("isWarnPage");
         View view = inflater.inflate(R.layout.fragment_daily_check_item, container, false);
         unbinder = ButterKnife.bind(this, view);
         recyleviewDailyCheckItemOne.setLayoutManager(new LinearLayoutManager(getContext()));
-        initData();
+        mMyTextActivityViewModel =ViewModelProviders.of(getActivity()).get(MyTextActivityViewModel.class);
+
+
+         if (isWarnPage){
+             showDialog("");
+             mMyTextActivityViewModel.MaintenanceServer.observe(this, new Observer<MaintenanceServerBean>() {
+                 @Override
+                 public void onChanged(@Nullable MaintenanceServerBean maintenanceServerBean) {
+                     if (maintenanceServerBean!=null){
+
+                         String json = GsonUtil.getGson().toJson(maintenanceServerBean);
+                         sharedUtil.setStringValue("TpmMaintenanceData",json);
+                         mMyTextActivityViewModel.getMaintenanceItemEntity(maintenanceServerBean.classId,maintenanceServerBean.getGradeId(),maintenanceServerBean.getPlanId(),maintenanceServerBean.EquipmentId).observe(getActivity(), new Observer<BaseResponse<MaintenanceItemEntity>>() {
+                             @Override
+                             public void onChanged(@Nullable BaseResponse<MaintenanceItemEntity> maintenanceItemEntityBaseResponse) {
+                                 if (maintenanceItemEntityBaseResponse.getRows()!=null){
+
+                                     if (dailyCheckAdapter!=null){
+                                         dailyCheckAdapter.setNewData(maintenanceItemEntityBaseResponse.getRows());
+                                     }else{
+                                         dailyCheckAdapter = new DailyCheckItemAdapt(R.layout.item_recyleview_daily_check_item_one, maintenanceItemEntityBaseResponse.getRows());
+                                         recyleviewDailyCheckItemOne.setAdapter(dailyCheckAdapter);
+                                     }
+                                     dailyCheckAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                         @Override
+                                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                             mMyTextActivityViewModel.UpdataPosition(position);
+                                             //发消息通知Activity改变布局
+                                             EventBus.getDefault().post(new ReplaceBean(true,position));
+
+                                         }
+                                     });
+                                       dismissDialog();
+                                 }else{
+                                     dismissDialog();
+                                 }
+                             }
+                         });
+                         dismissDialog();
+                     }else{
+                         dismissDialog();
+                     }
+                 }
+             });
+
+
+         }else{
+             dismissDialog();
+             initData();
+         }
+
         return view;
     }
 
@@ -87,7 +146,6 @@ public class DailyCheckItemFragment extends BaseFragment {
         getFromData();
         //parseJson(checkItemJson);
         P.c(checkItemJson);
-        mMyTextActivityViewModel =ViewModelProviders.of(getActivity()).get(MyTextActivityViewModel.class);
 
 
        /* mMyTextActivityViewModel.getData().observe(getActivity(), new Observer<List<DailyCheckItemBean>>() {
@@ -233,7 +291,10 @@ public class DailyCheckItemFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){
             isVisible = true;
-            getFromData();
+            if (!isWarnPage){
+                getFromData();
+            }
+
         }else{
             isVisible=false;
         }
@@ -242,6 +303,8 @@ public class DailyCheckItemFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        getFromData();
+        if (!isWarnPage){
+            getFromData();
+        }
     }
 }

@@ -25,12 +25,14 @@ import com.base.zhixing.www.util.UrlUtil;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
+import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.adapter.DailyCheckIReplacetemAdapt;
 import com.zhixing.tpmlib.bean.AnomalousBean;
 import com.zhixing.tpmlib.bean.DailyCheckItemBean;
 import com.zhixing.tpmlib.bean.EquipmentEvent;
+import com.zhixing.tpmlib.bean.MaintenanceItemEntity;
 import com.zhixing.tpmlib.view.DSVOrientation;
 import com.zhixing.tpmlib.view.DiscreteScrollView;
 import com.zhixing.tpmlib.view.InfiniteScrollAdapter;
@@ -75,6 +77,7 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
     private SharedUtils sharedUtil;
     private String tpmLineid;
     private DailyCheckIReplacetemAdapt adapt;
+    private Boolean isWarnPage;
 
     public static DailyCheckItemReplaceFragment newInstance() {
         DailyCheckItemReplaceFragment fragment = new DailyCheckItemReplaceFragment();
@@ -98,6 +101,8 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_daily_check_replace_item, container, false);
         sharedUtil = new SharedUtils("TpmSetting");
+        isWarnPage = sharedUtil.getBooleanValue("isWarnPage");
+
         //       获取产线id
         tpmLineid = sharedUtil.getStringValue("LineListId");
         unbinder = ButterKnife.bind(this, view);
@@ -105,7 +110,54 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
         String equipmentName = sharedUtils.getStringValue("EquipmentName");
         tvDailyCheckReplaceEquimentName.setText(equipmentName);
         mViewModel = ViewModelProviders.of(getActivity()).get(MyTextActivityViewModel.class);
-        InitData();
+
+        if(!isWarnPage){
+            InitData();
+        }
+
+
+        mViewModel.maintenanceItemEntityDatas.observe(getActivity(), new Observer<BaseResponse<MaintenanceItemEntity>>() {
+            @Override
+            public void onChanged(@Nullable BaseResponse<MaintenanceItemEntity> maintenanceItemEntityBaseResponse) {
+
+                if (maintenanceItemEntityBaseResponse.getRows()!=null){
+                    if (isWarnPage){
+                        adapt = new DailyCheckIReplacetemAdapt(R.layout.item_recyleview_daily_check_replace_item, maintenanceItemEntityBaseResponse.getRows(), getActivity());
+
+                        recyleviewDailyCheckItemReplaceOne.setOffscreenItems(2);
+                        recyleviewDailyCheckItemReplaceOne.setClampTransformProgressAfter(2);
+                        recyleviewDailyCheckItemReplaceOne.setOrientation(DSVOrientation.HORIZONTAL);
+                        recyleviewDailyCheckItemReplaceOne.setAdapter(adapt);
+//            recyleviewDailyCheckItemReplaceOne.scrollToPosition(integer);
+
+                        recyleviewDailyCheckItemReplaceOne.setItemTransformer(new ScaleTransformer.Builder()
+                                .setMaxScale(1.05f)
+                                .setMinScale(0.8f)
+                                .setPivotX(Pivot.X.CENTER) // CENTER is a default one
+                                .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
+                                .build());
+
+
+                    }
+                }
+
+            }
+        });
+
+
+        mViewModel.Position.observe(getActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                if (integer!=null){
+
+                    position=integer;
+                    recyleviewDailyCheckItemReplaceOne.scrollToPosition(integer);
+
+                }
+            }
+        });
+
+
         recyleviewDailyCheckItemReplaceOne.addOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
             @Override
             public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {

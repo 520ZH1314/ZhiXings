@@ -56,11 +56,10 @@
             app:layout_constraintTop_toBottomOf="@+id/roundAngleImageView" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/tv_warn112"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
             android:text="点检标准"
             app:layout_constraintBottom_toBottomOf="@+id/view5"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +73,7 @@
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10">
+            app:layout_constraintTop_toBottomOf="@+id/tv_warn112">
             <TextView
                 android:id="@+id/tv_daily_check_replace_body"
                 android:layout_width="wrap_content"
@@ -98,49 +97,91 @@
             android:background="@color/title_bg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/tv_warn113"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="点检结果"
             app:layout_constraintBottom_toBottomOf="@+id/view6"
-            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintStart_toStartOf="@+id/tv_warn112"
             app:layout_constraintTop_toTopOf="@+id/view6" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/edit_warn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/x40"
             android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_ng"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_warn113" />
 
-        <Button
-            android:id="@+id/btn_ng"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
-            android:text="NG"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/editText2" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_warn">
 
-        <Button
-            android:id="@+id/btn_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OK"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_ng"
-            app:layout_constraintEnd_toEndOf="@+id/editText2"
-            app:layout_constraintTop_toTopOf="@+id/btn_ng" />
+            <android.support.constraint.ConstraintLayout
+                android:visibility="visible"
+                android:id="@+id/main_warn_con"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_ng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NG"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_ok"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btn_ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OK"
+                    android:textColor="@color/white"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn_ng"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/main_warn_ll"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_gravity="center"
+                    android:id="@+id/btn_comit1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="提交"
+                    android:textColor="@color/white"
+
+                   />
+            </LinearLayout>
+
+        </RelativeLayout>
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

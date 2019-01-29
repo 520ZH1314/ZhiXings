@@ -7,6 +7,7 @@ import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.bean.CheckRecordDataEntity;
 import com.zhixing.tpmlib.bean.EquipmentBaseDateEntity;
 import com.zhixing.tpmlib.bean.LineStationResponEntity;
+import com.zhixing.tpmlib.bean.MaintenanceItemEntity;
 import com.zhixing.tpmlib.bean.MaintenanceListDataEntity;
 import com.zhixing.tpmlib.bean.MaintenanceRecordEntity;
 import com.zhixing.tpmlib.bean.StaticticalAnalAnalyEntity;
@@ -72,6 +73,19 @@ public interface TpmApi {
     Flowable<BaseResponse<EquipmentBaseDateEntity>> getEquipmentBaseDatas(@Body RequestBody body);
 
 
+   //获取保养点检数据
 
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Flowable<BaseResponse<MaintenanceItemEntity>> getMaintenanceItemDatas(@Body RequestBody body);
+
+
+
+
+    //提交保养点检数据
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Flowable<BaseResponse> SendMaintenanceItemDatas(@Body RequestBody body);
 
 }

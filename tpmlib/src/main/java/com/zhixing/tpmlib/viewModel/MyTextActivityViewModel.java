@@ -5,23 +5,48 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
+import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.bean.DailyCheckItemBean;
+import com.zhixing.tpmlib.bean.MaintenanceItemEntity;
+import com.zhixing.tpmlib.bean.MaintenanceServerBean;
+import com.zhixing.tpmlib.repertory.RecordDataRepertory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyTextActivityViewModel extends AndroidViewModel {
-   //位置
+    private  RecordDataRepertory recordDataRepertory;
+    //位置
     public MutableLiveData<Integer> Position=new MutableLiveData<>();
+
+    //是否刷新数据
+
+    public MutableLiveData<Boolean> isRetrfsh=new MutableLiveData<>();
+
    //重新设置的数据
    public MutableLiveData<List<DailyCheckItemBean>> DailyCheckItemValues=new MutableLiveData<>();
+
+   //保养点检数据
+    public MutableLiveData<BaseResponse<MaintenanceItemEntity>> maintenanceItemEntityDatas=new MutableLiveData<>();
+
 
     public MutableLiveData<List<DailyCheckItemBean>> DailyCheckItemValue=new MutableLiveData<>();
     private DailyCheckItemBean bean;
 
+    //保养点检数据
+
+
+
+    public MutableLiveData<MaintenanceServerBean> MaintenanceServer= new MutableLiveData<>();
+
+    //上传结果
+    public MutableLiveData<BaseResponse> baseResponseMutableLiveData;
+
+
     public MyTextActivityViewModel(@NonNull Application application) {
         super(application);
+         recordDataRepertory =new RecordDataRepertory(application.getApplicationContext());
     }
 
 
@@ -61,6 +86,27 @@ public class MyTextActivityViewModel extends AndroidViewModel {
     public MutableLiveData<List<DailyCheckItemBean>> getSelected() {
         return DailyCheckItemValues;
     }
+
+
+
+
+    //获取保养点检数据
+    public  MutableLiveData<BaseResponse<MaintenanceItemEntity>> getMaintenanceItemEntity(String ClassId, String GradeId, String PlanId, String EquipmentId){
+       maintenanceItemEntityDatas= recordDataRepertory.getMaintenanceItemData(ClassId, GradeId, PlanId, EquipmentId);
+       return  maintenanceItemEntityDatas;
+    }
+
+
+
+   //提交保养记录
+
+    public  MutableLiveData<BaseResponse> SendMaintenanceItemEntity(String equipmentId, String gradeId, String itemId, String fruit, String actuallyImage, String planId, String classId, String cell,
+                                                                    String position, String description, String standardImage,
+                                                                    String paramater, int seq, String operator, String maintananceId){
+        baseResponseMutableLiveData = recordDataRepertory.SendMaintenanceItemData(equipmentId, gradeId, itemId, fruit, actuallyImage, planId, classId, cell, position, description, standardImage, paramater, seq, operator, maintananceId);
+        return  baseResponseMutableLiveData;
+    }
+
 
 
 }

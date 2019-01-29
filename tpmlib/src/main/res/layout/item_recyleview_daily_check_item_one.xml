@@ -55,11 +55,10 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/tv_warn12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:layout_marginLeft="24dp"
                         android:layout_marginTop="32dp"
                         android:text="点检标准"
                         android:textColor="@color/white"
@@ -76,7 +75,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView12">
+                        app:layout_constraintTop_toBottomOf="@+id/tv_warn12">
 
                         <TextView
                             android:id="@+id/tv_daily_check_item_body"

@@ -1,27 +1,32 @@
 package com.zhixing.tpmlib.activity;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.os.Handler;
+import android.content.Intent;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.SetSelect;
 import com.base.zhixing.www.widget.CommonSetSelectPop;
-import com.liaoinstan.springview.container.DefaultFooter;
-import com.liaoinstan.springview.container.DefaultHeader;
-import com.liaoinstan.springview.widget.SpringView;
-import com.orhanobut.logger.Logger;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.R2;
+import com.zhixing.tpmlib.adapter.DialogContentAdapter;
 import com.zhixing.tpmlib.adapter.MaintenanceWarmingAdapt;
 import com.zhixing.tpmlib.bean.MaintenanceListDataEntity;
 import com.zhixing.tpmlib.bean.MaintenanceWarnBean;
@@ -61,6 +66,8 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity  {
     private int rows = 8;//每页显示多少条
     private String tpmStationCode;
     private String tpmStationName;
+    private List<String> titleList;
+    private List<String> contentList=new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -80,6 +87,8 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity  {
     }
 
     private void initData() {
+        titleList= new ArrayList<String>();
+        titleList.add("设备名称:");
         showDialog("加载中");
         mMaintenanceWarnViewModel.initData(page, rows, Total, LineListCode, tpmStationCode, this).observe(MaintenanceWarmingActivity.this, new Observer<BaseResponse<MaintenanceListDataEntity>>() {
             @Override
@@ -93,13 +102,26 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity  {
                         beans.add(new MaintenanceWarnBean(bean.getEquipmentName(),
                                 bean.getEquipmentCode(), bean.getGradeName(),
                                 bean.getStatus(), bean.getMaintanceDate(),
-                                "0" + i )
+                                "0" + i ,bean.getClassId(),bean.getEquipmentId(),bean.getPlanId(),bean.getGradeId(),bean.getMaintanceId())
                         );
                         i++;
                     }
 
                     adapt = new MaintenanceWarmingAdapt(R.layout.item_maintenance_warning, beans);
                     recyleMaintenanceWarning.setAdapter(adapt);
+                    adapt.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                            if (contentList!=null){
+                                contentList.clear();
+                            }
+                            contentList.add(beans.get(position).getMachineName());
+                            showSexTypeDialog(titleList,contentList, beans, position);
+
+                        }
+                    });
+
                     dismissDialog();
                 }else{
                     dismissDialog();
@@ -244,17 +266,28 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity  {
                             Total = maintenanceListDataEntity.getTotal();
                             List<MaintenanceWarnBean> beans = new ArrayList<>();
                             int i = 0;
-                            for (MaintenanceListDataEntity  rows : maintenanceListDataEntity.getRows()) {
-
-                                beans.add(new MaintenanceWarnBean(rows.getEquipmentName(),
-                                        rows.getEquipmentCode(), rows.getGradeName(),
-                                        rows.getStatus(), rows.getMaintanceDate(),
-                                        "0" + i ));
+                            for (MaintenanceListDataEntity bean : maintenanceListDataEntity.getRows()) {
+                                beans.add(new MaintenanceWarnBean(bean.getEquipmentName(),
+                                        bean.getEquipmentCode(), bean.getGradeName(),
+                                        bean.getStatus(), bean.getMaintanceDate(),
+                                        "0" + i ,bean.getClassId(),bean.getEquipmentId(),bean.getPlanId(),bean.getGradeId(),bean.getMaintanceId())
+                                );
                                 i++;
                             }
-
                             adapt.setNewData(beans);
                             MaintenanceWarmingActivity.this.dismissDialog();
+                            adapt.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                                    if (contentList!=null){
+                                        contentList.clear();
+                                    }
+                                    contentList.add(beans.get(position).getMachineName());
+                                    showSexTypeDialog(titleList,contentList,beans,position);
+
+                                }
+                            });
 
                         } else {
                             MaintenanceWarmingActivity.this.dismissDialog();
@@ -266,4 +299,59 @@ public class MaintenanceWarmingActivity extends BaseTpmActivity  {
         });
         commonSetSelectPop.showSheet();
     }
+
+
+
+
+    private void showSexTypeDialog(List<String> titleList, List<String> contentList, List<MaintenanceWarnBean> beans, int position) {
+        /* 列表弹窗 */
+        final AlertDialog dialog = new AlertDialog.Builder(this,R.style.dialog_common).create();
+        //透明
+        dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        WindowManager m = dialog.getWindow().getWindowManager();
+        Display d = m.getDefaultDisplay();
+        WindowManager.LayoutParams p = dialog.getWindow().getAttributes();
+        p.width = d.getWidth();
+        dialog.getWindow().setAttributes(p);
+        View view = LayoutInflater.from(this).inflate(R.layout.list_planet_dialog, null);
+        ListView dialogRecyclerView = (ListView) view.findViewById(R.id.dialog_list);
+//        弹出框确定的文本文件
+        Button   btnSure = (Button) view.findViewById(R.id.btn_sure);
+//        弹出框取消的文本文件
+        ImageView  ivCancel = (ImageView) view.findViewById(R.id.iv_cancel);
+        DialogContentAdapter adapter = new DialogContentAdapter(titleList,contentList);
+        dialogRecyclerView.setAdapter(adapter);
+        dialog.setView(view);
+        dialog.show();
+        btnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MaintenanceWarmingActivity.this,MyTextActivity.class);
+                intent.putExtra("MaintenanceWarmType","MaintenanceWarmType");
+                intent.putExtra("ClassId", beans.get(position).getClassId());
+                intent.putExtra("EquipmentId",beans.get(position).getEquipmentId());
+                intent.putExtra("GradeId",beans.get(position).getGradeId());
+                intent.putExtra("PlanId",beans.get(position).getPlanId());
+                intent.putExtra("Status",beans.get(position).getMachineStatus());
+                intent.putExtra("MaintanceId",beans.get(position).getMaintanceId());
+
+                MaintenanceWarmingActivity.this.startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        ivCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        ivCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+    }
+
 }

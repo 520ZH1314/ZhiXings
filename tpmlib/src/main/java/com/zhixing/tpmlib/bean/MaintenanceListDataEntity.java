@@ -8,7 +8,7 @@ public class MaintenanceListDataEntity implements Serializable {
     private String EquipmentId;
     private String ClassId;
     private String GradeId;
-
+    private String MaintanceId;
     public String getEquipmentId() {
         return EquipmentId;
     }
@@ -93,7 +93,7 @@ public class MaintenanceListDataEntity implements Serializable {
     private String EquipmentCode;
     private String EquipmentName;
     private String PlanId;
-    private String MaintanceId;
+
     private String MaintanceDate;
     private String Status;
 

@@ -7,7 +7,52 @@ public class MaintenanceWarnBean {
     public String maintainType;
     public String machineStatus;
     public String machineDate;
+    public String ClassId;
+    public String EquipmentId;
+    public String PlanId;
+    public String MaintanceId;
 
+    public String getMaintanceId() {
+        return MaintanceId;
+    }
+
+    public void setMaintanceId(String maintanceId) {
+        MaintanceId = maintanceId;
+    }
+
+    public String getClassId() {
+        return ClassId;
+    }
+
+    public void setClassId(String classId) {
+        ClassId = classId;
+    }
+
+    public String getEquipmentId() {
+        return EquipmentId;
+    }
+
+    public void setEquipmentId(String equipmentId) {
+        EquipmentId = equipmentId;
+    }
+
+    public String getPlanId() {
+        return PlanId;
+    }
+
+    public void setPlanId(String planId) {
+        PlanId = planId;
+    }
+
+    public String getGradeId() {
+        return GradeId;
+    }
+
+    public void setGradeId(String gradeId) {
+        GradeId = gradeId;
+    }
+
+    public String GradeId;
     public String sum;
 
     public String getMachineName() {
@@ -57,6 +102,21 @@ public class MaintenanceWarnBean {
         this.maintainType = maintainType;
         this.machineStatus = machineStatus;
         this.machineDate = machineDate;
+
+    }
+
+    public MaintenanceWarnBean(String machineName, String machineId, String maintainType, String machineStatus, String machineDate,String sum,String classId, String equipmentId, String planId, String gradeId,String MaintanceId) {
+        this.machineName = machineName;
+        this.machineId = machineId;
+        this.maintainType = maintainType;
+        this.machineStatus = machineStatus;
+        this.machineDate = machineDate;
+        ClassId = classId;
+        EquipmentId = equipmentId;
+        PlanId = planId;
+        GradeId = gradeId;
+        this.sum = sum;
+        this.MaintanceId=MaintanceId;
     }
 
     public String getSum() {

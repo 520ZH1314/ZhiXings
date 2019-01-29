@@ -1,8 +1,10 @@
 package com.zhixing.tpmlib.activity;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.zhixing.tpmlib.R2;
 import com.zhixing.tpmlib.bean.AnomalousBean;
 import com.zhixing.tpmlib.bean.CheckItemBean;
 import com.zhixing.tpmlib.bean.EquipmentEvent;
+import com.zhixing.tpmlib.bean.MaintenanceServerBean;
 import com.zhixing.tpmlib.bean.RefrshBean;
 import com.zhixing.tpmlib.bean.ReplaceBean;
 import com.zhixing.tpmlib.fragment.DailyCheckItemFragment;
@@ -65,6 +68,7 @@ public class MyTextActivity extends BaseTpmActivity {
     private String tpmLineid;
     private String lineTpmId;
     private String tpmPosiId;
+    private  boolean isWarnPage=false;
     @Override
     public int getLayoutId() {
         return R.layout.activity_my_text;
@@ -81,22 +85,64 @@ public class MyTextActivity extends BaseTpmActivity {
 
 
     private void initView() {
-        // mViewModel=ViewModelProviders.of(this).get(MyTextActivityViewModel.class);
-        sharedUtils = new SharedUtils("TPM");
-        sharedUtil = new SharedUtils("TpmSetting");
-        tpmLineid = sharedUtil.getStringValue("LineListId");//       获取产线id
-        String[] splits = tpmLineid.split(",");
-        tpmLineid=splits[0];
-        //        获取工位id
-        tpmPosiId = sharedUtil.getStringValue("tpmStationId");
-        getExceptionFromData();
+        mViewModel=ViewModelProviders.of(this).get(MyTextActivityViewModel.class);
+
+        if (getIntent().hasExtra("MaintenanceWarmType")){
+
+            String classId = getIntent().getStringExtra("ClassId");
+            String EquipmentId = getIntent().getStringExtra("EquipmentId");
+            String GradeId = getIntent().getStringExtra("GradeId");
+            String PlanId = getIntent().getStringExtra("PlanId");
+            String Status = getIntent().getStringExtra("Status");
+            String MaintanceId = getIntent().getStringExtra("MaintanceId");
+
+
+            sharedUtils = new SharedUtils("TPM");
+            sharedUtil = new SharedUtils("TpmSetting");
+            tpmLineid = sharedUtil.getStringValue("LineListId");//       获取产线id
+            String[] splits = tpmLineid.split(",");
+            tpmLineid=splits[0];
+            //        获取工位id
+            tpmPosiId = sharedUtil.getStringValue("tpmStationId");
+            titleRl.setVisibility(View.VISIBLE);
+ //        tetleTvImg.setVisibility(View.VISIBLE);
+            tetleTv1.setVisibility(View.GONE);
+            tetleTvImg.setBackgroundResource(R.drawable.daily_check_replace);
+            tetleText.setText("保养点检项");
+            mViewModel.MaintenanceServer.setValue(new MaintenanceServerBean(classId,EquipmentId,GradeId,PlanId,Status,MaintanceId));
+
+            mViewModel.isRetrfsh.observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(@Nullable Boolean aBoolean) {
+                    mViewModel.MaintenanceServer.setValue(new MaintenanceServerBean(classId,EquipmentId,GradeId,PlanId,Status,MaintanceId));
+                }
+            });
+            isWarnPage=true;
+            sharedUtil.setBooleanValue("isWarnPage",isWarnPage);
+        }else {
+            isWarnPage=false;
+
+            sharedUtils = new SharedUtils("TPM");
+            sharedUtil = new SharedUtils("TpmSetting");
+            tpmLineid = sharedUtil.getStringValue("LineListId");//       获取产线id
+            String[] splits = tpmLineid.split(",");
+            sharedUtil.setBooleanValue("isWarnPage",isWarnPage);
+            tpmLineid=splits[0];
+            //        获取工位id
+            tpmPosiId = sharedUtil.getStringValue("tpmStationId");
+            getExceptionFromData();
 //        获取点检项列表的接口
-        getFromData();
-        titleRl.setVisibility(View.VISIBLE);
+            getFromData();
+            titleRl.setVisibility(View.VISIBLE);
 //        tetleTvImg.setVisibility(View.VISIBLE);
-        tetleTv1.setVisibility(View.GONE);
-        tetleTvImg.setImageResource(R.drawable.daily_check_replace);
-        tetleText.setText("日常点检项");
+            tetleTv1.setVisibility(View.GONE);
+            tetleTvImg.setBackgroundResource(R.drawable.daily_check_replace);
+            tetleText.setText("日常点检项");
+
+        }
+
+
+
         EventBus.getDefault().register(this);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
