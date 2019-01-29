@@ -71,7 +71,7 @@ import butterknife.BindView;
 /*
  * @Author smart
  * @Date 2018/12/24
- * @Des 进入日常点检的界面发挥发挥发挥
+ * @Des 进入日常点检的界面
  */
 public class DailyCheckActivity extends BaseTpmActivity implements SpringView.OnFreshListener {
     @BindView(R2.id.tetle_text)
@@ -111,14 +111,16 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
        //        实例化查看明细的实体类
         shareUtil = new SharedUtils("TpmSetting");
         tpmLinecode = shareUtil.getStringValue("LineListCode");
+        String lineListId = shareUtil.getStringValue("LineListId");
+        String[] split = lineListId.split(",");
+        String lineName=split[1];
         tpmStationCode = shareUtil.getStringValue("tpmStationCode");
         tpmLineName = shareUtil.getStringValue("tpmLineName");
+        tvCell.setText(lineName);
 //    初始化数据
         initData();
     }
-
     private void initData() {
-
         //设置上下拉事件
         springView.setListener(this);
         //设置springview的头和尾
@@ -128,9 +130,7 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         springView.setFooter(new DefaultFooter(this));
         tvTite.setText("日常点检");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         getFroData(tpmLinecode,tpmStationCode);
-
     }
 
     private void getImgeData(List<EquipmentEtity> equipmentEtityList) {
@@ -235,8 +235,6 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                         equipmentEtityList.add(equipmentBean);
                     }
                     getImgeData(equipmentEtityList);
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -286,7 +284,6 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         //这个方法就是在刷新或者加载1秒的时间后关闭
         finishFreshAndLoad();
     }
-
     //来设置刷新时间的
     private void finishFreshAndLoad() {
         new Handler().postDelayed(new Runnable() {

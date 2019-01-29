@@ -49,8 +49,7 @@
                     android:gravity="center"
                     android:text="序号01"
                     android:textColor="#4a4a4a"
-                    android:textSize="14sp" />
-
+                    android:textSize="14sp"/>
                 <TextView
                     android:id="@+id/tv_check_status"
                     android:layout_width="wrap_content"
@@ -63,7 +62,6 @@
                     android:textColor="#FF943D"
                     android:textSize="12sp" />
             </RelativeLayout>
-
             <RelativeLayout
                 android:id="@+id/rl_default"
                 android:layout_width="match_parent"
@@ -98,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ll_name"
-                android:layout_marginRight="@dimen/x55"
+                android:layout_marginRight="@dimen/x35"
                 android:layout_marginTop="@dimen/x30"
                 android:orientation="vertical">
 
@@ -108,6 +106,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="点检标准:"
@@ -115,6 +114,7 @@
 
                     <TextView
                         android:maxEms="8"
+                        android:gravity="center"
                         android:ellipsize="middle"
                         android:id="@+id/tv_check_stard"
                         android:layout_width="wrap_content"
@@ -141,6 +141,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/x5"
                         android:text="保养员"
+
+                        android:gravity="center"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -159,6 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="OK"
+                        android:gravity="center"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
