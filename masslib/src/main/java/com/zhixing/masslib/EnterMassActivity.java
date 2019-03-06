@@ -247,7 +247,7 @@ TenantId：租列号
                             bean.setpNum(PC_NUM);
                            // bean.setCreatePerson(object.getString("createPerson"));
                         }
-                        String time = object.getString("PlanDate");
+                        String time = object.getString("PlanStartDate");
                         bean.setAll_t(TimeUtil.getTime(TimeUtil.parseTimeC(time)));
                         String[] tps = time.split("T");
                         bean.setData(tps[0]);
@@ -305,7 +305,7 @@ TenantId：租列号
                         bean.setCount(object.getInt("PlanCount")*1000);
                         bean.setLineCode(object.getString("LineCode"));
                         bean.setLineId(object.getString("LineId"));
-                        String time = object.getString("PlanDate");
+                        String time = object.getString("PlanStartDate");
                         bean.setAll_t(time);
                         String[] tps = time.split("T");
                         bean.setData(tps[0]);

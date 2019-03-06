@@ -158,6 +158,9 @@ public abstract class BaseActvity extends FragmentActivity   {
     }
     //volley方式数据加载构造
     public void httpPostVolley(String URL, Map<String,String> params, final VolleyResult result, final boolean isShow){
+        if(isShow){
+            showDialog("加载中");
+        }
         httpPostSONVolley(URL,params,result);
 
         dis(isShow);

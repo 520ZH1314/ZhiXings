@@ -58,7 +58,7 @@ public class EnterMassAdapter extends RecyclerView.Adapter<EnterMassAdapter.View
             holder.item4.setText("工单数量:"+(bean.getCount()));
             holder.item2.setText("车间/线体:"+bean.getWork()+"/"+bean.getLine());
             holder.item3.setText("产品名称:"+bean.getProduct());
-            holder.item5.setText("送检时间:"+bean.getData());
+            holder.item5.setText("送检时间:"+bean.getCreateDate());
             if(type==2){
                 //抽检处理
                 holder.item6.setVisibility(View.VISIBLE);

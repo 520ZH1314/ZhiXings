@@ -9,6 +9,7 @@ public class P {
 		if(DEBUG){
 			Log.v("数本", param);
 //			i("数本",param);
+			FileUtils.writeLog(param,"数本");
 		}
 	}
 	public static void b(boolean flag){
