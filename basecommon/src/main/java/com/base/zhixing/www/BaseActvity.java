@@ -151,10 +151,19 @@ public abstract class BaseActvity extends FragmentActivity   {
             }
         }
     }
+
+    public void httpPostVolley(String URL, Map<String,String> params, final VolleyResult result, String isShow){
+        if(isShow!=null){
+            showDialog(isShow.length()==0?"加载中":isShow);
+        }
+        httpPostSONVolley(URL,params,result);
+
+        dis(isShow!=null);
+    }
     //volley方式数据加载构造
     public void httpPostVolley(String URL, Map<String,String> params, final VolleyResult result, final boolean isShow){
         if(isShow){
-            showDialog("加载中");
+            showDialog( "加载中");
         }
         httpPostSONVolley(URL,params,result);
 
@@ -168,6 +177,7 @@ public abstract class BaseActvity extends FragmentActivity   {
         if(isShow){
             if(dialog!=null){
                 dialog.show();
+                dialog = null;
             }
         }
     }

@@ -33,6 +33,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ScrollView;
 
+import com.base.zhixing.www.common.P;
+
 /**
  */
 public class ScrollableHelper {
@@ -57,6 +59,7 @@ public class ScrollableHelper {
         if (mCurrentScrollableCainer == null) {
             return null;
         }
+
         return mCurrentScrollableCainer.getScrollableView();
     }
 
