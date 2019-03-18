@@ -177,7 +177,7 @@ public abstract class BaseActvity extends FragmentActivity   {
         if(isShow){
             if(dialog!=null){
                 dialog.show();
-                dialog = null;
+
             }
         }
     }
