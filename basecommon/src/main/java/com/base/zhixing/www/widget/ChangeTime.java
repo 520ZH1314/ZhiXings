@@ -1,4 +1,5 @@
 package com.base.zhixing.www.widget;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,69 +12,82 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.base.zhixing.www.R;
 import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.TimeUtil;
+<<<<<<< Updated upstream
+=======
+import com.orhanobut.logger.Logger;
+
+>>>>>>> Stashed changes
 import java.util.Calendar;
+
 import library.NumberPickerView;
 import library.view.GregorianLunarCalendarView;
+
 public class ChangeTime {
     private Context context;
     private IDialog dlg;
-    private  LayoutInflater inflater;
+    private LayoutInflater inflater;
     private String isShowClear;
     private int type;
-    private  TextView textView;//外部传来的textview
+    private TextView textView;//外部传来的textview
+
     /**
-     *  type    是否显示时间   2只显示年月日   1只显示时间, 3只显示年月
+     * type    是否显示时间   2只显示年月日   1只显示时间, 3只显示年月
+     *
      * @param context
      * @param isShowClear
      * @param type
      */
-    public ChangeTime(Context context,String isShowClear,int type) {
+    public ChangeTime(Context context, String isShowClear, int type) {
         this.context = context;
         this.isShowClear = isShowClear;
         this.type = type;
-        inflater  = (LayoutInflater) context
+        inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
-    public ChangeTime(Context context, String isShowClear,int type,TextView textView) {
+    public ChangeTime(Context context, String isShowClear, int type, TextView textView) {
         this.context = context;
         this.isShowClear = isShowClear;
         this.type = type;
-        this.textView=textView;
-        inflater  = (LayoutInflater) context
+        this.textView = textView;
+        inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-   /* public ChangeTime(Context context) {
-        this.context = context;
-        inflater  = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }*/
-    private Handler handler = new Handler(){
+
+    /* public ChangeTime(Context context) {
+         this.context = context;
+         inflater  = (LayoutInflater) context
+                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+     }*/
+    private Handler handler = new Handler() {
         @Override
         public void dispatchMessage(Message msg) {
             super.dispatchMessage(msg);
-        switch (msg.what){
-            case 1:
+            switch (msg.what) {
+                case 1:
 
-                break;
-        }
+                    break;
+            }
         }
     };
     private SelectTime selectTime;
-    public void setSelect(SelectTime select){
-        this.selectTime =select;
+
+    public void setSelect(SelectTime select) {
+        this.selectTime = select;
     }
 
     /**
      * 设置显示的日期
      */
     private int displayCalendar = -1;
-    public void setPastCanendar(int displayCalendar){
-            this.displayCalendar = displayCalendar;
+
+    public void setPastCanendar(int displayCalendar) {
+        this.displayCalendar = displayCalendar;
     }
 
 
@@ -85,16 +99,16 @@ public class ChangeTime {
         TextView cancle = (TextView) layout.findViewById(R.id.cancle);
         TextView clear = layout.findViewById(R.id.clear);
         final GregorianLunarCalendarView calendarView = (GregorianLunarCalendarView) layout.findViewById(R.id.calendar_view_start);
-        if(displayCalendar!=-1){
+        if (displayCalendar != -1) {
             calendarView.init(TimeUtil.getPastCalendar(displayCalendar));
-        }else{
+        } else {
             calendarView.init();
         }
 
 
-        if(isShowClear.length()==0){
+        if (isShowClear.length() == 0) {
             clear.setVisibility(View.GONE);
-        }else{
+        } else {
             //
             clear.setText(isShowClear);
             clear.setVisibility(View.VISIBLE);
@@ -102,8 +116,8 @@ public class ChangeTime {
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(selectTime!=null){
-                    selectTime.select("",0);
+                if (selectTime != null) {
+                    selectTime.select("", 0);
                     cancle();
                 }
             }
@@ -116,15 +130,22 @@ public class ChangeTime {
             public void onClick(View view) {
                 GregorianLunarCalendarView.CalendarData calendarData0 = calendarView.getCalendarData();
                 final Calendar calendar0 = calendarData0.getCalendar();
-                final String show = calendar0.get(Calendar.YEAR) + "-"
-                        + (calendar0.get(Calendar.MONTH) + 1) + "-"
-                        + calendar0.get(Calendar.DAY_OF_MONTH);
+                String show = "";
+                if (type == 1) {
+                    final String shows = picker_hour.getValue() + ":" + picker_minute.getValue();
+                    show = shows;
+                } else {
+                    final String shows = calendar0.get(Calendar.YEAR) + "-"
+                            + (calendar0.get(Calendar.MONTH) + 1) + "-"
+                            + calendar0.get(Calendar.DAY_OF_MONTH);
+                    show = shows;
 
+                }
 
-                if(selectTime!=null){
-                    selectTime.select(show,calendar0.getTimeInMillis());
+                if (selectTime != null) {
+                    selectTime.select(show, calendar0.getTimeInMillis());
                     cancle();
-                }else {
+                } else {
                     textView.setText(show);
                     cancle();
 
@@ -133,12 +154,12 @@ public class ChangeTime {
 
             }
         });
-        if(type==1){
+        if (type == 1) {
             calendarView.setVisibility(View.GONE);
-        }else if(type==2){
+        } else if (type == 2) {
             picker_minute.setVisibility(View.GONE);
             picker_hour.setVisibility(View.GONE);
-        }else if(type==3){
+        } else if (type == 3) {
             picker_minute.setVisibility(View.GONE);
             picker_hour.setVisibility(View.GONE);
             calendarView.setNumberPickerDayVisibility(View.GONE);
@@ -180,8 +201,8 @@ public class ChangeTime {
         return dlg;
     }
 
-    public void cancle(){
-        if(dlg!=null){
+    public void cancle() {
+        if (dlg != null) {
             dlg.cancel();
             dlg = null;
         }

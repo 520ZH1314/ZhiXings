@@ -404,6 +404,54 @@ public class TimeUtil {
 
 	}
 
+	/**
+	 *
+	 *@author zjq
+	 *create at 2018/12/19 下午1:26
+	 * 将2018-4-8  转换为 2018-04-08
+	 */
+
+	public static String getCommonTime1(String time)  {
+
+
+		String LgTime1="";
+		try {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd" );
+			Date LgTime = simpleDateFormat.parse(time);
+			SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+			String  LgTime2 = simpleDateFormat1.format(LgTime);
+			LgTime1=LgTime2;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return  LgTime1;
+
+	}
+	/**
+	 *
+	 *@author zjq
+	 *create at 8-9 下午08-09
+	 * 将2018-4-8  转换为 2018-04-08
+	 */
+
+	public static String getCommonTime2(String time)  {
+
+
+		String LgTime1="";
+		try {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm" );
+			Date LgTime = simpleDateFormat.parse(time);
+			SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("HH:mm");
+			String  LgTime2 = simpleDateFormat1.format(LgTime);
+			LgTime1=LgTime2;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return  LgTime1;
+
+	}
 
 
 }

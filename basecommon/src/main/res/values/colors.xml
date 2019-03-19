@@ -89,6 +89,7 @@
     <color name="content_line">#EEEEEE</color>
     <color name="frame_l">#FFAC38</color>
     <color name="mass_tip">#FF7F00</color>
-
+    <color name="item_grading">#FF734F</color>
+    <color name="item_grading_btn">#2082D0</color>
 
 </resources>
