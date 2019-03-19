@@ -15,8 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
-import com.watermark.androidwm.WatermarkBuilder;
-import com.watermark.androidwm.bean.WatermarkText;
+
 
 public class MyImageLoader {
 
@@ -95,8 +94,8 @@ public class MyImageLoader {
      * create at 2018/12/26 上午9:45
      * 添加加载成功的回调
      */
-
-    public static void loadListeren(final Context context, String path, final ImageView v, final boolean b, final String name) {
+    //注释掉，此处加载C代码速度过慢，使用的时候咨询一下  再优化
+   /* public static void loadListeren(final Context context, String path, final ImageView v, final boolean b, final String name) {
         RequestOptions options = new RequestOptions()
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
@@ -126,7 +125,7 @@ public class MyImageLoader {
                         }
                     }
                 });
-    }
+    }*/
 
 
 

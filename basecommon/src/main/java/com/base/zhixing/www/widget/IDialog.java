@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
 /**
  * 重新定义的dialog
  * @author Administrator
@@ -27,9 +26,7 @@ public class IDialog extends Dialog {
 		layoutParams.gravity = Gravity.BOTTOM;
 		layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
 		layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-
 		getWindow().getDecorView().setPadding(0, 0, 0, 0);
-
 		getWindow().setAttributes(layoutParams);
 	}
 	public IDialog(Context context, int theme) {

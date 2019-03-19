@@ -190,7 +190,7 @@ public class SjDetailActivity extends BaseActvity {
             @Override
             public void onExpandableClick(View clickView, BaseExpandableBean selecBean) {
                 int index = selecBean.getGroupPosition();
-                Toasty.INSTANCE.showToast(SjDetailActivity.this,groupBeans.get(index).isDynamicRow()+String.valueOf(groupBeans.get(index).getGroupName()));
+               // Toasty.INSTANCE.showToast(SjDetailActivity.this,groupBeans.get(index).isDynamicRow()+String.valueOf(groupBeans.get(index).getGroupName()));
             }
         });
         loadData(obj.getLineId());

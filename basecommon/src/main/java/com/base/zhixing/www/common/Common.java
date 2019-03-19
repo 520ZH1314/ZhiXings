@@ -7,6 +7,7 @@ public class Common {
             .getExternalStorageDirectory().getAbsolutePath();
     public static String DIR = "/SHUBEN_CACHE/";
     public static String SD = BASE_DIR+DIR;
+    public static String LOG_DIR = SD+"/LOG_DIR/";
     public static String DB_NAME ="shuben.ads";
     public static int DB_VERSION  = 5;
     //13632854178

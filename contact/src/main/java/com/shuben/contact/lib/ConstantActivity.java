@@ -1,16 +1,22 @@
 package com.shuben.contact.lib;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Message;
+import android.os.RemoteException;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.P;
 import com.shuben.contact.lib.common.ConstantS;
 import com.shuben.contact.lib.event.ConstantDataEvent;
 import com.shuben.contact.lib.event.ConstantEvent;
@@ -52,6 +58,8 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
     private TextView mBtnConstantSend;
     private Boolean isSingle;
     private String type;
+
+
 
     @Override
     public void process(Message msg) {
@@ -187,7 +195,6 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
                         fragment0.isSingle(isSingle);
                         fragment0.getType(type);
                     }
-
                 }
 
                 title.setText(titleList.get(position));
@@ -321,6 +328,7 @@ public class ConstantActivity extends BaseActvity implements View.OnClickListene
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
+
     }
 
 }

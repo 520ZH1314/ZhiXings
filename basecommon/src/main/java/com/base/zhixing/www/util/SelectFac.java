@@ -47,7 +47,10 @@ public class SelectFac {
         this.isSave = isSave;
     }
     @JavascriptInterface
-    public void selectScreen(final int STEP){
+    public void selectScreen(final int STEP,int save){
+        if(save==1){
+            isSave =true;
+        }
         P.c("深度"+STEP);
         if(STEP<1||STEP>4){
             Toasty.INSTANCE.showToast(mContxt,"参数传入错误");

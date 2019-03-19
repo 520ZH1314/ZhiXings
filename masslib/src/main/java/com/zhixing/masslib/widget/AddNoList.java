@@ -14,9 +14,9 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.base.zhixing.www.util.DensityUtil;
 import com.base.zhixing.www.common.P;
+import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.IDialog;
 import com.base.zhixing.www.widget.XEditText;
 import com.base.zhixing.www.widget.nicespinner.NiceSpinner;
@@ -94,7 +94,10 @@ public class AddNoList {
             @Override
             public void onClick(View view) {
                 if(addNoF!=null){
-
+                    if(edit.getTextEx().toString().length()==0){
+                        Toasty.INSTANCE.showToast(context,"请输入数量");
+                        return;
+                    }
                     addNoF.addNo(edit.getTextEx().toLowerCase(),qc_reasons.get(spil.getSelectedIndex()).getId());
                     cancle();
                 }

@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.base.zhixing.www.BaseFragment;
 import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;

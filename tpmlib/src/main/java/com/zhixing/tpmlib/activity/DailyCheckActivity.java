@@ -112,13 +112,19 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         shareUtil = new SharedUtils("TpmSetting");
         tpmLinecode = shareUtil.getStringValue("LineListCode");
         String lineListId = shareUtil.getStringValue("LineListId");
-        String[] split = lineListId.split(",");
-        String lineName=split[1];
-        tpmStationCode = shareUtil.getStringValue("tpmStationCode");
-        tpmLineName = shareUtil.getStringValue("tpmLineName");
-        tvCell.setText(lineName);
+        //增加判断，防止数组下标越界
+        if(lineListId.contains(",")){
+            String[] split = lineListId.split(",");
+            String lineName=split[1];
+            tpmStationCode = shareUtil.getStringValue("tpmStationCode");
+            tpmLineName = shareUtil.getStringValue("tpmLineName");
+            tvCell.setText(lineName);
 //    初始化数据
-        initData();
+            initData();
+        }else{
+            Toasty.INSTANCE.showToast(DailyCheckActivity.this,"参数错误!");
+        }
+
     }
     private void initData() {
         //设置上下拉事件

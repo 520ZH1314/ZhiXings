@@ -35,6 +35,10 @@ public class CommonTips {
         this.t1 = t1;
         this.tips = tips;
     }
+    private CancelI cancelI;
+    public void setCancelLis(CancelI cancelLis){
+        this.cancelI = cancelI;
+    }
     private Tips tpps = null;
     public void setI( Tips tpps){
         this.tpps = tpps;
@@ -99,7 +103,9 @@ public class CommonTips {
             @Override
             public void onCancel(DialogInterface arg0) {
                 // TODO Auto-generated method stub
-
+                if(cancelI!=null){
+                    cancelI.cancel();
+                }
             }
         });
         dlg.setContentView(layout);
@@ -114,4 +120,9 @@ public class CommonTips {
             dlg = null;
         }
     }
+      public interface   CancelI{
+          void cancel();
+    }
+
 }
+

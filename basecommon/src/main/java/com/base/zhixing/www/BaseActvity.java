@@ -12,25 +12,20 @@ import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import com.android.tu.loadingdialog.LoadingDailog;
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.view.Toasty;
 import com.githang.statusbar.StatusBarCompat;
 import org.json.JSONObject;
-
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
@@ -156,8 +151,20 @@ public abstract class BaseActvity extends FragmentActivity   {
             }
         }
     }
+
+    public void httpPostVolley(String URL, Map<String,String> params, final VolleyResult result, String isShow){
+        if(isShow!=null){
+            showDialog(isShow.length()==0?"加载中":isShow);
+        }
+        httpPostSONVolley(URL,params,result);
+
+        dis(isShow!=null);
+    }
     //volley方式数据加载构造
     public void httpPostVolley(String URL, Map<String,String> params, final VolleyResult result, final boolean isShow){
+        if(isShow){
+            showDialog( "加载中");
+        }
         httpPostSONVolley(URL,params,result);
 
         dis(isShow);
@@ -170,6 +177,7 @@ public abstract class BaseActvity extends FragmentActivity   {
         if(isShow){
             if(dialog!=null){
                 dialog.show();
+
             }
         }
     }
@@ -225,6 +233,7 @@ public abstract class BaseActvity extends FragmentActivity   {
     public void dismissDialog() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
+            dialog = null;
         }
     }
 

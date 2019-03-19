@@ -2,6 +2,9 @@ package com.base.zhixing.www.common;
 
 import android.content.Context;
 import android.util.Base64;
+
+import com.base.zhixing.www.util.TimeUtil;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedOutputStream;
@@ -282,17 +285,51 @@ public class FileUtils {
 	 * @return
 	 */
 	public static String name(File file, String fileNs[], String childFileName){
-		for(int i=0;i<fileNs.length;i++){
-			if(fileNs[i].substring(0,fileNs[i].lastIndexOf(".")).equals(childFileName)){
-				return childFileName;
+		if(fileNs!=null){
+			for(int i=0;i<fileNs.length;i++){
+				if(fileNs[i].substring(0,fileNs[i].lastIndexOf(".")).equals(childFileName)){
+					return childFileName;
+				}
 			}
-		}
-		if(fileNs.length!=0){
-			deleteDir(file);
+			if(fileNs.length!=0){
+				deleteDir(file);
+			}
 		}
 		//
 		return childFileName;
 	}
+
+	public static void writeLog(String text,String tag) {
+		String childFileName = TimeUtil.getTimeLog(System.currentTimeMillis());
+		String logPath = Common.LOG_DIR;
+		File file = new File(Common.LOG_DIR);
+		if(!file.exists()){
+			file.mkdirs();
+			//不存在就创建目录
+		}
+		String fileNs[] = file.list();
+
+		String realName = name(file, fileNs, childFileName)+".txt";
+		if (text == null)
+			return;
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(logPath+realName,
+					true));
+			try {
+				out.write(tag+"-----"+TimeUtil.getTime(System.currentTimeMillis())+"<br>");
+				out.write(text);
+				out.write("<br>");
+			} finally {
+				out.close();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+
 
 
 	// 写入指定的文本文件，append为true表示追加，false表示重头开始写，
