@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_performance"
+        android:icon="@mipmap/performance"
+        android:title="绩效" />
+    <item
+        android:id="@+id/navigation_team"
+        android:icon="@mipmap/team"
+        android:title="园地" />
+    <item
+        android:id="@+id/navigation_boss"
+        android:icon="@mipmap/boss"
+        android:title="招聘" />
+    <item
+        android:id="@+id/navigation_mine"
+        android:icon="@mipmap/mine"
+        android:title="个人" />
+</menu>

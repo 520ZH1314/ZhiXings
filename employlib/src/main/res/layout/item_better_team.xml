@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x16"
+        android:layout_marginRight="@dimen/x16"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/iv_excellent_employee"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x170"
+                android:scaleType="centerCrop"
+                android:src="@drawable/plot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x85"
+                android:background="@drawable/image_gradient"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_excellent_employee"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <TextView
+
+                android:id="@+id/tv_item_better_team_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="这里是分享主题"
+                android:textColor="@color/black"
+                android:textSize="@dimen/content_txt_"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+            <TextView
+
+                android:id="@+id/tv_item_better_team_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="注塑生产组"
+                android:textColor="@color/black"
+                android:textSize="@dimen/content_txt_"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+            <TextView
+
+                android:id="@+id/tv_item_better_team_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="该员工非常好阿里的快乐撒娇的萨达就撒来看该员工非常好阿里的快乐撒娇的萨达就撒来看该员工非常好阿里的快乐撒娇的萨达就撒来看该员工非常好阿里的快乐撒娇的萨达就撒来看该员工非常好阿里的快乐撒娇的萨达就撒来看该员工非常好阿里的快乐撒娇的萨达就撒来看该员工非常好阿里的快乐撒娇的萨达就撒来看该员工非常好阿里的快乐撒娇的萨达就撒来看"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_item_better_team_title" />
+
+            <TextView
+                android:id="@+id/tv_item_better_team_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="2019-03-09"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_item_better_team_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_item_better_team_title" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="@dimen/x26"
+                android:layout_height="@dimen/x26"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/better_team"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

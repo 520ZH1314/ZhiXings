@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+
+
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/iv_new_employee"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x150"
+                android:scaleType="centerCrop"
+                android:src="@drawable/new_employe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/image_gradient"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_new_employee"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_item_new_employee_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="张三"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/list_txt_s"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_item_new_employee_work"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_item_new_employee_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="广东汕头"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/list_txt_s"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_item_new_employee_name"
+                    app:layout_constraintStart_toEndOf="@+id/view11"
+                    app:layout_constraintTop_toTopOf="@+id/tv_item_new_employee_name" />
+
+                <TextView
+                    android:id="@+id/tv_item_new_employee_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="包装工人"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/list_txt_s"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_item_new_employee_name4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="注塑生产班组"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/list_txt_s"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_item_new_employee_work"
+                    app:layout_constraintStart_toEndOf="@+id/view10"
+                    app:layout_constraintTop_toTopOf="@+id/tv_item_new_employee_work" />
+
+                <View
+
+                    android:id="@+id/view11"
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/x20"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_item_new_employee_name"
+                    app:layout_constraintStart_toEndOf="@+id/tv_item_new_employee_name"
+                    app:layout_constraintTop_toTopOf="@+id/tv_item_new_employee_name" />
+
+                <View
+
+                    android:id="@+id/view10"
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/x20"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_item_new_employee_work"
+                    app:layout_constraintStart_toEndOf="@+id/tv_item_new_employee_work"
+                    app:layout_constraintTop_toTopOf="@+id/tv_item_new_employee_work" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_item_new_employee_go_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="3月6日到岗"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_new_employee" />
+
+
+            <View
+                android:id="@+id/view17"
+                android:layout_width="2dp"
+                android:layout_height="@dimen/x15"
+                android:layout_marginTop="8dp"
+                android:background="@color/item_grading"
+                app:layout_constraintStart_toStartOf="@+id/tv_item_new_employee_go_time"
+                app:layout_constraintTop_toBottomOf="@+id/tv_item_new_employee_go_time" />
+
+            <View
+                android:id="@+id/view16"
+                android:layout_width="2dp"
+                android:layout_height="@dimen/x15"
+                android:layout_marginStart="8dp"
+                android:background="@color/item_grading"
+                app:layout_constraintBottom_toBottomOf="@+id/textView39"
+                app:layout_constraintStart_toEndOf="@+id/textView39"
+                app:layout_constraintTop_toTopOf="@+id/textView39" />
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="座右铭"
+                android:textColor="@color/item_grading"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/view17"
+                app:layout_constraintStart_toEndOf="@+id/view17"
+                app:layout_constraintTop_toTopOf="@+id/view17" />
+
+            <TextView
+                android:id="@+id/tv_item_new_employee_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:maxEms="15"
+                android:maxLines="2"
+                android:text="天行健,.天行健,.天行健,."
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/view17"
+                app:layout_constraintTop_toBottomOf="@+id/view17" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

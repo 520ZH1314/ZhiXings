@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <android.support.constraint.ConstraintLayout
+       android:layout_width="match_parent"
+       android:background="@color/title_bg"
+       android:layout_height="@dimen/x55">
+
+       <ImageView
+           android:id="@+id/tetle_back"
+           android:layout_width="@dimen/x30"
+           android:layout_height="@dimen/x30"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="16dp"
+           android:layout_marginBottom="16dp"
+           android:src="@mipmap/back"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+
+       <TextView
+           android:id="@+id/tetle_text"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="8dp"
+           android:layout_marginTop="16dp"
+           android:layout_marginEnd="8dp"
+           android:layout_marginBottom="16dp"
+           android:text="园地"
+           android:textColor="@color/white"
+           android:textSize="@dimen/title_center_size"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toStartOf="@+id/tetle_tv_img"
+           app:layout_constraintStart_toEndOf="@+id/tetle_back"
+           app:layout_constraintTop_toTopOf="parent" />
+
+       <ImageView
+           android:id="@+id/tetle_tv_img"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="16dp"
+           android:layout_marginEnd="16dp"
+           android:layout_marginBottom="16dp"
+           android:src="@mipmap/add_more"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+
+   </android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_garden_plot"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:layout_marginTop="8dp"
+
+        app:tabIndicatorColor="@color/title_bg"
+        app:tabSelectedTextColor="@color/title_bg"
+        app:tabTextColor="@color/black">
+
+    </android.support.design.widget.TabLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_garden_plot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+
+    </android.support.v4.view.ViewPager>
+
+
+
+
+
+</LinearLayout>

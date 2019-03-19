@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_item_recruit_wrok_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="机械修理工"
+        android:textColor="@color/black"
+        android:textSize="@dimen/content_txt_"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/tv_item_recruit_work_desc_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="职位详情"
+        android:textColor="@color/black"
+        android:textSize="@dimen/content_txt_"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_recruit_work_year" />
+
+    <TextView
+        android:id="@+id/tv_item_recruit_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="8-15k"
+        android:textColor="@color/red"
+        android:textSize="@dimen/content_txt_"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_item_recruit_work_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="3-5年|职业技能四级|中专"
+        android:textSize="@dimen/list_txt_s"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_recruit_wrok_name" />
+
+    <TextView
+        android:id="@+id/tv_item_recruit_work_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:ellipsize="end"
+        android:maxEms="30"
+        android:maxLines="2"
+        android:text="职位详情职位详情职位详情职位详情职位详情职位详情职位详情职位详情职位详情职位详情职位详情职位详情职位详情职位详情职位详情"
+        android:textSize="@dimen/content_txt_s"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_recruit_work_desc_name" />
+
+    <TextView
+        android:id="@+id/tv_item_recruit_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="03月06日"
+        android:textSize="@dimen/list_txt_s"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_recruit_wrok_name" />
+
+    <Button
+        android:id="@+id/btn_item_recruit_delivered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:text="已投递"
+        android:textSize="@dimen/content_txt_s"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_recruit_wrok_name"
+        app:layout_constraintStart_toEndOf="@+id/tv_item_recruit_wrok_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_recruit_wrok_name" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/content_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

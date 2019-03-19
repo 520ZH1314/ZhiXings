@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zhixing.employlib">
+
+    <application>
+        <activity
+            android:name=".ui.activity.PerformanceActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".ui.activity.MothIntegralEventActivity" />
+        <activity
+            android:name=".ui.activity.GradingActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.activity.GradingDetailActivity" />
+        <activity android:name=".ui.activity.SelectEventActivity" />
+        <activity android:name=".ui.activity.GradingRecordListActivity" />
+        <activity android:name=".ui.activity.GradingedRecordDetalActivity" />
+        <activity android:name=".ui.activity.OutOfAdActivity" />
+        <activity android:name=".ui.activity.UpdateTeamDataActivity" />
+        <activity android:name=".ui.activity.SelectTeamTypeActivity" />
+        <activity
+            android:name=".ui.activity.RecruitRecordActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".ui.activity.JobDetailsActivity"  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
+    </application>
+
+</manifest>

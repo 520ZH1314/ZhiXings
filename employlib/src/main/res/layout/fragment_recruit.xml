@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/white"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<include layout="@layout/titles_layout"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:background="@color/content_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"/>
+        <TextView
+            android:layout_marginLeft="@dimen/x16"
+            android:layout_marginBottom="@dimen/x16"
+            android:layout_marginTop="@dimen/x16"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title_center_size"
+            android:text="全部职位"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:background="@color/content_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"/>
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recy_recruit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
