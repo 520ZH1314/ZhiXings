@@ -47,8 +47,6 @@ public class DialogFragmentIntergralEvent extends DialogFragment implements View
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
           isDown();
-
-
         integralEventViewModel.getData().observe(getActivity(), new Observer<List<IntegralEventEntity>>() {
             @Override
             public void onChanged(@Nullable List<IntegralEventEntity> integralEventEntities) {

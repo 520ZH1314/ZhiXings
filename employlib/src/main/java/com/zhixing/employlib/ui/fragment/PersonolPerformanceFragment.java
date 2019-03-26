@@ -27,6 +27,7 @@ import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloating
 import com.wangjie.rapidfloatingactionbutton.util.RFABTextUtil;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
+import com.zhixing.employlib.ui.activity.AppealActivity;
 import com.zhixing.employlib.ui.activity.GradingActivity;
 import com.zhixing.employlib.ui.activity.GradingRecordListActivity;
 import com.zhixing.employlib.ui.activity.MothIntegralEventActivity;
@@ -249,8 +250,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
             startActivity(intent);
             rfabHelper.toggleContent();
         } else {
-
-            Intent intent = new Intent(getActivity(), RecruitRecordActivity.class);
+            Intent intent = new Intent(getActivity(), AppealActivity.class);
             startActivity(intent);
             rfabHelper.toggleContent();
         }

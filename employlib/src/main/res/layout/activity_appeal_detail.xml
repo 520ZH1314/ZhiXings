@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.AppealDetailActivity">
+
+    <include layout="@layout/titles_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.vipulasri.ticketview.TicketView
+
+                android:id="@+id/ticketView"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ticketDividerPadding="0dp"
+                app:ticketDividerType="dash"
+                app:ticketElevation="14dp"
+                app:ticketOrientation="horizontal"
+                app:ticketScallopPositionPercent="13"
+                app:ticketScallopRadius="10dp"
+                app:ticketShowBorder="false"
+                app:ticketShowDivider="true">
+
+
+            </com.vipulasri.ticketview.TicketView>
+
+
+            <TextView
+                android:id="@+id/tv_appeal_detail_event_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="申诉事件:迟到"
+                android:textColor="@color/black"
+                android:textSize="@dimen/content_txt_"
+                app:layout_constraintStart_toStartOf="@+id/ticketView"
+                app:layout_constraintTop_toTopOf="@+id/ticketView" />
+
+            <TextView
+                android:id="@+id/tv_appeal_detail_people_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="处理人:李四"
+                android:textSize="@dimen/list_txt_s"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_appeal_detail_event_name"
+                app:layout_constraintEnd_toEndOf="@+id/ticketView"
+                app:layout_constraintTop_toTopOf="@+id/tv_appeal_detail_event_name" />
+
+            <TextView
+                android:id="@+id/tv_appeal_detail_event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="异常日期:2018-03-06"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_appeal_detail_event_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_appeal_detail_event_name" />
+
+            <TextView
+                android:id="@+id/tv_appeal_detail_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="@dimen/x6"
+                android:text="已审核"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_appeal_detail_people_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_appeal_detail_people_name" />
+
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:text="详情描述:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/content_txt_"
+                app:layout_constraintStart_toStartOf="@+id/tv_appeal_detail_event_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_appeal_detail_event_date" />
+
+            <TextView
+                android:id="@+id/textView52"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="图片证据:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/content_txt_"
+                app:layout_constraintStart_toStartOf="@+id/tv_appeal_detail_event_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_appeal_detail_desc" />
+
+            <TextView
+                android:id="@+id/tv_appeal_detail_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:maxEms="120"
+                android:maxLines="4"
+                android:text="TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+                app:layout_constraintEnd_toEndOf="@+id/ticketView"
+                app:layout_constraintStart_toStartOf="@+id/textView47"
+                app:layout_constraintTop_toBottomOf="@+id/textView47" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recy_appeal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView52"
+                app:layout_constraintTop_toBottomOf="@+id/textView52" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_appeal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recy_appeal">
+
+                <TextView
+                    android:id="@+id/tv_appeal_detail_event_date2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+
+                    android:layout_marginTop="5dp"
+                    android:text="2018-03-06"
+                    android:textSize="@dimen/content_txt_"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+                <TextView
+                    android:id="@+id/tv_appeal_detail_do_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:maxEms="120"
+                    android:maxLines="4"
+                    android:text="123"
+
+                    android:textSize="@dimen/content_txt_"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="处理结果"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/content_txt_"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cl_appeal" />
+
+                <TextView
+                    android:id="@+id/textView46"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="处理时间"
+
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/content_txt_"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_appeal_detail_do_desc" />
+
+                <TextView
+                    android:id="@+id/tv_appeal_detail_reuit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView26"
+                    app:layout_constraintStart_toStartOf="@+id/textView26"
+                    app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="处理理由"
+                    android:textColor="@color/black"
+
+                    android:textSize="@dimen/content_txt_"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_appeal_detail_reuit" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_appeal_detail_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recy_appeal">
+
+                <Button
+                    android:id="@+id/btn_appeal_detail_ok"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="通过"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_appeal_detail_no"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btn_appeal_detail_no"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="不通过"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn_appeal_detail_ok"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -157,7 +157,7 @@ public class OutOfAdActivity extends BaseActvity {
                         Url=compressPath;
                         cardViewIvOutAd.setVisibility(View.VISIBLE);
 //                          ImageLoader.loadListeren(this,compressPath,ivMyInfoDetailHead);
-                        MyImageLoader.loadListeren(this,compressPath,ivOutCarmePhoto,false,"");
+                        MyImageLoader.loads(this,compressPath,ivOutCarmePhoto);
                     }
                     break;
             }

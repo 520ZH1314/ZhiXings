@@ -22,6 +22,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.vipulasri:ticketview:1.0.7'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.jakewharton:butterknife:9.0.0-rc3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
