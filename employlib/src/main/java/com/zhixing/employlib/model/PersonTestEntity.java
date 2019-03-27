@@ -2,39 +2,31 @@ package com.zhixing.employlib.model;
 
 public class PersonTestEntity {
 
-    public String imgUrl;
-    public String desc;
+    public String ItemName;
+    public String Score;
 
-    public PersonTestEntity(String imgUrl, String desc, String score) {
-        this.imgUrl = imgUrl;
-        this.desc = desc;
-        this.score = score;
+    public PersonTestEntity( ) {
+
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public PersonTestEntity(String itemName, String score) {
+        ItemName = itemName;
+        Score = score;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public String getItemName() {
+        return ItemName;
     }
 
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setItemName(String itemName) {
+        ItemName = itemName;
     }
 
     public String getScore() {
-        return score;
+        return Score;
     }
 
     public void setScore(String score) {
-        this.score = score;
+        Score = score;
     }
-
-    public String score;
-
 }

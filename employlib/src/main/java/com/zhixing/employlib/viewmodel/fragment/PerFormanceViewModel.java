@@ -8,9 +8,11 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.support.annotation.NonNull;
 
+import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.model.IntegralEventEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
+import com.zhixing.employlib.repertory.EventRepertory;
 import com.zhixing.employlib.repertory.PerformanceRepertory;
 import com.zhixing.netlib.base.BaseResponse;
 
@@ -26,14 +28,14 @@ import java.util.List;
 
 public class PerFormanceViewModel extends AndroidViewModel {
     private  PerformanceRepertory performanceRepertory;
-
+    private EventRepertory eventRepertory;
 
 
 
     //个人绩效评分的数据
 
     public MutableLiveData<List<PersonTestEntity>> personTestEntitys=new MutableLiveData<>();
-
+    public LiveData< List<PersonTestEntity> > testEnt=new MutableLiveData<>();
 
 
     //积分事件的数据
@@ -42,7 +44,7 @@ public class PerFormanceViewModel extends AndroidViewModel {
         super(application);
 
          performanceRepertory=new PerformanceRepertory(application);
-
+        eventRepertory = new EventRepertory(application);
     }
 
 
@@ -66,16 +68,19 @@ public class PerFormanceViewModel extends AndroidViewModel {
     //获取个人绩效评分的数据
 
 
-    public MutableLiveData<List<PersonTestEntity>>getPersonTestEntitysData(){
+    public LiveData< List<PersonTestEntity> > getPersonTestEntitysData(){
 
-        List<PersonTestEntity> lists=new ArrayList<>();
+       /* List<PersonTestEntity> lists=new ArrayList<>();
         for (int i = 6; i >0; i--) {
             lists.add(new PersonTestEntity(i+"","员工正常出勤即获得基础得分5分",""+i));
 
-        }
+        }*/
+            testEnt =  Transformations.map(eventRepertory.getEventInfo(),DBaseResponse::getRows);
+//        testEnt.getValue().getRows()
+       // personTestEntitys = Transformations.map(testEnt, DBaseResponse::getRows);
 
-        personTestEntitys.setValue(lists);
-        return  personTestEntitys;
+//        personTestEntitys.setValue(lists);
+        return  testEnt;
 
     }
 

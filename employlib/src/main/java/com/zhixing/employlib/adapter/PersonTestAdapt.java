@@ -29,23 +29,32 @@ public class PersonTestAdapt extends BaseQuickAdapter<PersonTestEntity,BaseViewH
 
         ImageView imageView = (ImageView)helper.itemView.findViewById(R.id.iv_persion_test);
 
-        if ("6".equals(item)){
-            imageView.setImageResource(R.mipmap.c1);
-        }else if ("5".equals(item)){
-            imageView.setImageResource(R.mipmap.c2);
-        }else if ("4".equals(item)){
-            imageView.setImageResource(R.mipmap.c3);
-        }else if ("3".equals(item)){
-            imageView.setImageResource(R.mipmap.c4);
-        }else if ("2".equals(item)){
-            imageView.setImageResource(R.mipmap.c5);
-        }else if ("1".equals(item)){
-            imageView.setImageResource(R.mipmap.c6);
-        }
+            switch (item.Score){
+                case "1":
+                    imageView.setImageResource(R.mipmap.c6);
+                    break;
+                case "2":
+                    imageView.setImageResource(R.mipmap.c5);
+                    break;
+                case "3":
+                    imageView.setImageResource(R.mipmap.c4);
+                    break;
+                case "4":
+                    imageView.setImageResource(R.mipmap.c3);
+                    break;
+                case "5":
+                    imageView.setImageResource(R.mipmap.c2);
+                    break;
+                case "6":
+                    imageView.setImageResource(R.mipmap.c1);
+                    break;
+            }
 
 
-        helper.setText(R.id.tv_person_test_des,item.desc);
-               helper.setText(R.id.tv_person_test_score,item.score);
+
+
+        helper.setText(R.id.tv_person_test_des,item.getItemName());
+               helper.setText(R.id.tv_person_test_score,item.Score);
 
     }
 }

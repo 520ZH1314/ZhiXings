@@ -20,6 +20,7 @@ import android.widget.ImageView;
 
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.PersonTestAdapt;
+import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.viewmodel.fragment.PerFormanceViewModel;
 
@@ -43,11 +44,11 @@ public class DialogFragmentPersonTest extends DialogFragment implements View.OnC
         iv_close = (ImageView) view.findViewById(R.id.iv_dialog_fragment_perison_test);
         iv_close.setOnClickListener(this);
 
-
-        integralEventViewModel.getPersonTestEntitysData().observe(getActivity(), new Observer<List<PersonTestEntity>>() {
+         integralEventViewModel.getPersonTestEntitysData();
+        integralEventViewModel.testEnt.observe(getActivity(), new Observer<List<PersonTestEntity>>() {
             @Override
             public void onChanged(@Nullable List<PersonTestEntity> personTestEntities) {
-             recyclerView.setAdapter(new PersonTestAdapt(R.layout.item_person_test,personTestEntities));
+                recyclerView.setAdapter(new PersonTestAdapt(R.layout.item_person_test,personTestEntities));
             }
         });
         return view;

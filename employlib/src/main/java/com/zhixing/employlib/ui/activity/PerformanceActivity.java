@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.base.zhixing.www.AppManager;
@@ -42,7 +43,7 @@ import com.zhixing.employlib.viewmodel.activity.PerformanceMainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Route(path = "/employlib/PerformanceActivity")
 public class PerformanceActivity extends BaseActvity implements BottomNavigationBar.OnTabSelectedListener {
     int lastSelectedPosition = 0;
     private TabLayout tabLayout;

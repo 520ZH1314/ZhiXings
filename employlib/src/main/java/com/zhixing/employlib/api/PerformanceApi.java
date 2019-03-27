@@ -1,5 +1,7 @@
 package com.zhixing.employlib.api;
 
+import com.zhixing.employlib.model.IntegralEventEntity;
+import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.netlib.base.BaseResponse;
 
@@ -26,4 +28,9 @@ public interface PerformanceApi {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
     Flowable<DBaseResponse<PersonTeamBean>> getPersonTeamInfo(@Body RequestBody body);
+
+    //获取考核标准
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+    Flowable<DBaseResponse<PersonTestEntity>> getEventInfo(@Body RequestBody body);
 }
