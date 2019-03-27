@@ -1,9 +1,11 @@
 package com.zhixing.employlib.ui.activity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Color;
 import android.os.Message;
 import android.support.annotation.NonNull;
-
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,14 +14,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.BaseFragment;
+import com.base.zhixing.www.common.SharedUtils;
+import com.base.zhixing.www.view.Toasty;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.MyAdapter;
+import com.zhixing.employlib.api.DBaseResponse;
+import com.zhixing.employlib.api.PerformanceApi;
+import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.ui.fragment.BetterTeamEmployeeFragment;
 import com.zhixing.employlib.ui.fragment.DeliveredFragment;
 import com.zhixing.employlib.ui.fragment.ExcellentEmployeeFragment;
@@ -30,6 +38,7 @@ import com.zhixing.employlib.ui.fragment.PersonolPerformanceFragment;
 import com.zhixing.employlib.ui.fragment.RecruitFragment;
 import com.zhixing.employlib.view.BottomNavigationViewHelper;
 import com.zhixing.employlib.view.CustomScrollViewPager;
+import com.zhixing.employlib.viewmodel.activity.PerformanceMainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +53,8 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
     private String[] titles = {"绩效", "园地", "招聘", "我的"};
     private MenuItem menuItem;
     private BottomNavigationBar bottomNavigationBar;
+    private PerformanceMainViewModel performanceMainViewModel;
+    private SharedUtils sharedUtils;
 
     @Override
     public int getLayoutId() {
@@ -59,6 +70,11 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
 
     @Override
     public void initLayout() {
+         performanceMainViewModel = ViewModelProviders.of(this).get(PerformanceMainViewModel.class);
+
+
+        sharedUtils=new SharedUtils(PerformanceApi.FLIESNAME);
+
         viewPager = (CustomScrollViewPager) findViewById(R.id.viewpager_persion);
 
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
@@ -80,15 +96,37 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
                 .initialise(); //initialise 一定要放在 所有设置的最后一项
 
         setDefaultFragment();//设置默认导航栏
+        //获取个人班组信息以及权限
+        performanceMainViewModel.getTeamBeans();
+        performanceMainViewModel.TeamBeans.observe(this, new Observer<List<PersonTeamBean>>() {
+            @Override
+            public void onChanged(@Nullable List<PersonTeamBean> personTeamBeans) {
+                if (personTeamBeans!=null){
+                    for (PersonTeamBean bean:personTeamBeans) {
+                        sharedUtils.setBooleanValue(PerformanceApi.ISTEAMLEADER,bean.isIsTeamLeader());
+                        sharedUtils.setStringValue(PerformanceApi.TEAMID,bean.getTeamId());
+                        sharedUtils.setStringValue(PerformanceApi.TEAMLEADERUSERID,bean.getTeamLeaderUserId());
+                        sharedUtils.setStringValue(PerformanceApi.TEAMNAME,bean.getTeamName());
+                    }
+                    list = new ArrayList<>();
+                    list.add(new PersonolPerformanceFragment());
+                    list.add(new GardenPlotFragment());
+                    list.add(new RecruitFragment());
+                    list.add(new PersonolPerformanceFragment());
+                    adapter = new MyAdapter(getSupportFragmentManager(), list, titles);
 
-        list = new ArrayList<>();
-        list.add(new PersonolPerformanceFragment());
-        list.add(new GardenPlotFragment());
-        list.add(new RecruitFragment());
-        list.add(new PersonolPerformanceFragment());
-        adapter = new MyAdapter(getSupportFragmentManager(), list, titles);
+                    viewPager.setAdapter(adapter);
 
-        viewPager.setAdapter(adapter);
+                }else{
+                    Toasty.INSTANCE.showToast(PerformanceActivity.this,"请求失败");
+                }
+            }
+        });
+
+
+
+
+
 
     }
 

@@ -1,5 +1,6 @@
 package com.zhixing.employlib.ui.fragment;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseFragment;
+import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.widget.ChangeTime;
@@ -27,13 +29,15 @@ import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloating
 import com.wangjie.rapidfloatingactionbutton.util.RFABTextUtil;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
+import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.ui.activity.AppealActivity;
+import com.zhixing.employlib.ui.activity.AppealListActivity;
 import com.zhixing.employlib.ui.activity.GradingActivity;
 import com.zhixing.employlib.ui.activity.GradingRecordListActivity;
 import com.zhixing.employlib.ui.activity.MothIntegralEventActivity;
-import com.zhixing.employlib.ui.activity.RecruitRecordActivity;
 import com.zhixing.employlib.view.DialogFragmentIntergralEvent;
 import com.zhixing.employlib.view.DialogFragmentPersonTest;
+import com.zhixing.employlib.viewmodel.fragment.PerFormanceViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -126,6 +130,13 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
     private String Year;
     private String Month;
     private String Day;
+    private String Years;
+    private String Months;
+    private String Days;
+    private PerFormanceViewModel perFormanceViewModel;
+    private SharedUtils sharedUtils;
+    private boolean booleanValue;
+    private String teamId;
 
 
     @Nullable
@@ -133,14 +144,38 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_personol_performance, container, false);
         unbinder = ButterKnife.bind(this, view);
+        perFormanceViewModel = ViewModelProviders.of(getActivity()).get(PerFormanceViewModel.class);
         rfaLayout = (RapidFloatingActionLayout) view.findViewById(R.id.label_list_sample_rfal);
         rfaButton = (RapidFloatingActionButton) view.findViewById(R.id.label_list_sample_rfab);
         initView();
+        initData();
+
 
         return view;
     }
 
+    private void initData() {
+
+        //是否是领导
+        teamId = sharedUtils.getStringValue(PerformanceApi.TEAMID);
+        booleanValue = sharedUtils.getBooleanValue(PerformanceApi.ISTEAMLEADER);
+        if (teamId != null) {
+             //初始化悬浮按钮
+            initFloatingActionButton(booleanValue);
+        } else {
+            return;
+        }
+
+        //初始化个人和班组的昨日绩效
+
+
+
+
+    }
+
+
     private void initView() {
+        sharedUtils = new SharedUtils(PerformanceApi.FLIESNAME);
         //设置文字加粗
         TextPaint tp = tvTimeDate.getPaint();
         tp.setFakeBoldText(true);
@@ -153,7 +188,8 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
         ivWorkAddWork.setVisibility(View.GONE);
         tvWorkTitle.setText("绩效");
-        tvWorkSend.setText("注塑塑胶班组");
+        String stringValue = sharedUtils.getStringValue(PerformanceApi.TEAMNAME);
+        tvWorkSend.setText(stringValue);
         //设置前一日的时间
         Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
         ca.setTime(new Date()); //设置时间为当前时间
@@ -166,48 +202,63 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
         Year = split[0];
         Month = split[1];
         Day = split[2];
+        Years = split[0];
+        Months = split[1];
+        Days = split[2];
+
         if (index == 0) {
             tvTimeYear.setText(Year + "年" + Month + "月");
             tvTimeDate.setText(Day + "日");
         } else if (index == 1) {
-            tvTimeYear.setText(Year + "年");
-            tvTimeDate.setText(Month + "月");
+            tvTimeYear.setText(Years + "年");
+            tvTimeDate.setText(Months + "月");
         }
 
 
-        initFloatingActionButton();//初始化悬浮按钮
     }
 
 
-    private void initFloatingActionButton() {
+    private void initFloatingActionButton(Boolean booleanValue) {
         RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(getActivity());
         rfaContent.setOnRapidFloatingActionContentLabelListListener(this);
         List<RFACLabelItem> items = new ArrayList<>();
-        items.add(new RFACLabelItem<Integer>()
-                .setLabel("我要申诉")
-                .setResId(R.drawable.shensu1)
-                .setIconNormalColor(Color.parseColor("#EE8626"))
-                .setIconPressedColor(0xffbf360c)
-                .setWrapper(0)
-        );
 
 
-        items.add(new RFACLabelItem<Integer>()
-                .setLabel("处理申诉")
-                .setResId(R.drawable.shensu)
-                .setIconNormalColor(Color.parseColor("#3F9E43"))
-                .setIconPressedColor(0xff0d5302)
-                .setLabelColor(0xff056f00)
-                .setWrapper(1)
-        );
-        items.add(new RFACLabelItem<Integer>()
-                .setLabel("我要评分")
-                .setResId(R.drawable.pinf)
-                .setIconNormalColor(Color.parseColor("#1F6DC5"))
-                .setIconPressedColor(0xff1a237e)
-                .setLabelColor(0xff283593)
-                .setWrapper(2)
-        );
+        if (booleanValue) {
+            items.add(new RFACLabelItem<Integer>()
+                    .setLabel("处理申诉")
+                    .setResId(R.drawable.shensu)
+                    .setIconNormalColor(Color.parseColor("#3F9E43"))
+                    .setIconPressedColor(0xff0d5302)
+                    .setLabelColor(0xff056f00)
+                    .setWrapper(1)
+            );
+            items.add(new RFACLabelItem<Integer>()
+                    .setLabel("我要评分")
+                    .setResId(R.drawable.pinf)
+                    .setIconNormalColor(Color.parseColor("#1F6DC5"))
+                    .setIconPressedColor(0xff1a237e)
+                    .setLabelColor(0xff283593)
+                    .setWrapper(2)
+            );
+            items.add(new RFACLabelItem<Integer>()
+                    .setLabel("评分记录")
+                    .setResId(R.drawable.pinf)
+                    .setIconNormalColor(Color.parseColor("#1F6DC5"))
+                    .setIconPressedColor(0xff1a237e)
+                    .setLabelColor(0xff283593)
+                    .setWrapper(2)
+            );
+        } else {
+            items.add(new RFACLabelItem<Integer>()
+                    .setLabel("我要申诉")
+                    .setResId(R.drawable.shensu1)
+                    .setIconNormalColor(Color.parseColor("#EE8626"))
+                    .setIconPressedColor(0xffbf360c)
+                    .setWrapper(0)
+            );
+        }
+
         rfaContent
                 .setItems(items)
                 .setIconShadowRadius(RFABTextUtil.dip2px(getActivity(), 5))
@@ -238,19 +289,25 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
     @Override
     public void onRFACItemLabelClick(int position, RFACLabelItem item) {
-        if (position == 2) {
+        if (position == 0) {
+            if ("我要申诉".equals(item.getLabel().toString())) {
+                Intent intent = new Intent(getActivity(), AppealActivity.class);
+                startActivity(intent);
+                rfabHelper.toggleContent();
+            } else {
+                //处理申诉
+                Intent intent = new Intent(getActivity(), AppealListActivity.class);
+                startActivity(intent);
+                rfabHelper.toggleContent();
 
+            }
+        } else if (position == 1) {
 
             Intent intent = new Intent(getActivity(), GradingActivity.class);
             startActivity(intent);
             rfabHelper.toggleContent();
-        } else if (position == 1) {
-
+        } else if (position == 2) {
             Intent intent = new Intent(getActivity(), GradingRecordListActivity.class);
-            startActivity(intent);
-            rfabHelper.toggleContent();
-        } else {
-            Intent intent = new Intent(getActivity(), AppealActivity.class);
             startActivity(intent);
             rfabHelper.toggleContent();
         }
@@ -259,13 +316,29 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
     @Override
     public void onRFACItemIconClick(int position, RFACLabelItem item) {
-        if (position == 2) {
+        if (position == 0) {
+            if ("我要申诉".equals(item.getLabel().toString())) {
+                Intent intent = new Intent(getActivity(), AppealActivity.class);
+                startActivity(intent);
+                rfabHelper.toggleContent();
+            } else {
+                //处理申诉
+                Intent intent = new Intent(getActivity(), AppealListActivity.class);
+                startActivity(intent);
+                rfabHelper.toggleContent();
 
+            }
+        } else if (position == 1) {
 
             Intent intent = new Intent(getActivity(), GradingActivity.class);
             startActivity(intent);
             rfabHelper.toggleContent();
+        } else if (position == 2) {
+            Intent intent = new Intent(getActivity(), GradingRecordListActivity.class);
+            startActivity(intent);
+            rfabHelper.toggleContent();
         }
+
     }
 
     @Override
@@ -279,7 +352,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
             R2.id.tv_name_excellent_integral3,
             R2.id.tv_backward_integral1, R2.id.tv_backward_integral2, R2.id.tv_integral,
             R2.id.tv_backward_integral3, R2.id.radButton_person1,
-            R2.id.radButton_person2,R2.id.iv_work_add_work, R2.id.tv_work_title, R2.id.tv_work_send})
+            R2.id.radButton_person2, R2.id.iv_work_add_work, R2.id.tv_work_title, R2.id.tv_work_send})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.tv_time_date) {
@@ -309,11 +382,11 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
                     public void select(String time, long timestp) {
                         String commonTime1 = TimeUtil.getCommonTime1(time);
                         splitYear = commonTime1.split("-");
-                        Year = splitYear[0];
-                        Month = splitYear[1];
-                        Day = splitYear[2];
-                        tvTimeYear.setText(Year + "年");
-                        tvTimeDate.setText(Month + "月");
+                        Years = splitYear[0];
+                        Months = splitYear[1];
+                        Days = splitYear[2];
+                        tvTimeYear.setText(Years + "年");
+                        tvTimeDate.setText(Months + "月");
 
                     }
                 });
@@ -345,8 +418,8 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
         } else if (i == R.id.radButton_person2) {
             textView5.setText("累计积分");
             textView7.setText("累计积分排名");
-            tvTimeYear.setText(Year + "年");
-            tvTimeDate.setText(Month + "月");
+            tvTimeYear.setText(Years + "年");
+            tvTimeDate.setText(Months + "月");
 
             index = 1;
 
@@ -362,12 +435,12 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
             }
 
-        }else if(i == R.id.iv_work_add_work){
+        } else if (i == R.id.iv_work_add_work) {
             AppManager.getAppManager().finishActivity();
 
-        }else if(i == R.id.tv_work_title){
+        } else if (i == R.id.tv_work_title) {
 
-        }else if(i == R.id.tv_work_send){
+        } else if (i == R.id.tv_work_send) {
 
         }
     }

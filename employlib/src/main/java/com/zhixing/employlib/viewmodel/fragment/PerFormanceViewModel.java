@@ -1,12 +1,18 @@
 package com.zhixing.employlib.viewmodel.fragment;
 
 import android.app.Application;
+import android.arch.core.util.Function;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
 import android.support.annotation.NonNull;
 
 import com.zhixing.employlib.model.IntegralEventEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
+import com.zhixing.employlib.model.performance.PersonTeamBean;
+import com.zhixing.employlib.repertory.PerformanceRepertory;
+import com.zhixing.netlib.base.BaseResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +25,9 @@ import java.util.List;
  */
 
 public class PerFormanceViewModel extends AndroidViewModel {
+    private  PerformanceRepertory performanceRepertory;
+
+
 
 
     //个人绩效评分的数据
@@ -31,6 +40,9 @@ public class PerFormanceViewModel extends AndroidViewModel {
     public MutableLiveData<List<IntegralEventEntity>> IntegralEventEntitys=new MutableLiveData<>();
     public PerFormanceViewModel(@NonNull Application application) {
         super(application);
+
+         performanceRepertory=new PerformanceRepertory(application);
+
     }
 
 
@@ -66,6 +78,10 @@ public class PerFormanceViewModel extends AndroidViewModel {
         return  personTestEntitys;
 
     }
+
+
+
+
 
 
 }
