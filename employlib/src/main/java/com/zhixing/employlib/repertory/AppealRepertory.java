@@ -48,7 +48,7 @@ public class AppealRepertory extends MyBaseRepository<AppealPersonEntity> {
         bean.setUserCode(userCode);
         Map<String,String> map = new HashMap<>();
         map.put("CreateTime",time);
-        return request(APi.net(bean, mContext, ip,map)).send().get();
+        return request(APi.net(bean, mContext, ip,map,AppealPersonEntity.class)).send().get();
     }
 
 }

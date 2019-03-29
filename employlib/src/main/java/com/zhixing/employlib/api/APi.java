@@ -27,6 +27,7 @@ public class APi {
     public static Flowable<DBaseResponse<PersonTestEntity>> getEventInfo(PersonTeamPostBean bean, Context mContext, String url) {
         return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).getEventInfo((new BaseHttpUtil<PersonTeamPostBean>().convertVo2Json(bean)));
     }
+
     //统一数据处理
     public static<T> Flowable<BaseResponse<T>> net(PersonTeamPostBean bean, Context mContext, String url, Map map) {
         BaseHttpUtil  httpUtil = new BaseHttpUtil<PersonTeamPostBean>();
