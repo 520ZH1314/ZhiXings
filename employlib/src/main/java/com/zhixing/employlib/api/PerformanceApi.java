@@ -35,7 +35,7 @@ public interface PerformanceApi<T>  {
     @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
     Flowable<DBaseResponse<PersonTestEntity>> getEventInfo(@Body RequestBody body);
 
-    //获取个人关键事件
+    //获取
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
 
