@@ -2,11 +2,19 @@ package com.zhixing.employlib.viewmodel.activity;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
 import android.support.annotation.NonNull;
 
+import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.model.GradingItemEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
+import com.zhixing.employlib.model.grading.GradListBean;
+import com.zhixing.employlib.model.performance.MonthPerformanceBean;
+import com.zhixing.employlib.repertory.performance.GradingListRepertory;
+import com.zhixing.netlib.base.BaseRepository;
+import com.zhixing.netlib.base.BaseResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,18 +27,22 @@ import java.util.List;
  * 评分列表的ViewModel
  */
 public class GradingVIewModel extends AndroidViewModel {
+    private  GradingListRepertory gradingListRepertory;
 
-    //评分列表的数据
+      //日期筛选
+      private final MutableLiveData<String> GradingDate=new MutableLiveData<>();
 
-    public MutableLiveData<List<GradingItemEntity>> GradingItemEntitys=new MutableLiveData<>();
+
+    public  final LiveData<BaseResponse<GradListBean>> ListData=Transformations.switchMap(GradingDate,entity->(
+        gradingListRepertory.getGradingListBean(entity,entity)));
 
     //是否编辑
-
     public MutableLiveData<Boolean> isSelected;
 
 
     public GradingVIewModel(@NonNull Application application) {
         super(application);
+         gradingListRepertory=new GradingListRepertory(application);
     }
 
 
@@ -48,13 +60,12 @@ public class GradingVIewModel extends AndroidViewModel {
     //获取评分列表的数据
 
 
-    public MutableLiveData<List<GradingItemEntity>> getGradingItemEntitysData(){
-        List<GradingItemEntity> lists=new ArrayList<>();
-        for (int i = 6; i >0; i--) {
-            lists.add(new GradingItemEntity(i+"","张三","男","包装工","关键事件录入:0件"));
-        }
-        GradingItemEntitys.setValue(lists);
-        return  GradingItemEntitys;
+
+
+    //
+    public void setDate(String Dates){
+
+        GradingDate.setValue(Dates);
 
     }
 

@@ -106,7 +106,7 @@ public class KpiMainActivity extends BaseActvity   {
                         menuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                                drawer.closeDrawers();
+                                 drawer.closeDrawers();
                                  initKpiData(i,kpiBean);
 
 

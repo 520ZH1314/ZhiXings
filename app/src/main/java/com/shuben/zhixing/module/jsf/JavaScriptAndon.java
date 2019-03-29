@@ -253,7 +253,7 @@ public class JavaScriptAndon {
                 callBK(elements,result);
             }
         });
-        fac.selectScreen(STEP);
+        fac.selectScreen(STEP,0);
         if(true){
             return;
         }

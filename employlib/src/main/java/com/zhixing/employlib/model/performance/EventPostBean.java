@@ -1,30 +1,23 @@
 package com.zhixing.employlib.model.performance;
 
-public class YesterdayPerformancePostBean {
+public class EventPostBean {
 
-
-    public YesterdayPerformancePostBean(String appCode, String apiCode, String userCode, String shiftDate, String tenantId, String teamId) {
+    public EventPostBean(String appCode, String apiCode, String tenantId, String teamId) {
         AppCode = appCode;
         ApiCode = apiCode;
-        UserCode = userCode;
-        ShiftDate = shiftDate;
         TenantId = tenantId;
         TeamId = teamId;
     }
 
     /**
      * AppCode : EMS
-     * ApiCode : GetUserInfoOfDay
-     * UserCode : 06153
-     * ShiftDate : 2019-02-15
+     * ApiCode : GetCheckItemByTeamId
      * TenantId : 00000000-0000-0000-0000-000000000001
-     * TeamId : c08aeff2-9754-4e54-ad37-655a33390492
+     * TeamId : f8cab8dd-c606-458f-8294-588ed5c772b1
      */
 
     private String AppCode;
     private String ApiCode;
-    private String UserCode;
-    private String ShiftDate;
     private String TenantId;
     private String TeamId;
 
@@ -42,22 +35,6 @@ public class YesterdayPerformancePostBean {
 
     public void setApiCode(String ApiCode) {
         this.ApiCode = ApiCode;
-    }
-
-    public String getUserCode() {
-        return UserCode;
-    }
-
-    public void setUserCode(String UserCode) {
-        this.UserCode = UserCode;
-    }
-
-    public String getShiftDate() {
-        return ShiftDate;
-    }
-
-    public void setShiftDate(String ShiftDate) {
-        this.ShiftDate = ShiftDate;
     }
 
     public String getTenantId() {

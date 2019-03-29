@@ -16,15 +16,24 @@ import android.widget.TextView;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.inter.SelectTime;
+import com.base.zhixing.www.util.ACache;
+import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.TimeUtil;
+import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.ChangeTime;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.adapter.GradingListAdapt;
 import com.zhixing.employlib.model.GradingItemEntity;
+import com.zhixing.employlib.model.grading.GradListBean;
 import com.zhixing.employlib.viewmodel.activity.GradingVIewModel;
+import com.zhixing.netlib.base.BaseResponse;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -82,6 +91,7 @@ public class GradingActivity extends BaseActvity {
     @Override
     public void initLayout() {
         bind = ButterKnife.bind(this);
+
         initView();
 
         initData();
@@ -90,16 +100,26 @@ public class GradingActivity extends BaseActvity {
     }
 
     private void initData() {
-        gradingVIewModel.getGradingItemEntitysData().observe(this, new Observer<List<GradingItemEntity>>() {
-
-
+          showDialog("");
+        gradingVIewModel.ListData.observe(this, new Observer<BaseResponse<GradListBean>>() {
             @Override
-            public void onChanged(@Nullable List<GradingItemEntity> gradingItemEntities) {
-                if (gradingItemEntities != null) {
+            public void onChanged(@Nullable BaseResponse<GradListBean> gradListBeanBaseResponse) {
+                if (gradListBeanBaseResponse.getRows()!=null){
+                    tvWorkSend.setVisibility(View.VISIBLE);
+                    List<GradingItemEntity> gradingItemEntities=new ArrayList<>();
+                    List<GradListBean> rows = gradListBeanBaseResponse.getRows();
+                    for (GradListBean bean: rows) {
+                        gradingItemEntities.add(new GradingItemEntity(bean.getPhotoURL(),bean.getUserName(),bean.getSex(),bean.getPositionName(),bean.getEventCount(),bean.getUserCode())) ;
+                    }
+                    dismissDialog();
                     gradingListAdapt = new GradingListAdapt(R.layout.item_grading_list, gradingItemEntities);
                     recyGradingList.setAdapter(gradingListAdapt);
-                }
 
+
+                }else{
+                    tvWorkSend.setVisibility(View.GONE);
+                    dismissDialog();
+                }
             }
         });
 
@@ -112,6 +132,19 @@ public class GradingActivity extends BaseActvity {
         tvWorkSend.setText("编辑");
         recyGradingList.setLayoutManager(new LinearLayoutManager(this));
         gradingVIewModel = ViewModelProviders.of(this).get(GradingVIewModel.class);
+        //默认显示昨天日子
+        //设置前一日的时间
+        Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
+        ca.setTime(new Date()); //设置时间为当前时间
+        ca.add(Calendar.DATE, -1); //日减1
+        Date lastDay = ca.getTime(); //结果
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        String format = sf.format(lastDay);
+        String commonTime1 = TimeUtil.getCommonTime1(format);
+        gradingVIewModel.setDate(commonTime1);
+
+
+
     }
 
 
@@ -161,19 +194,32 @@ public class GradingActivity extends BaseActvity {
                 tvGradingListMoth.setText(Month + "月");
                 tvGradingListDay.setText(Day + "日");
 
-
+              gradingVIewModel.setDate(commonTime1);
             }
         });
         changeTime.showSheet();
 
 
     }else if(i==R.id.rl_grading){
+            List<GradingItemEntity> selectData = gradingListAdapt.getSelectData();
+            if (selectData.size()==0){
+                Toasty.INSTANCE.showToast(this,"请选择员工!!");
+            }else{
+                String json = GsonUtil.getGson().toJson(selectData);
 
-            Intent intent =new Intent(GradingActivity.this,GradingDetailActivity.class);
-            intent.putExtra("type","2");
-            startActivity(intent);
+                Intent intent =new Intent(GradingActivity.this,GradingDetailActivity.class);
+                intent.putExtra("type","2");
+                intent.putExtra("selectData",json);
+                startActivity(intent);
+            }
     }
 }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        dismissDialog();
+    }
 }
 
 

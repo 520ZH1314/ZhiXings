@@ -61,7 +61,7 @@ public class MyDBaseHttpSubscriber<T> implements Subscriber<DBaseResponse<T>> {
     public void onSubscribe(Subscription s) {
 
 
-        s.request(1);
+        s.request(2);
 
     }
 

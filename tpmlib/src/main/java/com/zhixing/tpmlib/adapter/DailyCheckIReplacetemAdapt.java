@@ -40,10 +40,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.shape.DevShape;
+import com.orhanobut.logger.Logger;
 import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.R;
 import com.zhixing.tpmlib.activity.PictureListActivity;
 import com.zhixing.tpmlib.bean.AnomalousBean;
+import com.zhixing.tpmlib.bean.CommitMaintenanceBean;
 import com.zhixing.tpmlib.bean.DailyCheckItemBean;
 
 import com.zhixing.tpmlib.bean.EquipmentEvent;
@@ -64,7 +66,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewHolder> {
-    private  MaintenanceServerBean maintenanceServerBean;
+    private MaintenanceServerBean maintenanceServerBean;
     private MyTextActivityViewModel mViewModel;
     private String status;
     private List<DailyCheckItemBean> data;
@@ -101,8 +103,8 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
         sharedUtils = new SharedUtils("TPM");
         EventBus.getDefault().register(this);
         String tpmMaintenanceData = sharedUtil.getStringValue("TpmMaintenanceData");
-        if (tpmMaintenanceData!=null){
-             maintenanceServerBean = GsonUtil.getGson().fromJson(tpmMaintenanceData, MaintenanceServerBean.class);
+        if (tpmMaintenanceData != null) {
+            maintenanceServerBean = GsonUtil.getGson().fromJson(tpmMaintenanceData, MaintenanceServerBean.class);
 
         }
         mViewModel = ViewModelProviders.of(context).get(MyTextActivityViewModel.class);
@@ -112,16 +114,16 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, T items) {
 
-        if (items instanceof DailyCheckItemBean ){
+        if (items instanceof DailyCheckItemBean) {
             helper.itemView.findViewById(R.id.main_warn_con).setVisibility(View.VISIBLE);
             helper.itemView.findViewById(R.id.main_warn_ll).setVisibility(View.GONE);
 
-            DailyCheckItemBean item=(DailyCheckItemBean)items;
+            DailyCheckItemBean item = (DailyCheckItemBean) items;
 
             helper.setText(R.id.tv_daily_check_replace_body, item.getDescription());
             Button btn2 = helper.itemView.findViewById(R.id.btn_ng);
-            roundAngleImageView =(RoundAngleImageView) helper.itemView.findViewById(R.id.roundAngleImageView);
-            MyImageLoader.loads(mContext, UrlUtil.BaseImgUrl+ item.getActuallyImage(), roundAngleImageView);
+            roundAngleImageView = (RoundAngleImageView) helper.itemView.findViewById(R.id.roundAngleImageView);
+            MyImageLoader.loads(mContext, UrlUtil.BaseImgUrl + item.getActuallyImage(), roundAngleImageView);
       /*  String path="storage/emulated/0/Android/data/com.shuben.zhixing.www/cache/luban_disk_cache/154840046858340.png";
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
@@ -169,7 +171,7 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
                     paramater = item.getParamater();
 //                排序号
                     seq = item.getSeq();
-//保养记录id
+                    //保养记录id
                     maintananceId = item.getMaintananceId();
                     params = new HashMap<String, String>();
                     params.put("GradeId", gradeId);
@@ -314,8 +316,9 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
                 @Override
                 public void onClick(View v) {
                     mContext.startActivity(new Intent(mContext, PictureListActivity.class));
-                }  });
-        }else {
+                }
+            });
+        } else {
             MaintenanceItemEntity entity = (MaintenanceItemEntity) items;
             helper.setText(R.id.tv_warn112, "保养标准");
             helper.setText(R.id.tv_warn112, "保养结果");
@@ -323,7 +326,7 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
             helper.itemView.findViewById(R.id.main_warn_ll).setVisibility(View.VISIBLE);
             Button button1 = helper.itemView.findViewById(R.id.btn_comit1);
             helper.setText(R.id.tv_daily_check_replace_body, entity.getDescription());
-            EditText editText=helper.itemView.findViewById(R.id.edit_warn);
+            EditText editText = helper.itemView.findViewById(R.id.edit_warn);
             editText.setFocusableInTouchMode(false);//不可编辑
             editText.setKeyListener(null);//不可粘贴，长按不会弹出粘贴框
             editText.setClickable(false);
@@ -335,7 +338,7 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
             }
 
 
-            if ("".equals(entity.getFruit())){
+            if ("".equals(entity.getFruit())) {
                 //未保养
                 DevShapeUtils
                         .shape(DevShape.RECTANGLE)
@@ -345,7 +348,7 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
                 button1.setText("未保养");
                 button1.setClickable(true);
                 button1.setEnabled(true);
-            }else if ("1".equals(entity.getFruit())){
+            } else if ("1".equals(entity.getFruit())) {
                 DevShapeUtils
                         .shape(DevShape.RECTANGLE)
                         .solid(R.color.total8)
@@ -355,15 +358,15 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
                 button1.setText("已审核");
                 button1.setClickable(false);
                 button1.setEnabled(false);
-            }else{
+            } else {
                 DevShapeUtils
                         .shape(DevShape.RECTANGLE)
                         .solid(R.color.warn_color)
                         .radius(10)
                         .into(button1);
                 //待审核
-                 button1.setText("待审核");
-                 button1.setClickable(false);
+                button1.setText("待审核");
+                button1.setClickable(false);
                 button1.setEnabled(false);
             }
 
@@ -373,42 +376,43 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
                 @Override
                 public void onClick(View v) {
                     mContext.startActivity(new Intent(mContext, PictureListActivity.class));
-                }  });
+                }
+            });
 
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                   mViewModel.SendMaintenanceItemEntity(maintenanceServerBean.EquipmentId,maintenanceServerBean.getGradeId(),
-                           entity.getItemId(),"0",
-                           ImgUrl,maintenanceServerBean.getPlanId(),
-                           entity.getClassId(),
-                           entity.getCell(),
-                           entity.getPosition(),
-                           entity.getDescription(),entity.getStandardImage(),"0",1,entity.getOperator(),
-                           maintenanceServerBean.MaintanceId).observe((FragmentActivity) mContext, new Observer<BaseResponse>() {
-                       @Override
-                       public void onChanged(@Nullable BaseResponse baseResponse) {
+                    mViewModel.SendMaintenanceItemEntity(maintenanceServerBean.EquipmentId, maintenanceServerBean.getGradeId(),
+                            entity.getItemId(), "0",
+                            ImgUrl, maintenanceServerBean.getPlanId(),
+                            entity.getClassId(),
+                            entity.getCell(),
+                            entity.getPosition(),
+                            entity.getDescription(), entity.getStandardImage(), "0", 1, entity.getOperator(),
+                            maintenanceServerBean.MaintanceId).observe((FragmentActivity) mContext, new Observer<CommitMaintenanceBean>() {
+                        @Override
+                        public void onChanged(@Nullable CommitMaintenanceBean commitMaintenanceBean) {
+                            if (commitMaintenanceBean != null) {
+                                if ("True".equals(commitMaintenanceBean.getStatus())) {
+                                    Toasty.INSTANCE.showToast(mContext, "上传成功");
+                                    DevShapeUtils
+                                            .shape(DevShape.RECTANGLE)
+                                            .solid(R.color.warn_color)
+                                            .radius(10)
+                                            .into(button1);
+                                    //待审核
+                                    button1.setText("待审核");
+                                    button1.setClickable(false);
+                                    button1.setEnabled(false);
+                                    mViewModel.isRetrfsh.setValue(true);
+                                } else {
+                                    Toasty.INSTANCE.showToast(mContext, "上传失败");
 
-                                   Toasty.INSTANCE.showToast(mContext,"上传成功");
-                                   DevShapeUtils
-                                           .shape(DevShape.RECTANGLE)
-                                           .solid(R.color.warn_color)
-                                           .radius(10)
-                                           .into(button1);
-                                   //待审核
-                                   button1.setText("待审核");
-                                   button1.setClickable(false);
-                                   button1.setEnabled(false);
-                                   mViewModel.isRetrfsh.setValue(true);
-
-
-
-
-
-
-                       }
-                   });
+                                }
+                            }
+                        }
+                    });
 
 
                 }
@@ -418,11 +422,7 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
         }
 
 
-        }
-
-
-
-
+    }
 
 
     private void showSexTypeDialog(List<AnomalousBean> anomalousBeanLists) {/* 列表弹窗 */
@@ -493,12 +493,11 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
     }
 
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EquipmentEvent event) {
         String equiptmentName = event.getEquiptmentName();
-        if (equiptmentName!=null){
-            ImgUrl=sharedUtils.getStringValue("imgPicUrl");
+        if (equiptmentName != null) {
+            ImgUrl = sharedUtils.getStringValue("imgPicUrl");
         }
     }
 }

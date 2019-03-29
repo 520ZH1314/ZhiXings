@@ -12,6 +12,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MyBaseRepository<T> {
 
 
+    protected Context mContext;
     private  boolean isShow;
     private  Context context;
 

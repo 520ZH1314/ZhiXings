@@ -20,13 +20,13 @@ public class MaintenanceWarnListDataRepertory extends MyBaseRepository<Maintenan
         this.mContext=context;
     }
     public MutableLiveData<BaseResponse<MaintenanceListDataEntity>> getMaintenanceListData(String LineCode, String StationCode, int page, int rows){
-       String AppCode="TPM";
-       String ApiCode="GetPlanProtect";
-       String TenantId=SharedPreferencesTool.getMStool(mContext).getTenantId();
-       String ip=SharedPreferencesTool.getMStool(mContext).getIp();
-       String userCode=SharedPreferencesTool.getMStool(mContext).getUserCode();
-        String StringPage = String.valueOf(page);
-        String Stringrows = String.valueOf(rows);
+         String AppCode="TPM";
+         String ApiCode="GetPlanProtect";
+         String TenantId=SharedPreferencesTool.getMStool(mContext).getTenantId();
+         String ip=SharedPreferencesTool.getMStool(mContext).getIp();
+         String userCode=SharedPreferencesTool.getMStool(mContext).getUserCode();
+         String StringPage = String.valueOf(page);
+         String Stringrows = String.valueOf(rows);
         MaintenanceListDataPostBean bean=new MaintenanceListDataPostBean(AppCode,ApiCode,TenantId,LineCode,StationCode,userCode,StringPage,Stringrows);
        return request(Api.getMaintenanceListData(bean,mContext,ip)).send().get();
 

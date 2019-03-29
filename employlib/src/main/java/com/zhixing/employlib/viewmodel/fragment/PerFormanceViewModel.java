@@ -1,7 +1,6 @@
 package com.zhixing.employlib.viewmodel.fragment;
 
 import android.app.Application;
-import android.arch.core.util.Function;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -11,10 +10,9 @@ import android.support.annotation.NonNull;
 import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.model.IntegralEventEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
-import com.zhixing.employlib.model.performance.PersonTeamBean;
-import com.zhixing.employlib.repertory.EventRepertory;
-import com.zhixing.employlib.repertory.PerformanceRepertory;
-import com.zhixing.netlib.base.BaseResponse;
+import com.zhixing.employlib.model.performance.MonthPerformanceBean;
+import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
+import com.zhixing.employlib.repertory.performance.PerformanceMainRepertory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +25,25 @@ import java.util.List;
  */
 
 public class PerFormanceViewModel extends AndroidViewModel {
-    private  PerformanceRepertory performanceRepertory;
-    private EventRepertory eventRepertory;
+    private PerformanceMainRepertory performanceRepertory;
+    private final MutableLiveData<String> MonthDate=new MutableLiveData<>();
+
+    //获取月绩效数据
+    public final LiveData<DBaseResponse<MonthPerformanceBean>> MonthData=Transformations.switchMap(MonthDate, date->(performanceRepertory.getMonthInfo(date)));
+    //获取月绩效数据的日期
+
+    public  void setMonthTime(String date){
+
+        MonthDate.setValue(date);
+    }
+
 
 
 
     //个人绩效评分的数据
 
     public MutableLiveData<List<PersonTestEntity>> personTestEntitys=new MutableLiveData<>();
-    public LiveData< List<PersonTestEntity> > testEnt=new MutableLiveData<>();
+
 
 
     //积分事件的数据
@@ -43,8 +51,8 @@ public class PerFormanceViewModel extends AndroidViewModel {
     public PerFormanceViewModel(@NonNull Application application) {
         super(application);
 
-         performanceRepertory=new PerformanceRepertory(application);
-        eventRepertory = new EventRepertory(application);
+         performanceRepertory=new PerformanceMainRepertory(application);
+
     }
 
 
@@ -68,21 +76,37 @@ public class PerFormanceViewModel extends AndroidViewModel {
     //获取个人绩效评分的数据
 
 
-    public LiveData< List<PersonTestEntity> > getPersonTestEntitysData(){
+    public MutableLiveData<List<PersonTestEntity>>getPersonTestEntitysData(){
 
-       /* List<PersonTestEntity> lists=new ArrayList<>();
+        List<PersonTestEntity> lists=new ArrayList<>();
         for (int i = 6; i >0; i--) {
             lists.add(new PersonTestEntity(i+"","员工正常出勤即获得基础得分5分",""+i));
 
-        }*/
-            testEnt =  Transformations.map(eventRepertory.getEventInfo(),DBaseResponse::getRows);
-//        testEnt.getValue().getRows()
-       // personTestEntitys = Transformations.map(testEnt, DBaseResponse::getRows);
+        }
 
-//        personTestEntitys.setValue(lists);
-        return  testEnt;
+        personTestEntitys.setValue(lists);
+        return  personTestEntitys;
 
     }
+
+
+
+
+
+
+     private final MutableLiveData<String> yesTerDayDate=new MutableLiveData<>();
+    //获取昨日绩效数据
+    public final LiveData<DBaseResponse<TotalMonthPerformanceBean>> YesDayData=Transformations.switchMap(yesTerDayDate,dates->(performanceRepertory.getYesterdayInfo(dates)));
+
+
+    //获取昨日绩效数据的日期
+
+    public  void setYesterdayTime(String dates){
+
+
+        yesTerDayDate.setValue(dates);
+    }
+
 
 
 

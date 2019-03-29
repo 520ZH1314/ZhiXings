@@ -16,11 +16,10 @@ import android.widget.TextView;
 import com.base.zhixing.www.R;
 import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.TimeUtil;
-<<<<<<< Updated upstream
-=======
+
 import com.orhanobut.logger.Logger;
 
->>>>>>> Stashed changes
+
 import java.util.Calendar;
 
 import library.NumberPickerView;

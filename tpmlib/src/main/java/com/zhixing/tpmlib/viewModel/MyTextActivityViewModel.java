@@ -6,7 +6,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.zhixing.netlib.base.BaseResponse;
+import com.zhixing.netlib.base.MyBaseRepository;
 import com.zhixing.tpmlib.R;
+import com.zhixing.tpmlib.bean.CommitMaintenanceBean;
 import com.zhixing.tpmlib.bean.DailyCheckItemBean;
 import com.zhixing.tpmlib.bean.MaintenanceItemEntity;
 import com.zhixing.tpmlib.bean.MaintenanceServerBean;
@@ -41,7 +43,7 @@ public class MyTextActivityViewModel extends AndroidViewModel {
     public MutableLiveData<MaintenanceServerBean> MaintenanceServer= new MutableLiveData<>();
 
     //上传结果
-    public MutableLiveData<BaseResponse> baseResponseMutableLiveData;
+    public MutableLiveData<CommitMaintenanceBean> baseResponseMutableLiveData;
 
 
     public MyTextActivityViewModel(@NonNull Application application) {
@@ -100,9 +102,10 @@ public class MyTextActivityViewModel extends AndroidViewModel {
 
    //提交保养记录
 
-    public  MutableLiveData<BaseResponse> SendMaintenanceItemEntity(String equipmentId, String gradeId, String itemId, String fruit, String actuallyImage, String planId, String classId, String cell,
-                                                                    String position, String description, String standardImage,
-                                                                    String paramater, int seq, String operator, String maintananceId){
+    public  MutableLiveData<CommitMaintenanceBean> SendMaintenanceItemEntity(String equipmentId, String gradeId, String itemId, String fruit, String actuallyImage, String planId, String classId, String cell,
+                                                                             String position, String description, String standardImage,
+                                                                             String paramater, int seq, String operator, String maintananceId){
+
         baseResponseMutableLiveData = recordDataRepertory.SendMaintenanceItemData(equipmentId, gradeId, itemId, fruit, actuallyImage, planId, classId, cell, position, description, standardImage, paramater, seq, operator, maintananceId);
         return  baseResponseMutableLiveData;
     }

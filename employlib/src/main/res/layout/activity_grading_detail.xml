@@ -147,13 +147,14 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="visible">
 
                         <android.support.constraint.ConstraintLayout
-                            android:visibility="gone"
                             android:id="@+id/cl_grading_detail_single_people"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
 
 
                             <de.hdodenhof.circleimageview.CircleImageView
@@ -246,7 +247,8 @@
                         <android.support.constraint.ConstraintLayout
                             android:id="@+id/cl_grading_detail_many_people"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:visibility="visible">
 
                             <de.hdodenhof.circleimageview.CircleImageView
 
@@ -263,13 +265,13 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/list_txt_s"
                                 android:id="@+id/textView23"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:text="您正在对以下人员进行评分"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/list_txt_s"
                                 app:layout_constraintStart_toEndOf="@+id/circleImageView_detail_many_people"
                                 app:layout_constraintTop_toTopOf="@+id/circleImageView_detail_many_people" />
 
@@ -286,14 +288,14 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
                             <TextView
-                                android:textSize="@dimen/list_txt_s"
-                                android:textColor="@color/title_bg"
                                 android:id="@+id/tv_grading_detail_modify"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginEnd="8dp"
                                 android:text="修改"
+                                android:textColor="@color/title_bg"
+                                android:textSize="@dimen/list_txt_s"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/textView23"
                                 app:layout_constraintTop_toBottomOf="@+id/textView23" />

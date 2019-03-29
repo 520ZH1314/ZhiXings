@@ -179,7 +179,7 @@ public class MyInfoDetailActivity extends BaseActvity {
                     for (LocalMedia bean: selectList) {
                         String compressPath = bean.getCompressPath();
 //                          ImageLoader.loadListeren(this,compressPath,ivMyInfoDetailHead);
-                        MyImageLoader.loadListeren(this,compressPath,ivMyInfoDetailHead,false,"");
+                        MyImageLoader.loads(this,compressPath,ivMyInfoDetailHead);
                     }
                     break;
             }

@@ -1,5 +1,6 @@
 package com.zhixing.employlib.ui.fragment;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,10 +18,16 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseFragment;
+import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.SelectTime;
+import com.base.zhixing.www.util.ACache;
+import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.TimeUtil;
+import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.ChangeTime;
+import com.google.gson.reflect.TypeToken;
+import com.orhanobut.logger.Logger;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
@@ -29,7 +36,10 @@ import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloating
 import com.wangjie.rapidfloatingactionbutton.util.RFABTextUtil;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
+import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.api.PerformanceApi;
+import com.zhixing.employlib.model.performance.MonthPerformanceBean;
+import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
 import com.zhixing.employlib.ui.activity.AppealActivity;
 import com.zhixing.employlib.ui.activity.AppealListActivity;
 import com.zhixing.employlib.ui.activity.GradingActivity;
@@ -39,11 +49,13 @@ import com.zhixing.employlib.view.DialogFragmentIntergralEvent;
 import com.zhixing.employlib.view.DialogFragmentPersonTest;
 import com.zhixing.employlib.viewmodel.fragment.PerFormanceViewModel;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -137,13 +149,20 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
     private SharedUtils sharedUtils;
     private boolean booleanValue;
     private String teamId;
+    private String commonTime1;
+    public List<TotalMonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userDatas ;//昨日绩效
+    public List<TotalMonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamDatas ;//昨日绩效
 
+    public List<MonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userMonthData; //昨日绩效
+    public List<MonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamMonthData ;//昨日绩效
+    private ACache aCache;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_personol_performance, container, false);
         unbinder = ButterKnife.bind(this, view);
+         aCache = ACache.get(getActivity(),"Performance");
         perFormanceViewModel = ViewModelProviders.of(getActivity()).get(PerFormanceViewModel.class);
         rfaLayout = (RapidFloatingActionLayout) view.findViewById(R.id.label_list_sample_rfal);
         rfaButton = (RapidFloatingActionButton) view.findViewById(R.id.label_list_sample_rfab);
@@ -155,23 +174,404 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
     }
 
     private void initData() {
-
+        showDialog("");
         //是否是领导
         teamId = sharedUtils.getStringValue(PerformanceApi.TEAMID);
         booleanValue = sharedUtils.getBooleanValue(PerformanceApi.ISTEAMLEADER);
         if (teamId != null) {
-             //初始化悬浮按钮
+            //初始化悬浮按钮
             initFloatingActionButton(booleanValue);
         } else {
             return;
         }
 
         //初始化个人和班组的昨日绩效
+        perFormanceViewModel.setYesterdayTime("2019-04-15");
 
 
+        perFormanceViewModel.YesDayData.observe(getActivity(), totalMonthPerformanceBeans -> {
+            if (totalMonthPerformanceBeans != null) {
 
 
+                List<TotalMonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamInfo = totalMonthPerformanceBeans.getRows().get(0).getReturndayInfo().getTeamInfo();
+                List<TotalMonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userInfo = totalMonthPerformanceBeans.getRows().get(0).getReturndayInfo().getUserInfo();
+
+                  String teamInfoStr = GsonUtil.getGson().toJson(teamInfo);
+                  String userInfoStr = GsonUtil.getGson().toJson(userInfo);
+                  aCache.put("DayUserInfo",userInfoStr);
+                  aCache.put("DayTeamInfo",teamInfoStr);
+
+                  P.c(userInfoStr);
+                  setYesDayData();
+                //初始化月绩效
+
+
+            }else{
+                aCache.remove("DayUserInfo") ;
+                aCache.remove("DayTeamInfo") ;
+                Toasty.INSTANCE.showToast(getActivity(),"暂无新的数据");
+                dismissDialog();
+            }
+
+
+        });
+        perFormanceViewModel.setMonthTime("2019-02-01");
+        perFormanceViewModel.MonthData.observe(getActivity(),  beans ->{
+            if (beans != null) {
+                //强转问题
+                List<MonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamInfo1 = beans.getRows().get(0).getReturndayInfo().getTeamInfo();
+                List<MonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userInfo1 = beans.getRows().get(0).getReturndayInfo().getUserInfo();
+
+
+                String teamInfoStr1 = GsonUtil.getGson().toJson(teamInfo1);
+                String userInfoStr1 = GsonUtil.getGson().toJson(userInfo1);
+
+                aCache.put("MonthUserInfo",userInfoStr1);
+                aCache.put("MonthTeamInfo",teamInfoStr1);
+                if (index==1){
+                    setMonthDayData();
+                }
+
+
+                dismissDialog();
+
+            }else{
+                aCache.remove("MonthUserInfo") ;
+                aCache.remove("MonthTeamInfo") ;
+                Toasty.INSTANCE.showToast(getActivity(),"暂无新的数据");
+                dismissDialog();
+            }
+
+        });
     }
+
+
+
+
+
+    private void setYesDayData() {
+        String dayUserInfo = aCache.getAsString("DayUserInfo");
+        String teamInfo=aCache.getAsString("DayTeamInfo");
+
+        Type type = new TypeToken< List<TotalMonthPerformanceBean.ReturndayInfoBean.TeamInfoBean>>() {}.getType();
+        Type type2 = new TypeToken< List<TotalMonthPerformanceBean.ReturndayInfoBean.UserInfoBean>>() {}.getType();
+
+        List<TotalMonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userData = GsonUtil.getGson().fromJson(dayUserInfo, type2);
+        List<TotalMonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamData = GsonUtil.getGson().fromJson(teamInfo, type);
+        Logger.i(teamData.size()+"");
+        if (userData.size()==0){
+            tvIntegral.setText("暂无");
+            tvRank.setText("暂无");
+            tvName.setText("我的上级:" + "暂无");
+
+        }else{
+            tvIntegral.setText(userData.get(0).getScore()+"");
+            tvRank.setText(userData.get(0).getSeq()+"");
+            tvName.setText("我的上级:" + userData.get(0).getTeamLeaderName());
+        }
+
+        if (teamData.size()==0){
+
+                clealData("暂无");
+                Toasty.INSTANCE.showToast(getActivity(),"暂无数据");
+
+        }
+
+        if (teamData.size()==1){
+
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText("暂无");
+            tvNameExcellentIntegral2.setText("暂无");
+
+            tvNameExcellent3.setText("暂无");
+            tvNameExcellentIntegral3.setText("暂无");
+
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+
+
+        }else if (teamData.size()==2) {
+
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+            tvNameExcellent3.setText("暂无");
+            tvNameExcellentIntegral3.setText("暂无");
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()==3) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()==4) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+
+        }else if (teamData.size()==5) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+
+            tvBackwardName2.setText(teamData.get(4).getUserName());
+            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
+
+
+            tvBackwardName3.setText("暂无");
+
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()>=6) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+
+            tvBackwardName2.setText(teamData.get(4).getUserName());
+            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
+
+            tvBackwardIntegral3.setText(teamData.get(5).getScore()+"");
+            tvBackwardName3.setText(teamData.get(5).getUserName());
+
+
+        }
+    }
+
+
+    private void setMonthDayData() {
+        String MonthUserInfo = aCache.getAsString("MonthUserInfo");
+        String MonthTeamInfo=aCache.getAsString("MonthTeamInfo");
+
+        Type type = new TypeToken< List<MonthPerformanceBean.ReturndayInfoBean.TeamInfoBean>>() {}.getType();
+        Type type2 = new TypeToken< List<MonthPerformanceBean.ReturndayInfoBean.UserInfoBean>>() {}.getType();
+        List<MonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userData = GsonUtil.getGson().fromJson(MonthUserInfo, type2);
+        List<MonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamData = GsonUtil.getGson().fromJson(MonthTeamInfo, type);
+
+
+
+        if (userData.size()==0){
+            tvIntegral.setText("暂无");
+            tvRank.setText("暂无");
+            tvName.setText("我的上级:" + "暂无");
+
+        }else{
+            tvIntegral.setText(userData.get(0).getScore()+"");
+            tvRank.setText(userData.get(0).getSeq()+"");
+            tvName.setText("我的上级:" + userData.get(0).getTeamLeaderName());
+        }
+
+        if (teamData.size()==0){
+
+            clealData("暂无");
+            Toasty.INSTANCE.showToast(getActivity(),"暂无数据");
+
+        }
+
+        if (teamData.size()==1){
+
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText("暂无");
+            tvNameExcellentIntegral2.setText("暂无");
+
+            tvNameExcellent3.setText("暂无");
+            tvNameExcellentIntegral3.setText("暂无");
+
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+
+
+        }else if (teamData.size()==2) {
+
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+            tvNameExcellent3.setText("暂无");
+            tvNameExcellentIntegral3.setText("暂无");
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()==3) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()==4) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+
+        }else if (teamData.size()==5) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+
+            tvBackwardName2.setText(teamData.get(4).getUserName());
+            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
+
+
+            tvBackwardName3.setText("暂无");
+
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()>=6) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+
+            tvBackwardName2.setText(teamData.get(4).getUserName());
+            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
+
+            tvBackwardIntegral3.setText(teamData.get(5).getScore()+"");
+            tvBackwardName3.setText(teamData.get(5).getUserName());
+
+
+        }
+    }
+
+
+
+
 
 
     private void initView() {
@@ -197,7 +597,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
         Date lastDay = ca.getTime(); //结果
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         String format = sf.format(lastDay);
-        String commonTime1 = TimeUtil.getCommonTime1(format);
+        commonTime1 = TimeUtil.getCommonTime1(format);
         String[] split = commonTime1.split("-");
         Year = split[0];
         Month = split[1];
@@ -370,6 +770,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
                         tvTimeYear.setText(Year + "年" + Month + "月");
                         tvTimeDate.setText(Day + "日");
 
+                        perFormanceViewModel.setYesterdayTime(commonTime1);
 
                     }
                 });
@@ -386,7 +787,8 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
                         Months = splitYear[1];
                         Days = splitYear[2];
                         tvTimeYear.setText(Years + "年");
-                        tvTimeDate.setText(Months + "月");
+                         tvTimeDate.setText(Months + "月");
+                         perFormanceViewModel.setMonthTime(Years+"-"+Months+"-"+"01");
 
                     }
                 });
@@ -411,8 +813,9 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
             textView7.setText("我的排名");
             tvTimeYear.setText(Year + "年" + Month + "月");
             tvTimeDate.setText(Day + "日");
-
             index = 0;
+
+            setYesDayData();
 
 
         } else if (i == R.id.radButton_person2) {
@@ -422,6 +825,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
             tvTimeDate.setText(Months + "月");
 
             index = 1;
+            setMonthDayData();
 
         } else if (i == R.id.tv_integral) {
 
@@ -443,6 +847,33 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
         } else if (i == R.id.tv_work_send) {
 
         }
+    }
+
+
+
+    public void clealData(String msg){
+
+        tvNameExcellent1.setText(msg);
+        tvNameExcellentIntegral1.setText(msg);
+        tvNameExcellent2.setText(msg);
+        tvNameExcellentIntegral2.setText(msg);
+
+        tvNameExcellent3.setText(msg);
+        tvNameExcellentIntegral3.setText(msg);
+
+        tvBackwardRank1.setText("加油");
+        tvBackwardIntegral1.setText(msg);
+        tvBackwardName1.setText(msg);
+
+        tvBackwardName2.setText(msg);
+        tvBackwardIntegral2.setText(msg);
+        tvBackwardRank2.setText("加油");
+
+        tvBackwardName3.setText(msg);
+        tvBackwardIntegral3.setText(msg);
+        tvBackwardRank3.setText("加油");
+
+
     }
 
 

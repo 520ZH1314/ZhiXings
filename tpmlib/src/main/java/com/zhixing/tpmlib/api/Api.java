@@ -6,6 +6,7 @@ import com.zhixing.netlib.base.BaseHttpUtil;
 import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.netlib.base.RetrofitClients;
 import com.zhixing.tpmlib.bean.CheckRecordDataEntity;
+import com.zhixing.tpmlib.bean.CommitMaintenanceBean;
 import com.zhixing.tpmlib.bean.EquipmentBaseDataPostBean;
 import com.zhixing.tpmlib.bean.EquipmentBaseDataPostBeans;
 import com.zhixing.tpmlib.bean.EquipmentBaseDateEntity;
@@ -82,7 +83,7 @@ public class Api {
     }
 
     //提交保养点检记录
-    public static Flowable<BaseResponse> SendMaintenanceItemDatas(MaintenanceCommitPostBean bean, Context mContext, String url) {
+    public static Flowable<CommitMaintenanceBean> SendMaintenanceItemDatas(MaintenanceCommitPostBean bean, Context mContext, String url) {
         return RetrofitClients.getInstance(mContext,url).create(TpmApi.class).SendMaintenanceItemDatas((new BaseHttpUtil< MaintenanceCommitPostBean>().convertVo2Json(bean)));
     }
 

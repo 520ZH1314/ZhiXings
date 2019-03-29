@@ -5,9 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-
 import java.util.Calendar;
-
 import cn.carbs.android.gregorianlunarcalendar.library.R;
 import library.NumberPickerView;
 import library.data.ChineseCalendar;

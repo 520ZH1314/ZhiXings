@@ -9,20 +9,19 @@ import android.support.annotation.NonNull;
 
 import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
-import com.zhixing.employlib.repertory.PerformanceRepertory;
-import com.zhixing.netlib.base.BaseResponse;
+import com.zhixing.employlib.repertory.performance.PerformanceMainRepertory;
 
 import java.util.List;
 
 public class PerformanceMainViewModel extends AndroidViewModel {
-    private  PerformanceRepertory performanceRepertory;
+    private PerformanceMainRepertory performanceRepertory;
     //个人班组信息以及权限
 
     public LiveData< List<PersonTeamBean> > TeamBeans;
 
     public PerformanceMainViewModel(@NonNull Application application) {
         super(application);
-        performanceRepertory=new PerformanceRepertory(application);
+        performanceRepertory=new PerformanceMainRepertory(application);
     }
 
 

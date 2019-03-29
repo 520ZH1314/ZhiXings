@@ -6,11 +6,14 @@ public class GradingEventEntity {
     //"TenantId":"00000000-0000-0000-0000-000000000001","CreateTime":"2019-03-27"
     //}
     public String  name;
-    public String  score;
+    public int  score;
 
-    public GradingEventEntity(String name, String score) {
+    public String id;
+
+    public GradingEventEntity(String name, int score,String id) {
         this.name = name;
         this.score = score;
+        this.id=id;
     }
 
     public String getName() {
@@ -21,11 +24,11 @@ public class GradingEventEntity {
         this.name = name;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 }

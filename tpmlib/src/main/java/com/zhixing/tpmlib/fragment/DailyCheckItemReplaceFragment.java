@@ -119,15 +119,14 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
         mViewModel.maintenanceItemEntityDatas.observe(getActivity(), new Observer<BaseResponse<MaintenanceItemEntity>>() {
             @Override
             public void onChanged(@Nullable BaseResponse<MaintenanceItemEntity> maintenanceItemEntityBaseResponse) {
-
                 if (maintenanceItemEntityBaseResponse.getRows()!=null){
                     if (isWarnPage){
                         adapt = new DailyCheckIReplacetemAdapt(R.layout.item_recyleview_daily_check_replace_item, maintenanceItemEntityBaseResponse.getRows(), getActivity());
-
+                        InfiniteScrollAdapter infiniteScrollAdapter=new InfiniteScrollAdapter(adapt);
                         recyleviewDailyCheckItemReplaceOne.setOffscreenItems(2);
                         recyleviewDailyCheckItemReplaceOne.setClampTransformProgressAfter(2);
                         recyleviewDailyCheckItemReplaceOne.setOrientation(DSVOrientation.HORIZONTAL);
-                        recyleviewDailyCheckItemReplaceOne.setAdapter(adapt);
+                        recyleviewDailyCheckItemReplaceOne.setAdapter(infiniteScrollAdapter);
 //            recyleviewDailyCheckItemReplaceOne.scrollToPosition(integer);
 
                         recyleviewDailyCheckItemReplaceOne.setItemTransformer(new ScaleTransformer.Builder()
@@ -143,16 +142,12 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
 
             }
         });
-
-
         mViewModel.Position.observe(getActivity(), new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
                 if (integer!=null){
-
                     position=integer;
                     recyleviewDailyCheckItemReplaceOne.scrollToPosition(integer);
-
                 }
             }
         });

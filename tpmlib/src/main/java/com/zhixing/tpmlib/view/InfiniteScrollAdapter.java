@@ -9,7 +9,7 @@ import com.zhixing.tpmlib.R;
 import java.util.Locale;
 
 /**
- * Created by yarolegovich on 28-Apr-17.
+ *
  */
 
 public class InfiniteScrollAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T>

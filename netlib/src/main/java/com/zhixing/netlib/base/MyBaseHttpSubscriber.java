@@ -64,14 +64,15 @@ public class MyBaseHttpSubscriber<T> implements Subscriber<BaseResponse<T>> {
 
     @Override
     public void onNext(BaseResponse<T> t) {
-        if (t.getMessage()!=null){
-            onFinish(t);
-
-        }else{
-            ex = ExceptionEngine.handleException(new ServerException( t.getMessage()));
-            getErrorDto(ex);
-            Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
-        }
+        onFinish(t);
+//        if (t.getMessage()==null){
+//            onFinish(t);
+//
+//        }else{
+//            ex = ExceptionEngine.handleException(new ServerException( t.getMessage()));
+//            getErrorDto(ex);
+//            Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
+//        }
     }
 
     @Override

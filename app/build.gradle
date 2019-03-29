@@ -156,6 +156,7 @@ dependencies {
     implementation project(path: ':schedulelib')
     implementation project(path: ':masslib')
     implementation project(path: ':tpmlib')
+    implementation project(path: ':employlib')
     //    implementation 'com.android.support:appcompat-v7:25.3.1'
 
     //    implementation "com.android.support:$support_version"

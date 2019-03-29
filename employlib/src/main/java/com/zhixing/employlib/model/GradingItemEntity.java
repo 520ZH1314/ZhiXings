@@ -5,12 +5,30 @@ public class GradingItemEntity {
     public String name;
     public String sex;
     public String position;
-    public String keyEventsNums;
+    public int keyEventsNums;
+    public String useCode;
 
     public boolean isChecked;
+
+    public String getUseCode() {
+        return useCode;
+    }
+
+    public void setUseCode(String useCode) {
+        this.useCode = useCode;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
     public boolean isSelected;
 
-    public GradingItemEntity(String imageUrl, String name, String sex, String position, String keyEventsNums, boolean isChecked, boolean isSelected) {
+    public GradingItemEntity(String imageUrl, String name, String sex, String position, int keyEventsNums, boolean isChecked, boolean isSelected,String useCode) {
         this.imageUrl = imageUrl;
         this.name = name;
         this.sex = sex;
@@ -18,6 +36,7 @@ public class GradingItemEntity {
         this.keyEventsNums = keyEventsNums;
         this.isChecked = isChecked;
         this.isSelected = isSelected;
+        this.useCode=useCode;
     }
 
     public boolean isChecked() {
@@ -60,19 +79,20 @@ public class GradingItemEntity {
         this.position = position;
     }
 
-    public String getKeyEventsNums() {
+    public int getKeyEventsNums() {
         return keyEventsNums;
     }
 
-    public void setKeyEventsNums(String keyEventsNums) {
+    public void setKeyEventsNums(int keyEventsNums) {
         this.keyEventsNums = keyEventsNums;
     }
 
-    public GradingItemEntity(String imageUrl, String name, String sex, String position, String keyEventsNums) {
+    public GradingItemEntity(String imageUrl, String name, String sex, String position, int keyEventsNums,String useCode) {
         this.imageUrl = imageUrl;
         this.name = name;
         this.sex = sex;
         this.position = position;
         this.keyEventsNums = keyEventsNums;
+        this.useCode=useCode;
     }
 }

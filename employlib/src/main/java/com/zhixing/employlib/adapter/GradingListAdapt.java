@@ -1,9 +1,11 @@
 package com.zhixing.employlib.adapter;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
@@ -22,7 +24,9 @@ import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.ui.activity.GradingDetailActivity;
 import com.zhixing.employlib.viewmodel.activity.GradingVIewModel;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -32,42 +36,42 @@ import java.util.List;
  */
 public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseViewHolder> {
 
-    public  boolean isSelected=false;
+    public boolean isSelected = false;
     public List<GradingItemEntity> data;
+
     public GradingListAdapt(int layoutResId, @Nullable List<GradingItemEntity> data) {
         super(layoutResId, data);
-        this.data=data;
+        this.data = data;
     }
 
     @Override
     protected void convert(final BaseViewHolder helper, final GradingItemEntity item) {
-       final CheckBox checkBox  =(CheckBox)helper.itemView.findViewById(R.id.checkBox_item_grading);
-        CardView cardView =(CardView) helper.itemView.findViewById(R.id.card_item_grading);
-        if (isSelected){
+        final CheckBox checkBox = (CheckBox) helper.itemView.findViewById(R.id.checkBox_item_grading);
+        CardView cardView = (CardView) helper.itemView.findViewById(R.id.card_item_grading);
+        if (isSelected) {
             checkBox.setVisibility(View.VISIBLE);
-
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (data.get(helper.getLayoutPosition()).isChecked){
+                    if (data.get(helper.getLayoutPosition()).isChecked) {
                         checkBox.setChecked(false);
                         data.get(helper.getLayoutPosition()).setChecked(false);
 
-                    }else{
+                    } else {
                         checkBox.setChecked(true);
                         data.get(helper.getLayoutPosition()).setChecked(true);
                     }
                 }
             });
 
-        }else{
+        } else {
             checkBox.setVisibility(View.GONE);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Intent intent =new Intent(mContext,GradingDetailActivity.class);
-                    intent.putExtra("type","1");
+                    Intent intent = new Intent(mContext, GradingDetailActivity.class);
+                    intent.putExtra("type", "1");
+                    intent.putExtra("position", data.get(helper.getLayoutPosition()).useCode);
                     mContext.startActivity(intent);
                 }
             });
@@ -76,17 +80,13 @@ public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseVie
         }
 
 
+        ImageView imageView = (ImageView) helper.itemView.findViewById(R.id.circleImageView);
 
-
-
-
-        ImageView imageView = (ImageView)helper.itemView.findViewById(R.id.circleImageView);
-
-        helper.setText(R.id.tv_grading_item_list_name,item.name);
-        helper.setText(R.id.tv_grading_item_list_sex,item.sex);
-        helper.setText(R.id.tv_grading_item_list_worker,item.position);
-        helper.setText(R.id.tv_grading_item_list_desc,item.keyEventsNums);
-        Button button=(Button) helper.itemView.findViewById(R.id.btn_item_grading);
+        helper.setText(R.id.tv_grading_item_list_name, item.name);
+        helper.setText(R.id.tv_grading_item_list_sex, item.sex);
+        helper.setText(R.id.tv_grading_item_list_worker, item.position);
+        helper.setText(R.id.tv_grading_item_list_desc, "已录入关键事件" + item.keyEventsNums + "条");
+        Button button = (Button) helper.itemView.findViewById(R.id.btn_item_grading);
 
 
         DevShapeUtils
@@ -98,12 +98,20 @@ public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseVie
     }
 
 
-    public void setIsSelect(boolean isSelect){
+    public void setIsSelect(boolean isSelect) {
 
-        if (!isSelect){
+        if (!isSelect) {
 
         }
 
-        this.isSelected=isSelect;
+        this.isSelected = isSelect;
+    }
+    //提供给activity获取选中的activity
+
+    @TargetApi(Build.VERSION_CODES.N)
+    public List<GradingItemEntity> getSelectData() {
+        return data.stream().filter(s -> s.isChecked).collect(Collectors.toList());
+
+
     }
 }

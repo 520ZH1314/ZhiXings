@@ -5,6 +5,7 @@ package com.zhixing.tpmlib.api;
 import com.zhixing.netlib.base.BaseRepository;
 import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.bean.CheckRecordDataEntity;
+import com.zhixing.tpmlib.bean.CommitMaintenanceBean;
 import com.zhixing.tpmlib.bean.EquipmentBaseDateEntity;
 import com.zhixing.tpmlib.bean.LineStationResponEntity;
 import com.zhixing.tpmlib.bean.MaintenanceItemEntity;
@@ -83,9 +84,8 @@ public interface TpmApi {
 
 
     //提交保养点检数据
-
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("api/CMP/ApiRegistrator/PostApiGateWay")
-    Flowable<BaseResponse> SendMaintenanceItemDatas(@Body RequestBody body);
+    Flowable<CommitMaintenanceBean>SendMaintenanceItemDatas(@Body RequestBody body);
 
 }

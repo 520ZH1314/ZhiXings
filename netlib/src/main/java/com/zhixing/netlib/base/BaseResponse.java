@@ -6,7 +6,8 @@ import java.util.List;
  * Created by goldze on 2017/5/10.
  * 该类仅供参考，实际业务返回的固定字段, 根据需求来定义，
  */
-public class BaseResponse<T> {
+public class BaseResponse<T>{
+
     private String status;
     private String message;
     private int total;
@@ -14,6 +15,10 @@ public class BaseResponse<T> {
     public String getStatus() {
         return status;
     }
+
+
+
+
 
     public void setStatus(String status) {
         this.status = status;
@@ -23,9 +28,10 @@ public class BaseResponse<T> {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(String Message) {
         this.message = message;
     }
+
 
     public int getTotal() {
         return total;

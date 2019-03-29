@@ -101,7 +101,6 @@ public final class PictureSelector {
                 result = new ArrayList<>();
             }
             //增加水印功能
-
             return result;
         }
         return result;

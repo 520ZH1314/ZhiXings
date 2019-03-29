@@ -20,9 +20,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.common.Common;
-import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.SharedUtils;
-import com.base.zhixing.www.view.Toasty;
 import com.leo618.zip.IZipCallback;
 import com.leo618.zip.ZipManager;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -58,9 +56,7 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
 import com.base.zhixing.www.widget.CommonTips;
 import com.base.zhixing.www.widget.InGridView;
-import com.zhixing.work.activity.WorkMainActivity;
-
-import net.lingala.zip4j.util.Zip4jUtil;
+import com.zhixing.employlib.ui.activity.PerformanceActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -412,7 +408,9 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 break;
             case 1://任务交办
                 //showRefundDialogs("当前用户未开启任务交办功能");
-                TpmSetting.getInstance(getActivity()).isSetting();
+//                TpmSetting.getInstance(getActivity()).isSetting();
+                Intent intent =new Intent(getActivity(),PerformanceActivity.class);
+                startActivity(intent);
 
 //
 //                    Intent intent =new Intent(getActivity(),WorkMainActivity.class);

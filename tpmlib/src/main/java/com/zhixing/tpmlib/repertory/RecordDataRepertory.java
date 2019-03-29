@@ -11,6 +11,7 @@ import com.zhixing.netlib.base.MyBaseRepository;
 import com.zhixing.tpmlib.api.Api;
 import com.zhixing.tpmlib.api.TpmApi;
 import com.zhixing.tpmlib.bean.CheckRecordDataEntity;
+import com.zhixing.tpmlib.bean.CommitMaintenanceBean;
 import com.zhixing.tpmlib.bean.MaintenanceCommitPostBean;
 import com.zhixing.tpmlib.bean.MaintenanceItemCheckPostBean;
 import com.zhixing.tpmlib.bean.MaintenanceItemEntity;
@@ -91,10 +92,11 @@ public class RecordDataRepertory {
 
 
 
-    public MutableLiveData<BaseResponse> SendMaintenanceItemData( String equipmentId, String gradeId, String itemId, String fruit, String actuallyImage, String planId, String classId, String cell,
-                                                                  String position, String description, String standardImage,
-                                                                  String paramater, int seq, String operator, String maintananceId){
-        MyBaseRepository baseRepository=new  MyBaseRepository(context);
+    public MutableLiveData<CommitMaintenanceBean> SendMaintenanceItemData(String equipmentId, String gradeId, String itemId, String fruit, String actuallyImage, String planId, String classId, String cell,
+                                                                          String position, String description, String standardImage,
+                                                                          String paramater, int seq, String operator, String maintananceId){
+
+        BaseRepository baseRepository=new BaseRepository<CommitMaintenanceBean>(context);
         String AppCode="TPM";
         String ApiCode="EditMaintanceRecord";
         String TenantId=SharedPreferencesTool.getMStool(context).getTenantId();
