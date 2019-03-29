@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/iv_date_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -62,6 +63,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/select_appeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/x3"

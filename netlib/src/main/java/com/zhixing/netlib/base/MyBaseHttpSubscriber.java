@@ -64,7 +64,7 @@ public class MyBaseHttpSubscriber<T> implements Subscriber<BaseResponse<T>> {
 
     @Override
     public void onNext(BaseResponse<T> t) {
-        if (t.getMessage()==null){
+        if (t.getMessage()!=null){
             onFinish(t);
 
         }else{

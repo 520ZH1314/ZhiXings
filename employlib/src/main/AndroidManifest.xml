@@ -34,6 +34,7 @@
             android:name=".ui.activity.AppealListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity android:name=".ui.activity.AppealDetailActivity"></activity>
+        <activity android:name=".ui.activity.SelectAppealPersonActivity" />
     </application>
 
 </manifest>

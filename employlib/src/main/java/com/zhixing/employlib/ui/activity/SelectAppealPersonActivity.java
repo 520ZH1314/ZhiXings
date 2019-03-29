@@ -2,8 +2,6 @@ package com.zhixing.employlib.ui.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,19 +12,22 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
-import com.base.zhixing.www.view.Toasty;
+import com.base.zhixing.www.common.P;
+import com.orhanobut.logger.Logger;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
+import com.zhixing.employlib.adapter.AppealPersonEventAdapt;
 import com.zhixing.employlib.adapter.GradingEventAdapt;
-import com.zhixing.employlib.model.GradingEventEntity;
+import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.model.eventbus.GradingEventBean;
-import com.zhixing.employlib.viewmodel.activity.GradingEventViewModel;
+import com.zhixing.employlib.repertory.AppealRepertory;
+import com.zhixing.employlib.viewmodel.activity.AppealPersonViewModel;
 import com.zhixing.employlib.viewmodel.fragment.PerFormanceViewModel;
+import com.zhixing.netlib.base.BaseResponse;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,13 +37,11 @@ import butterknife.Unbinder;
 
 
 /**
- * @author zjq
- * create at 2019/3/12 下午2:01
- * <p>
- * 选择评分事件
+ 个人关键事件
+ * @author cloor
  */
 
-public class SelectEventActivity extends BaseActvity {
+public class SelectAppealPersonActivity extends BaseActvity {
 
 
     @BindView(R2.id.iv_work_add_work)
@@ -54,8 +53,8 @@ public class SelectEventActivity extends BaseActvity {
     @BindView(R2.id.recy_grading_event_list)
     RecyclerView recyGradingEventList;
     private Unbinder bind;
-    private PerFormanceViewModel gradingEventViewModel;
-    private GradingEventAdapt gradingEventAdapt;
+    private AppealPersonViewModel appealPersonViewModel;
+    private AppealPersonEventAdapt appealPersonEventAdapt;
 //    private List<GradingEventEntity> mList;
     @Override
     public int getLayoutId() {
@@ -66,25 +65,29 @@ public class SelectEventActivity extends BaseActvity {
     public void process(Message msg) {
 
     }
-
+    String time = null;
     @Override
     public void initLayout() {
+
          bind = ButterKnife.bind(this);
+        if(getIntent().hasExtra("time"))
+            time = getIntent().getStringExtra("time");
         initView();
         initData();
+
     }
 
     private void initData() {
        // mList=new ArrayList<>();
 //        PerFormanceViewModel integralEventViewModel = ViewModelProviders.of(this).get(PerFormanceViewModel.class);
-        gradingEventViewModel.getPersonTestEntitysData();
-        gradingEventViewModel.getPersonTestEntitysData().observe(this, new Observer<List<PersonTestEntity>>() {
+
+        appealPersonViewModel.getAppealPersonData(time).observe(this, new Observer<List<AppealPersonEntity>>() {
             @Override
-            public void onChanged(@Nullable List<PersonTestEntity> personTestEntities) {
-                if (personTestEntities!=null){
-                   // mList.addAll(gradingEventEntities);
-                    gradingEventAdapt = new GradingEventAdapt(R.layout.item_grading_event, personTestEntities);
-                    recyGradingEventList.setAdapter(gradingEventAdapt);
+            public void onChanged(@Nullable List<AppealPersonEntity> appealPersonEntities) {
+                if(appealPersonEntities!=null)
+                {
+                    appealPersonEventAdapt = new AppealPersonEventAdapt(R.layout.item_grading_event, appealPersonEntities);
+                    recyGradingEventList.setAdapter(appealPersonEventAdapt);
                 }
             }
         });
@@ -92,14 +95,11 @@ public class SelectEventActivity extends BaseActvity {
     }
 
     private void initView() {
-         gradingEventViewModel = ViewModelProviders.of(this).get(PerFormanceViewModel.class);
+        appealPersonViewModel = ViewModelProviders.of(this).get(AppealPersonViewModel.class);
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkSend.setText("完成");
-        tvWorkTitle.setText("评分事件");
+        tvWorkTitle.setText("个人关键事件");
         recyGradingEventList.setLayoutManager(new LinearLayoutManager(this));
-
-
-
 
     }
 
@@ -112,7 +112,7 @@ public class SelectEventActivity extends BaseActvity {
 
             AppManager.getAppManager().finishActivity();
         } else if (i == R.id.tv_work_send) {
-            EventBus.getDefault().post(new GradingEventBean(gradingEventAdapt.getSelectedPosData().getItemName(),gradingEventAdapt.getSelectedPosData().getScore()));
+          //  EventBus.getDefault().post(new GradingEventBean(appealPersonEventAdapt.getSelectedPosData().getItemName(),appealPersonEventAdapt.getSelectedPosData().getScore()));
 
             //关闭
             AppManager.getAppManager().finishActivity();

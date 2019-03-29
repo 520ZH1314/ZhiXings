@@ -8,6 +8,12 @@ public class PersonTeamPostBean {
         UserId = userId;
     }
 
+    public PersonTeamPostBean(String appCode, String apiCode, String tenantId) {
+        AppCode = appCode;
+        ApiCode = apiCode;
+        TenantId = tenantId;
+    }
+
     public PersonTeamPostBean(String teamId, String appCode, String apiCode, String tenantId, String userId) {
         TeamId = teamId;
         AppCode = appCode;
@@ -15,7 +21,7 @@ public class PersonTeamPostBean {
         TenantId = tenantId;
         UserId = userId;
     }
-
+    
     /**
      * AppCode : EMS
      * ApiCode : GetTeamIDAndLeader
@@ -27,6 +33,15 @@ public class PersonTeamPostBean {
     private String ApiCode;
     private String TenantId;
     private String UserId;
+    private String UserCode;
+
+    public String getUserCode() {
+        return UserCode;
+    }
+
+    public void setUserCode(String userCode) {
+        UserCode = userCode;
+    }
 
     public String getTeamId() {
         return TeamId;

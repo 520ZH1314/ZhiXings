@@ -2,16 +2,12 @@ package com.zhixing.employlib.repertory;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.zhixing.employlib.api.APi;
 import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.api.MyDBaseRepository;
-import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.model.performance.PersonTeamPostBean;
-import com.zhixing.netlib.base.BaseResponse;
-import com.zhixing.netlib.base.MyBaseRepository;
 
 public class PerformanceRepertory extends MyDBaseRepository<PersonTeamBean> {
     /**

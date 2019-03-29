@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
@@ -54,6 +55,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * 我要申诉
+ */
 public class AppealActivity extends BaseActvity implements PermissionsUtil.IPermissionsCallback {
     @BindView(R2.id.tetle_text)
     TextView tvTite;//标题文本标签
@@ -125,7 +129,7 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
         gv_pic_img.setAdapter(leaveImageAdapter);
     }
 
-    @OnClick(R2.id.iv_date_select)
+    @OnClick(R2.id.iv_date_layout)
     public void imageSelect(View v) {
         ChangeTime changeTime = new ChangeTime(this, "", 2);
         changeTime.setPastCanendar(1);
@@ -143,6 +147,13 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
             }
         });
         changeTime.showSheet();
+    }
+    @OnClick(R2.id.select_appeal)
+    public void appealSelect(){
+             Intent intent = new Intent(AppealActivity.this,SelectAppealPersonActivity.class);
+            intent.putExtra("time",tv_date.getText().toString());
+
+            startActivityForResult(intent,100);
     }
 
 
@@ -172,9 +183,8 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
+        if (requestCode==PictureConfig.CHOOSE_REQUEST&&resultCode == RESULT_OK) {
+
                     // 图片、视频、音频选择结果回调
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
                     // 例如 LocalMedia 里面返回三种path
@@ -190,8 +200,10 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
                     SharedPreferencesTool.getMStool(this).setString("imgUrl", pathList.get(0));
                     imageList.addAll(pathList);
                     leaveImageAdapter.notifyDataSetChanged();
-                    break;
-            }
+
+        }else if(requestCode==100&&resultCode==RESULT_OK){
+            //选择个人关键事件
+
         }
     }
 

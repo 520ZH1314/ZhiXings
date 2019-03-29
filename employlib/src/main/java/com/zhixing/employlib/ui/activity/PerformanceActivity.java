@@ -2,47 +2,31 @@ package com.zhixing.employlib.ui.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.graphics.Color;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.BaseFragment;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.view.Toasty;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.MyAdapter;
-import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
-import com.zhixing.employlib.ui.fragment.BetterTeamEmployeeFragment;
-import com.zhixing.employlib.ui.fragment.DeliveredFragment;
-import com.zhixing.employlib.ui.fragment.ExcellentEmployeeFragment;
 import com.zhixing.employlib.ui.fragment.GardenPlotFragment;
-import com.zhixing.employlib.ui.fragment.PersonRankFragment;
-import com.zhixing.employlib.ui.fragment.PersonUporDownFragment;
 import com.zhixing.employlib.ui.fragment.PersonolPerformanceFragment;
 import com.zhixing.employlib.ui.fragment.RecruitFragment;
-import com.zhixing.employlib.view.BottomNavigationViewHelper;
 import com.zhixing.employlib.view.CustomScrollViewPager;
 import com.zhixing.employlib.viewmodel.activity.PerformanceMainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.annotations.Nullable;
+
 @Route(path = "/employlib/PerformanceActivity")
 public class PerformanceActivity extends BaseActvity implements BottomNavigationBar.OnTabSelectedListener {
     int lastSelectedPosition = 0;

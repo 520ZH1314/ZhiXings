@@ -5,27 +5,30 @@ import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.CheckBox;
 
+import com.base.zhixing.www.common.P;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhixing.employlib.R;
-import com.zhixing.employlib.model.GradingEventEntity;
+import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
 
 import java.util.List;
 
-public class GradingEventAdapt extends BaseQuickAdapter<PersonTestEntity,BaseViewHolder> {
+public class AppealPersonEventAdapt extends BaseQuickAdapter<AppealPersonEntity,BaseViewHolder> {
 
 
     private int mSelectedPos=-1;//保存当前选中的position 重点！
-    private List<PersonTestEntity> mList;//数据源
-    public GradingEventAdapt(int layoutResId, @Nullable List<PersonTestEntity> data) {
+    private List<AppealPersonEntity> mList;//数据源
+    public AppealPersonEventAdapt(int layoutResId, @Nullable List<AppealPersonEntity> data) {
         super(layoutResId, data);
 
         this.mList=data;
+
     }
 
+
     @Override
-    protected void convert(final BaseViewHolder helper, PersonTestEntity item) {
+    protected void convert(final BaseViewHolder helper, AppealPersonEntity item) {
             helper.setText(R.id.tv_grading_event_name,item.getItemName());
          final CheckBox checkBox =(CheckBox) helper.itemView.findViewById(R.id.cb_grading_event);
         checkBox.setChecked(mSelectedPos== helper.getLayoutPosition());
@@ -53,7 +56,7 @@ public class GradingEventAdapt extends BaseQuickAdapter<PersonTestEntity,BaseVie
 
 
     //提供给外部Activity来获取当前checkBox选中的item，这样就不用去遍历了 重点！
-    public PersonTestEntity getSelectedPosData(){
+    public AppealPersonEntity getSelectedPosData(){
         return mList.get(mSelectedPos);
     }
 }

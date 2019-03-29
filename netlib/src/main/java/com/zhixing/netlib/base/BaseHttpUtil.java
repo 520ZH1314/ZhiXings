@@ -3,15 +3,12 @@ package com.zhixing.netlib.base;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONObject;
-
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 /**
@@ -30,6 +27,17 @@ public class BaseHttpUtil<T> {
     public RequestBody convertVo2Json(T t) {
         Map maps = convertVo2Params(t);
         JSONObject object = new JSONObject(maps);
+        return RequestBody.create(MediaType.parse("Content-Type, application/json"),
+                object.toString());
+    }
+    //先转换为map
+    public Map convertVo2Map(T t) {
+        Map maps = convertVo2Params(t);
+       return  maps;
+    }
+    //将map组合之后转成json
+    public RequestBody convertVo2Json(Map map){
+        JSONObject object = new JSONObject(map);
         return RequestBody.create(MediaType.parse("Content-Type, application/json"),
                 object.toString());
     }

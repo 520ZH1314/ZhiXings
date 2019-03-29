@@ -1,5 +1,6 @@
 package com.zhixing.employlib.api;
 
+import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.IntegralEventEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
@@ -11,7 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
-public interface PerformanceApi {
+public interface PerformanceApi<T>  {
 
     //文件名
     public  static String  FLIESNAME="Performance";
@@ -22,7 +23,7 @@ public interface PerformanceApi {
     public  static String  TEAMNAME="TeamName";
     public  static String  TEAMLEADERUSERID="TeamLeaderUserId";
 
-
+   
 
     //获取个人班组以及权限
     @Headers({"Content-Type: application/json","Accept: application/json"})
@@ -33,4 +34,13 @@ public interface PerformanceApi {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
     Flowable<DBaseResponse<PersonTestEntity>> getEventInfo(@Body RequestBody body);
+
+    //获取个人关键事件
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+
+    Flowable<BaseResponse<AppealPersonEntity>> net(@Body RequestBody body);
+
+
+
 }
