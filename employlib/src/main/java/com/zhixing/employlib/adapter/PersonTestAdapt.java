@@ -30,22 +30,22 @@ public class PersonTestAdapt extends BaseQuickAdapter<PersonTestEntity,BaseViewH
         ImageView imageView = (ImageView)helper.itemView.findViewById(R.id.iv_persion_test);
 
             switch (item.Score){
-                case "1":
+                case 1:
                     imageView.setImageResource(R.mipmap.c6);
                     break;
-                case "2":
+                case 2:
                     imageView.setImageResource(R.mipmap.c5);
                     break;
-                case "3":
+                case 3:
                     imageView.setImageResource(R.mipmap.c4);
                     break;
-                case "4":
+                case 4:
                     imageView.setImageResource(R.mipmap.c3);
                     break;
-                case "5":
+                case 5:
                     imageView.setImageResource(R.mipmap.c2);
                     break;
-                case "6":
+                case 6:
                     imageView.setImageResource(R.mipmap.c1);
                     break;
             }
@@ -54,7 +54,7 @@ public class PersonTestAdapt extends BaseQuickAdapter<PersonTestEntity,BaseViewH
 
 
         helper.setText(R.id.tv_person_test_des,item.getItemName());
-               helper.setText(R.id.tv_person_test_score,item.Score);
+               helper.setText(R.id.tv_person_test_score,item.Score+"");
 
     }
 }

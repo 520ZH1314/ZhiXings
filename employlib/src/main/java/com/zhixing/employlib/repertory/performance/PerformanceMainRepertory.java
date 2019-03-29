@@ -69,7 +69,7 @@ public class PerformanceMainRepertory {
 
     }
 
-    //获取昨日绩效
+    //获取月度绩效
     public MutableLiveData<DBaseResponse<MonthPerformanceBean>> getMonthInfo(String date) {
         MyDBaseRepository<MonthPerformanceBean> myDBaseRepository = new MyDBaseRepository<MonthPerformanceBean>(mContext);
         String AppCode = "EMS";

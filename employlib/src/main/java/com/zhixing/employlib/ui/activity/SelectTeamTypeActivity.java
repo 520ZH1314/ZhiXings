@@ -3,11 +3,8 @@ package com.zhixing.employlib.ui.activity;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import com.base.zhixing.www.BaseActvity;
 import com.zhixing.employlib.R;
-
-
 /**
  *
  *@author zjq

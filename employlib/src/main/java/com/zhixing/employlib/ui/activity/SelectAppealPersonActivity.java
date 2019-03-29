@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.common.P;

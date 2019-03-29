@@ -44,8 +44,8 @@ public class DialogFragmentPersonTest extends DialogFragment implements View.OnC
         iv_close = (ImageView) view.findViewById(R.id.iv_dialog_fragment_perison_test);
         iv_close.setOnClickListener(this);
 
-         integralEventViewModel.getPersonTestEntitysData();
-        integralEventViewModel.testEnt.observe(getActivity(), new Observer<List<PersonTestEntity>>() {
+         integralEventViewModel.getEventDatas();
+         integralEventViewModel.testEnt.observe(getActivity(), new Observer<List<PersonTestEntity>>() {
             @Override
             public void onChanged(@Nullable List<PersonTestEntity> personTestEntities) {
                 recyclerView.setAdapter(new PersonTestAdapt(R.layout.item_person_test,personTestEntities));

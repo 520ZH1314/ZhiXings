@@ -12,6 +12,7 @@ import com.zhixing.employlib.model.IntegralEventEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.model.performance.MonthPerformanceBean;
 import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
+import com.zhixing.employlib.repertory.EventRepertory;
 import com.zhixing.employlib.repertory.performance.PerformanceMainRepertory;
 
 import java.util.ArrayList;
@@ -25,9 +26,10 @@ import java.util.List;
  */
 
 public class PerFormanceViewModel extends AndroidViewModel {
+    private  EventRepertory eventRepertory;
     private PerformanceMainRepertory performanceRepertory;
     private final MutableLiveData<String> MonthDate=new MutableLiveData<>();
-
+    public LiveData< List<PersonTestEntity> > testEnt=new MutableLiveData<>();
     //获取月绩效数据
     public final LiveData<DBaseResponse<MonthPerformanceBean>> MonthData=Transformations.switchMap(MonthDate, date->(performanceRepertory.getMonthInfo(date)));
     //获取月绩效数据的日期
@@ -52,7 +54,7 @@ public class PerFormanceViewModel extends AndroidViewModel {
         super(application);
 
          performanceRepertory=new PerformanceMainRepertory(application);
-
+        eventRepertory=new EventRepertory(application);
     }
 
 
@@ -80,7 +82,7 @@ public class PerFormanceViewModel extends AndroidViewModel {
 
         List<PersonTestEntity> lists=new ArrayList<>();
         for (int i = 6; i >0; i--) {
-            lists.add(new PersonTestEntity(i+"","员工正常出勤即获得基础得分5分",""+i));
+            lists.add(new PersonTestEntity("员工正常出勤即获得基础得分5分i",i,""+i));
 
         }
 
@@ -109,8 +111,19 @@ public class PerFormanceViewModel extends AndroidViewModel {
 
 
 
+    public LiveData<List<PersonTestEntity>> getEventDatas() {
 
+       /* List<GradingEventEntity> eventEntities =new ArrayList<>();
+        eventEntities.add(new GradingEventEntity("玩手机","-2"));
+        eventEntities.add(new GradingEventEntity("迟到","-1"));
+        eventEntities.add(new GradingEventEntity("早退","-6"));
+        eventEntities.add(new GradingEventEntity("打麻将","-5"));
+        eventEntities.add(new GradingEventEntity("加班","+5"));*/
 
+        testEnt = Transformations.map(eventRepertory.getEventInfo(), DBaseResponse::getRows);
 
+        return testEnt;
+
+    }
 
 }

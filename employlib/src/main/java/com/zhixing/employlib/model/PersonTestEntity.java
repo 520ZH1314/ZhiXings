@@ -3,15 +3,28 @@ package com.zhixing.employlib.model;
 public class PersonTestEntity {
 
     public String ItemName;
-    public String Score;
 
+    public String ItemId;
+    public String ItemCode;
+
+    public String getItemId() {
+        return ItemId;
+    }
+
+    public void setItemId(String itemId) {
+        ItemId = itemId;
+    }
+
+    public int Score;
     public PersonTestEntity( ) {
 
     }
 
-    public PersonTestEntity(String itemName, String score) {
-        ItemName = itemName;
-        Score = score;
+    public PersonTestEntity(String itemName, int score,String ItemId) {
+        this.ItemId=ItemId;
+        this.ItemName = itemName;
+        this. Score = score;
+
     }
 
     public String getItemName() {
@@ -22,11 +35,11 @@ public class PersonTestEntity {
         ItemName = itemName;
     }
 
-    public String getScore() {
+    public int getScore() {
         return Score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         Score = score;
     }
 }
