@@ -68,6 +68,17 @@ public class BaseHttpUtil<T> {
         return gson.fromJson(gson.toJson(vo), type);
     }
 
+    //先转换为map
+    public Map convertVo2Map(T t) {
+        Map maps = convertVo2Params(t);
+        return  maps;
+    }
+    //将map组合之后转成json
+    public RequestBody convertVo2Json(Map map){
+        JSONObject object = new JSONObject(map);
+        return RequestBody.create(MediaType.parse("Content-Type, application/json"),
+                object.toString());
+    }
 
 
 
