@@ -144,13 +144,7 @@ public class AppealListActivity extends BaseActvity {
             }
 
             map.put("CreateTime",intent.getStringExtra("CreateTime"));
-            appealPersonViewModel.getAppealList(map).observe(this, new Observer<List<AppealList>>() {
-                @Override
-                public void onChanged(@Nullable List<AppealList> appealLists) {
-
-                    appealListAdapt.updata(appealLists);
-                }
-            });
+            appealPersonViewModel.getAppealList(map);
         }
 
     }

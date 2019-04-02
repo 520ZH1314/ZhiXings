@@ -110,9 +110,18 @@ public class AppealDetailActivity extends BaseActvity {
         if(intent.hasExtra("obj")){
             appealList = (AppealList) intent.getSerializableExtra("obj");
         }
+        vie();
+        //申诉记录详情
+
+        //处理记录详情
+
+
+
+    }
+    private void vie(){
         if(appealList!=null){
             if(appealList.getStatus()==1){
-               // clAppeal.setVisibility(View.VISIBLE);
+                // clAppeal.setVisibility(View.VISIBLE);
                 clAppealDetailButton.setVisibility(View.GONE);
                 tvAppealDetailStatus.setText("已通过");
                 tvAppealDetailStatus.setTextColor(getResources().getColor(R.color.green));
@@ -140,13 +149,13 @@ public class AppealDetailActivity extends BaseActvity {
                     dialog.setOnDialogInforCompleted(new AppealEditDialog.OnDialogInforCompleted() {
                         @Override
                         public void dialogInforCompleted(String name) {
-                           // P.c("测试"+name);
+                            // P.c("测试"+name);
                             showDialog("提交审核结果");
                             Map map = new HashMap();
                             map.put("Status",name);
                             map.put("AppealId",appealList.getAppealId());
                             map.put("HandleUserId", SharedPreferencesTool.getMStool(AppealDetailActivity.this).getUserId());
-                            map.put("HandleUserName", SharedPreferencesTool.getMStool(AppealDetailActivity.this).getUserId());
+                            map.put("HandleUserName", SharedPreferencesTool.getMStool(AppealDetailActivity.this).getUserName());
                             map.put("HandleOpinion", dialog.getRes());
                             appealPersonViewModel.sendAppealRes(map).observe(AppealDetailActivity.this, new Observer<BaseResponse>() {
                                 @Override
@@ -155,29 +164,7 @@ public class AppealDetailActivity extends BaseActvity {
                                     P.c(baseResponse.getMessage());
                                     appealList.setStatus(Integer.parseInt(name));
 
-                                    if(name.equals("2")){
-                                        clAppealDetailButton.setVisibility(View.GONE);
-                                        tvAppealDetailStatus.setText("未通过");
-                                        tvAppealDetailStatus.setTextColor(getResources().getColor(R.color.orange));
-                                        DevShapeUtils
-                                                .shape(DevShape.RECTANGLE)
-                                                .line(1, R.color.orange)
-                                                .radius(10)
-                                                .into(tvAppealDetailStatus);
-                                        tvAppealDetailPeopleName.setTextColor(getResources().getColor(R.color.orange));
-                                        tvAppealDetailReuit.setText("不通过!");
-                                    }else{
-                                        clAppealDetailButton.setVisibility(View.GONE);
-                                        tvAppealDetailStatus.setText("已通过");
-                                        tvAppealDetailStatus.setTextColor(getResources().getColor(R.color.green));
-                                        DevShapeUtils
-                                                .shape(DevShape.RECTANGLE)
-                                                .line(1, R.color.green)
-                                                .radius(10)
-                                                .into(tvAppealDetailStatus);
-                                        tvAppealDetailPeopleName.setTextColor(getResources().getColor(R.color.green));
-                                        tvAppealDetailReuit.setText("通过!");
-                                    }
+                                 vie();
 
 
                                 }
@@ -205,14 +192,8 @@ public class AppealDetailActivity extends BaseActvity {
             tvAppealDetailDesc.setText(appealList.getOpinion());
             tvAppealDetailDoDesc.setText(appealList.getHandleOpinion());
             if(appealList.getHandleTime()!=null)
-            tvAppealDetailEventDate2.setText("处理时间:"+TimeUtil.getTime(TimeUtil.parseTimeC(appealList.getHandleTime())));
+                tvAppealDetailEventDate2.setText("处理时间:"+TimeUtil.getTime(TimeUtil.parseTimeC(appealList.getHandleTime())));
         }
-        //申诉记录详情
-
-        //处理记录详情
-
-
-
     }
 
 
