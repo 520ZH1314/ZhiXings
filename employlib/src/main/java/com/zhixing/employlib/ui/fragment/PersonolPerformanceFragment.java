@@ -723,9 +723,23 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
                 rfabHelper.toggleContent();
             } else {
                 //处理申诉
-                Intent intent = new Intent(getActivity(), AppealListActivity.class);
-                startActivity(intent);
-                rfabHelper.toggleContent();
+//                Intent intent = new Intent(getActivity(), AppealListActivity.class);
+//                startActivity(intent);
+//                rfabHelper.toggleContent();
+                ChangeTime changeTime = new ChangeTime(getActivity(), "", 2);
+                changeTime.setPastCanendar(1);
+                changeTime.setSelect(new SelectTime() {
+                    @Override
+                    public void select(String time, long timestp) {
+                        Intent intent = new Intent(getActivity(),AppealListActivity.class);
+                        intent.putExtra("CreateTime",TimeUtil.getTimeCh(timestp));
+                        startActivity(intent);
+
+                        rfabHelper.toggleContent();
+                    }
+                });
+                changeTime.showSheet();
+
 
             }
         } else if (position == 1) {

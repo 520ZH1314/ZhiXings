@@ -2,6 +2,7 @@ package com.zhixing.employlib.ui.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -112,7 +113,12 @@ public class SelectAppealPersonActivity extends BaseActvity {
             AppManager.getAppManager().finishActivity();
         } else if (i == R.id.tv_work_send) {
           //  EventBus.getDefault().post(new GradingEventBean(appealPersonEventAdapt.getSelectedPosData().getItemName(),appealPersonEventAdapt.getSelectedPosData().getScore()));
-
+            Intent intent = new Intent();
+            intent.putExtra("KeyId", appealPersonEventAdapt.getSelectedPosData().getItemId());
+            intent.putExtra("KeyName",     appealPersonEventAdapt.getSelectedPosData().getItemName());
+            intent.putExtra("time",appealPersonEventAdapt.getSelectedPosData().getCreateTime());
+//            P.c("选择的是"+appealPersonEventAdapt.getSelectedPosData().getItemName());
+            setResult(RESULT_OK,intent);
             //关闭
             AppManager.getAppManager().finishActivity();
 

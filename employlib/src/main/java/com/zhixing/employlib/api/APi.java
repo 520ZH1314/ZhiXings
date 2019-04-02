@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.T;
+import com.zhixing.employlib.model.AppealList;
+import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.model.grading.GoGradingPostBean;
 import com.zhixing.employlib.model.grading.GradListBean;
@@ -79,17 +81,40 @@ public class APi {
     public static Flowable<DBaseResponse<PersonTestEntity>> getEventInfo(PersonTeamPostBean bean, Context mContext, String url) {
         return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).getEventInfo((new BaseHttpUtil<PersonTeamPostBean>().convertVo2Json(bean)));
     }
-
-    //统一数据处理
-    public static<T> Flowable<BaseResponse<T>> net(PersonTeamPostBean bean, Context mContext, String url, Map map) {
-        BaseHttpUtil  httpUtil = new BaseHttpUtil<PersonTeamPostBean>();
+    private static Map put(PersonTeamPostBean bean,Map map, BaseHttpUtil  httpUtil){
         Map tempMap = httpUtil.convertVo2Map(bean);
         if(map!=null){
             tempMap.putAll(map);
         }
         FileUtils.parms(tempMap);
+        return tempMap;
+    }
+    //统一数据处理
+    public static  Flowable<BaseResponse<AppealPersonEntity>> net(PersonTeamPostBean bean, Context mContext, String url, Map map) {
+        BaseHttpUtil  httpUtil = new BaseHttpUtil<PersonTeamPostBean>();
 
-        return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .net(httpUtil.convertVo2Json(tempMap));
+        return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .net(httpUtil.convertVo2Json(put(bean,map,httpUtil)));
+    }
+    //申诉请求
+    public static  Flowable<BaseResponse> sendAppealPerson(PersonTeamPostBean bean, Context mContext, String url, Map map) {
+        BaseHttpUtil  httpUtil = new BaseHttpUtil();
+
+
+        return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .sendAppealPerson(httpUtil.convertVo2Json( put(bean,map,httpUtil)));
+    }
+    //申诉列表
+    public static  Flowable<BaseResponse<AppealList>> getAppealList(PersonTeamPostBean bean, Context mContext, String url, Map map) {
+        BaseHttpUtil  httpUtil = new BaseHttpUtil();
+
+        return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .getAppealList(httpUtil.convertVo2Json(put(bean,map,httpUtil)));
+    }
+
+    //申诉请求
+    public static  Flowable<BaseResponse> sendAppealRes(PersonTeamPostBean bean, Context mContext, String url, Map map) {
+        BaseHttpUtil  httpUtil = new BaseHttpUtil();
+
+
+        return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .sendAppealRes(httpUtil.convertVo2Json( put(bean,map,httpUtil)));
     }
 
 }

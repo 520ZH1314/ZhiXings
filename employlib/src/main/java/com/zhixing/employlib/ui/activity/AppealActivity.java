@@ -1,10 +1,13 @@
 package com.zhixing.employlib.ui.activity;
 
 import android.app.AlertDialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
@@ -21,8 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.common.P;
+import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
@@ -35,10 +40,13 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 
+import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.eventbus.MessageEvent;
 import com.zhixing.employlib.utils.AppUtils;
 import com.zhixing.employlib.utils.PermissionsUtil;
 import com.zhixing.employlib.view.CustomGridView;
+import com.zhixing.employlib.viewmodel.activity.AppealPersonViewModel;
+import com.zhixing.netlib.base.BaseResponse;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -84,7 +92,7 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
     TextView tv_later;
     private String tel;
     private Unbinder bind;
-
+    private AppealPersonViewModel appealPersonViewModel;
     @Override
     public int getLayoutId() {
         return R.layout.activity_appeal;
@@ -94,12 +102,13 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
     public void process(Message msg) {
 
     }
-
+    private SharedUtils sharedUtils;
     @Override
     public void initLayout() {
-
+        sharedUtils = new SharedUtils(PerformanceApi.FLIESNAME);
          bind = ButterKnife.bind(this);
         setStatus(-1);
+        appealPersonViewModel = ViewModelProviders.of(this).get(AppealPersonViewModel.class);
         initView();
         initData();
     }
@@ -113,7 +122,13 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
         tetle_tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(AppealListActivity.class);
+
+                    Intent intent = new Intent(AppealActivity.this,AppealListActivity.class);
+                    intent.putExtra("CreateTime",tv_date.getText());
+                    startActivity(intent);
+
+
+//                startActivity(AppealListActivity.class);
             }
         });
 
@@ -127,6 +142,31 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
 
         leaveImageAdapter = new LeaveImageAdapter();
         gv_pic_img.setAdapter(leaveImageAdapter);
+        btnFinish.setOnClickListener((v)->{
+            if(tv_date.getText().length()==0){
+                Toasty.INSTANCE.showToast(AppealActivity.this,"请选择时间");
+                return;
+            }
+            showDialog("申请请求中");
+            Map map = new HashMap();
+            map.put("AppealId","");
+            map.put("KeyId",KeyId);
+            map.put("KeyName",KeyName);
+            map.put("KeyDate",time);
+            map.put("TeamId",sharedUtils.getStringValue(PerformanceApi.TEAMID));
+            map.put("ApplyUserId",SharedPreferencesTool.getMStool(AppealActivity.this).getUserId());
+            map.put("ApplyUserName",SharedPreferencesTool.getMStool(AppealActivity.this).getUserName());
+            map.put("PhoneNumber",et_tel.getText().toString());
+            map.put("Opinion",et_input_content.getText().toString());
+            appealPersonViewModel.sendAppealPerson(map).observe(this, new Observer<BaseResponse>() {
+                @Override
+                public void onChanged(@Nullable BaseResponse baseResponse) {
+                    dismissDialog();
+                    Toasty.INSTANCE.showToast(AppealActivity.this,"申诉已提交");
+                    AppManager.getAppManager().finishActivity();
+                }
+            });
+        });
     }
 
     @OnClick(R2.id.iv_date_layout)
@@ -152,7 +192,6 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
     public void appealSelect(){
              Intent intent = new Intent(AppealActivity.this,SelectAppealPersonActivity.class);
             intent.putExtra("time",tv_date.getText().toString());
-
             startActivityForResult(intent,100);
     }
 
@@ -178,8 +217,9 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
                 dialog.dismiss();
             }
         });
-    }
 
+    }
+    String KeyId,KeyName,time;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -203,9 +243,17 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
 
         }else if(requestCode==100&&resultCode==RESULT_OK){
             //选择个人关键事件
+                //在此进行数据请求
+            KeyName = data.getStringExtra("KeyName");
+            KeyId = data.getStringExtra("KeyId");
+            time = TimeUtil.getTime(TimeUtil.parseTimeC(data.getStringExtra("time")));
+            tv_later.setText(KeyName);
 
         }
     }
+    @BindView(R2.id.et_input_content)
+    EditText et_input_content;
+
 
     @Override
     public void onPermissionsGranted(int requestCode, String... permission) {

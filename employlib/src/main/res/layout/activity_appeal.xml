@@ -48,7 +48,7 @@
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_toRightOf="@id/iv_time_icon"
                     android:gravity="center"
-                    android:text="2019-03-08"
+                    android:hint="请选择时间"
                     android:textColor="#4a4a4a"
                     android:textSize="@dimen/s15" />
 
@@ -89,7 +89,7 @@
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_toRightOf="@id/iv_later_icon"
                     android:gravity="center"
-                    android:text="迟到"/>
+                     android:hint="请选择"/>
 
                 <ImageView
                     android:id="@+id/iv_event_select"
@@ -167,6 +167,7 @@
         </LinearLayout>
 
         <EditText
+
             android:textSize="@dimen/s12"
             android:hint="请输入文字"
             android:id="@+id/et_input_content"

@@ -1,5 +1,6 @@
 package com.zhixing.employlib.api;
 
+import com.zhixing.employlib.model.AppealList;
 import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.IntegralEventEntity;
 import com.zhixing.employlib.model.PersonTestEntity;
@@ -88,6 +89,17 @@ public interface PerformanceApi<T>  {
 
 
 
+ //获取
 
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse> sendAppealPerson(@Body RequestBody body);
 
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse<AppealList>> getAppealList(@Body RequestBody body);
+
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse> sendAppealRes(@Body RequestBody body);
 }
