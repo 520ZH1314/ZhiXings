@@ -38,6 +38,7 @@ import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.api.PerformanceApi;
+import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.model.performance.MonthPerformanceBean;
 import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
 import com.zhixing.employlib.ui.activity.AppealActivity;
@@ -47,8 +48,10 @@ import com.zhixing.employlib.ui.activity.GradingRecordListActivity;
 import com.zhixing.employlib.ui.activity.MothIntegralEventActivity;
 import com.zhixing.employlib.view.DialogFragmentIntergralEvent;
 import com.zhixing.employlib.view.DialogFragmentPersonTest;
+import com.zhixing.employlib.viewmodel.activity.MonthViewModel;
 import com.zhixing.employlib.viewmodel.fragment.PerFormanceViewModel;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -156,13 +159,14 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
     public List<MonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userMonthData; //昨日绩效
     public List<MonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamMonthData ;//昨日绩效
     private ACache aCache;
-
+    private  MonthViewModel monthViewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_personol_performance, container, false);
         unbinder = ButterKnife.bind(this, view);
          aCache = ACache.get(getActivity(),"Performance");
+          monthViewModel = ViewModelProviders.of(getActivity()).get(MonthViewModel.class);
         perFormanceViewModel = ViewModelProviders.of(getActivity()).get(PerFormanceViewModel.class);
         rfaLayout = (RapidFloatingActionLayout) view.findViewById(R.id.label_list_sample_rfal);
         rfaButton = (RapidFloatingActionButton) view.findViewById(R.id.label_list_sample_rfab);
@@ -845,8 +849,18 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
 
             if (index == 1) {
-                Intent intent = new Intent(getActivity(), MothIntegralEventActivity.class);
-                startActivity(intent);
+                showDialog("加载分值信息");
+                monthViewModel.getScoreColor(null).observe(this, new Observer<List<StandScore>>() {
+                    @Override
+                    public void onChanged(@Nullable List<StandScore> standScores) {
+                        dismissDialog();
+                        Intent intent = new Intent(getActivity(), MothIntegralEventActivity.class);
+                        intent.putExtra("obj", (Serializable) standScores);
+                        startActivity(intent);
+                    }
+                });
+
+
             } else {
                 DialogFragmentIntergralEvent dialogFragmentIntergralEvent = new DialogFragmentIntergralEvent();
                 dialogFragmentIntergralEvent.show(getChildFragmentManager(), "");

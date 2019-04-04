@@ -3,7 +3,9 @@ package com.zhixing.employlib.api;
 import com.zhixing.employlib.model.AppealList;
 import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.IntegralEventEntity;
+import com.zhixing.employlib.model.MonthViewBean;
 import com.zhixing.employlib.model.PersonTestEntity;
+import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.model.grading.GradListBean;
 import com.zhixing.employlib.model.grading.GradingListDetailBean;
 import com.zhixing.employlib.model.performance.EventKeyBean;
@@ -102,4 +104,13 @@ public interface PerformanceApi<T>  {
  @Headers({"Content-Type: application/json","Accept: application/json"})
  @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
  Flowable<BaseResponse> sendAppealRes(@Body RequestBody body);
+
+//月视图
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse<MonthViewBean>> getMonthViews(@Body RequestBody body);
+ //颜色值
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse<StandScore>> getScoreColor(@Body RequestBody body);
 }

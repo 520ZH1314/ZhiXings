@@ -10,7 +10,10 @@
     android:orientation="vertical"
     tools:context=".ui.activity.MothIntegralEventActivity"
     tools:ignore="RtlHardcoded,HardcodedText,RtlSymmetry,SmallSp">
-
+    <include
+        layout="@layout/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x55" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -102,7 +105,7 @@
             android:orientation="vertical"
 
             app:calendar_content_view_id="@+id/color_cardview">
-
+            <!--  app:selected_theme_color="#ff0000"-->
             <com.haibin.calendarview.CalendarView
 
                 android:id="@+id/color_calendarView"
@@ -122,7 +125,7 @@
                 app:scheme_theme_color="#128c4b"
                 app:selected_lunar_text_color="#fff"
                 app:selected_text_color="#fff"
-                app:selected_theme_color="#108cd4"
+
                 app:week_background="#fff"
                 app:week_text_color="#111"
                 app:week_view="com.zhixing.employlib.view.ColorfulWeekView"

@@ -6,7 +6,9 @@ import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.T;
 import com.zhixing.employlib.model.AppealList;
 import com.zhixing.employlib.model.AppealPersonEntity;
+import com.zhixing.employlib.model.MonthViewBean;
 import com.zhixing.employlib.model.PersonTestEntity;
+import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.model.grading.GoGradingPostBean;
 import com.zhixing.employlib.model.grading.GradListBean;
 import com.zhixing.employlib.model.grading.GradListDetailPostBean;
@@ -116,5 +118,16 @@ public class APi {
 
         return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .sendAppealRes(httpUtil.convertVo2Json( put(bean,map,httpUtil)));
     }
+    //月视图
+    public static  Flowable<BaseResponse<MonthViewBean>> getMonthViews(PersonTeamPostBean bean, Context mContext, String url, Map map) {
+        BaseHttpUtil  httpUtil = new BaseHttpUtil();
 
+        return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .getMonthViews(httpUtil.convertVo2Json(put(bean,map,httpUtil)));
+    }
+    //月视图
+    public static  Flowable<BaseResponse<StandScore>> getScoreColor(PersonTeamPostBean bean, Context mContext, String url, Map map) {
+        BaseHttpUtil  httpUtil = new BaseHttpUtil();
+
+        return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .getScoreColor(httpUtil.convertVo2Json(put(bean,map,httpUtil)));
+    }
 }

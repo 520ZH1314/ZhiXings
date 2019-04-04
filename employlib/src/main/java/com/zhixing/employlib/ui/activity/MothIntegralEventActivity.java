@@ -1,7 +1,11 @@
 package com.zhixing.employlib.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Color;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,14 +13,31 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.P;
+import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.base.zhixing.www.util.TimeUtil;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.zhixing.employlib.R;
+import com.zhixing.employlib.R2;
+import com.zhixing.employlib.model.MonthViewBean;
+import com.zhixing.employlib.model.StandScore;
+import com.zhixing.employlib.repertory.MonthRepertory;
+import com.zhixing.employlib.viewmodel.activity.AppealPersonViewModel;
+import com.zhixing.employlib.viewmodel.activity.MonthViewModel;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+
+/**
+ * 绩效月视图
+ */
 public class MothIntegralEventActivity extends BaseActvity implements
         CalendarView.OnCalendarSelectListener,
         CalendarView.OnYearChangeListener,
@@ -37,6 +58,7 @@ public class MothIntegralEventActivity extends BaseActvity implements
     private int mYear;
     CalendarLayout mCalendarLayout;
 
+    TextView tetle_text;
 
     @Override
     public int getLayoutId() {
@@ -50,20 +72,26 @@ public class MothIntegralEventActivity extends BaseActvity implements
 
     @Override
     public void initLayout() {
+        tempScores = (List<StandScore>) getIntent().getSerializableExtra("obj");
+        monthViewModel = ViewModelProviders.of(this).get(MonthViewModel.class);
         initView();
 
-        initData();
+
+
     }
 
     @SuppressLint("SetTextI18n")
-
+    private MonthViewModel monthViewModel;
     protected void initView() {
-
+        tetle_text = findViewById(R.id.tetle_text);
+        tetle_text.setText("个人月视图");
         mTextMonthDay = (TextView) findViewById(R.id.tv_color_month_day);
         mTextYear = (TextView) findViewById(R.id.tv_color_year);
         mTextLunar = (TextView) findViewById(R.id.tv_color_lunar);
         mRelativeTool = (RelativeLayout) findViewById(R.id.rl_color_tool);
         mCalendarView = (CalendarView) findViewById(R.id.color_calendarView);
+
+
         mTextCurrentDay = (TextView) findViewById(R.id.tv_color_current_day);
         mTextMonthDay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,8 +120,75 @@ public class MothIntegralEventActivity extends BaseActvity implements
         mTextMonthDay.setText(mCalendarView.getCurMonth() + "月" + mCalendarView.getCurDay() + "日");
         mTextLunar.setText("今日");
         mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
+       /* mRelativeTool.setOnClickListener((b)->{
+            int currentMonth = mCalendarView.getCurMonth();
+            P.c("当前月"+currentMonth+"=="+mCalendarView.getSelectedCalendar().getMonth());
+        });*/
+
+
+    }
+    List<StandScore> tempScores = new ArrayList<>();
+    private String getCV(int score, List<StandScore> standScores){
+                for(int i=0;i<standScores.size();i++){
+                    StandScore s = standScores.get(i);
+                    if(s.getIsEnable().equals("1")){
+                       if(s.getSymbol().equals(">")&&score>s.getMaxScore()){
+
+                           return s.getGrapeColorValue();
+                       }
+                       if(s.getSymbol().equals("=")&&score==s.getMaxScore()){
+
+                           return s.getGrapeColorValue();
+                       }
+                       if(s.getSymbol().equals("~")&&(s.getMinScore()<score&&s.getMaxScore()>score)){
+                           return s.getGrapeColorValue();
+                       }
+
+                       if(s.getSymbol().equals("<")&&score<s.getMaxScore()){
+                           return s.getGrapeColorValue();
+                       }
+                    }
+                }
+                return "#00000000";
     }
 
+    private void connet(){
+        int currentMonth = mCalendarView.getCurMonth();
+        Calendar calendar =  mCalendarView.getSelectedCalendar();
+        int viewMonth = calendar.getMonth();//视图月
+        int viewYear = calendar.getYear();
+
+
+        Map map  =new HashMap();
+        map.put("StartDate",TimeUtil.getFirstDayOfMonth1(viewYear,viewMonth));
+        if(viewMonth!=currentMonth){
+
+            map.put("EndDate", TimeUtil.getLastDayOfMonth1(viewYear,viewMonth));
+        }else{
+            //当天
+            map.put("EndDate",mCalendarView.getCurYear()+"-"+mCalendarView.getCurMonth()+"-"+mCalendarView.getCurDay());
+        }
+        map.put("UserCode", SharedPreferencesTool.getMStool(MothIntegralEventActivity.this).getUserCode());
+        monthViewModel.getMonthViews(map).observe(this, new Observer<List<MonthViewBean>>() {
+            @Override
+            public void onChanged(@Nullable List<MonthViewBean> monthViewBeans) {
+                mCalendarView.clearSchemeDate();
+//
+                Map month = new HashMap();
+               for(int i=0;i<monthViewBeans.size();i++){
+
+                   Date date = new Date(TimeUtil.parseTime_y(monthViewBeans.get(i).getEventDate()));
+
+                   Calendar c = getSchemeCalendar(Integer.parseInt(TimeUtil.getYear(date)),Integer.parseInt(TimeUtil.getMonth(date)),Integer.parseInt(TimeUtil.getDay(date)), Color.parseColor(getCV(monthViewBeans.get(i).getScore(),tempScores)),"");
+                   month.put(c.toString(),c);
+               }
+
+                mCalendarView.setSchemeDate(month);
+                mCalendarView.update();
+            }
+        });
+
+    }
 
     protected void initData( ) {
 
@@ -142,16 +237,19 @@ public class MothIntegralEventActivity extends BaseActvity implements
 
     @Override
     public void onCalendarOutOfRange(Calendar calendar) {
-
+        P.c("calendar"+calendar.getMonth());
     }
 
     @Override
     public void onCalendarSelect(Calendar calendar, boolean isClick) {
+        P.c("isClick"+isClick);
         mTextLunar.setVisibility(View.VISIBLE);
         mTextYear.setVisibility(View.VISIBLE);
         mTextMonthDay.setText(calendar.getMonth() + "月" + calendar.getDay() + "日");
         mTextYear.setText(String.valueOf(calendar.getYear()));
         mTextLunar.setText(calendar.getLunar());
         mYear = calendar.getYear();
+//        initData();
+        connet();
     }
 }
