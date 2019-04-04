@@ -1,14 +1,11 @@
 package com.base.zhixing.www.util;
-
 import android.annotation.SuppressLint;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
 /**
  * @author
  *
@@ -91,7 +88,10 @@ public class TimeUtil {
         SimpleDateFormat format = new SimpleDateFormat("MM");
         return format.format(time);
     }
-
+	public static String getDay(Date time) {
+		SimpleDateFormat format = new SimpleDateFormat("dd");
+		return format.format(time);
+	}
 	public static String getDateByDate(Date time) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(time);
@@ -113,7 +113,7 @@ public class TimeUtil {
 
 	public static long parseTimeC(String time){
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		format.setTimeZone(TimeZone.getTimeZone("UTC"));
+		//format.setTimeZone(TimeZone.getTimeZone("UTC"));
 		try {
 			return  format.parse(time).getTime();
 		} catch (ParseException e) {
@@ -121,6 +121,7 @@ public class TimeUtil {
 		}
 		return  0;
 	}
+
 
 	public static String parseTime_h(String time){
 //		1991-11-15 00:00:00
@@ -148,6 +149,16 @@ public class TimeUtil {
 	public static long parseTime_(String time){
 //		1991-11-15 00:00:00
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			return  format.parse(time).getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return  0;
+	}
+	public static long parseTime_y(String time){
+//		1991-11-15 00:00:00
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			return  format.parse(time).getTime();
 		} catch (ParseException e) {
@@ -453,5 +464,44 @@ public class TimeUtil {
 
 	}
 
-
+	/**
+	 * 获取指定年月的第一天
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	public static String getFirstDayOfMonth1(int year, int month) {
+		Calendar cal = Calendar.getInstance();
+		//设置年份
+		cal.set(Calendar.YEAR, year);
+		//设置月份
+		cal.set(Calendar.MONTH, month-1);
+		//获取某月最小天数
+		int firstDay = cal.getMinimum(Calendar.DATE);
+		//设置日历中月份的最小天数
+		cal.set(Calendar.DAY_OF_MONTH,firstDay);
+		//格式化日期
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(cal.getTime());
+	}
+	/**
+	 * 获取指定年月的最后一天
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	public static String getLastDayOfMonth1(int year, int month) {
+		Calendar cal = Calendar.getInstance();
+		//设置年份
+		cal.set(Calendar.YEAR, year);
+		//设置月份
+		cal.set(Calendar.MONTH, month-1);
+		//获取某月最大天数
+		int lastDay = cal.getActualMaximum(Calendar.DATE);
+		//设置日历中月份的最大天数
+		cal.set(Calendar.DAY_OF_MONTH, lastDay);
+		//格式化日期
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(cal.getTime());
+	}
 }
