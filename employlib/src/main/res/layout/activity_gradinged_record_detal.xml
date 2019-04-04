@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    tools:context=".ui.activity.GradingedRecordDetalActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,11 +8,29 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.GradingedRecordDetalActivity">
-
+    >
     <include
         android:id="@+id/include3"
         layout="@layout/titles_layout" />
+
+<ScrollView
+    android:scrollbars="none"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    >
+
+
 
     <android.support.v7.widget.CardView
 
@@ -69,6 +88,7 @@
                     android:text="张三"
                     android:textColor="@color/white"
                     android:textSize="@dimen/list_txt_"
+                    app:layout_constraintBottom_toBottomOf="@+id/circleImageView_gradinged_detail"
                     app:layout_constraintStart_toEndOf="@+id/circleImageView_gradinged_detail"
                     app:layout_constraintTop_toTopOf="@+id/circleImageView_gradinged_detail" />
 
@@ -81,6 +101,7 @@
                     android:text="2019-03-06"
                     android:textColor="@color/white"
                     android:textSize="@dimen/list_txt_s"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_grading_record_detail_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_grading_record_detail_name" />
@@ -92,7 +113,6 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    android:text="评分人: 李四"
                     android:textColor="@color/white"
                     android:textSize="@dimen/list_txt_s"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -147,7 +167,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="包装工人"
                 android:textColor="@color/black"
                 android:textSize="@dimen/title_center_size"
                 app:layout_constraintEnd_toEndOf="@+id/textView42"
@@ -171,7 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="30"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="@dimen/title_center_size"
                 app:layout_constraintEnd_toEndOf="@+id/textView33"
@@ -183,7 +202,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="优"
                 android:textColor="@color/black"
                 android:textSize="@dimen/title_center_size"
                 app:layout_constraintEnd_toEndOf="@+id/textView38"
@@ -238,7 +256,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_gradinged_record_detail"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
 
@@ -269,4 +287,6 @@
 
     </android.support.v7.widget.CardView>
 
+</LinearLayout>
+</ScrollView>
 </LinearLayout>

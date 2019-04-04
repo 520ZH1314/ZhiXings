@@ -3,7 +3,7 @@ package com.zhixing.employlib.model;
 public class RecruitDeiveredEntity {
     public String workName;
 
-
+    public  String type;
     public String date;
 
     public String workYear;
@@ -16,12 +16,13 @@ public class RecruitDeiveredEntity {
         this.money = money;
     }
 
-    public RecruitDeiveredEntity(String workName, String date, String workYear, String money, String status) {
+    public RecruitDeiveredEntity(String workName, String date, String workYear, String money, String status,String type) {
         this.workName = workName;
         this.date = date;
         this.workYear = workYear;
         this.money = money;
         this.status = status;
+        this.type=type;
     }
 
     public String money;

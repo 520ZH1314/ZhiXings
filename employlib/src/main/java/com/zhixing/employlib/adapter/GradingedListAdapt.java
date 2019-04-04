@@ -36,7 +36,7 @@ public class GradingedListAdapt extends BaseQuickAdapter<GradingedEntity, BaseVi
 
         helper.setText(R.id.tv_gradinged_item_name, item.name);
         helper.setText(R.id.tv_gradinged_item_worker, item.worker);
-        helper.setText(R.id.tv_gradinged_item_score, item.score);
+        helper.setText(R.id.tv_gradinged_item_score, item.score+"");
         helper.setText(R.id.tv_gradinged_item_better, item.rank);
 
 

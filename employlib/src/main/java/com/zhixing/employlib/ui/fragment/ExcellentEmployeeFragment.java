@@ -17,8 +17,10 @@ import com.base.zhixing.www.BaseFragment;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.ExcellentEmployeeAdapt;
 import com.zhixing.employlib.model.ExcellentEmployeeEntity;
+import com.zhixing.employlib.model.gardenplot.ExcellentEmployeeBean;
 import com.zhixing.employlib.viewmodel.fragment.TeamViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +33,7 @@ public class ExcellentEmployeeFragment  extends BaseFragment {
 
     private RecyclerView recyclerView;
     private TeamViewModel teamViewModel;
+    private String urlimg;
 
     @Nullable
     @Override
@@ -45,11 +48,39 @@ public class ExcellentEmployeeFragment  extends BaseFragment {
     }
 
     private void initData() {
-        teamViewModel.getExcellentEmployeeData().observe(getActivity(), new Observer<List<ExcellentEmployeeEntity>>() {
+//        teamViewModel.getExcellentEmployeeData().observe(getActivity(), new Observer<List<ExcellentEmployeeEntity>>() {
+//            @Override
+//            public void onChanged(@Nullable List<ExcellentEmployeeEntity> excellentEmployeeEntities) {
+//                ExcellentEmployeeAdapt excellentEmployeeAdapt = new ExcellentEmployeeAdapt(R.layout.item_excellent_employee, excellentEmployeeEntities);
+//                recyclerView.setAdapter(excellentEmployeeAdapt);
+//            }
+//        });
+
+
+
+        teamViewModel.getExcellentEmployeeData().observe(getActivity(), new Observer<List<ExcellentEmployeeBean>>() {
             @Override
-            public void onChanged(@Nullable List<ExcellentEmployeeEntity> excellentEmployeeEntities) {
-                ExcellentEmployeeAdapt excellentEmployeeAdapt = new ExcellentEmployeeAdapt(R.layout.item_excellent_employee, excellentEmployeeEntities);
-                recyclerView.setAdapter(excellentEmployeeAdapt);
+            public void onChanged(@Nullable List<ExcellentEmployeeBean> excellentEmployeeBeans) {
+
+                if (excellentEmployeeBeans!=null){
+                    List<ExcellentEmployeeEntity> data=new ArrayList<>();
+                    for (int i = 1; i <excellentEmployeeBeans.size(); i++) {
+                        if (excellentEmployeeBeans.get(i).getFiles().size()==0){
+
+                        }else{
+                            urlimg=excellentEmployeeBeans.get(i).getFiles().get(i).getFilePath();
+                        }
+
+                        data.add(new ExcellentEmployeeEntity(excellentEmployeeBeans.get(i).getExcellentType(),urlimg,excellentEmployeeBeans.get(i).getUserName(),
+                                excellentEmployeeBeans.get(i).getUserInfo().getPositionName(), excellentEmployeeBeans.get(i).getEventScore()+"", excellentEmployeeBeans.get(i).getSeq()+"",excellentEmployeeBeans.get(i).getExcellentDeeds()));
+
+                    }
+                    ExcellentEmployeeAdapt excellentEmployeeAdapt = new ExcellentEmployeeAdapt(R.layout.item_excellent_employee, data);
+                    recyclerView.setAdapter(excellentEmployeeAdapt);
+
+                }
+
+
             }
         });
     }

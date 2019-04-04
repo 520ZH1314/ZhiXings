@@ -38,6 +38,11 @@ public class RecruitAdapt extends BaseQuickAdapter<RecruitEntry, BaseViewHolder>
             tvWorkName.setText(item.workName);
             tvDate.setText(item.date);
             tvWorkYear.setText(item.workYear);
+            tvMoney.setTextColor(mContext.getResources().getColor(R.color.red));
+            tvDesc.setTextColor(mContext.getResources().getColor(R.color.black));
+            tvDescName.setTextColor(mContext.getResources().getColor(R.color.black));
+            tvDate.setTextColor(mContext.getResources().getColor(R.color.black));
+            tvWorkName.setTextColor(mContext.getResources().getColor(R.color.black));
         } else {
             //已投递
             button.setVisibility(View.VISIBLE);
@@ -54,7 +59,6 @@ public class RecruitAdapt extends BaseQuickAdapter<RecruitEntry, BaseViewHolder>
             tvDescName.setTextColor(mContext.getResources().getColor(R.color.gray02));
             tvDate.setTextColor(mContext.getResources().getColor(R.color.gray02));
             tvWorkName.setTextColor(mContext.getResources().getColor(R.color.gray02));
-
             tvDesc.setText(item.workDesc);
             tvMoney.setText(item.money);
             tvWorkName.setText(item.workName);

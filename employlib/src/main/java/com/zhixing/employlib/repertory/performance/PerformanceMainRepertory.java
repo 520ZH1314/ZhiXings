@@ -11,6 +11,8 @@ import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.api.MyDBaseRepository;
 import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.performance.MonthPerformanceBean;
+import com.zhixing.employlib.model.performance.PersonDayEventBean;
+import com.zhixing.employlib.model.performance.PersonDayEventPostBean;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.model.performance.PersonTeamPostBean;
 import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
@@ -83,6 +85,25 @@ public class PerformanceMainRepertory {
 
 
     }
+
+
+
+    //获取个人积分事件
+
+
+    public MutableLiveData<DBaseResponse<PersonDayEventBean>> getPersonDayEventData(String date) {
+        MyDBaseRepository<PersonDayEventBean> myDBaseRepository = new MyDBaseRepository<PersonDayEventBean>(mContext);
+        String AppCode = "EMS";
+        String ApiCode = "GetDayKeyEvent";
+        String TenantId = SharedPreferencesTool.getMStool(mContext).getTenantId();
+        String ip = SharedPreferencesTool.getMStool(mContext).getIp();
+        String userCode = SharedPreferencesTool.getMStool(mContext).getUserCode();
+        PersonDayEventPostBean bean = new PersonDayEventPostBean(AppCode, ApiCode, userCode, date, TenantId);
+        return myDBaseRepository.request(APi.getPersonDayEvent(bean, mContext, ip)).send().get();
+
+
+    }
+
 
 
 

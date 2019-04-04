@@ -23,7 +23,10 @@ import com.rmondjone.locktableview.LockTableView;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.IntegralEventAdapt;
 import com.zhixing.employlib.model.IntegralEventEntity;
+import com.zhixing.employlib.model.grading.RankBean;
+import com.zhixing.employlib.viewmodel.activity.GradingedListViewModel;
 import com.zhixing.employlib.viewmodel.fragment.PerFormanceViewModel;
+import com.zhixing.netlib.base.BaseResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,7 @@ public class DialogFragmentGradingedStand extends DialogFragment implements View
     private LinearLayout ContentView;
     private LockTableView mLockTableView;
     private  ArrayList<String> mRowDatas;
+    private GradingedListViewModel gradingedListViewModel;
 
     @Nullable
     @Override
@@ -55,7 +59,7 @@ public class DialogFragmentGradingedStand extends DialogFragment implements View
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_fragment_grading_stand, null);
         iv_close = (ImageView) view.findViewById(R.id.iv_gradinged_close);
          ContentView =(LinearLayout)view.findViewById(R.id.record_detail_stand_contentView);
-
+         gradingedListViewModel = ViewModelProviders.of(getActivity()).get(GradingedListViewModel.class);
         iv_close.setOnClickListener(this);
 
         initTable();
@@ -79,29 +83,6 @@ public class DialogFragmentGradingedStand extends DialogFragment implements View
         mfristData.add("评定标准");
 
         mTableDatas.add(mfristData);
-
-        for (int i = 0; i < 3; i++) {
-            if (i==0){
-                mRowDatas = new ArrayList<>();
-                //数据填充
-                mRowDatas.add("优");
-                mRowDatas.add("得分21-30");
-                mTableDatas.add(mRowDatas);
-            }else if (i==1){
-                mRowDatas = new ArrayList<>();
-                //数据填充
-                mRowDatas.add("良");
-                mRowDatas.add("得分11-20");
-                mTableDatas.add(mRowDatas);
-            }else if (i==2){
-                mRowDatas = new ArrayList<>();
-                //数据填充
-                mRowDatas.add("差");
-                mRowDatas.add("得分0-10");
-                mTableDatas.add(mRowDatas);
-            }
-
-        }
         mLockTableView = new LockTableView(getActivity(), ContentView, mTableDatas);
         mLockTableView.setLockFristColumn(false) //是否锁定第一列
                 .setMaxColumnWidth(200) //列最大宽度
@@ -118,7 +99,22 @@ public class DialogFragmentGradingedStand extends DialogFragment implements View
         mLockTableView.getTableScrollView().setPullRefreshEnabled(false);
         mLockTableView.getTableScrollView().setLoadingMoreEnabled(false);
 
+        gradingedListViewModel.getRankStandData().observe(getActivity(), new Observer<BaseResponse<RankBean>>() {
+            @Override
+            public void onChanged(@Nullable BaseResponse<RankBean> rankBeanBaseResponse) {
+                if (rankBeanBaseResponse.getRows()!=null){
+                    List<RankBean> rows = rankBeanBaseResponse.getRows();
 
+                    for (int i = 0; i < rows.size(); i++) {
+                        mRowDatas = new ArrayList<>();
+                        mRowDatas.add(rows.get(i).getGrapeName());
+                        mRowDatas.add(rows.get(i).getDescription());
+                        mTableDatas.add(mRowDatas);
+                    }
+                    mLockTableView.setTableDatas(mTableDatas);
+                }
+            }
+        });
     }
 
 

@@ -9,18 +9,30 @@ import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.MonthViewBean;
 import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.model.StandScore;
+import com.zhixing.employlib.model.gardenplot.ExcellentEmployeeBean;
+import com.zhixing.employlib.model.gardenplot.ExcellentEmployeePostBean;
+import com.zhixing.employlib.model.gardenplot.NewEmployeeBean;
+import com.zhixing.employlib.model.gardenplot.TeamDemeanorBean;
 import com.zhixing.employlib.model.grading.GoGradingPostBean;
 import com.zhixing.employlib.model.grading.GradListBean;
 import com.zhixing.employlib.model.grading.GradListDetailPostBean;
 import com.zhixing.employlib.model.grading.GradingListDetailBean;
 import com.zhixing.employlib.model.grading.GradingListPostBean;
+import com.zhixing.employlib.model.grading.RankBean;
+import com.zhixing.employlib.model.grading.RankStandPostBean;
 import com.zhixing.employlib.model.performance.EventKeyBean;
 import com.zhixing.employlib.model.performance.EventPostBean;
 import com.zhixing.employlib.model.performance.MonthPerformanceBean;
+import com.zhixing.employlib.model.performance.PersonDayEventBean;
+import com.zhixing.employlib.model.performance.PersonDayEventPostBean;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.model.performance.PersonTeamPostBean;
 import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
 import com.zhixing.employlib.model.performance.YesterdayPerformancePostBean;
+import com.zhixing.employlib.model.recrui.DoJobPostBean;
+import com.zhixing.employlib.model.recrui.PutRefferPostBean;
+import com.zhixing.employlib.model.recrui.RecruitListBean;
+import com.zhixing.employlib.model.recrui.RecruitListPostBean;
 import com.zhixing.netlib.base.BaseHttpUtil;
 import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.netlib.base.RetrofitClients;
@@ -118,6 +130,69 @@ public class APi {
 
         return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .sendAppealRes(httpUtil.convertVo2Json( put(bean,map,httpUtil)));
     }
+
+
+    //获取等级标准
+
+
+    public static Flowable<BaseResponse<RankBean>> getRankStand(RankStandPostBean bean, Context mContext, String url){
+
+        return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).getRankStand((new BaseHttpUtil<RankStandPostBean>().convertVo2Json(bean)));
+
+    }
+
+    //获取个人当日积分事件
+    public static Flowable<DBaseResponse<PersonDayEventBean>> getPersonDayEvent(PersonDayEventPostBean bean, Context mContext, String url){
+        return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).getPersonDayEvent(new BaseHttpUtil<PersonDayEventPostBean>().convertVo2Json(bean));
+
+    }
+
+    //获取园地优秀员工
+
+    public static Flowable<BaseResponse<ExcellentEmployeeBean>> getExcellentEmployee(ExcellentEmployeePostBean bean,Context mContext,String url){
+        return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).getExcellentEmployee(new BaseHttpUtil<ExcellentEmployeePostBean>().convertVo2Json(bean));
+
+
+    };
+
+    //获取园地新员工
+
+    public static Flowable<BaseResponse<NewEmployeeBean>> getNewEmployee(ExcellentEmployeePostBean bean, Context mContext, String url){
+        return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).getNewEmployee(new BaseHttpUtil<ExcellentEmployeePostBean>().convertVo2Json(bean));
+
+
+    };
+    //获取园地班组风采
+    public static Flowable<BaseResponse<TeamDemeanorBean>> getTeamDemeanor(ExcellentEmployeePostBean bean, Context mContext, String url){
+        return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).getTeamDemeanor(new BaseHttpUtil<ExcellentEmployeePostBean>().convertVo2Json(bean));
+
+
+    };
+
+
+    //获取招聘列表
+
+    public static Flowable<BaseResponse<RecruitListBean>> getRecruitList(RecruitListPostBean bean,Context mContext ,String url){
+        return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).getRecruitList(new BaseHttpUtil<RecruitListPostBean>().convertVo2Json(bean));
+
+    }
+
+    //投递简历
+
+    public static Flowable<BaseResponse> SendJob(DoJobPostBean bean, Context mContext , String url){
+        return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).SendJob(new BaseHttpUtil<DoJobPostBean>().convertVo2Json(bean));
+
+    }
+
+    //推荐岗位
+
+
+    public static Flowable<BaseResponse> PutJob(PutRefferPostBean bean, Context mContext , String url){
+        return RetrofitClients.getInstance(mContext,url).create(PerformanceApi.class).PutJob(new BaseHttpUtil<PutRefferPostBean>().convertVo2Json(bean));
+
+    }
+
+
     //月视图
     public static  Flowable<BaseResponse<MonthViewBean>> getMonthViews(PersonTeamPostBean bean, Context mContext, String url, Map map) {
         BaseHttpUtil  httpUtil = new BaseHttpUtil();
@@ -130,4 +205,7 @@ public class APi {
 
         return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .getScoreColor(httpUtil.convertVo2Json(put(bean,map,httpUtil)));
     }
+
+
+
 }

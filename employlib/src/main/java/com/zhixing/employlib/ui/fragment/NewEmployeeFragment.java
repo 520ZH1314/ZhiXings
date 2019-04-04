@@ -18,41 +18,71 @@ import com.base.zhixing.www.BaseFragment;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.NewEmployeeAdapt;
 import com.zhixing.employlib.model.NewEmployeeEntity;
+import com.zhixing.employlib.model.gardenplot.NewEmployeeBean;
 import com.zhixing.employlib.viewmodel.fragment.TeamViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- *@author zjq
- *create at 2019/3/14 下午2:05
+ * @author zjq
+ * create at 2019/3/14 下午2:05
  * 新员工
  */
 public class NewEmployeeFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
     private TeamViewModel teamViewModel;
+    private String imgPath;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         View view=inflater.inflate(R.layout.fragment_new_employee,container,false);
+        View view = inflater.inflate(R.layout.fragment_new_employee, container, false);
         teamViewModel = ViewModelProviders.of(getActivity()).get(TeamViewModel.class);
 
-        recyclerView  =(RecyclerView)view.findViewById(R.id.recy_new_employee);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL,false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recy_new_employee);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-          initData();
-          return  view;
+        initData();
+        return view;
     }
 
     private void initData() {
-        teamViewModel.getNewEmployeeData().observe(getActivity(), new Observer<List<NewEmployeeEntity>>() {
-            @Override
-            public void onChanged(@Nullable List<NewEmployeeEntity> newEmployeeEntities) {
+//        teamViewModel.getNewEmployeeData().observe(getActivity(), new Observer<List<NewEmployeeEntity>>() {
+//            @Override
+//            public void onChanged(@Nullable List<NewEmployeeEntity> newEmployeeEntities) {
+//
+//                NewEmployeeAdapt newEmployeeAdapt = new NewEmployeeAdapt(R.layout.item_new_employee, newEmployeeEntities);
+//                recyclerView.setAdapter(newEmployeeAdapt);
+//            }
+//        });
 
-                NewEmployeeAdapt newEmployeeAdapt = new NewEmployeeAdapt(R.layout.item_new_employee, newEmployeeEntities);
-                recyclerView.setAdapter(newEmployeeAdapt);
+
+        teamViewModel.getNewEmployeeData().observe(getActivity(), new Observer<List<NewEmployeeBean>>() {
+            @Override
+            public void onChanged(@Nullable List<NewEmployeeBean> newEmployeeBeans) {
+                if (newEmployeeBeans != null) {
+
+
+                    List<NewEmployeeEntity> datas = new ArrayList<>();
+                    for (int i = 0; i < newEmployeeBeans.size(); i++) {
+                        if (newEmployeeBeans.get(i).getFiles().size() == 0) {
+
+                        } else {
+                            imgPath = newEmployeeBeans.get(i).getFiles().get(i).getFilePath();
+                        }
+
+
+                        datas.add(new NewEmployeeEntity(newEmployeeBeans.get(i).getUserInfo().getNativePlace(), imgPath, newEmployeeBeans.get(i).getUserName(),
+                                newEmployeeBeans.get(i).getUserInfo().getPositionName(),
+                                newEmployeeBeans.get(i).getUserInfo().getOrganizeName(), clearTime(newEmployeeBeans.get(i).getUserInfo().getJoinWorkDate()), newEmployeeBeans.get(i).getNewDeeds()));
+                    }
+                    NewEmployeeAdapt newEmployeeAdapt = new NewEmployeeAdapt(R.layout.item_new_employee, datas);
+                    recyclerView.setAdapter(newEmployeeAdapt);
+
+                }
+
             }
         });
     }
@@ -61,4 +91,15 @@ public class NewEmployeeFragment extends BaseFragment {
     public void process(Message msg) {
 
     }
+
+    public String clearTime(String date) {
+//        2007-11-14T00:00:00
+        String[] ts = date.split("T");
+        String t = ts[0];
+        String[] split = t.split("-");
+        return split[1] + "月" + split[2] + "日";
+
+    }
+
+
 }

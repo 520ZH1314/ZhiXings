@@ -190,7 +190,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
         }
 
         //初始化个人和班组的昨日绩效
-        perFormanceViewModel.setYesterdayTime("2019-04-15");
+        perFormanceViewModel.setYesterdayTime(commonTime1);
 
 
         perFormanceViewModel.YesDayData.observe(getActivity(), totalMonthPerformanceBeans -> {
@@ -219,7 +219,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
 
         });
-        perFormanceViewModel.setMonthTime("2019-02-01");
+        perFormanceViewModel.setMonthTime(Years+"-"+Months+"-"+"01");
         perFormanceViewModel.MonthData.observe(getActivity(),  beans ->{
             if (beans != null) {
                 //强转问题
@@ -253,325 +253,6 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
 
 
-    private void setYesDayData() {
-        String dayUserInfo = aCache.getAsString("DayUserInfo");
-        String teamInfo=aCache.getAsString("DayTeamInfo");
-
-        Type type = new TypeToken< List<TotalMonthPerformanceBean.ReturndayInfoBean.TeamInfoBean>>() {}.getType();
-        Type type2 = new TypeToken< List<TotalMonthPerformanceBean.ReturndayInfoBean.UserInfoBean>>() {}.getType();
-
-        List<TotalMonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userData = GsonUtil.getGson().fromJson(dayUserInfo, type2);
-        List<TotalMonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamData = GsonUtil.getGson().fromJson(teamInfo, type);
-        Logger.i(teamData.size()+"");
-        if (userData.size()==0){
-            tvIntegral.setText("暂无");
-            tvRank.setText("暂无");
-            tvName.setText("我的上级:" + "暂无");
-
-        }else{
-            tvIntegral.setText(userData.get(0).getScore()+"");
-            tvRank.setText(userData.get(0).getSeq()+"");
-            tvName.setText("我的上级:" + userData.get(0).getTeamLeaderName());
-        }
-
-        if (teamData.size()==0){
-
-                clealData("暂无");
-                Toasty.INSTANCE.showToast(getActivity(),"暂无数据");
-
-        }
-
-        if (teamData.size()==1){
-
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-
-            tvNameExcellent2.setText("暂无");
-            tvNameExcellentIntegral2.setText("暂无");
-
-            tvNameExcellent3.setText("暂无");
-            tvNameExcellentIntegral3.setText("暂无");
-
-
-            tvBackwardIntegral1.setText("暂无");
-            tvBackwardName1.setText("暂无");
-
-            tvBackwardName2.setText("暂无");
-            tvBackwardIntegral2.setText("暂无");
-
-
-            tvBackwardName3.setText("暂无");
-            tvBackwardIntegral3.setText("暂无");
-
-
-
-        }else if (teamData.size()==2) {
-
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-            tvNameExcellent3.setText("暂无");
-            tvNameExcellentIntegral3.setText("暂无");
-
-            tvBackwardIntegral1.setText("暂无");
-            tvBackwardName1.setText("暂无");
-
-            tvBackwardName2.setText("暂无");
-            tvBackwardIntegral2.setText("暂无");
-
-
-            tvBackwardName3.setText("暂无");
-            tvBackwardIntegral3.setText("暂无");
-
-        }else if (teamData.size()==3) {
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-            tvNameExcellent3.setText(teamData.get(2).getUserName());
-            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
-
-            tvBackwardIntegral1.setText("暂无");
-            tvBackwardName1.setText("暂无");
-
-            tvBackwardName2.setText("暂无");
-            tvBackwardIntegral2.setText("暂无");
-
-
-            tvBackwardName3.setText("暂无");
-            tvBackwardIntegral3.setText("暂无");
-
-        }else if (teamData.size()==4) {
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-
-            tvNameExcellent3.setText(teamData.get(2).getUserName());
-            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
-
-
-            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
-            tvBackwardName1.setText(teamData.get(3).getUserName());
-
-            tvBackwardName2.setText("暂无");
-            tvBackwardIntegral2.setText("暂无");
-
-
-            tvBackwardName3.setText("暂无");
-            tvBackwardIntegral3.setText("暂无");
-
-
-        }else if (teamData.size()==5) {
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-
-            tvNameExcellent3.setText(teamData.get(2).getUserName());
-            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
-
-
-            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
-            tvBackwardName1.setText(teamData.get(3).getUserName());
-
-
-            tvBackwardName2.setText(teamData.get(4).getUserName());
-            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
-
-
-            tvBackwardName3.setText("暂无");
-
-            tvBackwardIntegral3.setText("暂无");
-
-        }else if (teamData.size()>=6) {
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-
-            tvNameExcellent3.setText(teamData.get(2).getUserName());
-            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
-
-
-            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
-            tvBackwardName1.setText(teamData.get(3).getUserName());
-
-
-            tvBackwardName2.setText(teamData.get(4).getUserName());
-            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
-
-            tvBackwardIntegral3.setText(teamData.get(5).getScore()+"");
-            tvBackwardName3.setText(teamData.get(5).getUserName());
-
-
-        }
-    }
-
-
-    private void setMonthDayData() {
-        String MonthUserInfo = aCache.getAsString("MonthUserInfo");
-        String MonthTeamInfo=aCache.getAsString("MonthTeamInfo");
-
-        Type type = new TypeToken< List<MonthPerformanceBean.ReturndayInfoBean.TeamInfoBean>>() {}.getType();
-        Type type2 = new TypeToken< List<MonthPerformanceBean.ReturndayInfoBean.UserInfoBean>>() {}.getType();
-        List<MonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userData = GsonUtil.getGson().fromJson(MonthUserInfo, type2);
-        List<MonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamData = GsonUtil.getGson().fromJson(MonthTeamInfo, type);
-
-
-
-        if (userData.size()==0){
-            tvIntegral.setText("暂无");
-            tvRank.setText("暂无");
-            tvName.setText("我的上级:" + "暂无");
-
-        }else{
-            tvIntegral.setText(userData.get(0).getScore()+"");
-            tvRank.setText(userData.get(0).getSeq()+"");
-            tvName.setText("我的上级:" + userData.get(0).getTeamLeaderName());
-        }
-
-        if (teamData.size()==0){
-
-            clealData("暂无");
-            Toasty.INSTANCE.showToast(getActivity(),"暂无数据");
-
-        }
-
-        if (teamData.size()==1){
-
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-
-            tvNameExcellent2.setText("暂无");
-            tvNameExcellentIntegral2.setText("暂无");
-
-            tvNameExcellent3.setText("暂无");
-            tvNameExcellentIntegral3.setText("暂无");
-
-
-            tvBackwardIntegral1.setText("暂无");
-            tvBackwardName1.setText("暂无");
-
-            tvBackwardName2.setText("暂无");
-            tvBackwardIntegral2.setText("暂无");
-
-
-            tvBackwardName3.setText("暂无");
-            tvBackwardIntegral3.setText("暂无");
-
-
-
-        }else if (teamData.size()==2) {
-
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-            tvNameExcellent3.setText("暂无");
-            tvNameExcellentIntegral3.setText("暂无");
-
-            tvBackwardIntegral1.setText("暂无");
-            tvBackwardName1.setText("暂无");
-
-            tvBackwardName2.setText("暂无");
-            tvBackwardIntegral2.setText("暂无");
-
-
-            tvBackwardName3.setText("暂无");
-            tvBackwardIntegral3.setText("暂无");
-
-        }else if (teamData.size()==3) {
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-            tvNameExcellent3.setText(teamData.get(2).getUserName());
-            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
-
-            tvBackwardIntegral1.setText("暂无");
-            tvBackwardName1.setText("暂无");
-
-            tvBackwardName2.setText("暂无");
-            tvBackwardIntegral2.setText("暂无");
-
-
-            tvBackwardName3.setText("暂无");
-            tvBackwardIntegral3.setText("暂无");
-
-        }else if (teamData.size()==4) {
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-
-            tvNameExcellent3.setText(teamData.get(2).getUserName());
-            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
-
-
-            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
-            tvBackwardName1.setText(teamData.get(3).getUserName());
-
-            tvBackwardName2.setText("暂无");
-            tvBackwardIntegral2.setText("暂无");
-
-
-            tvBackwardName3.setText("暂无");
-            tvBackwardIntegral3.setText("暂无");
-
-
-        }else if (teamData.size()==5) {
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-
-            tvNameExcellent3.setText(teamData.get(2).getUserName());
-            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
-
-
-            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
-            tvBackwardName1.setText(teamData.get(3).getUserName());
-
-
-            tvBackwardName2.setText(teamData.get(4).getUserName());
-            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
-
-
-            tvBackwardName3.setText("暂无");
-
-            tvBackwardIntegral3.setText("暂无");
-
-        }else if (teamData.size()>=6) {
-            tvNameExcellent1.setText(teamData.get(0).getUserName());
-            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
-
-            tvNameExcellent2.setText(teamData.get(1).getUserName());
-            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
-
-            tvNameExcellent3.setText(teamData.get(2).getUserName());
-            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
-
-
-            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
-            tvBackwardName1.setText(teamData.get(3).getUserName());
-
-
-            tvBackwardName2.setText(teamData.get(4).getUserName());
-            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
-
-            tvBackwardIntegral3.setText(teamData.get(5).getScore()+"");
-            tvBackwardName3.setText(teamData.get(5).getUserName());
-
-
-        }
-    }
 
 
 
@@ -862,6 +543,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
 
             } else {
+                perFormanceViewModel.getTime(Year+"-"+Month+"-"+Day);
                 DialogFragmentIntergralEvent dialogFragmentIntergralEvent = new DialogFragmentIntergralEvent();
                 dialogFragmentIntergralEvent.show(getChildFragmentManager(), "");
 
@@ -902,6 +584,327 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
         tvBackwardRank3.setText("加油");
 
 
+    }
+
+
+    //设置昨日绩效数据
+    private void setYesDayData() {
+        String dayUserInfo = aCache.getAsString("DayUserInfo");
+        String teamInfo=aCache.getAsString("DayTeamInfo");
+        Type type = new TypeToken< List<TotalMonthPerformanceBean.ReturndayInfoBean.TeamInfoBean>>() {}.getType();
+        Type type2 = new TypeToken< List<TotalMonthPerformanceBean.ReturndayInfoBean.UserInfoBean>>() {}.getType();
+
+        List<TotalMonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userData = GsonUtil.getGson().fromJson(dayUserInfo, type2);
+        List<TotalMonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamData = GsonUtil.getGson().fromJson(teamInfo, type);
+        Logger.i(teamData.size()+"");
+        if (userData.size()==0){
+            tvIntegral.setText("暂无");
+            tvRank.setText("暂无");
+            tvName.setText("我的上级:" + "暂无");
+
+        }else{
+            tvIntegral.setText(userData.get(0).getScore()+"");
+            tvRank.setText(userData.get(0).getSeq()+"");
+            tvName.setText("我的上级:" + userData.get(0).getTeamLeaderName());
+        }
+
+        if (teamData.size()==0){
+
+            clealData("暂无");
+            Toasty.INSTANCE.showToast(getActivity(),"暂无数据");
+
+        }
+
+        if (teamData.size()==1){
+
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText("暂无");
+            tvNameExcellentIntegral2.setText("暂无");
+
+            tvNameExcellent3.setText("暂无");
+            tvNameExcellentIntegral3.setText("暂无");
+
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+
+
+        }else if (teamData.size()==2) {
+
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+            tvNameExcellent3.setText("暂无");
+            tvNameExcellentIntegral3.setText("暂无");
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()==3) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()==4) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+
+        }else if (teamData.size()==5) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+
+            tvBackwardName2.setText(teamData.get(4).getUserName());
+            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
+
+
+            tvBackwardName3.setText("暂无");
+
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()>=6) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+
+            tvBackwardName2.setText(teamData.get(4).getUserName());
+            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
+
+            tvBackwardIntegral3.setText(teamData.get(5).getScore()+"");
+            tvBackwardName3.setText(teamData.get(5).getUserName());
+
+
+        }
+    }
+
+    //设置月绩效数据
+    private void setMonthDayData() {
+        String MonthUserInfo = aCache.getAsString("MonthUserInfo");
+        String MonthTeamInfo=aCache.getAsString("MonthTeamInfo");
+
+        Type type = new TypeToken< List<MonthPerformanceBean.ReturndayInfoBean.TeamInfoBean>>() {}.getType();
+        Type type2 = new TypeToken< List<MonthPerformanceBean.ReturndayInfoBean.UserInfoBean>>() {}.getType();
+        List<MonthPerformanceBean.ReturndayInfoBean.UserInfoBean> userData = GsonUtil.getGson().fromJson(MonthUserInfo, type2);
+        List<MonthPerformanceBean.ReturndayInfoBean.TeamInfoBean> teamData = GsonUtil.getGson().fromJson(MonthTeamInfo, type);
+
+
+
+        if (userData.size()==0){
+            tvIntegral.setText("暂无");
+            tvRank.setText("暂无");
+            tvName.setText("我的上级:" + "暂无");
+
+        }else{
+            tvIntegral.setText(userData.get(0).getScore()+"");
+            tvRank.setText(userData.get(0).getSeq()+"");
+            tvName.setText("我的上级:" + userData.get(0).getTeamLeaderName());
+        }
+
+        if (teamData.size()==0){
+
+            clealData("暂无");
+            Toasty.INSTANCE.showToast(getActivity(),"暂无数据");
+
+        }
+
+        if (teamData.size()==1){
+
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText("暂无");
+            tvNameExcellentIntegral2.setText("暂无");
+
+            tvNameExcellent3.setText("暂无");
+            tvNameExcellentIntegral3.setText("暂无");
+
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+
+
+        }else if (teamData.size()==2) {
+
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+            tvNameExcellent3.setText("暂无");
+            tvNameExcellentIntegral3.setText("暂无");
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()==3) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+            tvBackwardIntegral1.setText("暂无");
+            tvBackwardName1.setText("暂无");
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()==4) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+            tvBackwardName2.setText("暂无");
+            tvBackwardIntegral2.setText("暂无");
+
+
+            tvBackwardName3.setText("暂无");
+            tvBackwardIntegral3.setText("暂无");
+
+
+        }else if (teamData.size()==5) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+
+            tvBackwardName2.setText(teamData.get(4).getUserName());
+            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
+
+
+            tvBackwardName3.setText("暂无");
+
+            tvBackwardIntegral3.setText("暂无");
+
+        }else if (teamData.size()>=6) {
+            tvNameExcellent1.setText(teamData.get(0).getUserName());
+            tvNameExcellentIntegral1.setText(teamData.get(0).getScore()+"");
+
+            tvNameExcellent2.setText(teamData.get(1).getUserName());
+            tvNameExcellentIntegral2.setText(teamData.get(1).getScore()+"");
+
+            tvNameExcellent3.setText(teamData.get(2).getUserName());
+            tvNameExcellentIntegral3.setText(teamData.get(2).getScore()+"");
+
+
+            tvBackwardIntegral1.setText(teamData.get(3).getScore()+"");
+            tvBackwardName1.setText(teamData.get(3).getUserName());
+
+
+            tvBackwardName2.setText(teamData.get(4).getUserName());
+            tvBackwardIntegral2.setText(teamData.get(4).getScore()+"");
+
+            tvBackwardIntegral3.setText(teamData.get(5).getScore()+"");
+            tvBackwardName3.setText(teamData.get(5).getUserName());
+
+
+        }
     }
 
 

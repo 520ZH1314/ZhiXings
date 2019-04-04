@@ -15,6 +15,8 @@ import com.zhixing.employlib.model.grading.GradListBean;
 import com.zhixing.employlib.model.grading.GradListDetailPostBean;
 import com.zhixing.employlib.model.grading.GradingListDetailBean;
 import com.zhixing.employlib.model.grading.GradingListPostBean;
+import com.zhixing.employlib.model.grading.RankBean;
+import com.zhixing.employlib.model.grading.RankStandPostBean;
 import com.zhixing.employlib.model.performance.EventKeyBean;
 import com.zhixing.employlib.model.performance.EventPostBean;
 import com.zhixing.employlib.model.performance.YesterdayPerformancePostBean;
@@ -106,5 +108,24 @@ public class GradingListRepertory {
 
         return  myDBaseRepository.request(APi.getEvent(bean,mContext,ip)).send().get();
     }
+
+
+
+    //获取等级标准
+    public MutableLiveData<BaseResponse<RankBean>>getRankStand(){
+        MyBaseRepository myDBaseRepository=new MyBaseRepository(mContext);
+        String AppCode = "EMS";
+        String ApiCode = "GetAllGrapeChart";
+
+        String TenantId = SharedPreferencesTool.getMStool(mContext).getTenantId();
+        String ip = SharedPreferencesTool.getMStool(mContext).getIp();
+
+        RankStandPostBean bean =new RankStandPostBean();
+        bean.setApiCode(ApiCode);
+        bean.setAppCode(AppCode);
+        bean.setTenantId(TenantId);
+        return  myDBaseRepository.request(APi.getRankStand(bean,mContext,ip)).send().get();
+    }
+
 
 }

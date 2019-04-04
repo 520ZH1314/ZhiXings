@@ -26,9 +26,14 @@ import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.adapter.GradingListAdapt;
 import com.zhixing.employlib.model.GradingItemEntity;
+import com.zhixing.employlib.model.eventbus.GradingEvent;
 import com.zhixing.employlib.model.grading.GradListBean;
 import com.zhixing.employlib.viewmodel.activity.GradingVIewModel;
 import com.zhixing.netlib.base.BaseResponse;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,7 +96,7 @@ public class GradingActivity extends BaseActvity {
     @Override
     public void initLayout() {
         bind = ButterKnife.bind(this);
-
+        EventBus.getDefault().register(this);
         initView();
 
         initData();
@@ -100,7 +105,7 @@ public class GradingActivity extends BaseActvity {
     }
 
     private void initData() {
-          showDialog("");
+
         gradingVIewModel.ListData.observe(this, new Observer<BaseResponse<GradListBean>>() {
             @Override
             public void onChanged(@Nullable BaseResponse<GradListBean> gradListBeanBaseResponse) {
@@ -117,8 +122,9 @@ public class GradingActivity extends BaseActvity {
 
 
                 }else{
-                    tvWorkSend.setVisibility(View.GONE);
                     dismissDialog();
+                    tvWorkSend.setVisibility(View.GONE);
+
                 }
             }
         });
@@ -141,6 +147,7 @@ public class GradingActivity extends BaseActvity {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         String format = sf.format(lastDay);
         String commonTime1 = TimeUtil.getCommonTime1(format);
+        showDialog("");
         gradingVIewModel.setDate(commonTime1);
 
 
@@ -193,7 +200,7 @@ public class GradingActivity extends BaseActvity {
                 tvGradingListYear.setText(Year + "年");
                 tvGradingListMoth.setText(Month + "月");
                 tvGradingListDay.setText(Day + "日");
-
+                showDialog("");
               gradingVIewModel.setDate(commonTime1);
             }
         });
@@ -220,6 +227,29 @@ public class GradingActivity extends BaseActvity {
         super.onRestart();
         dismissDialog();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(GradingEvent event){
+        if (!event.isSelect){
+            rlGrading.setVisibility(View.GONE);
+            tvWorkSend.setText("编辑");
+            gradingListAdapt.setIsSelect(false);
+            gradingListAdapt.notifyDataSetChanged();
+            isSelected=false;
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
+        EventBus.getDefault().unregister(this);
+        dismissDialog();
+
+    }
+
+
 }
 
 

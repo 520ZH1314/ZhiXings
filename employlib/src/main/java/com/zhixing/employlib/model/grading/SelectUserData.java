@@ -4,6 +4,7 @@ public class SelectUserData {
 
    public  String date;
     public String useCode;
+    public String endTime;
 
     public String getDate() {
         return date;
@@ -12,6 +13,12 @@ public class SelectUserData {
     public SelectUserData(String date, String useCode) {
         this.date = date;
         this.useCode = useCode;
+    }
+
+    public SelectUserData(String date, String useCode, String endTime) {
+        this.date = date;
+        this.useCode = useCode;
+        this.endTime = endTime;
     }
 
     public void setDate(String date) {

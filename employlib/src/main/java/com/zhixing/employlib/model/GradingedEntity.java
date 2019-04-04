@@ -10,15 +10,25 @@ public class GradingedEntity {
     public String imagUrl;
     public String name;
     public String worker;
-    public String score;
+    public int score;
     public String rank;
+    public  String useCode;
 
-    public GradingedEntity(String imagUrl, String name, String worker, String score, String rank) {
+    public GradingedEntity(String imagUrl, String name, String worker, int score, String rank,String useCode) {
         this.imagUrl = imagUrl;
         this.name = name;
         this.worker = worker;
         this.score = score;
         this.rank = rank;
+        this.useCode=useCode;
+    }
+
+    public String getUseCode() {
+        return useCode;
+    }
+
+    public void setUseCode(String useCode) {
+        this.useCode = useCode;
     }
 
     public String getImagUrl() {
@@ -45,11 +55,11 @@ public class GradingedEntity {
         this.worker = worker;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 

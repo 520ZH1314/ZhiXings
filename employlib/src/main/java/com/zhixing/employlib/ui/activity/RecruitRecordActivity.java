@@ -1,5 +1,6 @@
 package com.zhixing.employlib.ui.activity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,7 @@ import com.zhixing.employlib.R2;
 import com.zhixing.employlib.adapter.MyAdapter;
 import com.zhixing.employlib.ui.fragment.DeliveredFragment;
 import com.zhixing.employlib.ui.fragment.RecruitRecommendFragment;
+import com.zhixing.employlib.viewmodel.activity.RecruitRecordActivityViewModel;
 
 
 import java.util.ArrayList;
@@ -58,7 +60,8 @@ public class RecruitRecordActivity extends BaseActvity {
     @Override
     public void initLayout() {
          bind = ButterKnife.bind(this);
-
+        RecruitRecordActivityViewModel recruitRecordViewModel = ViewModelProviders.of(this).get(RecruitRecordActivityViewModel.class);
+        recruitRecordViewModel.getJobList();
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkTitle.setText("记录");
         tvWorkSend.setVisibility(View.GONE);

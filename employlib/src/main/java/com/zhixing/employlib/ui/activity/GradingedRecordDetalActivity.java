@@ -1,7 +1,10 @@
 package com.zhixing.employlib.ui.activity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,9 +15,13 @@ import com.base.zhixing.www.BaseActvity;
 import com.rmondjone.locktableview.LockTableView;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
+import com.zhixing.employlib.model.grading.GradingListDetailBean;
 import com.zhixing.employlib.view.DialogFragmentGradingedStand;
+import com.zhixing.employlib.viewmodel.activity.GradingedListViewModel;
+import com.zhixing.netlib.base.BaseResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +60,11 @@ public class GradingedRecordDetalActivity extends BaseActvity {
     private ArrayList<ArrayList<String>> mTableDatas;
     private ArrayList<String> mfristData;
     private LockTableView mLockTableView;
+    private GradingedListViewModel gradingedListViewModel;
+    private String useCode;
+    private String useName;
+    private String startTime;
+    private String endTime;
 
     @Override
     public int getLayoutId() {
@@ -74,19 +86,69 @@ public class GradingedRecordDetalActivity extends BaseActvity {
     }
 
     private void initView() {
+
+        if (getIntent().hasExtra("GradingedRecordDetalUseCode")){
+            useCode=getIntent().getStringExtra("GradingedRecordDetalUseCode");
+        }
+        if (getIntent().hasExtra("GradingedRecordDetalUseName")){
+            useName=getIntent().getStringExtra("GradingedRecordDetalUseName");
+        }
+
+        if (getIntent().hasExtra("GradingedRecordDetalStartTime")){
+            startTime=getIntent().getStringExtra("GradingedRecordDetalStartTime");
+        }
+        if (getIntent().hasExtra("GradingedRecordDetalEndTime")){
+            endTime=getIntent().getStringExtra("GradingedRecordDetalEndTime");
+        }
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkTitle.setText("评分记录详情");
         tvWorkSend.setVisibility(View.GONE);
-
+        tvGradingRecordDetailName.setText(useName);
         tvGradingedRecordDetailWorker.getPaint().setFakeBoldText(true);
         tvGradingedRecordDetailScore.getPaint().setFakeBoldText(true);
         tvGradingedRecordDetailBetter.getPaint().setFakeBoldText(true);
 
+        gradingedListViewModel = ViewModelProviders.of(this).get(GradingedListViewModel.class);
 
 
         initTable();
 
+        initData();
 
+
+    }
+
+    private void initData() {
+        gradingedListViewModel.setDates(startTime,endTime,useCode);
+        gradingedListViewModel.RecordDetailData.observe(this, new Observer<BaseResponse<GradingListDetailBean>>() {
+            @Override
+            public void onChanged(@Nullable BaseResponse<GradingListDetailBean> gradingListDetailBeanBaseResponse) {
+                   if (gradingListDetailBeanBaseResponse.getRows()!=null){
+                       GradingListDetailBean.UserInfoBean userInfo = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo();
+                       tvGradingedRecordDetailWorker.setText(userInfo.getPositionName());
+                       tvGradingedRecordDetailScore.setText(userInfo.getScore()+"");
+                       tvGradingedRecordDetailBetter.setText(userInfo.getGrapeName());
+                       List<GradingListDetailBean.EventInfoBean> eventInfo = gradingListDetailBeanBaseResponse.getRows().get(1).getEventInfo();
+                       if (eventInfo!=null){
+
+                           tvGradingRecordDetailPeopleName.setText("评分人:"+eventInfo.get(0).getTeamLeaderName());
+                           for (int i = 0; i < eventInfo.size(); i++) {
+                               String shiftDate = eventInfo.get(i).getShiftDate();
+                               String[] ts = shiftDate.split("T");
+                               ArrayList<String> mRowDatas = new ArrayList<>();
+                               //数据填充
+                               mRowDatas.add(eventInfo.get(i).getItemName());
+                               mRowDatas.add(eventInfo.get(i).getScore() + "");
+                               mRowDatas.add(ts[1]);
+                               mTableDatas.add(mRowDatas);
+
+                           }
+                           mLockTableView.setTableDatas(mTableDatas);
+                       }
+
+                   }
+            }
+        });
     }
 
 
@@ -106,16 +168,11 @@ public class GradingedRecordDetalActivity extends BaseActvity {
 
 
 
-        ArrayList<String> mRowDatas = new ArrayList<>();
-        //数据填充
-        mRowDatas.add("迟到");
-        mRowDatas.add("-2");
-        mRowDatas.add("9:02");
-        mTableDatas.add(mRowDatas);
+
         mLockTableView = new LockTableView(this, recordDetailContentView, mTableDatas);
         mLockTableView.setLockFristColumn(false) //是否锁定第一列
-                .setMaxColumnWidth(100) //列最大宽度
-                .setMinColumnWidth(60) //列最小宽度
+                .setMaxColumnWidth(80) //列最大宽度
+                .setMinColumnWidth(80) //列最小宽度
                 .setMinRowHeight(20)//行最小高度
                 .setMaxRowHeight(50)//行最大高度
                 .setTextViewSize(14) //单元格字体大小
@@ -148,4 +205,5 @@ public class GradingedRecordDetalActivity extends BaseActvity {
         super.onDestroy();
         bind.unbind();
     }
+
 }

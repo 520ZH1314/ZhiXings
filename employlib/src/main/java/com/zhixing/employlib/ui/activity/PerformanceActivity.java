@@ -17,6 +17,7 @@ import com.zhixing.employlib.adapter.MyAdapter;
 import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.ui.fragment.GardenPlotFragment;
+import com.zhixing.employlib.ui.fragment.PerformanceMineFragment;
 import com.zhixing.employlib.ui.fragment.PersonolPerformanceFragment;
 import com.zhixing.employlib.ui.fragment.RecruitFragment;
 import com.zhixing.employlib.view.CustomScrollViewPager;
@@ -81,6 +82,7 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
                 .initialise(); //initialise 一定要放在 所有设置的最后一项
 
         setDefaultFragment();//设置默认导航栏
+        showDialog("");
         //获取个人班组信息以及权限
         performanceMainViewModel.getTeamBeans();
         performanceMainViewModel.TeamBeans.observe(this, new Observer<List<PersonTeamBean>>() {
@@ -97,13 +99,16 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
                     list.add(new PersonolPerformanceFragment());
                     list.add(new GardenPlotFragment());
                     list.add(new RecruitFragment());
-                    list.add(new PersonolPerformanceFragment());
+                    list.add(new PerformanceMineFragment());
                     adapter = new MyAdapter(getSupportFragmentManager(), list, titles);
 
                     viewPager.setAdapter(adapter);
+                    dismissDialog();
 
                 }else{
+                    dismissDialog();
                     Toasty.INSTANCE.showToast(PerformanceActivity.this,"请求失败");
+
                 }
             }
         });
@@ -151,4 +156,6 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
     public void onTabReselected(int position) {
 
     }
+
+
 }

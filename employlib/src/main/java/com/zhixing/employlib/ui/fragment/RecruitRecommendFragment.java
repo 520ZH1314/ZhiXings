@@ -17,8 +17,11 @@ import com.base.zhixing.www.BaseFragment;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.RecruitDeiveredAdapt;
 import com.zhixing.employlib.model.RecruitDeiveredEntity;
+import com.zhixing.employlib.model.recrui.RecruitListBean;
+import com.zhixing.employlib.viewmodel.activity.RecruitRecordActivityViewModel;
 import com.zhixing.employlib.viewmodel.fragment.RecruitRecordViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,14 +33,14 @@ import java.util.List;
 public class RecruitRecommendFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
-    private RecruitRecordViewModel recruitRecordViewModel;
+    private RecruitRecordActivityViewModel recruitRecordViewModel;
     private RecruitDeiveredAdapt adapt;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
          View view=inflater.inflate(R.layout.fragment_recruit_recommend,container,false);
-         recruitRecordViewModel = ViewModelProviders.of(getActivity()).get(RecruitRecordViewModel.class);
+        recruitRecordViewModel = ViewModelProviders.of(getActivity()).get(RecruitRecordActivityViewModel.class);
         recyclerView = (RecyclerView)view.findViewById(R.id.recy_recommend);
          recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -48,16 +51,27 @@ public class RecruitRecommendFragment extends BaseFragment {
 
     private void initData() {
 
-        recruitRecordViewModel.getRecommendDatas();
-        recruitRecordViewModel.recommendDatas.observe(getActivity(), new Observer<List<RecruitDeiveredEntity>>() {
+        recruitRecordViewModel.JobList.observe(getActivity(), new Observer<List<RecruitListBean>>() {
             @Override
-            public void onChanged(@Nullable List<RecruitDeiveredEntity> recruitDeiveredEntities) {
-                if (recruitDeiveredEntities!=null){
-                     adapt =new RecruitDeiveredAdapt(R.layout.item_delivered,recruitDeiveredEntities);
-                     recyclerView.setAdapter(adapt);
+            public void onChanged(@Nullable List<RecruitListBean> recruitListBeans) {
+                if (recruitListBeans!=null){
+
+                    List<RecruitDeiveredEntity> entities=new ArrayList<>();
+                    for (int i = 0; i < recruitListBeans.size(); i++) {
+
+                        if ("1".equals(recruitListBeans.get(i).getApplyType()+"")){
+                            entities.add(new RecruitDeiveredEntity(recruitListBeans.get(i).getJobPost(),
+                                    clearTime(recruitListBeans.get(i).getCreateDate()),
+                                    recruitListBeans.get(i).getJobSkills(),
+                                    recruitListBeans.get(i).getJobSalaryMin()/1000+"K"+"-"+recruitListBeans.get(i).getJobSalarMax()/1000+"K",
+                                    recruitListBeans.get(i).getState()+"","1"));
+                        }
+
+
+                    }
+                    adapt =new RecruitDeiveredAdapt(R.layout.item_delivered,entities);
+                    recyclerView.setAdapter(adapt);
                 }
-
-
             }
         });
 
@@ -67,6 +81,14 @@ public class RecruitRecommendFragment extends BaseFragment {
 
     @Override
     public void process(Message msg) {
+
+    }
+    public String clearTime(String date) {
+//        2007-11-14T00:00:00
+        String[] ts = date.split("T");
+        String t = ts[0];
+        String[] split = t.split("-");
+        return split[1] + "月" + split[2] + "日";
 
     }
 }

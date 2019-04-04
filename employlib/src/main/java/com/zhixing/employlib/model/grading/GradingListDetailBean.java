@@ -165,6 +165,16 @@ public class GradingListDetailBean implements Serializable {
             private Object PositionId;
             private Object PositionCode;
             private String PositionName;
+
+            public String getGrapeName() {
+                return GrapeName;
+            }
+
+            public void setGrapeName(String grapeName) {
+                GrapeName = grapeName;
+            }
+
+            private  String GrapeName;
             private int EventCount;
             private double Score;
 

@@ -14,45 +14,78 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.base.zhixing.www.BaseFragment;
+import com.base.zhixing.www.util.TimeUtil;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.BetterTeamEmployeeAdapt;
 import com.zhixing.employlib.model.BetterTeamEmployeeEntity;
+import com.zhixing.employlib.model.gardenplot.TeamDemeanorBean;
 import com.zhixing.employlib.viewmodel.fragment.TeamViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- *@author zjq
- *create at 2019/3/14 下午2:05
+ * @author zjq
+ * create at 2019/3/14 下午2:05
  * 班组天地
  */
 public class BetterTeamEmployeeFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
     private TeamViewModel teamViewModel;
+    private String filePath;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         View view=inflater.inflate(R.layout.fragment_better_team_employee,container,false);
+        View view = inflater.inflate(R.layout.fragment_better_team_employee, container, false);
 
-         teamViewModel = ViewModelProviders.of(getActivity()).get(TeamViewModel.class);
-        recyclerView  =(RecyclerView)view.findViewById(R.id.recy_better_team_employee);
-           recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        teamViewModel = ViewModelProviders.of(getActivity()).get(TeamViewModel.class);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recy_better_team_employee);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-          initData();
-          return  view;
+        initData();
+        return view;
     }
 
     private void initData() {
 
-        teamViewModel.getBetterTeamData().observe(getActivity(), new Observer<List<BetterTeamEmployeeEntity>>() {
+//        teamViewModel.getBetterTeamData().observe(getActivity(), new Observer<List<BetterTeamEmployeeEntity>>() {
+//            @Override
+//            public void onChanged(@Nullable List<BetterTeamEmployeeEntity> betterTeamEmployeeEntities) {
+//                BetterTeamEmployeeAdapt betterTeamEmployeeAdapt = new BetterTeamEmployeeAdapt(R.layout.item_better_team, betterTeamEmployeeEntities);
+//                recyclerView.setAdapter(betterTeamEmployeeAdapt);
+//            }
+//        }
+// );
+
+        teamViewModel.getBetterTeamData().observe(getActivity(), new Observer<List<TeamDemeanorBean>>() {
             @Override
-            public void onChanged(@Nullable List<BetterTeamEmployeeEntity> betterTeamEmployeeEntities) {
-                BetterTeamEmployeeAdapt betterTeamEmployeeAdapt = new BetterTeamEmployeeAdapt(R.layout.item_better_team, betterTeamEmployeeEntities);
-                recyclerView.setAdapter(betterTeamEmployeeAdapt);
+            public void onChanged(@Nullable List<TeamDemeanorBean> teamDemeanorBeans) {
+                if (teamDemeanorBeans != null) {
+                    List<BetterTeamEmployeeEntity> datas = new ArrayList<>();
+
+                    for (int i = 0; i < teamDemeanorBeans.size(); i++) {
+
+                        if (teamDemeanorBeans.get(i).getFiles().size() == 0) {
+
+                        } else {
+                            filePath = teamDemeanorBeans.get(i).getFiles().get(i).getFilePath();
+                        }
+
+
+                        datas.add(new BetterTeamEmployeeEntity(teamDemeanorBeans.get(i).getDemeanorTitle(), filePath,
+                                teamDemeanorBeans.get(i).getTeamName(),
+                                clearTime(teamDemeanorBeans.get(i).getCreateTime()),
+                                teamDemeanorBeans.get(i).getDemeanorContent()));
+
+                    }
+                    BetterTeamEmployeeAdapt betterTeamEmployeeAdapt = new BetterTeamEmployeeAdapt(R.layout.item_better_team, datas);
+                    recyclerView.setAdapter(betterTeamEmployeeAdapt);
+
+
+                }
             }
         });
 
@@ -61,6 +94,16 @@ public class BetterTeamEmployeeFragment extends BaseFragment {
 
     @Override
     public void process(Message msg) {
+
+    }
+
+
+    public String clearTime(String date) {
+        String[] ts = date.split("T");
+        String t = ts[0];
+        String commonTime1 = TimeUtil.getCommonTime1(t);
+
+        return commonTime1;
 
     }
 }

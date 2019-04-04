@@ -18,12 +18,21 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.base.zhixing.www.util.TimeUtil;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.IntegralEventAdapt;
+import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.model.IntegralEventEntity;
+import com.zhixing.employlib.model.performance.PersonDayEventBean;
 import com.zhixing.employlib.viewmodel.fragment.PerFormanceViewModel;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DialogFragmentIntergralEvent extends DialogFragment implements View.OnClickListener {
@@ -31,6 +40,8 @@ public class DialogFragmentIntergralEvent extends DialogFragment implements View
     private ImageView iv_close;
     private RecyclerView recyclerView;
     private ImageView iv_down;
+    private TextView tvName;
+    private TextView tvTime;
 
     @Nullable
     @Override
@@ -41,16 +52,44 @@ public class DialogFragmentIntergralEvent extends DialogFragment implements View
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.integral_event, null);
         iv_close = (ImageView) view.findViewById(R.id.iv_integral_event_close);
         iv_down = (ImageView) view.findViewById(R.id.iv_integral_event_down);
+        String userName = SharedPreferencesTool.getMStool(getActivity()).getUserName();
 
+        tvName=view.findViewById(R.id.tv_integral_persion_name);
+          tvTime=view.findViewById(R.id.tv_integral_persion_time);
+        tvName.setText(userName);
+        Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
+        ca.setTime(new Date()); //设置时间为当前时间
+        ca.add(Calendar.DATE, -1); //日减1
+        Date lastDay = ca.getTime(); //结果
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        String format = sf.format(lastDay);
+        tvTime.setText(TimeUtil.getCommonTime1(format));
         iv_close.setOnClickListener(this);
          recyclerView=(RecyclerView) view.findViewById(R.id.recy_integral_event);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
           isDown();
-        integralEventViewModel.getData().observe(getActivity(), new Observer<List<IntegralEventEntity>>() {
+//        integralEventViewModel.getData().observe(getActivity(), new Observer<List<IntegralEventEntity>>() {
+//            @Override
+//            public void onChanged(@Nullable List<IntegralEventEntity> integralEventEntities) {
+//
+//            }
+//        });
+        integralEventViewModel.personDayEventData.observe(getActivity(), new Observer<DBaseResponse<PersonDayEventBean>>() {
             @Override
-            public void onChanged(@Nullable List<IntegralEventEntity> integralEventEntities) {
-                recyclerView.setAdapter(new IntegralEventAdapt(R.layout.item_integral_event,integralEventEntities));
+            public void onChanged(@Nullable DBaseResponse<PersonDayEventBean> personDayEventBeanDBaseResponse) {
+                  if (personDayEventBeanDBaseResponse!=null){
+                      List<IntegralEventEntity> integralEventEntities=new ArrayList<>();
+                      List<PersonDayEventBean> rows = personDayEventBeanDBaseResponse.getRows();
+
+
+                      for (PersonDayEventBean bean: rows) {
+                          integralEventEntities.add(new IntegralEventEntity(rows.size()+1+"",bean.getScore()+"",bean.getItemName()));
+
+                      }
+                      recyclerView.setAdapter(new IntegralEventAdapt(R.layout.item_integral_event,integralEventEntities));
+
+                  }
             }
         });
 

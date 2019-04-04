@@ -20,18 +20,23 @@ import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.ACache;
+import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.ChangeTime;
+import com.google.gson.reflect.TypeToken;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.shape.DevShape;
 import com.rmondjone.locktableview.DisplayUtil;
 import com.rmondjone.locktableview.LockTableView;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
+import com.zhixing.employlib.model.GradingItemEntity;
+import com.zhixing.employlib.model.eventbus.GradingEvent;
 import com.zhixing.employlib.model.eventbus.GradingEventBean;
 import com.zhixing.employlib.model.grading.GoGradingPostBean;
 import com.zhixing.employlib.model.grading.GradingListDetailBean;
+import com.zhixing.employlib.model.performance.MonthPerformanceBean;
 import com.zhixing.employlib.viewmodel.activity.GradListDetailViewModel;
 import com.zhixing.netlib.base.BaseResponse;
 
@@ -39,6 +44,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -119,6 +125,7 @@ public class GradingDetailActivity extends BaseActvity {
     private ACache aCache;
     private  boolean isCommit=false;
     private String standTime;
+    private List<GradingItemEntity> userDatas=new ArrayList<>();
 
 
     @Override
@@ -168,8 +175,6 @@ public class GradingDetailActivity extends BaseActvity {
             showDialog("");
             //单人
             gradListDetailViewModel.setDate(standTime, position);
-
-
             gradListDetailViewModel.DetailData.observe(this, new Observer<BaseResponse<GradingListDetailBean>>() {
                 @Override
                 public void onChanged(@Nullable BaseResponse<GradingListDetailBean> gradingListDetailBeanBaseResponse) {
@@ -214,6 +219,18 @@ public class GradingDetailActivity extends BaseActvity {
 
                 }
             });
+
+        }else if ("2".equals(type)){
+            //批量
+
+            Type type2 = new TypeToken< List<GradingItemEntity>>() {}.getType();
+            userDatas = GsonUtil.getGson().fromJson(selectData, type2);
+            tvGradingEventManyPeopleName.setText(userDatas.get(0).name+"等"+userDatas.size()+"人");
+
+
+
+
+
 
         }
 
@@ -265,8 +282,9 @@ public class GradingDetailActivity extends BaseActvity {
         mTableDatas.add(mfristData);
         mLockTableView = new LockTableView(this, contentView, mTableDatas);
         mLockTableView.setLockFristColumn(false) //是否锁定第一列
-                .setMaxColumnWidth(100) //列最大宽度
-                .setMinColumnWidth(60) //列最小宽度
+                .setLockFristRow(true) //是否锁定第一行
+                .setMaxColumnWidth(80) //列最大宽度
+                .setMinColumnWidth(80) //列最小宽度
                 .setMinRowHeight(20)//行最小高度
                 .setMaxRowHeight(50)//行最大高度
                 .setTextViewSize(14) //单元格字体大小
@@ -294,13 +312,15 @@ public class GradingDetailActivity extends BaseActvity {
             AppManager.getAppManager().finishActivity();
 
         } else if (i == R.id.tv_work_send) {
+
+            showDialog("");
             if (!isCommit){
                 Toasty.INSTANCE.showToast(this, "关键事件或记录时间不能为空");
 
             }else{
 
                 if ("1".equals(type)){
-                    showDialog("");
+
                      if (dateTime==null){
                          dateTime=standTime;
                      }
@@ -331,6 +351,50 @@ public class GradingDetailActivity extends BaseActvity {
                             }
                         }
                     });
+
+                }else if ("2".equals(type)){
+
+                    if (dateTime==null){
+                        dateTime=standTime;
+                    }
+                    //批量
+                    GoGradingPostBean.EventInfoBean eventInfoBean = new GoGradingPostBean.EventInfoBean();
+                    eventInfoBean.setItemId(Itemid);
+                    eventInfoBean.setShiftDate(dateTime);
+                    Eventdatas.add(eventInfoBean);
+
+                    List< GoGradingPostBean.UserInfoBean> userInfoBeans=new ArrayList<>();
+                    for (int j = 0; j < userDatas.size(); j++) {
+                        GoGradingPostBean.UserInfoBean bean=new GoGradingPostBean.UserInfoBean();
+
+                        bean.setUserCode(userDatas.get(j).useCode);
+                        bean.setUserName(userDatas.get(j).getName());
+                        userInfoBeans.add(bean);
+                    }
+                    gradListDetailViewModel.GoGrading(userInfoBeans,Eventdatas).observe(GradingDetailActivity.this, new Observer<BaseResponse>() {
+                        @Override
+                        public void onChanged(@Nullable BaseResponse baseResponse) {
+
+                            if (baseResponse!=null){
+                                if (baseResponse.getStatus().equals("error")){
+                                    dismissDialog();
+                                    EventBus.getDefault().post(new GradingEvent(false));
+                                    Toasty.INSTANCE.showToast(GradingDetailActivity.this,"提交失败");
+
+
+
+                                }else{
+                                    dismissDialog();
+                                    isCommit=false;
+                                    EventBus.getDefault().post(new GradingEvent(false));
+                                    Toasty.INSTANCE.showToast(GradingDetailActivity.this,"提交成功");
+                                    AppManager.getAppManager().finishActivity();
+                                }
+
+                            }
+                        }
+                    });
+
 
                 }
 
@@ -420,6 +484,7 @@ public class GradingDetailActivity extends BaseActvity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         bind.unbind();
+        dismissDialog();
     }
 
     private void initDisplayOpinion() {
@@ -445,8 +510,6 @@ public class GradingDetailActivity extends BaseActvity {
         tvGradingItemListDetailDesc.setText("关键事件录入:" + eventCount + "条");
 
     }
-
-
 
 
 

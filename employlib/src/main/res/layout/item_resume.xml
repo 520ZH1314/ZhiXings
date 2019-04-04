@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_item_resume_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/profession"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tv_item_resume_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="工作经历"
+        android:textColor="@color/black"
+        android:textSize="@dimen/title_center_size"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_item_resume_title"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_resume_title"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_resume_title" />
+
+    <TextView
+        android:id="@+id/tv_item_resume_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="深圳数本科技有限公司"
+        android:textColor="@color/black"
+        android:textSize="@dimen/content_txt_"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_resume_title"
+        app:layout_constraintTop_toBottomOf="@+id/iv_item_resume_title" />
+
+    <TextView
+        android:id="@+id/tv_item_resume_work"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="包装工"
+        android:textColor="@color/black"
+        android:textSize="@dimen/content_txt_"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_resume_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_resume_company" />
+    <TextView
+        android:id="@+id/tv_item_resume_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="2014-3 -2015-5"
+        android:textSize="@dimen/content_txt_"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_resume_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_resume_work" />
+    <TextView
+        android:id="@+id/tv_item_resume_time2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:maxEms="200"
+        android:maxLines="5"
+        android:text="按实际大;撒件大事;按实际大;撒件大事;按实际大;撒件大事;按实际大;撒件大事;按实际大;撒件大事;按实际大;撒件大事;按实际大;撒件大事;"
+        android:textSize="@dimen/content_txt_"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_resume_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_resume_time" />
+</android.support.constraint.ConstraintLayout>

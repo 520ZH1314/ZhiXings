@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.common.SharedUtils;
@@ -27,17 +26,13 @@ import com.zhixing.employlib.model.AppealListEntity;
 import com.zhixing.employlib.viewmodel.activity.AppealListViewModel;
 import com.zhixing.employlib.viewmodel.activity.AppealPersonViewModel;
 import com.zhixing.netlib.base.BaseResponse;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
-
 /**
  * @author zjq
  * create at 2019/3/21 下午1:58

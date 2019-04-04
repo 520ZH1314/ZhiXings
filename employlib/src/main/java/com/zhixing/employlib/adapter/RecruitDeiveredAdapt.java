@@ -22,53 +22,78 @@ public class RecruitDeiveredAdapt extends BaseQuickAdapter<RecruitDeiveredEntity
     protected void convert(BaseViewHolder helper, RecruitDeiveredEntity item) {
 
         Button button=(Button)helper.itemView.findViewById(R.id.btn_deiver_status);
+        if (item.type.equals("0")){
+            if ("4".equals(item.status)){
+                //已通过
+                button.setText("已通过");
+                button.setTextColor(mContext.getResources().getColor(R.color.white));
 
-        if ("1".equals(item.status)){
-            //已通过
-           button.setText("已通过");
-           button.setTextColor(mContext.getResources().getColor(R.color.white));
-
-            DevShapeUtils
-                    .shape(DevShape.RECTANGLE)
-                    .solid(R.color.green)
-                    .radius(15)
-                    .into(button);
-
-
-        }else if ("2".equals(item.status)){
-            //不合适
-            //已通过
-            button.setText("不合适");
-            button.setTextColor(mContext.getResources().getColor(R.color.gray));
-
-            DevShapeUtils
-                    .shape(DevShape.RECTANGLE)
-                    .solid(R.color.gray02)
-                    .radius(15)
-                    .into(button);
-        }else if ("3".equals(item.status)){
-
-            button.setText("推荐成功");
-            button.setTextColor(mContext.getResources().getColor(R.color.white));
-
-            DevShapeUtils
-                    .shape(DevShape.RECTANGLE)
-                    .solid(R.color.green)
-                    .radius(15)
-                    .into(button);
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .solid(R.color.green)
+                        .radius(15)
+                        .into(button);
 
 
-        }else {
+            }else if ("3".equals(item.status)){
+                //不合适
+                //已通过
+                button.setText("不合适");
+                button.setTextColor(mContext.getResources().getColor(R.color.gray));
 
-            button.setText("待审核");
-            button.setTextColor(mContext.getResources().getColor(R.color.white));
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .solid(R.color.gray02)
+                        .radius(15)
+                        .into(button);
+            }else {
 
-            DevShapeUtils
-                    .shape(DevShape.RECTANGLE)
-                    .solid(R.color.orange)
-                    .radius(15)
-                    .into(button);
+                button.setText("待审核");
+                button.setTextColor(mContext.getResources().getColor(R.color.white));
+
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .solid(R.color.orange)
+                        .radius(15)
+                        .into(button);
+            }
+        }else{
+            if ("4".equals(item.status)){
+                //已通过
+                button.setText("推荐成功");
+                button.setTextColor(mContext.getResources().getColor(R.color.white));
+
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .solid(R.color.green)
+                        .radius(15)
+                        .into(button);
+
+
+            }else if ("3".equals(item.status)){
+                //不合适
+                //已通过
+                button.setText("不合适");
+                button.setTextColor(mContext.getResources().getColor(R.color.gray));
+
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .solid(R.color.gray02)
+                        .radius(15)
+                        .into(button);
+            }else {
+
+                button.setText("待审核");
+                button.setTextColor(mContext.getResources().getColor(R.color.white));
+
+                DevShapeUtils
+                        .shape(DevShape.RECTANGLE)
+                        .solid(R.color.orange)
+                        .radius(15)
+                        .into(button);
+            }
         }
+
 
 
         helper.setText(R.id.tv_item_delivered_work_name,item.workName);
