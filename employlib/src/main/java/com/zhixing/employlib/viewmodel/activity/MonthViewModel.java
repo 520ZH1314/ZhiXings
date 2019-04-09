@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import com.zhixing.employlib.model.AppealList;
 import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.MonthViewBean;
+import com.zhixing.employlib.model.NoticeBean;
 import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.repertory.AppealRepertory;
 import com.zhixing.employlib.repertory.MonthRepertory;
@@ -39,4 +40,12 @@ public class MonthViewModel extends AndroidViewModel {
         return  Transformations.map(appealRepertory.getScoreColor(time), BaseResponse::getRows);
 //        return  appealRepertory.getAppealEntity(time);
     }
+    //获取公告
+    public LiveData<List<NoticeBean>> getNotices(Map time){
+//
+        return  Transformations.map(appealRepertory.getNotices(time), BaseResponse::getRows);
+//        return  appealRepertory.getAppealEntity(time);
+    }
+
+
 }

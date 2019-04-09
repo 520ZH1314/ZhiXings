@@ -43,13 +43,105 @@
                         android:background="@color/white"
                         >
 
-                        <TextView
+                       <ImageView
+                           android:id="@+id/left0"
+                           android:layout_alignParentLeft="true"
+                           android:layout_width="@dimen/x35"
+                           android:src="@mipmap/emp_left0"
+                           android:layout_margin="@dimen/x10"
+                           android:layout_centerVertical="true"
+                           android:layout_height="@dimen/x35" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_toRightOf="@+id/left0"
+                            android:layout_toLeftOf="@+id/right0"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:id="@+id/notice_layout0"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:orientation="horizontal"
+                                android:paddingLeft="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:paddingRight="@dimen/x10"
+                                android:layout_weight="1">
+                                <TextView
+                                    android:layout_width="@dimen/x10"
+                                    android:background="@drawable/emp_ic_"
+                                    android:layout_height="@dimen/x10" />
+                                <TextView
+                                    android:id="@+id/notice0"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textSize="@dimen/content_txt_s"
+                                    android:textColor="@color/txt_viw"
+                                    android:gravity="left"
+                                    android:layout_marginLeft="@dimen/x8"
+                                    android:layout_marginRight="@dimen/x8"
+                                    android:text="测试"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
+                                    android:layout_height="wrap_content" />
+                                <TextView
+                                    android:id="@+id/notice0_t"
+                                    android:layout_width="wrap_content"
+                                    android:textSize="@dimen/content_txt_s"
+                                    android:textColor="@color/txt_bor"
+                                    android:gravity="left"
+                                    android:layout_marginLeft="@dimen/x8"
+                                    android:text="测试"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/notice_layout1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:orientation="horizontal"
+                                android:paddingLeft="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:paddingRight="@dimen/x10"
+                                android:layout_weight="1">
+                                <TextView
+                                    android:layout_width="@dimen/x10"
+                                    android:background="@drawable/emp_ic_"
+                                    android:layout_height="@dimen/x10" />
+                                <TextView
+                                    android:id="@+id/notice1"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:textSize="@dimen/content_txt_s"
+                                    android:textColor="@color/txt_viw"
+                                    android:gravity="left"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
+                                    android:layout_marginLeft="@dimen/x8"
+                                    android:layout_marginRight="@dimen/x8"
+                                    android:text="测试"
+                                    android:layout_height="wrap_content" />
+                                <TextView
+                                    android:id="@+id/notice1_t"
+                                    android:layout_width="wrap_content"
+                                    android:textSize="@dimen/content_txt_s"
+                                    android:textColor="@color/txt_bor"
+                                    android:gravity="left"
+                                    android:layout_marginLeft="@dimen/x8"
+                                    android:text="测试"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/right0"
+                            android:layout_alignParentRight="true"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="公告"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/content_txt_" />
+                            android:src="@mipmap/next01"
+                            android:layout_margin="@dimen/x10"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content" />
                     </RelativeLayout>
 
                     <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"

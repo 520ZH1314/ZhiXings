@@ -11,6 +11,7 @@ import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.AppealList;
 import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.MonthViewBean;
+import com.zhixing.employlib.model.NoticeBean;
 import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.model.performance.PersonTeamPostBean;
 import com.zhixing.netlib.base.BaseResponse;
@@ -66,6 +67,20 @@ public class MonthRepertory {
         bean.setUserCode(userCode);
 
         return repository.request(APi.getScoreColor(bean, mContext, ip,time)).send().get();
+    }
+    public MutableLiveData<BaseResponse<NoticeBean>> getNotices(Map time){
+        MyBaseRepository repository = new MyBaseRepository(mContext);
+        String AppCode="EMS";
+        String ApiCode="GetAllNotice";
+        String TenantId= SharedPreferencesTool.getMStool(mContext).getTenantId();
+        String ip=SharedPreferencesTool.getMStool(mContext).getIp();
+        String userCode=SharedPreferencesTool.getMStool(mContext).getUserCode();
+        String teamId = sharedUtils.getStringValue(PerformanceApi.TEAMID);
+        PersonTeamPostBean bean=new PersonTeamPostBean(AppCode,ApiCode,TenantId);
+        bean.setTeamId(teamId);
+        bean.setUserCode(userCode);
+
+        return repository.request(APi.getNotices(bean, mContext, ip,time)).send().get();
     }
 
 }

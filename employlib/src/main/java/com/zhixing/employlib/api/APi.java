@@ -7,6 +7,7 @@ import com.base.zhixing.www.common.T;
 import com.zhixing.employlib.model.AppealList;
 import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.MonthViewBean;
+import com.zhixing.employlib.model.NoticeBean;
 import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.model.gardenplot.ExcellentEmployeeBean;
@@ -199,13 +200,18 @@ public class APi {
 
         return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .getMonthViews(httpUtil.convertVo2Json(put(bean,map,httpUtil)));
     }
-    //月视图
+    //月视图颜色值
     public static  Flowable<BaseResponse<StandScore>> getScoreColor(PersonTeamPostBean bean, Context mContext, String url, Map map) {
         BaseHttpUtil  httpUtil = new BaseHttpUtil();
 
         return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .getScoreColor(httpUtil.convertVo2Json(put(bean,map,httpUtil)));
     }
 
+    //公告
+    public static  Flowable<BaseResponse<NoticeBean>> getNotices(PersonTeamPostBean bean, Context mContext, String url, Map map) {
+        BaseHttpUtil  httpUtil = new BaseHttpUtil();
 
+        return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .getNotices(httpUtil.convertVo2Json(put(bean,map,httpUtil)));
+    }
 
 }

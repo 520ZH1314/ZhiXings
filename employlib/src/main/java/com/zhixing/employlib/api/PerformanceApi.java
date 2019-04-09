@@ -4,6 +4,7 @@ import com.zhixing.employlib.model.AppealList;
 import com.zhixing.employlib.model.AppealPersonEntity;
 import com.zhixing.employlib.model.IntegralEventEntity;
 import com.zhixing.employlib.model.MonthViewBean;
+import com.zhixing.employlib.model.NoticeBean;
 import com.zhixing.employlib.model.PersonTestEntity;
 import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.model.gardenplot.ExcellentEmployeeBean;
@@ -29,8 +30,8 @@ import retrofit2.http.POST;
 
 public interface PerformanceApi<T>  {
 
-    //文件名
-    public  static String  FLIESNAME="Performance";
+    //文件名，以模块名命名
+    public  static String  FLIESNAME="employlib_shared";
 
    //保存字段名
     public  static String   ISTEAMLEADER="IsTeamLeader";
@@ -170,4 +171,8 @@ public interface PerformanceApi<T>  {
  @Headers({"Content-Type: application/json","Accept: application/json"})
  @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
  Flowable<BaseResponse<StandScore>> getScoreColor(@Body RequestBody body);
+ //颜色值
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse<NoticeBean>> getNotices(@Body RequestBody body);
 }

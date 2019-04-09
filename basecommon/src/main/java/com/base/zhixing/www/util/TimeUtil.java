@@ -121,7 +121,16 @@ public class TimeUtil {
 		}
 		return  0;
 	}
-
+	public static Date parseTimeDate(String time){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		//format.setTimeZone(TimeZone.getTimeZone("UTC"));
+		try {
+			return  format.parse(time);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return  new Date();
+	}
 
 	public static String parseTime_h(String time){
 //		1991-11-15 00:00:00

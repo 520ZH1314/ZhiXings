@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
@@ -38,6 +40,7 @@ import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.api.PerformanceApi;
+import com.zhixing.employlib.model.NoticeBean;
 import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.model.performance.MonthPerformanceBean;
 import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
@@ -46,6 +49,7 @@ import com.zhixing.employlib.ui.activity.AppealListActivity;
 import com.zhixing.employlib.ui.activity.GradingActivity;
 import com.zhixing.employlib.ui.activity.GradingRecordListActivity;
 import com.zhixing.employlib.ui.activity.MothIntegralEventActivity;
+import com.zhixing.employlib.utils.RelativeDateFormat;
 import com.zhixing.employlib.view.DialogFragmentIntergralEvent;
 import com.zhixing.employlib.view.DialogFragmentPersonTest;
 import com.zhixing.employlib.viewmodel.activity.MonthViewModel;
@@ -57,6 +61,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -133,6 +138,25 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
     TextView tvWorkTitle;
     @BindView(R2.id.tv_work_send)
     TextView tvWorkSend;
+    @BindView(R2.id.relativeLayout)
+    RelativeLayout relativeLayout;
+    @BindView(R2.id.notice_layout0)
+    LinearLayout notice_layout0;
+
+    @BindView(R2.id.notice_layout1)
+    LinearLayout notice_layout1;
+
+    @BindView(R2.id.notice0)
+    TextView notice0;
+    @BindView(R2.id.notice1)
+    TextView notice1;
+
+    @BindView(R2.id.notice0_t)
+    TextView notice0_t;
+    @BindView(R2.id.notice1_t)
+    TextView notice1_t;
+
+
 
     private RapidFloatingActionLayout rfaLayout;
     private RapidFloatingActionButton rfaButton;
@@ -229,7 +253,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
                 String teamInfoStr1 = GsonUtil.getGson().toJson(teamInfo1);
                 String userInfoStr1 = GsonUtil.getGson().toJson(userInfo1);
-
+                
                 aCache.put("MonthUserInfo",userInfoStr1);
                 aCache.put("MonthTeamInfo",teamInfoStr1);
                 if (index==1){
@@ -247,10 +271,35 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
             }
 
         });
+        getAllNotices();
     }
 
 
+    private void getAllNotices(){
+    Map map = new HashMap();
+    map.put("Index","0");
+    map.put("PageSize","2");
+    monthViewModel.getNotices(map).observe(this, new Observer<List<NoticeBean>>() {
+        @Override
+        public void onChanged(@Nullable List<NoticeBean> noticeBeans) {
+                if(noticeBeans!=null){
+                   if(noticeBeans.size()==1){
+                       notice_layout1.setVisibility(View.INVISIBLE);
+                       notice0.setText(noticeBeans.get(0).getNoticeTitle());
+                       notice0_t.setText(RelativeDateFormat.format(TimeUtil.parseTimeDate( noticeBeans.get(0).getCreateTime())));
 
+                   }else if(noticeBeans.size()>=2){
+                       notice0.setText(noticeBeans.get(0).getNoticeTitle());
+                       notice0_t.setText(RelativeDateFormat.format(TimeUtil.parseTimeDate( noticeBeans.get(0).getCreateTime())));
+                       notice1.setText(noticeBeans.get(1).getNoticeTitle());
+                       notice1_t.setText(RelativeDateFormat.format(TimeUtil.parseTimeDate( noticeBeans.get(1).getCreateTime())));
+                   }else {
+                       relativeLayout.setVisibility(View.GONE);
+                   }
+                }
+            }
+        });
+    }
 
 
 
