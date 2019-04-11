@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 /**
  *
@@ -96,5 +97,24 @@ public class BaseHttpUtil<T> {
         }
         return bodyMap;
     }
+
+
+
+    /**
+     *
+     *@author zjq
+     *create at 2019/4/9 下午1:57
+     * 单文件
+     */
+
+
+    public static MultipartBody.Part SingleFlie(File file){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+        return  body;
+
+    }
+
+
 
 }
