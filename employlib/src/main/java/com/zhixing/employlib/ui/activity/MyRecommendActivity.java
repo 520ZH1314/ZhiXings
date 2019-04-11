@@ -24,7 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
 public class MyRecommendActivity extends BaseActvity {
 
     @BindView(R2.id.iv_work_add_work)

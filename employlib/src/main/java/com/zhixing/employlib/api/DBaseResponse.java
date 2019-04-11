@@ -1,8 +1,9 @@
 package com.zhixing.employlib.api;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DBaseResponse<T> {
+public class DBaseResponse<T> implements Serializable {
 
     public String Status;
     public String Message;

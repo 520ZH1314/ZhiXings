@@ -29,7 +29,7 @@ import java.util.List;
  * create at 2019/3/14 下午2:05
  * 新员工
  */
-public class NewEmployeeFragment extends BaseFragment {
+public class NewEmployeeFragment extends BaseLazyFragment {
 
     private RecyclerView recyclerView;
     private TeamViewModel teamViewModel;
@@ -44,11 +44,11 @@ public class NewEmployeeFragment extends BaseFragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recy_new_employee);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        initData();
+
         return view;
     }
 
-    private void initData() {
+    private void initDatas() {
 //        teamViewModel.getNewEmployeeData().observe(getActivity(), new Observer<List<NewEmployeeEntity>>() {
 //            @Override
 //            public void onChanged(@Nullable List<NewEmployeeEntity> newEmployeeEntities) {
@@ -90,6 +90,11 @@ public class NewEmployeeFragment extends BaseFragment {
     @Override
     public void process(Message msg) {
 
+    }
+
+    @Override
+    public void initData() {
+        initDatas();
     }
 
     public String clearTime(String date) {

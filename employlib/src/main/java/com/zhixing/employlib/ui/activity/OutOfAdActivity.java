@@ -1,5 +1,7 @@
 package com.zhixing.employlib.ui.activity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -14,14 +16,18 @@ import android.widget.TextView;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.util.MyImageLoader;
+import com.base.zhixing.www.view.Toasty;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
+import com.zhixing.employlib.viewmodel.activity.UpTeamViewModel;
+import com.zhixing.netlib.base.BaseResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,10 +52,13 @@ public class OutOfAdActivity extends BaseActvity {
     ImageView ivOutCarme;
     @BindView(R2.id.ed_out_ad_desc)
     EditText edOutAdDesc;
+    @BindView(R2.id.editText)
+    EditText editText;
     private Unbinder bind;
 
     private String Url;
     private List<LocalMedia> selectList;
+    private UpTeamViewModel upTeamViewModel;
 
     @Override
     public int getLayoutId() {
@@ -63,13 +72,16 @@ public class OutOfAdActivity extends BaseActvity {
 
     @Override
     public void initLayout() {
-         bind = ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         ivWorkAddWork.setImageResource(R.mipmap.back);
 
         tvWorkTitle.setText("发布公告");
         tvWorkSend.setText("完成");
-    }
 
+        upTeamViewModel = ViewModelProviders.of(this).get(UpTeamViewModel.class);
+
+
+    }
 
 
     @OnClick({R2.id.iv_work_add_work, R2.id.tv_work_send, R2.id.iv_out_carme_photo, R2.id.iv_out_carme})
@@ -78,14 +90,35 @@ public class OutOfAdActivity extends BaseActvity {
         if (i == R.id.iv_work_add_work) {
             AppManager.getAppManager().finishActivity();
         } else if (i == R.id.tv_work_send) {
+            if (TextUtils.isEmpty(editText.getText().toString().trim())){
+                Toasty.INSTANCE.showToast(this,"主题不能为空");
 
+            }else if(TextUtils.isEmpty(edOutAdDesc.getText().toString().trim())){
+                Toasty.INSTANCE.showToast(this,"描述不能为空");
+            }else{
+                showDialog("");
+                upTeamViewModel.UpLoadFour(UUID.randomUUID().toString(),editText.getText().toString().trim(),edOutAdDesc.getText().toString().trim()).observe(this, new Observer<BaseResponse>() {
+                    @Override
+                    public void onChanged(@Nullable BaseResponse baseResponse) {
+                        if (baseResponse!=null){
+                           dismissDialog();
+                            Toasty.INSTANCE.showToast(OutOfAdActivity.this,"更新成功");
+                            AppManager.getAppManager().finishActivity();
+                        }else{
+                            Toasty.INSTANCE.showToast(OutOfAdActivity.this,"更新失败");
+                            dismissDialog();
+                        }
+                    }
+                });
+                dismissDialog();
+            }
 
 
         } else if (i == R.id.iv_out_carme_photo) {
-              if (!TextUtils.isEmpty(Url)){
-                  PictureSelector.create(OutOfAdActivity.this).externalPicturePreview(0, selectList);
+            if (!TextUtils.isEmpty(Url)) {
+                PictureSelector.create(OutOfAdActivity.this).externalPicturePreview(0, selectList);
 
-              }
+            }
 
 
         } else if (i == R.id.iv_out_carme) {
@@ -152,16 +185,23 @@ public class OutOfAdActivity extends BaseActvity {
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                    for (LocalMedia bean: selectList) {
+                    for (LocalMedia bean : selectList) {
                         String compressPath = bean.getCompressPath();
-                        Url=compressPath;
+                        Url = compressPath;
                         cardViewIvOutAd.setVisibility(View.VISIBLE);
 //                          ImageLoader.loadListeren(this,compressPath,ivMyInfoDetailHead);
-                        MyImageLoader.loads(this,compressPath,ivOutCarmePhoto);
+                        MyImageLoader.loads(this, compressPath, ivOutCarmePhoto);
                     }
                     break;
             }
         }
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

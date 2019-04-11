@@ -1,12 +1,8 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
     </style>
-
-
-
     <!-- CardView -->
     <style name="CardView">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
@@ -25,14 +21,13 @@
     <style name="MyCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_select</item>
         </style>
-
     <!--QQ数字风格样式，注意每一项都不能少-->
     <style name="picture.QQ.style" parent="ThemeActivity">
         <!-- Customize your theme here. -->
         <!--标题栏背景色-->
-        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimary">@color/title_bgs</item>
         <!--状态栏背景色-->
-        <item name="colorPrimaryDark">@color/blue</item>
+        <item name="colorPrimaryDark">@color/title_bgs</item>
         <!--是否改变图片列表界面状态栏字体颜色为黑色-->
         <item name="picture.statusFontColor">false</item>
         <!--返回键图标-->
@@ -54,17 +49,17 @@
         <!--图片列表底部背景色-->
         <item name="picture.bottom.bg">@color/color_fa</item>
         <!--图片列表预览文字颜色-->
-        <item name="picture.preview.textColor">@color/blue</item>
+        <item name="picture.preview.textColor">@color/title_bgs</item>
         <!--图片列表已完成文字颜色-->
-        <item name="picture.complete.textColor">@color/blue</item>
+        <item name="picture.complete.textColor">@color/title_bgs</item>
         <!--图片已选数量圆点背景色-->
         <item name="picture.num.style">@drawable/num_oval_blue</item>
         <!--预览界面标题文字颜色-->
         <item name="picture.ac_preview.title.textColor">@color/white</item>
         <!--预览界面已完成文字颜色-->
-        <item name="picture.ac_preview.complete.textColor">@color/blue</item>
+        <item name="picture.ac_preview.complete.textColor">@color/title_bgs</item>
         <!--预览界面标题栏背景色-->
-        <item name="picture.ac_preview.title.bg">@color/blue</item>
+        <item name="picture.ac_preview.title.bg">@color/title_bgs</item>
         <!--预览界面底部背景色-->
         <item name="picture.ac_preview.bottom.bg">@color/color_fa</item>
         <!--预览界面返回箭头-->

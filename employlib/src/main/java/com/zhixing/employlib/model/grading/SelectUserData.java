@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model.grading;
 
-public class SelectUserData {
+import java.io.Serializable;
+
+public class SelectUserData  implements Serializable {
 
    public  String date;
     public String useCode;

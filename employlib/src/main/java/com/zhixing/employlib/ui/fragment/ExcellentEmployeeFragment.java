@@ -29,7 +29,7 @@ import java.util.List;
  *create at 2019/3/14 下午2:05
  * 优秀员工
  */
-public class ExcellentEmployeeFragment  extends BaseFragment {
+public class ExcellentEmployeeFragment  extends BaseLazyFragment {
 
     private RecyclerView recyclerView;
     private TeamViewModel teamViewModel;
@@ -43,11 +43,11 @@ public class ExcellentEmployeeFragment  extends BaseFragment {
 
         recyclerView  =(RecyclerView)view.findViewById(R.id.recy_excellent_employee);
            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-          initData();
+
           return  view;
     }
 
-    private void initData() {
+    private void initDatas() {
 //        teamViewModel.getExcellentEmployeeData().observe(getActivity(), new Observer<List<ExcellentEmployeeEntity>>() {
 //            @Override
 //            public void onChanged(@Nullable List<ExcellentEmployeeEntity> excellentEmployeeEntities) {
@@ -88,5 +88,10 @@ public class ExcellentEmployeeFragment  extends BaseFragment {
     @Override
     public void process(Message msg) {
 
+    }
+
+    @Override
+    public void initData() {
+        initDatas();
     }
 }

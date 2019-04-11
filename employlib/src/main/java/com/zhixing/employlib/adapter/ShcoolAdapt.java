@@ -17,7 +17,7 @@ public class ShcoolAdapt extends BaseQuickAdapter<CompanyEntity,BaseViewHolder> 
     @Override
     protected void convert(BaseViewHolder helper, CompanyEntity item) {
         helper.setText(R.id.tv_item_my_job_name,item.company);
-        helper.setText(R.id.tv_item_my_job_time,item.time);
+        helper.setText(R.id.tv_item_my_job_time,item.StartTime+"至"+item.EndTime);
         helper.setText(R.id.tv_item_my_job,item.job);
 
     }

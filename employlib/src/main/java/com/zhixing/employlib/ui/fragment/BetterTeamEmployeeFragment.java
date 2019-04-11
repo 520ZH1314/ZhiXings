@@ -29,7 +29,7 @@ import java.util.List;
  * create at 2019/3/14 下午2:05
  * 班组天地
  */
-public class BetterTeamEmployeeFragment extends BaseFragment {
+public class BetterTeamEmployeeFragment extends BaseLazyFragment {
 
     private RecyclerView recyclerView;
     private TeamViewModel teamViewModel;
@@ -45,11 +45,11 @@ public class BetterTeamEmployeeFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-        initData();
+
         return view;
     }
 
-    private void initData() {
+    private void initDatas() {
 
 //        teamViewModel.getBetterTeamData().observe(getActivity(), new Observer<List<BetterTeamEmployeeEntity>>() {
 //            @Override
@@ -95,6 +95,11 @@ public class BetterTeamEmployeeFragment extends BaseFragment {
     @Override
     public void process(Message msg) {
 
+    }
+
+    @Override
+    public void initData() {
+        initDatas();
     }
 
 

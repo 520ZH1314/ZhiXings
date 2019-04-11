@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model;
 
-public class NewEmployeeEntity {
+import java.io.Serializable;
+
+public class NewEmployeeEntity implements Serializable {
 
     public String address;
     public String imageUrl;

@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model.grading;
 
-public class GradingRecordListDateBean {
+import java.io.Serializable;
+
+public class GradingRecordListDateBean implements Serializable {
     public String startTime;
     public String endTime;
 

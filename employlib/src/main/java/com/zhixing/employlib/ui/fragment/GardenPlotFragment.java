@@ -20,6 +20,7 @@ import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.adapter.MyAdapter;
 import com.zhixing.employlib.ui.activity.OutOfAdActivity;
+import com.zhixing.employlib.ui.activity.UpdateTeamDataActivity;
 import com.zhixing.employlib.view.TypeDialog;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import butterknife.Unbinder;
  * 园地的flame
  * create at 2019/3/14 下午2:07
  */
-public class GardenPlotFragment extends BaseFragment {
+public class GardenPlotFragment extends BaseLazyFragment {
 
     @BindView(R2.id.tab_garden_plot)
     TabLayout tabGardenPlot;
@@ -64,7 +65,7 @@ public class GardenPlotFragment extends BaseFragment {
         tetleTvImg.setImageResource(R.mipmap.add_more);
         tetleBack.setVisibility(View.GONE);
         tetleText.setText("园地");
-        initFragment();
+
         return view;
 
     }
@@ -88,6 +89,11 @@ public class GardenPlotFragment extends BaseFragment {
     }
 
     @Override
+    public void initData() {
+        initFragment();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
@@ -107,7 +113,8 @@ public class GardenPlotFragment extends BaseFragment {
                 public void dialogInforCompleted(String name) {
                     if ("1".equals(name)){
                        //发布园地
-
+                        Intent intent =new Intent(getActivity(),UpdateTeamDataActivity.class);
+                        startActivity(intent);
 
                       }else{
 

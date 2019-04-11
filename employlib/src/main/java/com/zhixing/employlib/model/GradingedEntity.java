@@ -1,11 +1,14 @@
 package com.zhixing.employlib.model;
+
+import java.io.Serializable;
+
 /**
  *
  *@author zjq
  *create at 2019/3/13 上午11:28
  * 已评分model
  */
-public class GradingedEntity {
+public class GradingedEntity implements Serializable {
 
     public String imagUrl;
     public String name;

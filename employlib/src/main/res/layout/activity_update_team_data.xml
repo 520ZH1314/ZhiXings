@@ -68,7 +68,8 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/cl_update_select_people"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/imageView17"
@@ -90,8 +91,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+
                     android:text="请选择"
+
                     android:textSize="@dimen/content_txt_"
+
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView17"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -133,9 +138,11 @@
                     android:id="@+id/editText"
                     android:layout_width="@dimen/x120"
                     android:layout_height="@dimen/x40"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+
                     android:layout_marginBottom="8dp"
+
                     android:background="@null"
                     android:hint="请输入公告主题"
                     android:textSize="@dimen/content_txt_"
@@ -177,14 +184,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_updata_team_select_work"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="请选择"
+                    android:background="@null"
+                    android:hint="请输入岗位"
                     android:textSize="@dimen/content_txt_"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView18"
@@ -222,14 +230,16 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_updata_team_select_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="请选择"
+                    android:background="@null"
+                    android:hint="请输入地址"
                     android:textSize="@dimen/content_txt_"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView19"
@@ -267,15 +277,17 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_updata_team_select_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="请选择"
+                    android:background="@null"
+                    android:hint="请输入积分"
                     android:textSize="@dimen/content_txt_"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView20"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -312,15 +324,17 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_updata_team_select_rank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="请选择"
+                    android:background="@null"
+                    android:hint="请输入排名"
                     android:textSize="@dimen/content_txt_"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView21"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -358,14 +372,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_updata_team_select_team_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="请选择"
+                    android:background="@null"
+                    android:hint="请输入班组"
                     android:textSize="@dimen/content_txt_"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView22"
@@ -389,7 +404,7 @@
                 android:id="@+id/cl_update_select_team_go_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/imageView23"
@@ -485,8 +500,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_out_carme_photo"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/new_employe"
                                 android:visibility="visible"

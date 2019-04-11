@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model;
 
-public class GradingItemEntity {
+import java.io.Serializable;
+
+public class GradingItemEntity implements Serializable {
     public String imageUrl;
     public String name;
     public String sex;

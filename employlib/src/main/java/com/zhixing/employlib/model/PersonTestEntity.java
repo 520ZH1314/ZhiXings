@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model;
 
-public class PersonTestEntity {
+import java.io.Serializable;
+
+public class PersonTestEntity implements Serializable {
 
     public String ItemName;
 

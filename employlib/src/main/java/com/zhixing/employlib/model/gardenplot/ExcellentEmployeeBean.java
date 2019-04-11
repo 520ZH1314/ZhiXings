@@ -1,8 +1,9 @@
 package com.zhixing.employlib.model.gardenplot;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ExcellentEmployeeBean {
+public class ExcellentEmployeeBean  implements Serializable {
         /**
          * ExcellentId : 98c65b7f-4a99-444b-96e9-4b33be786c84
          * EvaluationDate : 2019-03
@@ -157,7 +158,7 @@ public class ExcellentEmployeeBean {
             this.Files = Files;
         }
 
-        public static class UserInfoBean {
+        public static class UserInfoBean  implements Serializable {
             /**
              * UserId : 75659f79-8025-11e8-b8e8-507b9d9a63b9
              * TenantId : 00000000-0000-0000-0000-000000000001

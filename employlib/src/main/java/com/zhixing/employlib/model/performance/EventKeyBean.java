@@ -1,8 +1,9 @@
 package com.zhixing.employlib.model.performance;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class EventKeyBean {
+public class EventKeyBean  implements Serializable {
     /**
      * Status : 1
      * Message :

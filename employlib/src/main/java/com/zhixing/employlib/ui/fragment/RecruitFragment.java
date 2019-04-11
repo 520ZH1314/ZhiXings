@@ -43,7 +43,7 @@ import butterknife.Unbinder;
  * create at 2019/3/19 上午10:21
  * 招聘主页
  */
-public class RecruitFragment extends BaseFragment {
+public class RecruitFragment extends BaseLazyFragment {
 
     @BindView(R2.id.iv_work_add_work)
     ImageView ivWorkAddWork;
@@ -66,12 +66,12 @@ public class RecruitFragment extends BaseFragment {
         bind = ButterKnife.bind(this, view);
          aCache =ACache.get(getActivity());
         recruitFragmentViewModel = ViewModelProviders.of(getActivity()).get(RecruitFragmentViewModel.class);
-        initData();
+
 
       return view;
     }
 
-    private void initData() {
+    private void initDatas() {
         ivWorkAddWork.setVisibility(View.GONE);
         tvWorkSend.setVisibility(View.VISIBLE);
         tvWorkSend.setText("查看记录");
@@ -133,6 +133,11 @@ public class RecruitFragment extends BaseFragment {
     @Override
     public void process(Message msg) {
 
+    }
+
+    @Override
+    public void initData() {
+        initDatas();
     }
 
     @Override

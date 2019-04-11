@@ -1,8 +1,9 @@
 package com.zhixing.employlib.model.gardenplot;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class NewEmployeeBean {
+public class NewEmployeeBean  implements Serializable {
 
 
 

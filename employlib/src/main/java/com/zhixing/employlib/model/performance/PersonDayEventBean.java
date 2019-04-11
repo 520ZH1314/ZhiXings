@@ -1,8 +1,9 @@
 package com.zhixing.employlib.model.performance;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PersonDayEventBean {
+public class PersonDayEventBean  implements Serializable {
         /**
          * EventId : fdb83455-4aeb-4982-821f-95b6d7047d8e
          * UserCode : 06153

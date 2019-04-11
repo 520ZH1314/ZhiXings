@@ -10,6 +10,7 @@ import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.model.gardenplot.ExcellentEmployeeBean;
 import com.zhixing.employlib.model.gardenplot.NewEmployeeBean;
 import com.zhixing.employlib.model.gardenplot.TeamDemeanorBean;
+import com.zhixing.employlib.model.gardenplot.UpLoadBean;
 import com.zhixing.employlib.model.grading.GradListBean;
 import com.zhixing.employlib.model.grading.GradingListDetailBean;
 import com.zhixing.employlib.model.grading.RankBean;
@@ -20,18 +21,25 @@ import com.zhixing.employlib.model.performance.PersonDayEventPostBean;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
 import com.zhixing.employlib.model.recrui.RecruitListBean;
+import com.zhixing.employlib.model.resume.GetResumeBean;
 import com.zhixing.netlib.base.BaseResponse;
 
+import java.util.Map;
+
 import io.reactivex.Flowable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.QueryMap;
 
 public interface PerformanceApi<T>  {
 
-    //文件名，以模块名命名
-    public  static String  FLIESNAME="employlib_shared";
+    //文件名
+    public  static String  FLIESNAME="Performance";
 
    //保存字段名
     public  static String   ISTEAMLEADER="IsTeamLeader";
@@ -171,6 +179,66 @@ public interface PerformanceApi<T>  {
  @Headers({"Content-Type: application/json","Accept: application/json"})
  @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
  Flowable<BaseResponse<StandScore>> getScoreColor(@Body RequestBody body);
+
+ //优秀员工图片上传
+
+ @Multipart
+ @POST("/api/EMS/Files/EditUploadFiles")
+ Flowable<BaseResponse<UpLoadBean>>upLoadImage(@QueryMap Map<String,String> map, @Part MultipartBody.Part file);
+
+
+ //上传优秀员工
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse> UpLoadOne(@Body RequestBody body);
+
+
+ //上传新员工
+
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse> UpLoadTwo(@Body RequestBody body);
+
+
+ //上传班组风采
+
+
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse> UpLoadthree(@Body RequestBody body);
+
+
+ //上传公告
+
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse> UpLoadFour(@Body RequestBody body);
+
+
+
+ //获取个人简历信息
+
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse<GetResumeBean>> GetResumeData(@Body RequestBody body);
+
+
+ //增加个人简历信息
+
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse> PutResumeData(@Body RequestBody body);
+
+
+
+ //修改个人简历信息
+
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse> AlterResumeData(@Body RequestBody body);
+
+
+
  //颜色值
  @Headers({"Content-Type: application/json","Accept: application/json"})
  @POST("/api/CMP/ApiRegistrator/PostApiGateWay")

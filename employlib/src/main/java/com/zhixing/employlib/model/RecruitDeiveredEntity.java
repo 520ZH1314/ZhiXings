@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model;
 
-public class RecruitDeiveredEntity {
+import java.io.Serializable;
+
+public class RecruitDeiveredEntity implements Serializable {
     public String workName;
 
     public  String type;

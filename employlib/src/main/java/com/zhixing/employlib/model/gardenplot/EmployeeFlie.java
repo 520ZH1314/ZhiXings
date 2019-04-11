@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model.gardenplot;
 
-public class EmployeeFlie {
+import java.io.Serializable;
+
+public class EmployeeFlie implements Serializable {
 
 
     /**

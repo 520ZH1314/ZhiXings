@@ -1,8 +1,9 @@
 package com.zhixing.employlib.model.grading;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RankBean {
+public class RankBean  implements Serializable {
 
 
 

@@ -76,7 +76,7 @@ import info.hoang8f.android.segmented.SegmentedGroup;
  * create at 2019/3/6 下午4:27
  * 绩效界面
  */
-public class PersonolPerformanceFragment extends BaseFragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
+public class PersonolPerformanceFragment extends BaseLazyFragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
 
     @BindView(R2.id.segmented2)
@@ -194,14 +194,21 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
         perFormanceViewModel = ViewModelProviders.of(getActivity()).get(PerFormanceViewModel.class);
         rfaLayout = (RapidFloatingActionLayout) view.findViewById(R.id.label_list_sample_rfal);
         rfaButton = (RapidFloatingActionButton) view.findViewById(R.id.label_list_sample_rfab);
-        initView();
-        initData();
+
 
 
         return view;
     }
 
-    private void initData() {
+
+
+    @Override
+    public void initData() {
+        initViews();
+        initDatas();
+    }
+
+    private void initDatas() {
         showDialog("");
         //是否是领导
         teamId = sharedUtils.getStringValue(PerformanceApi.TEAMID);
@@ -308,7 +315,7 @@ public class PersonolPerformanceFragment extends BaseFragment implements RapidFl
 
 
 
-    private void initView() {
+    private void initViews() {
         sharedUtils = new SharedUtils(PerformanceApi.FLIESNAME);
         //设置文字加粗
         TextPaint tp = tvTimeDate.getPaint();

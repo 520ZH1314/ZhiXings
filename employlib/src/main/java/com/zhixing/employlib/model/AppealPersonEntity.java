@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model;
 
-public class AppealPersonEntity  {
+import java.io.Serializable;
+
+public class AppealPersonEntity   implements Serializable {
     /**
      * Copyright 2019 bejson.com
      */

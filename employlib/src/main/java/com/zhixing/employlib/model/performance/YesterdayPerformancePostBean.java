@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model.performance;
 
-public class YesterdayPerformancePostBean {
+import java.io.Serializable;
+
+public class YesterdayPerformancePostBean  implements Serializable {
 
 
     public YesterdayPerformancePostBean(String appCode, String apiCode, String userCode, String shiftDate, String tenantId, String teamId) {

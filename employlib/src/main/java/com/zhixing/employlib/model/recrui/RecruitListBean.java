@@ -1,8 +1,9 @@
 package com.zhixing.employlib.model.recrui;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RecruitListBean {
+public class RecruitListBean  implements Serializable {
 
 
     /**

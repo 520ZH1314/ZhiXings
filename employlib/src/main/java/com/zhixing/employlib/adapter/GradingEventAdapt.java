@@ -54,6 +54,22 @@ public class GradingEventAdapt extends BaseQuickAdapter<PersonTestEntity,BaseVie
 
     //提供给外部Activity来获取当前checkBox选中的item，这样就不用去遍历了 重点！
     public PersonTestEntity getSelectedPosData(){
+
+
         return mList.get(mSelectedPos);
     }
+
+
+    //是否选中
+
+    public boolean isSelect(){
+        if (mSelectedPos==-1){
+            return  false;
+        }else{
+            return  true;
+        }
+
+
+    }
+
 }

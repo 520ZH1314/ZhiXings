@@ -2,7 +2,9 @@ package com.zhixing.employlib.model.gardenplot;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ExcellentEmployeePostBean {
+import java.io.Serializable;
+
+public class ExcellentEmployeePostBean  implements Serializable {
 
 
     /**

@@ -1,6 +1,8 @@
 package com.zhixing.employlib.model;
 
-public class AppealListEntity {
+import java.io.Serializable;
+
+public class AppealListEntity implements Serializable {
 
 
     public String eventName;
