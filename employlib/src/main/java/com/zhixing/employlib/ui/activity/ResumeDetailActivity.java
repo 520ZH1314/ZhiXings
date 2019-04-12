@@ -92,7 +92,7 @@ public class ResumeDetailActivity extends BaseActvity {
     public void initLayout() {
         ButterKnife.bind(this);
         ACache aCache = ACache.get(this);
-
+        setStatus(-1);
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkSend.setText("保存");
 

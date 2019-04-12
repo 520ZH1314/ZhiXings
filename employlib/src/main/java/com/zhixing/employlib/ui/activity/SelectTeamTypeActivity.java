@@ -58,6 +58,7 @@ public class SelectTeamTypeActivity extends BaseActvity {
     @Override
     public void initLayout() {
         ButterKnife.bind(this);
+        setStatus(-1);
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkTitle.setText("选择类型");
         recyUpdateSelectType.setLayoutManager(new LinearLayoutManager(this));

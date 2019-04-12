@@ -125,6 +125,7 @@ public class UpdateTeamDataActivity extends BaseActvity {
     @Override
     public void initLayout() {
         bind = ButterKnife.bind(this);
+        setStatus(-1);
         EventBus.getDefault().register(this);
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkTitle.setText("更新园地");

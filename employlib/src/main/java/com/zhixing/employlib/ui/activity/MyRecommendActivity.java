@@ -76,6 +76,7 @@ public class MyRecommendActivity extends BaseActvity {
 
     @Override
     public void initLayout() {
+        setStatus(-1);
         bind = ButterKnife.bind(this);
         initView();
     }

@@ -141,6 +141,7 @@ public class GradingDetailActivity extends BaseActvity {
 
     @Override
     public void initLayout() {
+        setStatus(-1);
         bind = ButterKnife.bind(this);
         aCache = ACache.get(this);
         EventBus.getDefault().register(this);

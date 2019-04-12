@@ -20,7 +20,7 @@ public class BetterTeamEmployeeAdapt extends BaseQuickAdapter<BetterTeamEmployee
 
     public BetterTeamEmployeeAdapt(int layoutResId, @Nullable List<BetterTeamEmployeeEntity> data) {
         super(layoutResId, data);
-        ip = SharedPreferencesTool.getMStool(mContext).getIp();
+        ip = "http://192.168.2.253:6004";
     }
 
     @Override
@@ -28,7 +28,7 @@ public class BetterTeamEmployeeAdapt extends BaseQuickAdapter<BetterTeamEmployee
 
          if (item.ImageUrl!=null&&!TextUtils.isEmpty(item.ImageUrl)){
              ImageView viewById = helper.itemView.findViewById(R.id.iv_excellent_employee);
-              MyImageLoader.load(mContext,item.ImageUrl,viewById);
+              MyImageLoader.loads(mContext,ip+item.ImageUrl,viewById,R.drawable.plot);
          }
 
         helper.setText(R.id.tv_item_better_team_title,item.Title);

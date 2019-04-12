@@ -21,7 +21,7 @@ public class ExcellentEmployeeAdapt extends BaseQuickAdapter<ExcellentEmployeeEn
 
         super(layoutResId, data);
           data.size();
-         ip = SharedPreferencesTool.getMStool(mContext).getIp();
+         ip = "http://192.168.2.253:6004";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ExcellentEmployeeAdapt extends BaseQuickAdapter<ExcellentEmployeeEn
 
         if (item.ImageUrl!=null&&!TextUtils.isEmpty(item.ImageUrl)){
             ImageView imageView1=helper.itemView.findViewById(R.id.iv_excellent_employee);
-            MyImageLoader.load(mContext,item.ImageUrl,imageView1);
+            MyImageLoader.loads(mContext,ip+item.ImageUrl,imageView1,R.drawable.excelicent_employee);
         }
 
         if ("1".equals(item.rank)){

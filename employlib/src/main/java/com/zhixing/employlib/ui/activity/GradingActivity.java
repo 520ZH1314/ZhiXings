@@ -95,6 +95,7 @@ public class GradingActivity extends BaseActvity {
 
     @Override
     public void initLayout() {
+        setStatus(-1);
         bind = ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         initView();
@@ -105,7 +106,7 @@ public class GradingActivity extends BaseActvity {
     }
 
     private void initData() {
-
+        showDialog("");
         gradingVIewModel.ListData.observe(this, new Observer<BaseResponse<GradListBean>>() {
             @Override
             public void onChanged(@Nullable BaseResponse<GradListBean> gradListBeanBaseResponse) {
@@ -147,7 +148,13 @@ public class GradingActivity extends BaseActvity {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         String format = sf.format(lastDay);
         String commonTime1 = TimeUtil.getCommonTime1(format);
-        showDialog("");
+        String[] splitDay = commonTime1.split("-");
+        String Year = splitDay[0];
+        String Month = splitDay[1];
+        String Day = splitDay[2];
+        tvGradingListYear.setText(Year + "年");
+        tvGradingListMoth.setText(Month + "月");
+        tvGradingListDay.setText(Day + "日");
         gradingVIewModel.setDate(commonTime1);
 
 
@@ -222,11 +229,7 @@ public class GradingActivity extends BaseActvity {
     }
 }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        dismissDialog();
-    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void event(GradingEvent event){

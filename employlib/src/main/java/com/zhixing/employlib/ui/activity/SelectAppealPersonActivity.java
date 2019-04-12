@@ -70,6 +70,7 @@ public class SelectAppealPersonActivity extends BaseActvity {
     public void initLayout() {
 
          bind = ButterKnife.bind(this);
+        setStatus(-1);
         if(getIntent().hasExtra("time"))
             time = getIntent().getStringExtra("time");
         initView();

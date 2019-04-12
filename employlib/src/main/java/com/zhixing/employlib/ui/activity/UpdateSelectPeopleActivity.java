@@ -65,6 +65,7 @@ public class UpdateSelectPeopleActivity extends BaseActvity {
     @Override
     public void initLayout() {
         ButterKnife.bind(this);
+        setStatus(-1);
         ivWorkAddWork.setImageResource(R
                 .mipmap.back);
         tvWorkTitle.setText("员工选择");

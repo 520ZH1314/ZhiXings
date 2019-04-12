@@ -85,7 +85,7 @@ public class GradingRecordListActivity extends BaseActvity {
     @Override
     public void initLayout() {
         bind = ButterKnife.bind(this);
-
+        setStatus(-1);
         initView();
 
     }

@@ -19,7 +19,7 @@ public class NewEmployeeAdapt extends BaseQuickAdapter<NewEmployeeEntity,BaseVie
 
     public NewEmployeeAdapt(int layoutResId, @Nullable List<NewEmployeeEntity> data) {
         super(layoutResId, data);
-        ip = SharedPreferencesTool.getMStool(mContext).getIp();
+        ip = "http://192.168.2.253:6004";
 
     }
 
@@ -29,7 +29,7 @@ public class NewEmployeeAdapt extends BaseQuickAdapter<NewEmployeeEntity,BaseVie
 
         if (item.imageUrl!=null&&!TextUtils.isEmpty(item.imageUrl)){
             ImageView imageView =helper.itemView.findViewById(R.id.iv_new_employee);
-            MyImageLoader.load(mContext,item.imageUrl,imageView);
+            MyImageLoader.loads(mContext,ip+item.imageUrl,imageView,R.drawable.new_employe);
         }
 
        helper.setText(R.id.tv_item_new_employee_name,item.name);

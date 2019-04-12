@@ -58,7 +58,7 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
     public void initLayout() {
          performanceMainViewModel = ViewModelProviders.of(this).get(PerformanceMainViewModel.class);
 
-
+        setStatus(-1);
         sharedUtils=new SharedUtils(PerformanceApi.FLIESNAME);
 
         viewPager = (CustomScrollViewPager) findViewById(R.id.viewpager_persion);

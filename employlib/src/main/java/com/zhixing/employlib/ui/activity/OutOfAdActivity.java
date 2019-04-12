@@ -77,7 +77,7 @@ public class OutOfAdActivity extends BaseActvity {
     public void initLayout() {
         bind = ButterKnife.bind(this);
         ivWorkAddWork.setImageResource(R.mipmap.back);
-
+        setStatus(-1);
         tvWorkTitle.setText("发布公告");
         tvWorkSend.setText("完成");
 

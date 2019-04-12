@@ -59,7 +59,9 @@ public class RecruitRecordActivity extends BaseActvity {
 
     @Override
     public void initLayout() {
+
          bind = ButterKnife.bind(this);
+        setStatus(-1);
         RecruitRecordActivityViewModel recruitRecordViewModel = ViewModelProviders.of(this).get(RecruitRecordActivityViewModel.class);
         recruitRecordViewModel.getJobList();
         ivWorkAddWork.setImageResource(R.mipmap.back);

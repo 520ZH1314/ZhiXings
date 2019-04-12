@@ -109,6 +109,7 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
     private SharedUtils sharedUtils;
     @Override
     public void initLayout() {
+
         sharedUtils = new SharedUtils(PerformanceApi.FLIESNAME);
          bind = ButterKnife.bind(this);
         setStatus(-1);

@@ -91,6 +91,7 @@ public class JobDetailsActivity extends BaseActvity {
     @Override
     public void initLayout() {
          bind = ButterKnife.bind(this);
+        setStatus(-1);
          initView();
     }
 

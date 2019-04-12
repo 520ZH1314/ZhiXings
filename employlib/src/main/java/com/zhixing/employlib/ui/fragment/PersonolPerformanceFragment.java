@@ -197,12 +197,9 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
          aCache = ACache.get(getActivity(),"Performance");
 
           monthViewModel = ViewModelProviders.of(getActivity()).get(MonthViewModel.class);
-        perFormanceViewModel = ViewModelProviders.of(getActivity()).get(PerFormanceViewModel.class);
-        rfaLayout = (RapidFloatingActionLayout) view.findViewById(R.id.label_list_sample_rfal);
-        rfaButton = (RapidFloatingActionButton) view.findViewById(R.id.label_list_sample_rfab);
-
-
-
+          perFormanceViewModel = ViewModelProviders.of(getActivity()).get(PerFormanceViewModel.class);
+          rfaLayout = (RapidFloatingActionLayout) view.findViewById(R.id.label_list_sample_rfal);
+          rfaButton = (RapidFloatingActionButton) view.findViewById(R.id.label_list_sample_rfab);
         return view;
     }
 

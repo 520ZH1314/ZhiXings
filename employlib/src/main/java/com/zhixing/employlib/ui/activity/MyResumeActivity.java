@@ -78,6 +78,7 @@ public class MyResumeActivity extends BaseActvity {
     public void initLayout() {
 
         ButterKnife.bind(this);
+        setStatus(-1);
          aCache =ACache.get(this);
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkTitle.setText("我的履历");

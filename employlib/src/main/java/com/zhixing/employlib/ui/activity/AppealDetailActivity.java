@@ -95,7 +95,7 @@ public class AppealDetailActivity extends BaseActvity {
     @Override
     public void initLayout() {
 
-
+        setStatus(-1);
          bind = ButterKnife.bind(this);
         appealPersonViewModel = ViewModelProviders.of(this).get(AppealPersonViewModel.class);
         ivWorkAddWork.setImageResource(R.mipmap.back);

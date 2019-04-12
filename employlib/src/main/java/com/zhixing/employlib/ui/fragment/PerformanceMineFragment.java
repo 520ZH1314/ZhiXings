@@ -1,6 +1,8 @@
 package com.zhixing.employlib.ui.fragment;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -14,8 +16,13 @@ import android.widget.TextView;
 import com.base.zhixing.www.BaseFragment;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.zhixing.employlib.R;
+import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.ui.activity.MothIntegralEventActivity;
 import com.zhixing.employlib.ui.activity.MyResumeActivity;
+import com.zhixing.employlib.viewmodel.activity.MonthViewModel;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -24,6 +31,8 @@ import com.zhixing.employlib.ui.activity.MyResumeActivity;
  * 个人中心
  */
 public class PerformanceMineFragment extends BaseLazyFragment {
+    private MonthViewModel monthViewModel;
+
     @Override
     public void process(Message msg) {
 
@@ -44,6 +53,10 @@ public class PerformanceMineFragment extends BaseLazyFragment {
         TextView Performance = view.findViewById(R.id.tv_appeal_mine_left);
         name.setText( SharedPreferencesTool.getMStool(getActivity()).getUserName());
 
+        monthViewModel = ViewModelProviders.of(this).get(MonthViewModel.class);
+
+
+
 
            tvResume.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +71,15 @@ public class PerformanceMineFragment extends BaseLazyFragment {
         Performance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(getContext(),MothIntegralEventActivity.class);
-                startActivity(intent);
+                monthViewModel.getScoreColor(null).observe(getActivity(), new Observer<List<StandScore>>() {
+                    @Override
+                    public void onChanged(@Nullable List<StandScore> standScores) {
+
+                        Intent intent = new Intent(getActivity(), MothIntegralEventActivity.class);
+                        intent.putExtra("obj", (Serializable) standScores);
+                        startActivity(intent);
+                    }
+                });
             }
         });
         return  view;

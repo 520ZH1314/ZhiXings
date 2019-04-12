@@ -74,6 +74,7 @@ public class MothIntegralEventActivity extends BaseActvity implements
 
     @Override
     public void initLayout() {
+        setStatus(-1);
         tempScores = (List<StandScore>) getIntent().getSerializableExtra("obj");
         monthViewModel = ViewModelProviders.of(this).get(MonthViewModel.class);
         perFormanceViewModel = ViewModelProviders.of(this).get(PerFormanceViewModel.class);
