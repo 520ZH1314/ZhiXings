@@ -42,6 +42,7 @@ import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.NoticeBean;
 import com.zhixing.employlib.model.StandScore;
+import com.zhixing.employlib.model.eventbus.UpdateEmployeeEvent;
 import com.zhixing.employlib.model.performance.MonthPerformanceBean;
 import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
 import com.zhixing.employlib.ui.activity.AppealActivity;
@@ -54,6 +55,10 @@ import com.zhixing.employlib.view.DialogFragmentIntergralEvent;
 import com.zhixing.employlib.view.DialogFragmentPersonTest;
 import com.zhixing.employlib.viewmodel.activity.MonthViewModel;
 import com.zhixing.employlib.viewmodel.fragment.PerFormanceViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -190,6 +195,7 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
         View view = inflater.inflate(R.layout.fragment_personol_performance, container, false);
         unbinder = ButterKnife.bind(this, view);
          aCache = ACache.get(getActivity(),"Performance");
+
           monthViewModel = ViewModelProviders.of(getActivity()).get(MonthViewModel.class);
         perFormanceViewModel = ViewModelProviders.of(getActivity()).get(PerFormanceViewModel.class);
         rfaLayout = (RapidFloatingActionLayout) view.findViewById(R.id.label_list_sample_rfal);
@@ -437,9 +443,19 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
                 rfabHelper.toggleContent();
             } else {
                 //处理申诉
-                Intent intent = new Intent(getActivity(), AppealListActivity.class);
-                startActivity(intent);
-                rfabHelper.toggleContent();
+                ChangeTime changeTime = new ChangeTime(getActivity(), "", 2);
+                changeTime.setPastCanendar(1);
+                changeTime.setSelect(new SelectTime() {
+                    @Override
+                    public void select(String time, long timestp) {
+                        Intent intent = new Intent(getActivity(),AppealListActivity.class);
+                        intent.putExtra("CreateTime",TimeUtil.getTimeCh(timestp));
+                        startActivity(intent);
+
+                        rfabHelper.toggleContent();
+                    }
+                });
+                changeTime.showSheet();
 
             }
         } else if (position == 1) {
@@ -963,6 +979,10 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
 
         }
     }
+
+
+
+
 
 
 }

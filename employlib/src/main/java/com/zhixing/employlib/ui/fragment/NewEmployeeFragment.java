@@ -18,8 +18,13 @@ import com.base.zhixing.www.BaseFragment;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.NewEmployeeAdapt;
 import com.zhixing.employlib.model.NewEmployeeEntity;
+import com.zhixing.employlib.model.eventbus.UpdateEmployeeEvent;
 import com.zhixing.employlib.model.gardenplot.NewEmployeeBean;
 import com.zhixing.employlib.viewmodel.fragment.TeamViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +45,7 @@ public class NewEmployeeFragment extends BaseLazyFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_employee, container, false);
         teamViewModel = ViewModelProviders.of(getActivity()).get(TeamViewModel.class);
-
+        EventBus.getDefault().register(this);
         recyclerView = (RecyclerView) view.findViewById(R.id.recy_new_employee);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -58,8 +63,8 @@ public class NewEmployeeFragment extends BaseLazyFragment {
 //            }
 //        });
 
-
-        teamViewModel.getNewEmployeeData().observe(getActivity(), new Observer<List<NewEmployeeBean>>() {
+        teamViewModel.getNewEmployeeData();
+        teamViewModel.NewEmployeeDatas.observe(getActivity(), new Observer<List<NewEmployeeBean>>() {
             @Override
             public void onChanged(@Nullable List<NewEmployeeBean> newEmployeeBeans) {
                 if (newEmployeeBeans != null) {
@@ -68,9 +73,9 @@ public class NewEmployeeFragment extends BaseLazyFragment {
                     List<NewEmployeeEntity> datas = new ArrayList<>();
                     for (int i = 0; i < newEmployeeBeans.size(); i++) {
                         if (newEmployeeBeans.get(i).getFiles().size() == 0) {
-
+                            imgPath="";
                         } else {
-                            imgPath = newEmployeeBeans.get(i).getFiles().get(i).getFilePath();
+                            imgPath = newEmployeeBeans.get(i).getFiles().get(0).getFilePath();
                         }
 
 
@@ -103,6 +108,42 @@ public class NewEmployeeFragment extends BaseLazyFragment {
         String t = ts[0];
         String[] split = t.split("-");
         return split[1] + "月" + split[2] + "日";
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Update(UpdateEmployeeEvent employeeEvent){
+        if ("4".equals(employeeEvent.EmPloyeeType)){
+            teamViewModel.getNewEmployeeData();
+            teamViewModel.NewEmployeeDatas.observe(getActivity(), new Observer<List<NewEmployeeBean>>() {
+                @Override
+                public void onChanged(@Nullable List<NewEmployeeBean> newEmployeeBeans) {
+                    if (newEmployeeBeans != null) {
+
+
+                        List<NewEmployeeEntity> datas = new ArrayList<>();
+                        for (int i = 0; i < newEmployeeBeans.size(); i++) {
+                            if (newEmployeeBeans.get(i).getFiles().size() == 0) {
+                                imgPath="";
+                            } else {
+                                imgPath = newEmployeeBeans.get(i).getFiles().get(0).getFilePath();
+                            }
+
+
+                            datas.add(new NewEmployeeEntity(newEmployeeBeans.get(i).getUserInfo().getNativePlace(), imgPath, newEmployeeBeans.get(i).getUserName(),
+                                    newEmployeeBeans.get(i).getUserInfo().getPositionName(),
+                                    newEmployeeBeans.get(i).getUserInfo().getOrganizeName(), clearTime(newEmployeeBeans.get(i).getUserInfo().getJoinWorkDate()), newEmployeeBeans.get(i).getNewDeeds()));
+                        }
+                        NewEmployeeAdapt newEmployeeAdapt = new NewEmployeeAdapt(R.layout.item_new_employee, datas);
+                        recyclerView.setAdapter(newEmployeeAdapt);
+
+                    }
+
+                }
+            });
+
+        }
+
 
     }
 

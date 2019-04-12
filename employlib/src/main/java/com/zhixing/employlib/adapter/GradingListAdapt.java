@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.luliang.shapeutils.DevShapeUtils;
@@ -110,8 +109,14 @@ public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseVie
 
     @TargetApi(Build.VERSION_CODES.N)
     public List<GradingItemEntity> getSelectData() {
-        return data.stream().filter(s -> s.isChecked).collect(Collectors.toList());
+        List<GradingItemEntity> entities=new ArrayList<>();
 
+        for (int i = 0; i < data.size(); i++) {
+             if (data.get(i).isChecked){
+                 entities.add(data.get(i));
+             }
+        }
+         return   entities;
 
     }
 }

@@ -23,8 +23,11 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
+import com.zhixing.employlib.model.eventbus.UpdateEmployeeEvent;
 import com.zhixing.employlib.viewmodel.activity.UpTeamViewModel;
 import com.zhixing.netlib.base.BaseResponse;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.UUID;
@@ -103,6 +106,7 @@ public class OutOfAdActivity extends BaseActvity {
                         if (baseResponse!=null){
                            dismissDialog();
                             Toasty.INSTANCE.showToast(OutOfAdActivity.this,"更新成功");
+
                             AppManager.getAppManager().finishActivity();
                         }else{
                             Toasty.INSTANCE.showToast(OutOfAdActivity.this,"更新失败");
@@ -198,10 +202,5 @@ public class OutOfAdActivity extends BaseActvity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

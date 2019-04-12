@@ -2,6 +2,7 @@ package com.zhixing.employlib.viewmodel.activity;
 
 
 import android.app.Application;
+import android.arch.core.util.Function;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -73,8 +74,12 @@ public class GradingedListViewModel  extends AndroidViewModel {
 
     }
     //获取单人情况下 读取事件评分
-    public final LiveData<BaseResponse<GradingListDetailBean>> RecordDetailData=Transformations.switchMap(Data, date->(gradingListRepertory.getGradingListDetail(date.date,date.endTime,date.useCode
-    )));
+    public final LiveData<BaseResponse<GradingListDetailBean>> RecordDetailData=Transformations.switchMap(Data, new Function<SelectUserData, LiveData<BaseResponse<GradingListDetailBean>>>() {
+        @Override
+        public LiveData<BaseResponse<GradingListDetailBean>> apply(SelectUserData input) {
+            return (gradingListRepertory.getGradingListDetail(input.date, input.endTime, input.useCode));
+        }
+    });
 
 
 

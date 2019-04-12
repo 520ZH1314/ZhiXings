@@ -1,7 +1,12 @@
 package com.zhixing.employlib.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.base.zhixing.www.util.MyImageLoader;
+import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhixing.employlib.R;
@@ -11,12 +16,20 @@ import com.zhixing.employlib.model.ExcellentEmployeeEntity;
 import java.util.List;
 
 public class BetterTeamEmployeeAdapt extends BaseQuickAdapter<BetterTeamEmployeeEntity,BaseViewHolder> {
+    private  String ip;
+
     public BetterTeamEmployeeAdapt(int layoutResId, @Nullable List<BetterTeamEmployeeEntity> data) {
         super(layoutResId, data);
+        ip = SharedPreferencesTool.getMStool(mContext).getIp();
     }
 
     @Override
     protected void convert(BaseViewHolder helper, BetterTeamEmployeeEntity item) {
+
+         if (item.ImageUrl!=null&&!TextUtils.isEmpty(item.ImageUrl)){
+             ImageView viewById = helper.itemView.findViewById(R.id.iv_excellent_employee);
+              MyImageLoader.load(mContext,item.ImageUrl,viewById);
+         }
 
         helper.setText(R.id.tv_item_better_team_title,item.Title);
         helper.setText(R.id.tv_item_better_team_name,item.teamName);

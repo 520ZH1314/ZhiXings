@@ -138,4 +138,17 @@ public class AppUtils {
         Matcher m = p.matcher(mobile);
         return m.matches();
     }
+
+
+
+    //判断是否为null
+    public static String isNull(String url){
+        if (url==null){
+            return  "";
+        }else{
+            return  url;
+        }
+    }
+
+
 }

@@ -17,8 +17,14 @@ import com.base.zhixing.www.BaseFragment;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.ExcellentEmployeeAdapt;
 import com.zhixing.employlib.model.ExcellentEmployeeEntity;
+import com.zhixing.employlib.model.eventbus.UpdateEmployeeEvent;
 import com.zhixing.employlib.model.gardenplot.ExcellentEmployeeBean;
+import com.zhixing.employlib.utils.AppUtils;
 import com.zhixing.employlib.viewmodel.fragment.TeamViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +40,14 @@ public class ExcellentEmployeeFragment  extends BaseLazyFragment {
     private RecyclerView recyclerView;
     private TeamViewModel teamViewModel;
     private String urlimg;
+    private String PositionName;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
          View view=inflater.inflate(R.layout.fragment_excellent_employee,container,false);
         teamViewModel = ViewModelProviders.of(getActivity()).get(TeamViewModel.class);
-
+        EventBus.getDefault().register(this);
         recyclerView  =(RecyclerView)view.findViewById(R.id.recy_excellent_employee);
            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -57,22 +64,32 @@ public class ExcellentEmployeeFragment  extends BaseLazyFragment {
 //        });
 
 
-
-        teamViewModel.getExcellentEmployeeData().observe(getActivity(), new Observer<List<ExcellentEmployeeBean>>() {
+        teamViewModel.getExcellentEmployeeData();
+        teamViewModel.ExcellentEmployeeDatas.observe(getActivity(), new Observer<List<ExcellentEmployeeBean>>() {
             @Override
             public void onChanged(@Nullable List<ExcellentEmployeeBean> excellentEmployeeBeans) {
 
                 if (excellentEmployeeBeans!=null){
                     List<ExcellentEmployeeEntity> data=new ArrayList<>();
-                    for (int i = 1; i <excellentEmployeeBeans.size(); i++) {
+                    for (int i = 0; i <excellentEmployeeBeans.size(); i++) {
                         if (excellentEmployeeBeans.get(i).getFiles().size()==0){
-
+                            urlimg="";
                         }else{
-                            urlimg=excellentEmployeeBeans.get(i).getFiles().get(i).getFilePath();
+                            urlimg=excellentEmployeeBeans.get(i).getFiles().get(0).getFilePath();
+                        }
+                        if (excellentEmployeeBeans.get(i).getUserInfo()!=null){
+                            PositionName=excellentEmployeeBeans.get(i).getUserInfo().getPositionName();
                         }
 
-                        data.add(new ExcellentEmployeeEntity(excellentEmployeeBeans.get(i).getExcellentType(),urlimg,excellentEmployeeBeans.get(i).getUserName(),
-                                excellentEmployeeBeans.get(i).getUserInfo().getPositionName(), excellentEmployeeBeans.get(i).getEventScore()+"", excellentEmployeeBeans.get(i).getSeq()+"",excellentEmployeeBeans.get(i).getExcellentDeeds()));
+
+
+                        data.add(new ExcellentEmployeeEntity(
+                                excellentEmployeeBeans.get(i).getExcellentType(),
+                                urlimg,excellentEmployeeBeans.get(i).getUserName(),
+                                AppUtils.isNull(PositionName),
+                                excellentEmployeeBeans.get(i).getEventScore()+"",
+                                excellentEmployeeBeans.get(i).getSeq()+"",
+                                excellentEmployeeBeans.get(i).getExcellentDeeds()));
 
                     }
                     ExcellentEmployeeAdapt excellentEmployeeAdapt = new ExcellentEmployeeAdapt(R.layout.item_excellent_employee, data);
@@ -93,5 +110,52 @@ public class ExcellentEmployeeFragment  extends BaseLazyFragment {
     @Override
     public void initData() {
         initDatas();
+    }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Update(UpdateEmployeeEvent employeeEvent){
+        if ("3".equals(employeeEvent.EmPloyeeType)){
+            teamViewModel.getExcellentEmployeeData();
+            teamViewModel.ExcellentEmployeeDatas.observe(getActivity(), new Observer<List<ExcellentEmployeeBean>>() {
+                @Override
+                public void onChanged(@Nullable List<ExcellentEmployeeBean> excellentEmployeeBeans) {
+
+                    if (excellentEmployeeBeans!=null){
+                        List<ExcellentEmployeeEntity> data=new ArrayList<>();
+                        for (int i = 0; i <excellentEmployeeBeans.size(); i++) {
+                            if (excellentEmployeeBeans.get(i).getFiles().size()==0){
+                                urlimg="";
+                            }else{
+                                urlimg=excellentEmployeeBeans.get(i).getFiles().get(0).getFilePath();
+                            }
+                            if (excellentEmployeeBeans.get(i).getUserInfo()!=null){
+                                PositionName=excellentEmployeeBeans.get(i).getUserInfo().getPositionName();
+                            }
+
+
+
+                            data.add(new ExcellentEmployeeEntity(
+                                    excellentEmployeeBeans.get(i).getExcellentType(),
+                                    urlimg,excellentEmployeeBeans.get(i).getUserName(),
+                                    AppUtils.isNull(PositionName),
+                                    excellentEmployeeBeans.get(i).getEventScore()+"",
+                                    excellentEmployeeBeans.get(i).getSeq()+"",
+                                    excellentEmployeeBeans.get(i).getExcellentDeeds()));
+
+                        }
+                        ExcellentEmployeeAdapt excellentEmployeeAdapt = new ExcellentEmployeeAdapt(R.layout.item_excellent_employee, data);
+                        recyclerView.setAdapter(excellentEmployeeAdapt);
+
+                    }
+
+
+                }
+            });
+
+        }
+
+
     }
 }

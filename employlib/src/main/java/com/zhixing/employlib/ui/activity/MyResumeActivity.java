@@ -16,6 +16,7 @@ import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
+import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
@@ -84,6 +85,10 @@ public class MyResumeActivity extends BaseActvity {
         recyleMyResumeJob.setLayoutManager(new LinearLayoutManager(this));
         recyleMyResumeShcoolJob.setLayoutManager(new LinearLayoutManager(this));
          myResumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
+
+
+
+        tvResumeName.setText(  SharedPreferencesTool.getMStool(this).getUserName());
 
          myResumeViewModel.getResumeData().observe(this, new Observer<BaseResponse<GetResumeBean>>() {
              @Override

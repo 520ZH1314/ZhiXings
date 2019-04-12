@@ -1,9 +1,12 @@
 package com.zhixing.employlib.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.base.zhixing.www.util.MyImageLoader;
+import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhixing.employlib.R;
@@ -12,8 +15,13 @@ import com.zhixing.employlib.model.ExcellentEmployeeEntity;
 import java.util.List;
 
 public class ExcellentEmployeeAdapt extends BaseQuickAdapter<ExcellentEmployeeEntity,BaseViewHolder> {
+    private  String ip;
+
     public ExcellentEmployeeAdapt(int layoutResId, @Nullable List<ExcellentEmployeeEntity> data) {
+
         super(layoutResId, data);
+          data.size();
+         ip = SharedPreferencesTool.getMStool(mContext).getIp();
     }
 
     @Override
@@ -28,6 +36,12 @@ public class ExcellentEmployeeAdapt extends BaseQuickAdapter<ExcellentEmployeeEn
         }else{
             imageView.setImageResource(R.mipmap.jidu_employee);
 
+        }
+
+
+        if (item.ImageUrl!=null&&!TextUtils.isEmpty(item.ImageUrl)){
+            ImageView imageView1=helper.itemView.findViewById(R.id.iv_excellent_employee);
+            MyImageLoader.load(mContext,item.ImageUrl,imageView1);
         }
 
         if ("1".equals(item.rank)){

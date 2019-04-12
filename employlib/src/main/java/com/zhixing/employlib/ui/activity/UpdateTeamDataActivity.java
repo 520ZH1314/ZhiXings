@@ -26,6 +26,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.model.eventbus.SelectTeamEvent;
+import com.zhixing.employlib.model.eventbus.UpdateEmployeeEvent;
 import com.zhixing.employlib.model.eventbus.UpdateTeamSelectEvent;
 import com.zhixing.employlib.model.gardenplot.UpLoadBean;
 import com.zhixing.employlib.viewmodel.activity.UpTeamViewModel;
@@ -170,6 +171,7 @@ public class UpdateTeamDataActivity extends BaseActvity {
                                         if (baseResponse.getStatus().equals("success")) {
                                             Toasty.INSTANCE.showToast(UpdateTeamDataActivity.this, "更新成功");
                                             dismissDialog();
+                                            EventBus.getDefault().post(new UpdateEmployeeEvent("5"));
                                             AppManager.getAppManager().finishActivity();
 
                                         } else {
@@ -201,6 +203,7 @@ public class UpdateTeamDataActivity extends BaseActvity {
                                 if (baseResponse.getStatus().equals("success")){
                                     Toasty.INSTANCE.showToast(UpdateTeamDataActivity.this,"更新成功");
                                     dismissDialog();
+                                    EventBus.getDefault().post(new UpdateEmployeeEvent("4"));
                                     AppManager.getAppManager().finishActivity();
 
                                 }else{
@@ -224,13 +227,14 @@ public class UpdateTeamDataActivity extends BaseActvity {
                 Toasty.INSTANCE.showToast(this,"描述不能为空");
             }else{
                 showDialog("");
-                upTeamViewModel.UpLoadOne(LinkedTabledId,type,UseCode,UserName,commonTime1,edOutAdDesc.getText().toString().trim()).observe(this, new Observer<BaseResponse>() {
+                upTeamViewModel.UpLoadOne(LinkedTabledId,type,UserName,UseCode,commonTime1,edOutAdDesc.getText().toString().trim()).observe(this, new Observer<BaseResponse>() {
                     @Override
                     public void onChanged(@Nullable BaseResponse baseResponse) {
                         if (baseResponse!=null){
                             if (baseResponse.getStatus().equals("success")){
                                 Toasty.INSTANCE.showToast(UpdateTeamDataActivity.this,"更新成功");
                                 dismissDialog();
+                                EventBus.getDefault().post(new UpdateEmployeeEvent("3"));
                                 AppManager.getAppManager().finishActivity();
 
                             }else{
@@ -287,12 +291,12 @@ public class UpdateTeamDataActivity extends BaseActvity {
 
             type=teamEvent.event;
             //月度
-            clUpdateSelectWork.setVisibility(View.VISIBLE);
+            clUpdateSelectWork.setVisibility(View.GONE);
             clUpdateSelectPeople.setVisibility(View.VISIBLE);
             clUpdateTeam.setVisibility(View.GONE);
-            clUpdateSelectAddress.setVisibility(View.VISIBLE);
-            clUpdateSelectScore.setVisibility(View.VISIBLE);
-            clUpdateSelectRank.setVisibility(View.VISIBLE);
+            clUpdateSelectAddress.setVisibility(View.GONE);
+            clUpdateSelectScore.setVisibility(View.GONE);
+            clUpdateSelectRank.setVisibility(View.GONE);
             clUpdateSelectTeamName.setVisibility(View.GONE);
             clUpdateSelectTeamGoTime.setVisibility(View.GONE);
 
@@ -306,12 +310,12 @@ public class UpdateTeamDataActivity extends BaseActvity {
             type=teamEvent.event;
             //季度
 
-            clUpdateSelectWork.setVisibility(View.VISIBLE);
+            clUpdateSelectWork.setVisibility(View.GONE);
             clUpdateSelectPeople.setVisibility(View.VISIBLE);
             clUpdateTeam.setVisibility(View.GONE);
-            clUpdateSelectAddress.setVisibility(View.VISIBLE);
-            clUpdateSelectScore.setVisibility(View.VISIBLE);
-            clUpdateSelectRank.setVisibility(View.VISIBLE);
+            clUpdateSelectAddress.setVisibility(View.GONE);
+            clUpdateSelectScore.setVisibility(View.GONE);
+            clUpdateSelectRank.setVisibility(View.GONE);
             clUpdateSelectTeamName.setVisibility(View.GONE);
             clUpdateSelectTeamGoTime.setVisibility(View.GONE);
             tvUpdataTeamSelectType.setText("季度优秀员工");
@@ -320,12 +324,12 @@ public class UpdateTeamDataActivity extends BaseActvity {
         } else if ("3".contains(teamEvent.event)) {
             type=teamEvent.event;
             //年度
-            clUpdateSelectWork.setVisibility(View.VISIBLE);
+            clUpdateSelectWork.setVisibility(View.GONE);
             clUpdateSelectPeople.setVisibility(View.VISIBLE);
             clUpdateTeam.setVisibility(View.GONE);
-            clUpdateSelectAddress.setVisibility(View.VISIBLE);
-            clUpdateSelectScore.setVisibility(View.VISIBLE);
-            clUpdateSelectRank.setVisibility(View.VISIBLE);
+            clUpdateSelectAddress.setVisibility(View.GONE);
+            clUpdateSelectScore.setVisibility(View.GONE);
+            clUpdateSelectRank.setVisibility(View.GONE);
             clUpdateSelectTeamName.setVisibility(View.GONE);
             clUpdateSelectTeamGoTime.setVisibility(View.GONE);
             LinkedTabledId=UUID.randomUUID().toString();
@@ -335,14 +339,14 @@ public class UpdateTeamDataActivity extends BaseActvity {
             type=teamEvent.event;
             //新员工
             //月度
-            clUpdateSelectWork.setVisibility(View.VISIBLE);
+            clUpdateSelectWork.setVisibility(View.GONE);
             clUpdateSelectPeople.setVisibility(View.VISIBLE);
             clUpdateTeam.setVisibility(View.GONE);
-            clUpdateSelectAddress.setVisibility(View.VISIBLE);
+            clUpdateSelectAddress.setVisibility(View.GONE);
             clUpdateSelectScore.setVisibility(View.GONE);
             clUpdateSelectRank.setVisibility(View.GONE);
-            clUpdateSelectTeamName.setVisibility(View.VISIBLE);
-            clUpdateSelectTeamGoTime.setVisibility(View.VISIBLE);
+            clUpdateSelectTeamName.setVisibility(View.GONE);
+            clUpdateSelectTeamGoTime.setVisibility(View.GONE);
             LinkedTabledId=UUID.randomUUID().toString();
             tvUpdataTeamSelectType.setText("新员工");
             LinkedTable="ems_newemployee";
@@ -356,7 +360,7 @@ public class UpdateTeamDataActivity extends BaseActvity {
             clUpdateSelectAddress.setVisibility(View.GONE);
             clUpdateSelectScore.setVisibility(View.GONE);
             clUpdateSelectRank.setVisibility(View.GONE);
-            clUpdateSelectTeamName.setVisibility(View.VISIBLE);
+            clUpdateSelectTeamName.setVisibility(View.GONE);
             clUpdateSelectTeamGoTime.setVisibility(View.GONE);
             LinkedTabledId=UUID.randomUUID().toString();
             tvUpdataTeamSelectType.setText("班组风采");

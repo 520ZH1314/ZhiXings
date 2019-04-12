@@ -18,8 +18,13 @@ import com.base.zhixing.www.util.TimeUtil;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.BetterTeamEmployeeAdapt;
 import com.zhixing.employlib.model.BetterTeamEmployeeEntity;
+import com.zhixing.employlib.model.eventbus.UpdateEmployeeEvent;
 import com.zhixing.employlib.model.gardenplot.TeamDemeanorBean;
 import com.zhixing.employlib.viewmodel.fragment.TeamViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +46,7 @@ public class BetterTeamEmployeeFragment extends BaseLazyFragment {
         View view = inflater.inflate(R.layout.fragment_better_team_employee, container, false);
 
         teamViewModel = ViewModelProviders.of(getActivity()).get(TeamViewModel.class);
+        EventBus.getDefault().register(this);
         recyclerView = (RecyclerView) view.findViewById(R.id.recy_better_team_employee);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -59,8 +65,8 @@ public class BetterTeamEmployeeFragment extends BaseLazyFragment {
 //            }
 //        }
 // );
-
-        teamViewModel.getBetterTeamData().observe(getActivity(), new Observer<List<TeamDemeanorBean>>() {
+          teamViewModel.getBetterTeamData();
+        teamViewModel.listLiveData.observe(getActivity(), new Observer<List<TeamDemeanorBean>>() {
             @Override
             public void onChanged(@Nullable List<TeamDemeanorBean> teamDemeanorBeans) {
                 if (teamDemeanorBeans != null) {
@@ -69,9 +75,9 @@ public class BetterTeamEmployeeFragment extends BaseLazyFragment {
                     for (int i = 0; i < teamDemeanorBeans.size(); i++) {
 
                         if (teamDemeanorBeans.get(i).getFiles().size() == 0) {
-
+                            filePath="";
                         } else {
-                            filePath = teamDemeanorBeans.get(i).getFiles().get(i).getFilePath();
+                            filePath = teamDemeanorBeans.get(i).getFiles().get(0).getFilePath();
                         }
 
 
@@ -109,6 +115,46 @@ public class BetterTeamEmployeeFragment extends BaseLazyFragment {
         String commonTime1 = TimeUtil.getCommonTime1(t);
 
         return commonTime1;
+
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Update(UpdateEmployeeEvent employeeEvent){
+        if ("5".equals(employeeEvent.EmPloyeeType)){
+            teamViewModel.getBetterTeamData();
+
+            teamViewModel.listLiveData.observe(getActivity(), new Observer<List<TeamDemeanorBean>>() {
+                @Override
+                public void onChanged(@Nullable List<TeamDemeanorBean> teamDemeanorBeans) {
+                    if (teamDemeanorBeans != null) {
+                        List<BetterTeamEmployeeEntity> datas = new ArrayList<>();
+
+                        for (int i = 0; i < teamDemeanorBeans.size(); i++) {
+
+                            if (teamDemeanorBeans.get(i).getFiles().size() == 0) {
+                                filePath="";
+                            } else {
+                                filePath = teamDemeanorBeans.get(i).getFiles().get(0).getFilePath();
+                            }
+
+
+                            datas.add(new BetterTeamEmployeeEntity(teamDemeanorBeans.get(i).getDemeanorTitle(), filePath,
+                                    teamDemeanorBeans.get(i).getTeamName(),
+                                    clearTime(teamDemeanorBeans.get(i).getCreateTime()),
+                                    teamDemeanorBeans.get(i).getDemeanorContent()));
+
+                        }
+                        BetterTeamEmployeeAdapt betterTeamEmployeeAdapt = new BetterTeamEmployeeAdapt(R.layout.item_better_team, datas);
+                        recyclerView.setAdapter(betterTeamEmployeeAdapt);
+
+
+                    }
+                }
+            });
+
+        }
+
 
     }
 }

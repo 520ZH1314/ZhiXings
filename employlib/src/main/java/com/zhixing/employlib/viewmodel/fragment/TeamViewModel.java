@@ -38,6 +38,9 @@ public class TeamViewModel extends AndroidViewModel {
     //班组天地
 
     public MutableLiveData<List<BetterTeamEmployeeEntity>> betterTeamData=new MutableLiveData<>();
+    public LiveData<List<TeamDemeanorBean>> listLiveData=new MutableLiveData<>();
+    public LiveData<List<ExcellentEmployeeBean>> ExcellentEmployeeDatas =new MutableLiveData<>();
+    public LiveData<List<NewEmployeeBean>> NewEmployeeDatas=new MutableLiveData<>();
 
 
     public TeamViewModel(@NonNull Application application) {
@@ -52,7 +55,7 @@ public class TeamViewModel extends AndroidViewModel {
 
         MutableLiveData<BaseResponse<ExcellentEmployeeBean>> excellentEmployee = teamRepertory.getExcellentEmployee();
 
-        LiveData<List<ExcellentEmployeeBean>> ExcellentEmployeeDatas = Transformations.map(excellentEmployee, BaseResponse::getRows);
+        ExcellentEmployeeDatas = Transformations.map(excellentEmployee, BaseResponse::getRows);
 
 
         return  ExcellentEmployeeDatas;
@@ -66,7 +69,7 @@ public class TeamViewModel extends AndroidViewModel {
 
 
         MutableLiveData<BaseResponse<NewEmployeeBean>> newEmployee = teamRepertory.getNewEmployee();
-                       LiveData<List<NewEmployeeBean>> NewEmployeeDatas=Transformations.map(newEmployee,BaseResponse::getRows);
+                       NewEmployeeDatas=Transformations.map(newEmployee,BaseResponse::getRows);
         return NewEmployeeDatas;
 
 
@@ -78,7 +81,7 @@ public class TeamViewModel extends AndroidViewModel {
 
         MutableLiveData<BaseResponse<TeamDemeanorBean>> teamDemeanor = teamRepertory.getTeamDemeanor();
 
-        LiveData<List<TeamDemeanorBean>> listLiveData =Transformations.map(teamDemeanor,BaseResponse::getRows);
+        listLiveData =Transformations.map(teamDemeanor,BaseResponse::getRows);
         return  listLiveData;
 
 
