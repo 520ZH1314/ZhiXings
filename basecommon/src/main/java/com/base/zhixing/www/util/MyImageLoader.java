@@ -50,8 +50,10 @@ public class MyImageLoader {
         Glide.with(context).asBitmap().load(path)
                 .apply(options)
                 .into(v);
-
     }
+
+
+
 
 
 
@@ -127,6 +129,18 @@ public class MyImageLoader {
                 });
     }*/
 
+
+   //自定义错误图
+
+    public static void loads(Context context,String path, ImageView v,int error) {
+        RequestOptions options = new RequestOptions()
+                .placeholder(error)
+                .error(error)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        Glide.with(context).asBitmap().load(path)
+                .apply(options)
+                .into(v);
+    }
 
 
     }
