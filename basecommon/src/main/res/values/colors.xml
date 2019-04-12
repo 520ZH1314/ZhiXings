@@ -91,5 +91,6 @@
     <color name="mass_tip">#FF7F00</color>
     <color name="item_grading">#FF734F</color>
     <color name="item_grading_btn">#2082D0</color>
+    <color name="title_bgs">#007AFF</color>
 
 </resources>
