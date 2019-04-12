@@ -42,10 +42,12 @@ import com.zhixing.employlib.R2;
 
 import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.eventbus.MessageEvent;
+import com.zhixing.employlib.model.gardenplot.UpLoadBean;
 import com.zhixing.employlib.utils.AppUtils;
 import com.zhixing.employlib.utils.PermissionsUtil;
 import com.zhixing.employlib.view.CustomGridView;
 import com.zhixing.employlib.viewmodel.activity.AppealPersonViewModel;
+import com.zhixing.employlib.viewmodel.activity.UpTeamViewModel;
 import com.zhixing.netlib.base.BaseResponse;
 
 
@@ -57,6 +59,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,6 +96,7 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
     private String tel;
     private Unbinder bind;
     private AppealPersonViewModel appealPersonViewModel;
+    private UpTeamViewModel upTeamViewModel;
     @Override
     public int getLayoutId() {
         return R.layout.activity_appeal;
@@ -109,6 +113,7 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
          bind = ButterKnife.bind(this);
         setStatus(-1);
         appealPersonViewModel = ViewModelProviders.of(this).get(AppealPersonViewModel.class);
+        upTeamViewModel = ViewModelProviders.of(this).get(UpTeamViewModel.class);
         initView();
         initData();
     }
@@ -133,7 +138,7 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
         });
 
     }
-
+    private String fileid ;
     private void initView() {
 
         tetle_tv_ok.setVisibility(View.VISIBLE);
@@ -149,7 +154,7 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
             }
             showDialog("申请请求中");
             Map map = new HashMap();
-            map.put("AppealId","");
+            map.put("AppealId",fileid);
             map.put("KeyId",KeyId);
             map.put("KeyName",KeyName);
             map.put("KeyDate",time);
@@ -219,6 +224,7 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
         });
 
     }
+    private String uuid ;
     String KeyId,KeyName,time;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -237,8 +243,19 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
                         pathList.add(selectList.get(i).getCompressPath());
                     }
                     imagePth = pathList.get(0);
+                     uuid = UUID.randomUUID().toString();
                     SharedPreferencesTool.getMStool(this).setString("imgUrl", pathList.get(0));
                     imageList.addAll(pathList);
+                     upTeamViewModel.UpLoadImage(uuid,"ems_files",imagePth).observe(AppealActivity.this, new Observer<BaseResponse<UpLoadBean>>() {
+                         @Override
+                         public void onChanged(@Nullable BaseResponse<UpLoadBean> upLoadBeanBaseResponse) {
+                             if(upLoadBeanBaseResponse!=null){
+                                 if(upLoadBeanBaseResponse.getRows().size()==1){
+                                     fileid = upLoadBeanBaseResponse.getRows().get(0).FileID;
+                                 }
+                             }
+                         }
+                     });
                     leaveImageAdapter.notifyDataSetChanged();
 
         }else if(requestCode==100&&resultCode==RESULT_OK){

@@ -24,8 +24,10 @@ import com.zhixing.employlib.R2;
 import com.zhixing.employlib.model.MonthViewBean;
 import com.zhixing.employlib.model.StandScore;
 import com.zhixing.employlib.repertory.MonthRepertory;
+import com.zhixing.employlib.view.DialogFragmentIntergralEvent;
 import com.zhixing.employlib.viewmodel.activity.AppealPersonViewModel;
 import com.zhixing.employlib.viewmodel.activity.MonthViewModel;
+import com.zhixing.employlib.viewmodel.fragment.PerFormanceViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,7 +59,7 @@ public class MothIntegralEventActivity extends BaseActvity implements
     RelativeLayout mRelativeTool;
     private int mYear;
     CalendarLayout mCalendarLayout;
-
+    private PerFormanceViewModel perFormanceViewModel;
     TextView tetle_text;
 
     @Override
@@ -74,6 +76,7 @@ public class MothIntegralEventActivity extends BaseActvity implements
     public void initLayout() {
         tempScores = (List<StandScore>) getIntent().getSerializableExtra("obj");
         monthViewModel = ViewModelProviders.of(this).get(MonthViewModel.class);
+        perFormanceViewModel = ViewModelProviders.of(this).get(PerFormanceViewModel.class);
         initView();
 
 
@@ -250,6 +253,14 @@ public class MothIntegralEventActivity extends BaseActvity implements
         mTextLunar.setText(calendar.getLunar());
         mYear = calendar.getYear();
 //        initData();
-        connet();
+
+        if(isClick){
+            String time = calendar.getYear()+"-"+calendar.getMonth()+"-"+calendar.getDay();
+            perFormanceViewModel.getTime(time);
+            DialogFragmentIntergralEvent dialogFragmentIntergralEvent = new DialogFragmentIntergralEvent(time);
+            dialogFragmentIntergralEvent.show(getSupportFragmentManager(), "");
+        }else{
+            connet();
+        }
     }
 }

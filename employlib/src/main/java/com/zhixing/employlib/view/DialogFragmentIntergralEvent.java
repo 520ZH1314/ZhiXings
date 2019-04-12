@@ -42,7 +42,10 @@ public class DialogFragmentIntergralEvent extends DialogFragment implements View
     private ImageView iv_down;
     private TextView tvName;
     private TextView tvTime;
-
+      String time;
+    public DialogFragmentIntergralEvent(String time){
+          this.time = time;
+      }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,13 +60,14 @@ public class DialogFragmentIntergralEvent extends DialogFragment implements View
         tvName=view.findViewById(R.id.tv_integral_persion_name);
           tvTime=view.findViewById(R.id.tv_integral_persion_time);
         tvName.setText(userName);
-        Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
+        //错误时间赋值代码
+       /* Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
         ca.setTime(new Date()); //设置时间为当前时间
         ca.add(Calendar.DATE, -1); //日减1
         Date lastDay = ca.getTime(); //结果
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-        String format = sf.format(lastDay);
-        tvTime.setText(TimeUtil.getCommonTime1(format));
+        String format = sf.format(lastDay);*/
+        tvTime.setText( time);
         iv_close.setOnClickListener(this);
          recyclerView=(RecyclerView) view.findViewById(R.id.recy_integral_event);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

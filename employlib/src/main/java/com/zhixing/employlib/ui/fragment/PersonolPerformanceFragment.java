@@ -599,8 +599,9 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
 
 
             } else {
-                perFormanceViewModel.getTime(Year+"-"+Month+"-"+Day);
-                DialogFragmentIntergralEvent dialogFragmentIntergralEvent = new DialogFragmentIntergralEvent();
+                String time = Year+"-"+Month+"-"+Day;
+                perFormanceViewModel.getTime(time);
+                DialogFragmentIntergralEvent dialogFragmentIntergralEvent = new DialogFragmentIntergralEvent(time);
                 dialogFragmentIntergralEvent.show(getChildFragmentManager(), "");
 
             }
