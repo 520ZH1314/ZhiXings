@@ -2,6 +2,7 @@ package com.zhixing.employlib.ui.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Typeface;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.text.TextPaint;
@@ -89,6 +90,8 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
 
         ShimmerTextView animationTextView= (ShimmerTextView) findViewById(R.id.tv_ani);
         TextPaint tp = animationTextView.getPaint();
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "font/STHUPO.TTF");
+        animationTextView.setTypeface(typeface);
         tp.setFakeBoldText(true);
         LinearLayout linearLayout= (LinearLayout) findViewById(R.id.ll_performance);
         sharedUtils = new SharedUtils(PerformanceApi.FLIESNAME);
