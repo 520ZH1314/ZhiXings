@@ -88,7 +88,7 @@ public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseVie
         ImageView imageView = (ImageView) helper.itemView.findViewById(R.id.circleImageView);
 
          if (item.imageUrl!=null&&!TextUtils.isEmpty(item.imageUrl)){
-             MyImageLoader.loads(mContext,ip+item.imageUrl,imageView,R.mipmap.standard_head);
+             MyImageLoader.loads(mContext,item.imageUrl,imageView,R.mipmap.standard_head);
          }
 
 

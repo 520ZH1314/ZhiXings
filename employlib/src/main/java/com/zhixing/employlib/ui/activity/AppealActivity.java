@@ -245,7 +245,7 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
                     }
                     imagePth = pathList.get(0);
                      uuid = UUID.randomUUID().toString();
-                    SharedPreferencesTool.getMStool(this).setString("imgUrl", pathList.get(0));
+//                    SharedPreferencesTool.getMStool(this).setString("imgUrl", pathList.get(0));
                     imageList.addAll(pathList);
                      upTeamViewModel.UpLoadImage(uuid,"ems_files",imagePth).observe(AppealActivity.this, new Observer<BaseResponse<UpLoadBean>>() {
                          @Override

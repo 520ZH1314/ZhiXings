@@ -211,8 +211,21 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
         initDatas();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+    }
+
+    @Override
+    protected void onVisible() {
+        super.onInvisible();
+
+        getAllNotices();
+    }
+
     private void initDatas() {
-        showDialog("");
+//        showDialog("");
         //是否是领导
         teamId = sharedUtils.getStringValue(PerformanceApi.TEAMID);
         booleanValue = sharedUtils.getBooleanValue(PerformanceApi.ISTEAMLEADER);
@@ -249,8 +262,9 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
                 aCache.remove("DayTeamInfo") ;
                 Toasty.INSTANCE.showToast(getActivity(),"暂无新的数据");
                 dismissDialog();
-            }
 
+            }
+            EventBus.getDefault().post(new UpdateEmployeeEvent("7"));
 
         });
         perFormanceViewModel.setMonthTime(Years+"-"+Months+"-"+"01");
@@ -289,6 +303,7 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
     Map map = new HashMap();
     map.put("Index","0");
     map.put("PageSize","2");
+    if(monthViewModel!=null)
     monthViewModel.getNotices(map).observe(this, new Observer<List<NoticeBean>>() {
         @Override
         public void onChanged(@Nullable List<NoticeBean> noticeBeans) {

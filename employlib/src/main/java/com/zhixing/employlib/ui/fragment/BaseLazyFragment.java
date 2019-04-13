@@ -59,6 +59,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
     }
 
     protected void lazyLoad() {
+        onVisible();
         if (!isPrepared || !isVisible || !isFirst) {
             return;
         }
@@ -73,7 +74,10 @@ public abstract class BaseLazyFragment extends BaseFragment {
 
     }
 
+    protected void onVisible() {
 
+
+    }
 
     public abstract void initData();
 

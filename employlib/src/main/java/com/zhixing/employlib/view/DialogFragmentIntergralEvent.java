@@ -20,6 +20,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.base.zhixing.www.common.P;
+import com.base.zhixing.www.util.MyImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
 import com.zhixing.employlib.R;
@@ -35,6 +37,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class DialogFragmentIntergralEvent extends DialogFragment implements View.OnClickListener {
 
     private ImageView iv_close;
@@ -42,6 +46,7 @@ public class DialogFragmentIntergralEvent extends DialogFragment implements View
     private ImageView iv_down;
     private TextView tvName;
     private TextView tvTime;
+    private CircleImageView profile_image;
       String time;
     public DialogFragmentIntergralEvent(String time){
           this.time = time;
@@ -55,6 +60,8 @@ public class DialogFragmentIntergralEvent extends DialogFragment implements View
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.integral_event, null);
         iv_close = (ImageView) view.findViewById(R.id.iv_integral_event_close);
         iv_down = (ImageView) view.findViewById(R.id.iv_integral_event_down);
+        profile_image  = view.findViewById(R.id.profile_image);
+
         String userName = SharedPreferencesTool.getMStool(getActivity()).getUserName();
 
         tvName=view.findViewById(R.id.tv_integral_persion_name);
@@ -71,7 +78,10 @@ public class DialogFragmentIntergralEvent extends DialogFragment implements View
         iv_close.setOnClickListener(this);
          recyclerView=(RecyclerView) view.findViewById(R.id.recy_integral_event);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        String path = SharedPreferencesTool.getMStool(getActivity()).getString("head_ico");//头像
+        String ph = SharedPreferencesTool.getMStool(getActivity()).getIp()+path;
 
+        MyImageLoader.load(getActivity(),ph ,profile_image);
           isDown();
 //        integralEventViewModel.getData().observe(getActivity(), new Observer<List<IntegralEventEntity>>() {
 //            @Override

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.util.MyImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -43,8 +44,9 @@ public class GradingedListAdapt extends BaseQuickAdapter<GradingedEntity, BaseVi
 
 
       CircleImageView circleImageView =helper.itemView.findViewById(R.id.profile_image);
-      if (item.imagUrl!=null&&TextUtils.isEmpty(item.imagUrl)){
-          MyImageLoader.loads(mContext,ip+item.imagUrl,circleImageView,R.mipmap.standard_head);
+      if (item.imagUrl!=null&&!TextUtils.isEmpty(item.imagUrl)){
+          P.c(item.imagUrl);
+          MyImageLoader.loads(mContext, item.imagUrl,circleImageView,R.mipmap.standard_head);
       }
         helper.setText(R.id.tv_gradinged_item_name, item.name);
         helper.setText(R.id.tv_gradinged_item_worker, item.worker);

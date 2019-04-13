@@ -21,17 +21,20 @@ import com.base.zhixing.www.view.Toasty;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.MyAdapter;
 import com.zhixing.employlib.api.PerformanceApi;
+import com.zhixing.employlib.model.eventbus.UpdateEmployeeEvent;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.ui.fragment.GardenPlotFragment;
 import com.zhixing.employlib.ui.fragment.PerformanceMineFragment;
 import com.zhixing.employlib.ui.fragment.PersonolPerformanceFragment;
 import com.zhixing.employlib.ui.fragment.RecruitFragment;
-import com.zhixing.employlib.view.Animation;
-import com.zhixing.employlib.view.AnimationTextView;
 import com.zhixing.employlib.view.CustomScrollViewPager;
 import com.zhixing.employlib.view.Shimmer;
 import com.zhixing.employlib.view.ShimmerTextView;
 import com.zhixing.employlib.viewmodel.activity.PerformanceMainViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,21 +72,28 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
     public void process(Message msg) {
 
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Update(UpdateEmployeeEvent employeeEvent){
+        if ("7".equals(employeeEvent.EmPloyeeType)){
+            if(shimmer!=null&&shimmer.isAnimating())
+            shimmer.cancel();
+            relativeLayout.setVisibility(View.GONE);
+        }
+    }
+    RelativeLayout relativeLayout;
     @Override
     public void initLayout() {
+        EventBus.getDefault().register(this);
         performanceMainViewModel = ViewModelProviders.of(this).get(PerformanceMainViewModel.class);
-        RelativeLayout relativeLayout=(RelativeLayout) findViewById(R.id.rl_performance);
-        RelativeLayout relativeLayout1=(RelativeLayout) findViewById(R.id.rl_performance1);
+          relativeLayout=(RelativeLayout) findViewById(R.id.rl_performance);
+
         ShimmerTextView animationTextView= (ShimmerTextView) findViewById(R.id.tv_ani);
         TextPaint tp = animationTextView.getPaint();
         tp.setFakeBoldText(true);
         LinearLayout linearLayout= (LinearLayout) findViewById(R.id.ll_performance);
         sharedUtils = new SharedUtils(PerformanceApi.FLIESNAME);
 
-        if (sharedUtils.getBooleanValue(PerformanceApi.ISFITIST) == null || !sharedUtils.getBooleanValue(PerformanceApi.ISFITIST)) {
-            relativeLayout.setVisibility(View.VISIBLE);
-            relativeLayout1.setVisibility(View.GONE);
+      //  if (sharedUtils.getBooleanValue(PerformanceApi.ISFITIST) == null || !sharedUtils.getBooleanValue(PerformanceApi.ISFITIST)) {
             shimmer = new Shimmer();
             shimmer.start(animationTextView);
 
@@ -107,8 +117,8 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
                     .addItem(new BottomNavigationItem(R.mipmap.mine, "我的"))
                     .setFirstSelectedPosition(lastSelectedPosition)
                     .initialise(); //initialise 一定要放在 所有设置的最后一项
-
-            Observable.timer(5, TimeUnit.SECONDS)
+         goNext();
+          /*  Observable.timer(5, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new io.reactivex.Observer<Long>() {
                         @Override
@@ -128,13 +138,12 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
 
                         @Override
                         public void onComplete() {
-                            shimmer.cancel();
-                            relativeLayout.setVisibility(View.GONE);
-                            relativeLayout1.setVisibility(View.VISIBLE);
-                            goNext();
+
+
+
                         }
                     });
-
+*/
 //            new Thread(){
 //                public void run(){
 //                    try {
@@ -147,11 +156,11 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
 //                }
 //            }.start();
 
-        } else {
+       /* } else {
             relativeLayout.setVisibility(View.GONE);
             relativeLayout1.setVisibility(View.VISIBLE);
             goNext();
-        }
+        }*/
 
 
     }
