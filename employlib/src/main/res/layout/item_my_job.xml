@@ -9,7 +9,7 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
+        android:id="@+id/my_job_linearLayout6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -110,7 +110,8 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_my_job_name" />
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+
+        android:id="@+id/start_time_linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -147,10 +148,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="至"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout6"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout4"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
+        app:layout_constraintBottom_toBottomOf="@+id/start_time_linearLayout4"
+        app:layout_constraintEnd_toStartOf="@+id/my_job_linearLayout6"
+        app:layout_constraintStart_toEndOf="@+id/start_time_linearLayout4"
+        app:layout_constraintTop_toTopOf="@+id/start_time_linearLayout4" />
 
     <TextView
         android:textSize="@dimen/content_txt_"
@@ -161,7 +162,7 @@
         android:layout_marginTop="24dp"
         android:text="添加工作描述"
         app:layout_constraintStart_toStartOf="@+id/textView54"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+        app:layout_constraintTop_toBottomOf="@+id/start_time_linearLayout4" />
 
     <EditText
         android:id="@+id/edit_my_job_desc"

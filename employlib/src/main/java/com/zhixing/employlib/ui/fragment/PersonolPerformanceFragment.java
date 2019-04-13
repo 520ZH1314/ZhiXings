@@ -277,7 +277,7 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
 
                 String teamInfoStr1 = GsonUtil.getGson().toJson(teamInfo1);
                 String userInfoStr1 = GsonUtil.getGson().toJson(userInfo1);
-                
+
                 aCache.put("MonthUserInfo",userInfoStr1);
                 aCache.put("MonthTeamInfo",teamInfoStr1);
                 if (index==1){

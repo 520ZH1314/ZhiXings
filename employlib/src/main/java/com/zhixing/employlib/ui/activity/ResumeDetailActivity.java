@@ -24,12 +24,12 @@ import com.base.zhixing.www.widget.ChangeDoubleTime;
 import com.google.gson.reflect.TypeToken;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
-import com.zhixing.employlib.model.performance.MonthPerformanceBean;
+import com.zhixing.employlib.model.eventbus.ResumeEvent;
 import com.zhixing.employlib.model.resume.CompanyEntity;
 import com.zhixing.employlib.viewmodel.activity.ResumeDetailViewModel;
 import com.zhixing.netlib.base.BaseResponse;
 
-import org.w3c.dom.Text;
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -61,8 +61,7 @@ public class ResumeDetailActivity extends BaseActvity {
     CardView cardJob;
     @BindView(R2.id.tv_my_school_end_time)
     TextView tvMySchoolEndTime;
-    @BindView(R2.id.linearLayout6)
-    LinearLayout linearLayout6;
+
     @BindView(R2.id.edit_my_school_company_name)
     EditText editMySchoolCompanyName;
     @BindView(R2.id.edit_my_school_name)
@@ -73,6 +72,7 @@ public class ResumeDetailActivity extends BaseActvity {
     EditText editMySchoolDesc;
     @BindView(R2.id.card_shcool)
     CardView cardShcool;
+
     private String resumeType;
     private int resumeInt;//位置
     private String id;
@@ -96,9 +96,9 @@ public class ResumeDetailActivity extends BaseActvity {
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkSend.setText("保存");
 
-         resumeDetailViewModel = ViewModelProviders.of(this).get(ResumeDetailViewModel.class);
-        if (getIntent().hasExtra("resumeInt")){
-             resumeInt = getIntent().getIntExtra("resumeInt", 0);
+        resumeDetailViewModel = ViewModelProviders.of(this).get(ResumeDetailViewModel.class);
+        if (getIntent().hasExtra("resumeInt")) {
+            resumeInt = getIntent().getIntExtra("resumeInt", 0);
         }
 
 
@@ -110,16 +110,17 @@ public class ResumeDetailActivity extends BaseActvity {
                 cardJob.setVisibility(View.VISIBLE);
                 cardShcool.setVisibility(View.GONE);
                 String jobList = aCache.getAsString("jobList");
-                if (!TextUtils.isEmpty(jobList)){
-                    Type type2 = new TypeToken< List<CompanyEntity>>() {}.getType();
+                if (!TextUtils.isEmpty(jobList)) {
+                    Type type2 = new TypeToken<List<CompanyEntity>>() {
+                    }.getType();
                     List<CompanyEntity> jobData = GsonUtil.getGson().fromJson(jobList, type2);
                     CompanyEntity companyEntity = jobData.get(resumeInt);
-                     tvMyJobEndTime.setText(companyEntity.EndTime);
-                     tvMyJobStartTime.setText(companyEntity.StartTime);
-                     editMyJobCompanyName.setText(companyEntity.company);
-                     editMyJobName.setText(companyEntity.job);
-                     editMyJobDesc.setText(companyEntity.desc);
-                     id = companyEntity.id;
+                    tvMyJobEndTime.setText(companyEntity.EndTime);
+                    tvMyJobStartTime.setText(companyEntity.StartTime);
+                    editMyJobCompanyName.setText(companyEntity.company);
+                    editMyJobName.setText(companyEntity.job);
+                    editMyJobDesc.setText(companyEntity.desc);
+                    id = companyEntity.id;
                 }
 
             } else if ("2".equals(resumeType)) {
@@ -129,8 +130,9 @@ public class ResumeDetailActivity extends BaseActvity {
                 cardShcool.setVisibility(View.VISIBLE);
 
                 String shcoolList = aCache.getAsString("schoolList");
-                if (!TextUtils.isEmpty(shcoolList)){
-                    Type type2 = new TypeToken< List<CompanyEntity>>() {}.getType();
+                if (!TextUtils.isEmpty(shcoolList)) {
+                    Type type2 = new TypeToken<List<CompanyEntity>>() {
+                    }.getType();
                     List<CompanyEntity> shcoolData = GsonUtil.getGson().fromJson(shcoolList, type2);
 
                     CompanyEntity companyEntity = shcoolData.get(resumeInt);
@@ -164,7 +166,8 @@ public class ResumeDetailActivity extends BaseActvity {
     }
 
 
-    @OnClick({R2.id.iv_work_add_work, R2.id.tv_work_send, R2.id.tv_my_job_end_time, R2.id.tv_my_job_start_time, R2.id.tv_my_school_end_time, R2.id.tv_my_school_start_time})
+    @OnClick({R2.id.iv_work_add_work, R2.id.tv_work_send, R2.id.tv_my_job_end_time, R2.id.tv_my_job_start_time, R2.id.tv_my_school_end_time,
+            R2.id.tv_my_school_start_time, R2.id.my_job_linearLayout6, R2.id.my_shchool_linearLayout6,R2.id.my_shcool_start_linearLayout4,R2.id.start_time_linearLayout4})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.iv_work_add_work) {
@@ -191,6 +194,7 @@ public class ResumeDetailActivity extends BaseActvity {
                                 dismissDialog();
                                 if (baseResponse.getStatus().equals("success")) {
                                     Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "修改成功!!");
+                                    EventBus.getDefault().post(new ResumeEvent(true));
                                     AppManager.getAppManager().finishActivity();
                                 } else {
                                     Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "修改失败!!");
@@ -231,6 +235,7 @@ public class ResumeDetailActivity extends BaseActvity {
                             if (baseResponse != null) {
                                 dismissDialog();
                                 if (baseResponse.getStatus().equals("success")) {
+                                    EventBus.getDefault().post(new ResumeEvent(true));
                                     Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "修改成功!!");
                                     AppManager.getAppManager().finishActivity();
                                 } else {
@@ -249,93 +254,90 @@ public class ResumeDetailActivity extends BaseActvity {
 
                 }
 
-            }
+            } else if ("3".equals(resumeType)) {
+                //addjob
+                if ("请选择".equals(tvMyJobStartTime.getText())) {
+                    Toasty.INSTANCE.showToast(this, "请选择时间");
+                } else if (TextUtils.isEmpty(editMyJobCompanyName.getText().toString().trim())) {
+                    Toasty.INSTANCE.showToast(this, "请输入公司名称");
+                } else if (TextUtils.isEmpty(editMyJobName.getText().toString().trim())) {
+                    Toasty.INSTANCE.showToast(this, "请输入职位名称");
+                } else if (TextUtils.isEmpty(editMyJobDesc.getText().toString().trim())) {
+                    Toasty.INSTANCE.showToast(this, "请输入工作描述");
+                } else {
+                    showDialog("");
+                    resumeDetailViewModel.addJob(editMyJobCompanyName.getText().toString().trim(), editMyJobName.getText().toString().trim(),
+                            tvMyJobStartTime.getText().toString(), tvMyJobEndTime.getText().toString(), editMyJobDesc.getText().toString().trim(),
+                            "", "", "", "").observe(this, new Observer<BaseResponse>() {
+                        @Override
+                        public void onChanged(@Nullable BaseResponse baseResponse) {
+                            if (baseResponse != null) {
+                                dismissDialog();
+                                if (baseResponse.getStatus().equals("success")) {
+                                    Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增成功!!");
+                                    EventBus.getDefault().post(new ResumeEvent(true));
+                                    AppManager.getAppManager().finishActivity();
+                                } else {
+                                    Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增失败!!");
+                                }
 
-         else if ("3".equals(resumeType)) {
-            //addjob
-            if ("请选择".equals(tvMyJobStartTime.getText())) {
-                Toasty.INSTANCE.showToast(this, "请选择时间");
-            } else if (TextUtils.isEmpty(editMyJobCompanyName.getText().toString().trim())) {
-                Toasty.INSTANCE.showToast(this, "请输入公司名称");
-            } else if (TextUtils.isEmpty(editMyJobName.getText().toString().trim())) {
-                Toasty.INSTANCE.showToast(this, "请输入职位名称");
-            } else if (TextUtils.isEmpty(editMyJobDesc.getText().toString().trim())) {
-                Toasty.INSTANCE.showToast(this, "请输入工作描述");
-            } else {
-                showDialog("");
-                resumeDetailViewModel.addJob(editMyJobCompanyName.getText().toString().trim(), editMyJobName.getText().toString().trim(),
-                        tvMyJobStartTime.getText().toString(), tvMyJobEndTime.getText().toString(), editMyJobDesc.getText().toString().trim(),
-                        "", "", "", "").observe(this, new Observer<BaseResponse>() {
-                    @Override
-                    public void onChanged(@Nullable BaseResponse baseResponse) {
-                        if (baseResponse != null) {
-                            dismissDialog();
-                            if (baseResponse.getStatus().equals("success")) {
-                                Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增成功!!");
-                                AppManager.getAppManager().finishActivity();
+
                             } else {
+                                dismissDialog();
                                 Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增失败!!");
                             }
-
-
-                        } else {
-                            dismissDialog();
-                            Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增失败!!");
                         }
-                    }
-                });
-                dismissDialog();
+                    });
+                    dismissDialog();
 
-            }
+                }
 
 
-        } else if ("4".equals(resumeType)) {
-            //addshcool
-            //addjob
-            if ("请选择".equals(tvMySchoolStartTime.getText())) {
-                Toasty.INSTANCE.showToast(this, "请选择时间");
-            } else if (TextUtils.isEmpty(editMySchoolCompanyName.getText().toString().trim())) {
-                Toasty.INSTANCE.showToast(this, "请输入学校名称");
-            } else if (TextUtils.isEmpty(editMySchoolName.getText().toString().trim())) {
-                Toasty.INSTANCE.showToast(this, "请输入专业名称");
-            } else {
-                showDialog("");
-                resumeDetailViewModel.addJob("", "",
-                        "", "", "",
-                        editMySchoolCompanyName.getText().toString().trim(),
-                        editMySchoolName.getText().toString(),
-                        tvMySchoolStartTime.getText().toString(),
-                        tvMySchoolEndTime.getText().toString()).observe(this, new Observer<BaseResponse>() {
-                    @Override
-                    public void onChanged(@Nullable BaseResponse baseResponse) {
-                        if (baseResponse != null) {
-                            dismissDialog();
-                            if (baseResponse.getStatus().equals("success")) {
-                                Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增成功!!");
-                                AppManager.getAppManager().finishActivity();
+            } else if ("4".equals(resumeType)) {
+                //addshcool
+                //addjob
+                if ("请选择".equals(tvMySchoolStartTime.getText())) {
+                    Toasty.INSTANCE.showToast(this, "请选择时间");
+                } else if (TextUtils.isEmpty(editMySchoolCompanyName.getText().toString().trim())) {
+                    Toasty.INSTANCE.showToast(this, "请输入学校名称");
+                } else if (TextUtils.isEmpty(editMySchoolName.getText().toString().trim())) {
+                    Toasty.INSTANCE.showToast(this, "请输入专业名称");
+                } else {
+                    showDialog("");
+                    resumeDetailViewModel.addJob("", "",
+                            "", "", "",
+                            editMySchoolCompanyName.getText().toString().trim(),
+                            editMySchoolName.getText().toString(),
+                            tvMySchoolStartTime.getText().toString(),
+                            tvMySchoolEndTime.getText().toString()).observe(this, new Observer<BaseResponse>() {
+                        @Override
+                        public void onChanged(@Nullable BaseResponse baseResponse) {
+                            if (baseResponse != null) {
+                                dismissDialog();
+                                if (baseResponse.getStatus().equals("success")) {
+                                    Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增成功!!");
+                                    EventBus.getDefault().post(new ResumeEvent(true));
+                                    AppManager.getAppManager().finishActivity();
+                                } else {
+                                    Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增失败!!");
+                                }
+
+
                             } else {
+                                dismissDialog();
                                 Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增失败!!");
                             }
-
-
-                        } else {
-                            dismissDialog();
-                            Toasty.INSTANCE.showToast(ResumeDetailActivity.this, "新增失败!!");
                         }
-                    }
-                });
-                dismissDialog();
+                    });
+                    dismissDialog();
+
+                }
 
             }
 
-        }
+        } else if (i == R.id.tv_my_job_end_time) {
 
-    }
-
-
-         else if (i == R.id.tv_my_job_end_time) {
-
-            ChangeDoubleTime changeDoubleTime =new ChangeDoubleTime(this);
+            ChangeDoubleTime changeDoubleTime = new ChangeDoubleTime(this);
             changeDoubleTime.setSelect(new SelectDoubleTime() {
                 @Override
                 public void select(String start, String end, long stt, long ed) {
@@ -351,9 +353,8 @@ public class ResumeDetailActivity extends BaseActvity {
             changeDoubleTime.showSheet();
 
 
-
         } else if (i == R.id.tv_my_job_start_time) {
-            ChangeDoubleTime changeDoubleTime =new ChangeDoubleTime(this);
+            ChangeDoubleTime changeDoubleTime = new ChangeDoubleTime(this);
             changeDoubleTime.setSelect(new SelectDoubleTime() {
                 @Override
                 public void select(String start, String end, long stt, long ed) {
@@ -369,7 +370,7 @@ public class ResumeDetailActivity extends BaseActvity {
             changeDoubleTime.showSheet();
 
         } else if (i == R.id.tv_my_school_end_time) {
-            ChangeDoubleTime changeDoubleTime =new ChangeDoubleTime(this);
+            ChangeDoubleTime changeDoubleTime = new ChangeDoubleTime(this);
             changeDoubleTime.setSelect(new SelectDoubleTime() {
                 @Override
                 public void select(String start, String end, long stt, long ed) {
@@ -385,7 +386,7 @@ public class ResumeDetailActivity extends BaseActvity {
             changeDoubleTime.showSheet();
 
         } else if (i == R.id.tv_my_school_start_time) {
-            ChangeDoubleTime changeDoubleTime =new ChangeDoubleTime(this);
+            ChangeDoubleTime changeDoubleTime = new ChangeDoubleTime(this);
             changeDoubleTime.setSelect(new SelectDoubleTime() {
                 @Override
                 public void select(String start, String end, long stt, long ed) {
@@ -399,6 +400,73 @@ public class ResumeDetailActivity extends BaseActvity {
 
             });
             changeDoubleTime.showSheet();
+        } else if (i == R.id.my_job_linearLayout6) {
+            ChangeDoubleTime changeDoubleTime = new ChangeDoubleTime(this);
+            changeDoubleTime.setSelect(new SelectDoubleTime() {
+                @Override
+                public void select(String start, String end, long stt, long ed) {
+                    String commonTime1 = TimeUtil.getCommonTime1(start);
+
+                    String commonTime2 = TimeUtil.getCommonTime1(end);
+
+                    tvMyJobEndTime.setText(commonTime2);
+                    tvMyJobStartTime.setText(commonTime1);
+                }
+
+            });
+            changeDoubleTime.showSheet();
+
+        } else if (i == R.id.my_shchool_linearLayout6) {
+            ChangeDoubleTime changeDoubleTime = new ChangeDoubleTime(this);
+            changeDoubleTime.setSelect(new SelectDoubleTime() {
+                @Override
+                public void select(String start, String end, long stt, long ed) {
+                    String commonTime1 = TimeUtil.getCommonTime1(start);
+
+                    String commonTime2 = TimeUtil.getCommonTime1(end);
+
+                    tvMySchoolEndTime.setText(commonTime2);
+                    tvMySchoolStartTime.setText(commonTime1);
+                }
+
+            });
+            changeDoubleTime.showSheet();
+
+        }else if (i==R.id.start_time_linearLayout4){
+            ChangeDoubleTime changeDoubleTime = new ChangeDoubleTime(this);
+            changeDoubleTime.setSelect(new SelectDoubleTime() {
+                @Override
+                public void select(String start, String end, long stt, long ed) {
+                    String commonTime1 = TimeUtil.getCommonTime1(start);
+
+                    String commonTime2 = TimeUtil.getCommonTime1(end);
+
+                    tvMyJobEndTime.setText(commonTime2);
+                    tvMyJobStartTime.setText(commonTime1);
+                }
+
+            });
+            changeDoubleTime.showSheet();
+
+        }else if(i==R.id.my_shcool_start_linearLayout4){
+            ChangeDoubleTime changeDoubleTime = new ChangeDoubleTime(this);
+            changeDoubleTime.setSelect(new SelectDoubleTime() {
+                @Override
+                public void select(String start, String end, long stt, long ed) {
+                    String commonTime1 = TimeUtil.getCommonTime1(start);
+
+                    String commonTime2 = TimeUtil.getCommonTime1(end);
+
+                    tvMySchoolEndTime.setText(commonTime2);
+                    tvMySchoolStartTime.setText(commonTime1);
+                }
+
+            });
+            changeDoubleTime.showSheet();
+
         }
     }
+
+
+
 }

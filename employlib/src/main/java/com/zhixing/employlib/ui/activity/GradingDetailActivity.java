@@ -160,6 +160,8 @@ public class GradingDetailActivity extends BaseActvity {
         //默认显示昨天日子
         //设置前一日的时间
         Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
+
+
         ca.setTime(new Date()); //设置时间为当前时间
         ca.add(Calendar.DATE, -1); //日减1
         Date lastDay = ca.getTime(); //结果

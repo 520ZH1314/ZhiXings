@@ -22,10 +22,15 @@ import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.adapter.JobAdapt;
 import com.zhixing.employlib.adapter.ShcoolAdapt;
+import com.zhixing.employlib.model.eventbus.ResumeEvent;
 import com.zhixing.employlib.model.resume.CompanyEntity;
 import com.zhixing.employlib.model.resume.GetResumeBean;
 import com.zhixing.employlib.viewmodel.activity.MyResumeViewModel;
 import com.zhixing.netlib.base.BaseResponse;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +81,7 @@ public class MyResumeActivity extends BaseActvity {
 
     @Override
     public void initLayout() {
+        EventBus.getDefault().register(this);
 
         ButterKnife.bind(this);
         setStatus(-1);
@@ -200,5 +206,91 @@ public class MyResumeActivity extends BaseActvity {
         String[] ts = Time.split("T");
         return  ts[0];
 
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public  void  event(ResumeEvent event){
+        if (event.isRetrf){
+            myResumeViewModel.getResumeData().observe(this, new Observer<BaseResponse<GetResumeBean>>() {
+                @Override
+                public void onChanged(@Nullable BaseResponse<GetResumeBean> getResumeBeanBaseResponse) {
+                    if (getResumeBeanBaseResponse!=null){
+                        List<GetResumeBean> rows = getResumeBeanBaseResponse.getRows();
+                        List<CompanyEntity>JobData=new ArrayList<>();
+                        List<CompanyEntity>ShcoolData=new ArrayList<>();
+
+
+                        for (GetResumeBean bean: rows) {
+                            if (bean.getJobList().size()!=0){
+                                for (int i = 0; i < bean.getJobList().size(); i++) {
+                                    JobData.add(new CompanyEntity(bean.getJobList().get(i).getCompanyName(),bean.getJobList().get(i).getJobpost(),getSimpleTime(bean.getJobList().get(i).getInDate()),getSimpleTime(bean.getJobList().get(i).getOffDate()),bean.getJobList().get(i).getJobJd(),bean.getJobList().get(i).getResumeId()));
+
+                                }
+
+                            }
+
+
+                            if (bean.getEducationList().size()!=0){
+
+                                for (int i = 0; i < bean.getEducationList().size(); i++) {
+                                    ShcoolData.add(new CompanyEntity(bean.getEducationList().get(i).getSchool(),bean.getEducationList().get(i).getMajor(),getSimpleTime(bean.getEducationList().get(i).getInSchoolDate()),getSimpleTime(bean.getEducationList().get(i).getOffSchoolDate()),bean.getEducationList().get(i).getJobJd(),bean.getEducationList().get(i).getResumeId()));
+
+                                }
+                            }
+
+
+                        }
+                        if(JobData.size()!=0){
+                            jobList = GsonUtil.getGson().toJson(JobData);
+                            aCache.put("jobList",jobList);
+                        }
+                        if (ShcoolData.size()!=0){
+                            schoolList = GsonUtil.getGson().toJson(ShcoolData);
+                            aCache.put("schoolList",schoolList);
+                        }
+
+
+
+                        //后期可以优化为一个多布局的Recyleview
+                        //工作经历
+                        jobAdapt=new JobAdapt(R.layout.item_my_resume_job,JobData);
+                        recyleMyResumeJob.setAdapter(jobAdapt);
+
+                        jobAdapt.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                Intent intent =new Intent(MyResumeActivity.this,ResumeDetailActivity.class);
+                                intent.putExtra("resumeInt",position);
+                                intent.putExtra("resumeType","1");
+                                startActivity(intent);
+                            }
+                        });
+
+
+
+                        //教育经历
+                        jobAdapt2=new ShcoolAdapt(R.layout.item_my_resume_job,ShcoolData);
+                        recyleMyResumeShcoolJob.setAdapter(jobAdapt2);
+                        jobAdapt2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                Intent intent =new Intent(MyResumeActivity.this,ResumeDetailActivity.class);
+                                intent.putExtra("resumeInt",position);
+                                intent.putExtra("resumeType","2");
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }
+            });
+
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

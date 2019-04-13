@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,11 @@ public class NewEmployeeFragment extends BaseLazyFragment {
     private RecyclerView recyclerView;
     private TeamViewModel teamViewModel;
     private String imgPath;
+    private String NativePlace;
+    private String NewDeeds;
+    private String PositionName;
+    private String OrganizeName;
+    private String JoinWorkDate;
 
     @Nullable
     @Override
@@ -73,15 +79,45 @@ public class NewEmployeeFragment extends BaseLazyFragment {
                     List<NewEmployeeEntity> datas = new ArrayList<>();
                     for (int i = 0; i < newEmployeeBeans.size(); i++) {
                         if (newEmployeeBeans.get(i).getFiles().size() == 0) {
-                            imgPath="";
+                            imgPath = "";
                         } else {
                             imgPath = newEmployeeBeans.get(i).getFiles().get(0).getFilePath();
                         }
+                        if (newEmployeeBeans.get(i).getUserInfo() != null) {
+                            if (newEmployeeBeans.get(i).getUserInfo().getNativePlace()!=null){
+                                NativePlace = newEmployeeBeans.get(i).getUserInfo().getNativePlace();
+                            }else{
+                                NativePlace = "";
+                            }
+                            if (newEmployeeBeans.get(i).getUserInfo().getPositionName()!=null){
+                                PositionName = newEmployeeBeans.get(i).getUserInfo().getPositionName();
+                            }else{
+                                PositionName = "";
+                            }
+                            if (newEmployeeBeans.get(i).getUserInfo().getOrganizeName()!=null){
+                                OrganizeName = newEmployeeBeans.get(i).getUserInfo().getOrganizeName();
+                            }else{
+                                OrganizeName = "";
+                            }
+                            if (newEmployeeBeans.get(i).getUserInfo().getJoinWorkDate()!=null){
+                                JoinWorkDate = newEmployeeBeans.get(i).getUserInfo().getJoinWorkDate();
+                            }else{
+                                JoinWorkDate = "";
+                            }
 
 
-                        datas.add(new NewEmployeeEntity(newEmployeeBeans.get(i).getUserInfo().getNativePlace(), imgPath, newEmployeeBeans.get(i).getUserName(),
-                                newEmployeeBeans.get(i).getUserInfo().getPositionName(),
-                                newEmployeeBeans.get(i).getUserInfo().getOrganizeName(), clearTime(newEmployeeBeans.get(i).getUserInfo().getJoinWorkDate()), newEmployeeBeans.get(i).getNewDeeds()));
+                        }else{
+                            NativePlace = "";
+                            PositionName = "";
+                            OrganizeName = "";
+                            JoinWorkDate = "";
+                        }
+
+
+
+                        datas.add(new NewEmployeeEntity(NativePlace, imgPath, newEmployeeBeans.get(i).getUserName(),
+                                PositionName,
+                                OrganizeName, clearTime(JoinWorkDate), newEmployeeBeans.get(i).getNewDeeds()));
                     }
                     NewEmployeeAdapt newEmployeeAdapt = new NewEmployeeAdapt(R.layout.item_new_employee, datas);
                     recyclerView.setAdapter(newEmployeeAdapt);
@@ -103,17 +139,23 @@ public class NewEmployeeFragment extends BaseLazyFragment {
     }
 
     public String clearTime(String date) {
+
+        if (!TextUtils.isEmpty(date)){
+            String[] ts = date.split("T");
+            String t = ts[0];
+            String[] split = t.split("-");
+            return split[1] + "月" + split[2] + "日";
+
+        }else{
+            return  "";
+        }
 //        2007-11-14T00:00:00
-        String[] ts = date.split("T");
-        String t = ts[0];
-        String[] split = t.split("-");
-        return split[1] + "月" + split[2] + "日";
 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Update(UpdateEmployeeEvent employeeEvent){
-        if ("4".equals(employeeEvent.EmPloyeeType)){
+    public void Update(UpdateEmployeeEvent employeeEvent) {
+        if ("4".equals(employeeEvent.EmPloyeeType)) {
             teamViewModel.getNewEmployeeData();
             teamViewModel.NewEmployeeDatas.observe(getActivity(), new Observer<List<NewEmployeeBean>>() {
                 @Override
@@ -124,7 +166,7 @@ public class NewEmployeeFragment extends BaseLazyFragment {
                         List<NewEmployeeEntity> datas = new ArrayList<>();
                         for (int i = 0; i < newEmployeeBeans.size(); i++) {
                             if (newEmployeeBeans.get(i).getFiles().size() == 0) {
-                                imgPath="";
+                                imgPath = "";
                             } else {
                                 imgPath = newEmployeeBeans.get(i).getFiles().get(0).getFilePath();
                             }

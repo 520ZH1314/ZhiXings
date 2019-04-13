@@ -53,8 +53,16 @@ public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseVie
     protected void convert(final BaseViewHolder helper, final GradingItemEntity item) {
         final CheckBox checkBox = (CheckBox) helper.itemView.findViewById(R.id.checkBox_item_grading);
         CardView cardView = (CardView) helper.itemView.findViewById(R.id.card_item_grading);
+          Button button=helper.itemView.findViewById(R.id.btn_item_grading);
+
         if (isSelected) {
             checkBox.setVisibility(View.VISIBLE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cardView.performClick();
+                }
+            });
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -71,6 +79,12 @@ public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseVie
 
         } else {
             checkBox.setVisibility(View.GONE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cardView.performClick();
+                }
+            });
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,7 +110,7 @@ public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseVie
         helper.setText(R.id.tv_grading_item_list_sex, item.sex);
         helper.setText(R.id.tv_grading_item_list_worker, item.position);
         helper.setText(R.id.tv_grading_item_list_desc, "已录入关键事件" + item.keyEventsNums + "条");
-        Button button = (Button) helper.itemView.findViewById(R.id.btn_item_grading);
+
 
 
         DevShapeUtils

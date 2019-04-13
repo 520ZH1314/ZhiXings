@@ -220,7 +220,6 @@ public class GradingActivity extends BaseActvity {
                 Toasty.INSTANCE.showToast(this,"请选择员工!!");
             }else{
                 String json = GsonUtil.getGson().toJson(selectData);
-
                 Intent intent =new Intent(GradingActivity.this,GradingDetailActivity.class);
                 intent.putExtra("type","2");
                 intent.putExtra("selectData",json);
