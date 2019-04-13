@@ -2,8 +2,11 @@ package com.zhixing.employlib.adapter;
 
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.base.zhixing.www.util.MyImageLoader;
+import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhixing.employlib.R;
@@ -11,14 +14,19 @@ import com.zhixing.employlib.model.GradingedEntity;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * @author zjq
  * create at 2019/3/13 上午11:34
  * 已评分列表
  */
 public class GradingedListAdapt extends BaseQuickAdapter<GradingedEntity, BaseViewHolder> {
+    private  String ip;
+
     public GradingedListAdapt(int layoutResId, @Nullable List<GradingedEntity> data) {
         super(layoutResId, data);
+         ip=SharedPreferencesTool.getMStool(mContext).getIp();
     }
 
     @Override
@@ -34,6 +42,10 @@ public class GradingedListAdapt extends BaseQuickAdapter<GradingedEntity, BaseVi
         rank.getPaint().setFakeBoldText(true);
 
 
+      CircleImageView circleImageView =helper.itemView.findViewById(R.id.profile_image);
+      if (item.imagUrl!=null&&TextUtils.isEmpty(item.imagUrl)){
+          MyImageLoader.loads(mContext,ip+item.imagUrl,circleImageView,R.mipmap.standard_head);
+      }
         helper.setText(R.id.tv_gradinged_item_name, item.name);
         helper.setText(R.id.tv_gradinged_item_worker, item.worker);
         helper.setText(R.id.tv_gradinged_item_score, item.score+"");

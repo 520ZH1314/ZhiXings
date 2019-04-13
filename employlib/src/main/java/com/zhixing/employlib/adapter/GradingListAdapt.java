@@ -9,10 +9,14 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+
+import com.base.zhixing.www.util.MyImageLoader;
+import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.luliang.shapeutils.DevShapeUtils;
@@ -35,12 +39,14 @@ import java.util.stream.Collectors;
  */
 public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseViewHolder> {
 
+    private  String ip;
     public boolean isSelected = false;
     public List<GradingItemEntity> data;
 
     public GradingListAdapt(int layoutResId, @Nullable List<GradingItemEntity> data) {
         super(layoutResId, data);
         this.data = data;
+         ip =SharedPreferencesTool.getMStool(mContext).getIp();
     }
 
     @Override
@@ -80,6 +86,11 @@ public class GradingListAdapt extends BaseQuickAdapter<GradingItemEntity,BaseVie
 
 
         ImageView imageView = (ImageView) helper.itemView.findViewById(R.id.circleImageView);
+
+         if (item.imageUrl!=null&&!TextUtils.isEmpty(item.imageUrl)){
+             MyImageLoader.loads(mContext,ip+item.imageUrl,imageView,R.mipmap.standard_head);
+         }
+
 
         helper.setText(R.id.tv_grading_item_list_name, item.name);
         helper.setText(R.id.tv_grading_item_list_sex, item.sex);

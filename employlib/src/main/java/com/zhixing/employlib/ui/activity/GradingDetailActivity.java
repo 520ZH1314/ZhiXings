@@ -21,6 +21,8 @@ import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
+import com.base.zhixing.www.util.MyImageLoader;
+import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.ChangeTime;
@@ -126,6 +128,7 @@ public class GradingDetailActivity extends BaseActvity {
     private  boolean isCommit=false;
     private String standTime;
     private List<GradingItemEntity> userDatas=new ArrayList<>();
+    private String ip;
 
 
     @Override
@@ -152,6 +155,7 @@ public class GradingDetailActivity extends BaseActvity {
     }
 
     private void initData() {
+         ip = SharedPreferencesTool.getMStool(this).getIp();
 
         //默认显示昨天日子
         //设置前一日的时间
@@ -186,6 +190,11 @@ public class GradingDetailActivity extends BaseActvity {
                             String sex = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getSex();
                             String positionName = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPositionName();
                             int eventCount = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getEventCount();
+
+                       if (gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPhotoURL()!=null&&!TextUtils.isEmpty(gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPhotoURL())){
+                           MyImageLoader.loads(GradingDetailActivity.this,ip+gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPhotoURL(),circleImageViewDetail,R.mipmap.standard_head);
+                       }
+
                             aCache.put("eventCount", eventCount);
                             aCache.put("userName",userName);
                             tvGradingItemListDetailName.setText(userName);

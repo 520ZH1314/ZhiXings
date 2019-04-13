@@ -20,7 +20,7 @@ public class BetterTeamEmployeeAdapt extends BaseQuickAdapter<BetterTeamEmployee
 
     public BetterTeamEmployeeAdapt(int layoutResId, @Nullable List<BetterTeamEmployeeEntity> data) {
         super(layoutResId, data);
-        ip = "http://192.168.2.253:6004";
+        ip = "https://sale.stdlean.com:8004";
     }
 
     @Override

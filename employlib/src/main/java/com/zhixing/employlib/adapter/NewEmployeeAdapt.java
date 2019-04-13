@@ -19,7 +19,7 @@ public class NewEmployeeAdapt extends BaseQuickAdapter<NewEmployeeEntity,BaseVie
 
     public NewEmployeeAdapt(int layoutResId, @Nullable List<NewEmployeeEntity> data) {
         super(layoutResId, data);
-        ip = "http://192.168.2.253:6004";
+        ip = "https://sale.stdlean.com:8004";
 
     }
 

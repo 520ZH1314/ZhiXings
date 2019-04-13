@@ -21,7 +21,7 @@ public class ExcellentEmployeeAdapt extends BaseQuickAdapter<ExcellentEmployeeEn
 
         super(layoutResId, data);
           data.size();
-         ip = "http://192.168.2.253:6004";
+        ip = "https://sale.stdlean.com:8004";
     }
 
     @Override

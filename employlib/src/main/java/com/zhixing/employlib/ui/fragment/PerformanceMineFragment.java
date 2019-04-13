@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.zhixing.www.BaseFragment;
@@ -51,13 +52,35 @@ public class PerformanceMineFragment extends BaseLazyFragment {
            TextView tvResume = view.findViewById(R.id.tv_appeal_mine_right);
         TextView name = view.findViewById(R.id.tv_appeal_mine_name);
         TextView Performance = view.findViewById(R.id.tv_appeal_mine_left);
+        ImageView viewById = view.findViewById(R.id.imageView26);
+        ImageView imageView1=view.findViewById(R.id.imageView27);
         name.setText( SharedPreferencesTool.getMStool(getActivity()).getUserName());
 
         monthViewModel = ViewModelProviders.of(this).get(MonthViewModel.class);
 
 
+        imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                monthViewModel.getScoreColor(null).observe(getActivity(), new Observer<List<StandScore>>() {
+                    @Override
+                    public void onChanged(@Nullable List<StandScore> standScores) {
 
+                        Intent intent = new Intent(getActivity(), MothIntegralEventActivity.class);
+                        intent.putExtra("obj", (Serializable) standScores);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
 
+        viewById.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getContext(),MyResumeActivity.class);
+                startActivity(intent);
+            }
+        });
            tvResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

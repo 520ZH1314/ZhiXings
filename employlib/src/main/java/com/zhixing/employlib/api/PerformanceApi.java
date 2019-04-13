@@ -46,6 +46,7 @@ public interface PerformanceApi<T>  {
     public  static String  TEAMID="TeamId";
     public  static String  TEAMNAME="TeamName";
     public  static String  TEAMLEADERUSERID="TeamLeaderUserId";
+ public  static String  ISFITIST="IsFitist";
 
 
 
