@@ -338,7 +338,7 @@ public class GradingDetailActivity extends BaseActvity {
                      }
                     GoGradingPostBean.EventInfoBean eventInfoBean = new GoGradingPostBean.EventInfoBean();
                     eventInfoBean.setItemId(Itemid);
-                    eventInfoBean.setShiftDate(dateTime);
+                    eventInfoBean.setShiftDate(dateTime+" "+Tvtime);
                     Eventdatas.add(eventInfoBean);
                     GoGradingPostBean.UserInfoBean bean=new GoGradingPostBean.UserInfoBean();
                     bean.setUserCode(position);
@@ -372,7 +372,7 @@ public class GradingDetailActivity extends BaseActvity {
                     //批量
                     GoGradingPostBean.EventInfoBean eventInfoBean = new GoGradingPostBean.EventInfoBean();
                     eventInfoBean.setItemId(Itemid);
-                    eventInfoBean.setShiftDate(dateTime);
+                    eventInfoBean.setShiftDate(dateTime+Tvtime);
                     Eventdatas.add(eventInfoBean);
 
                     List< GoGradingPostBean.UserInfoBean> userInfoBeans=new ArrayList<>();

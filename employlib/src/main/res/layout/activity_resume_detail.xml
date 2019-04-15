@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="工作经历"
+                android:text="岗位任职记录"
                 android:textColor="@color/black"
                 android:textSize="@dimen/title_center_size"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_item_resume_title"

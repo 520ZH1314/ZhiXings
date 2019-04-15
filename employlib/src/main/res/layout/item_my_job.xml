@@ -18,7 +18,7 @@
         android:orientation="horizontal"
         android:paddingTop="@dimen/x8"
         android:paddingBottom="@dimen/x8"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintBottom_toBottomOf="@+id/start_time_linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_my_job_name">
 
@@ -174,7 +174,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/emply_gray_radius"
         android:gravity="start"
-        android:hint="请添加工作描述"
+        android:hint="请添加岗位任职记录"
         android:maxEms="200"
         android:maxLines="5"
         android:padding="@dimen/x8"

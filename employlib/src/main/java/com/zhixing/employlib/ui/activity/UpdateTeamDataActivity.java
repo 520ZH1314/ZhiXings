@@ -129,6 +129,7 @@ public class UpdateTeamDataActivity extends BaseActvity {
         EventBus.getDefault().register(this);
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkTitle.setText("更新园地");
+        tvWorkSend.setText("确定");
         Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
         ca.setTime(new Date()); //设置时间为当前时间
         ca.add(Calendar.DATE, -1); //日减1
@@ -268,7 +269,12 @@ public class UpdateTeamDataActivity extends BaseActvity {
                 Toasty.INSTANCE.showToast(this,"请选择类型!!");
 
             }else{
-                setImage();
+                if ("5".equals(type)){
+                    setImage(1,1);
+                }else{
+                    setImage(3,2);
+                }
+
             }
 
 
@@ -372,7 +378,7 @@ public class UpdateTeamDataActivity extends BaseActvity {
     }
 
 
-    private void setImage() {
+    private void setImage(int x,int y) {
         PictureSelector.create(UpdateTeamDataActivity.this)
                 .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                 .theme(R.style.picture_QQ_style)//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
@@ -381,7 +387,7 @@ public class UpdateTeamDataActivity extends BaseActvity {
                 .imageSpanCount(4)// 每行显示个数 int
                 .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
                 .previewImage(true)// 是否可预览图片 true or false
-
+                .withAspectRatio(x,y)
                 .isCamera(true)// 是否显示拍照按钮 true or false
 //                .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
                 .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
@@ -435,7 +441,6 @@ public class UpdateTeamDataActivity extends BaseActvity {
 
                             }
                         });
-
 
                         cardViewIvOutAd.setVisibility(View.VISIBLE);
 //                          ImageLoader.loadListeren(this,compressPath,ivMyInfoDetailHead);

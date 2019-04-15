@@ -1,6 +1,4 @@
 package com.zhixing.employlib.ui.fragment;
-
-
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -36,7 +34,6 @@ import java.util.List;
  * 新员工
  */
 public class NewEmployeeFragment extends BaseLazyFragment {
-
     private RecyclerView recyclerView;
     private TeamViewModel teamViewModel;
     private String imgPath;
