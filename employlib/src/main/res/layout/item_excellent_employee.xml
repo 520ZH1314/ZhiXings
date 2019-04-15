@@ -29,8 +29,8 @@
             <ImageView
                 android:id="@+id/iv_excellent_employee"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/x200"
-                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 android:src="@drawable/excelicent_employee"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
