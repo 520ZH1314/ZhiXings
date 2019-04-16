@@ -36,6 +36,7 @@ import com.zhixing.employlib.R2;
 import com.zhixing.employlib.model.GradingItemEntity;
 import com.zhixing.employlib.model.eventbus.GradingEvent;
 import com.zhixing.employlib.model.eventbus.GradingEventBean;
+import com.zhixing.employlib.model.eventbus.IntegralEvent;
 import com.zhixing.employlib.model.grading.GoGradingPostBean;
 import com.zhixing.employlib.model.grading.GradingListDetailBean;
 import com.zhixing.employlib.model.performance.MonthPerformanceBean;
@@ -357,6 +358,7 @@ public class GradingDetailActivity extends BaseActvity {
                                 }else{
                                     isCommit=false;
                                     Toasty.INSTANCE.showToast(GradingDetailActivity.this,"提交成功");
+                                     EventBus.getDefault().post(new IntegralEvent(true));
                                      AppManager.getAppManager().finishActivity();
                                 }
 
@@ -372,7 +374,7 @@ public class GradingDetailActivity extends BaseActvity {
                     //批量
                     GoGradingPostBean.EventInfoBean eventInfoBean = new GoGradingPostBean.EventInfoBean();
                     eventInfoBean.setItemId(Itemid);
-                    eventInfoBean.setShiftDate(dateTime+Tvtime);
+                    eventInfoBean.setShiftDate(dateTime+""+Tvtime);
                     Eventdatas.add(eventInfoBean);
 
                     List< GoGradingPostBean.UserInfoBean> userInfoBeans=new ArrayList<>();
@@ -400,6 +402,7 @@ public class GradingDetailActivity extends BaseActvity {
                                     isCommit=false;
                                     EventBus.getDefault().post(new GradingEvent(false));
                                     Toasty.INSTANCE.showToast(GradingDetailActivity.this,"提交成功");
+                                    EventBus.getDefault().post(new IntegralEvent(true));
                                     AppManager.getAppManager().finishActivity();
                                 }
 

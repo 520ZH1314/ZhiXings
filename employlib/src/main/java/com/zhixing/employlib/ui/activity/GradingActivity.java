@@ -27,6 +27,7 @@ import com.zhixing.employlib.R2;
 import com.zhixing.employlib.adapter.GradingListAdapt;
 import com.zhixing.employlib.model.GradingItemEntity;
 import com.zhixing.employlib.model.eventbus.GradingEvent;
+import com.zhixing.employlib.model.eventbus.IntegralEvent;
 import com.zhixing.employlib.model.grading.GradListBean;
 import com.zhixing.employlib.viewmodel.activity.GradingVIewModel;
 import com.zhixing.netlib.base.BaseResponse;
@@ -82,6 +83,7 @@ public class GradingActivity extends BaseActvity {
     private GradingListAdapt gradingListAdapt;
 
     private List<GradingItemEntity> itemEntities = new ArrayList<>();
+    private String commonTime1;
 
     @Override
     public int getLayoutId() {
@@ -147,7 +149,7 @@ public class GradingActivity extends BaseActvity {
         Date lastDay = ca.getTime(); //结果
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         String format = sf.format(lastDay);
-        String commonTime1 = TimeUtil.getCommonTime1(format);
+         commonTime1 = TimeUtil.getCommonTime1(format);
         String[] splitDay = commonTime1.split("-");
         String Year = splitDay[0];
         String Month = splitDay[1];
@@ -241,6 +243,15 @@ public class GradingActivity extends BaseActvity {
         }
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void retr(IntegralEvent event){
+      if (event.isRetr){
+          gradingVIewModel.setDate(commonTime1);
+      }
+    }
+
+
+
 
     @Override
     protected void onDestroy() {
