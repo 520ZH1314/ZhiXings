@@ -16,22 +16,18 @@ import org.reactivestreams.Subscription;
  * @Time 2018-04-12
  */
 public class MyBaseHttpSubscriber<T> implements Subscriber<BaseResponse<T>> {
-
     private  Context context;
     //异常类
     private ApiException ex;
     private MutableLiveData<BaseResponse<T>> data;
-
     private Subscription s;
     public void onFinish(BaseResponse<T> t) {
         set(t);
     }
-
     public MyBaseHttpSubscriber(Context context) {
        this.context=context;
         data = new MutableLiveData();
     }
-
 
     public MutableLiveData<BaseResponse<T>> get() {
         return data;
@@ -41,18 +37,11 @@ public class MyBaseHttpSubscriber<T> implements Subscriber<BaseResponse<T>> {
         this.data.setValue(t);
     }
 
-
-
-
-
     @Override
     public void onComplete() {
 
         // todo some common as  dismiss loadding
     }
-
-
-
 
     @Override
     public void onSubscribe(Subscription s) {
@@ -74,25 +63,19 @@ public class MyBaseHttpSubscriber<T> implements Subscriber<BaseResponse<T>> {
 //            Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
 //        }
     }
-
     @Override
     public void onError(Throwable e) {
-        ex = ExceptionEngine.handleException(e);
-        Toast.makeText(context,ex.getMsg(),Toast.LENGTH_SHORT).show();
-       getErrorDto(ex);
-
+           ex = ExceptionEngine.handleException(e);
+          Toast.makeText(context,ex.getMsg(),Toast.LENGTH_SHORT).show();
+          getErrorDto(ex);
     }
-
     public String getMsg(){
         return  ex.getMsg();
     }
-
-
-
     private void getErrorDto(ApiException ex) {
         BaseResponse dto = new BaseResponse();
-
         dto.setMessage(ex.getMsg());
+        dto.setStatus("404");
         onFinish((BaseResponse<T>) dto);
     }
 
