@@ -1,4 +1,4 @@
-package com.zhixing.employlib.view;
+package com.example.stateviewlibrary;
 
 
 public interface ShimmerViewBase {

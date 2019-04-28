@@ -1,4 +1,4 @@
-package com.zhixing.employlib.view;
+package com.example.stateviewlibrary;
 
 import android.content.res.TypedArray;
 import android.graphics.LinearGradient;
@@ -8,7 +8,7 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zhixing.employlib.R;
+
 
 
 public class ShimmerViewHelper {
@@ -174,6 +174,7 @@ public class ShimmerViewHelper {
 
             // this is required in order to invalidate the shader's position
             linearGradient.setLocalMatrix(linearGradientMatrix);
+
 
         } else {
             // we're not animating, remove the shader from the paint

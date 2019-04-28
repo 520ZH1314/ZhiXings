@@ -1,0 +1,4 @@
+<resources>
+    <string name="text_empty">暂无数据!</string>
+    <string name="text_retry">网络出错啦!</string>
+</resources>
