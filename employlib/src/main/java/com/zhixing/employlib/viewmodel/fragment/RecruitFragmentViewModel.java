@@ -24,6 +24,7 @@ public class RecruitFragmentViewModel extends AndroidViewModel {
 
     private  RecruitRepertory recruitRepertory;
     public MutableLiveData<List<RecruitEntry>>mRecruitEntity= new MutableLiveData<>();
+    public MutableLiveData<BaseResponse<RecruitListBean>> recruitList=new MutableLiveData<>();
 
 
     public RecruitFragmentViewModel(@NonNull Application application) {
@@ -32,8 +33,8 @@ public class RecruitFragmentViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<BaseResponse<RecruitListBean>> getmRecruitEntity(){
-       return recruitRepertory.getRecruitList();
-
+        recruitList = recruitRepertory.getRecruitList();
+         return  recruitList;
     }
 
 }

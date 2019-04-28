@@ -64,10 +64,10 @@ public class UpTeamViewModel extends AndroidViewModel {
             String UserName,
             String UserCode,
             String EvaluationDate,
-            String ExcellentDeeds){
+            String ExcellentDeeds,String rank){
 
         return  teamRepertory.UpLoadOne(ExcellentId,type,UserName,UserCode,EvaluationDate,
-                ExcellentDeeds);
+                ExcellentDeeds,rank);
 
     }
 

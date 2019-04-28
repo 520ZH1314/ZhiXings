@@ -14,6 +14,7 @@
         layout="@layout/titles_layout" />
 
 <ScrollView
+    android:id="@+id/sl_new_gradinged_record_detail"
     android:scrollbars="none"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -21,6 +22,8 @@
 
 
 <LinearLayout
+
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

@@ -1,5 +1,6 @@
 package com.zhixing.employlib.ui.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import com.base.zhixing.www.BaseFragment;
 
 public abstract class BaseLazyFragment extends BaseFragment {
+
     @Override
     public void process(Message msg) {
 
@@ -23,6 +25,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
 
     public BaseLazyFragment() {
         // Required empty public constructor
+
     }
 
     @Override

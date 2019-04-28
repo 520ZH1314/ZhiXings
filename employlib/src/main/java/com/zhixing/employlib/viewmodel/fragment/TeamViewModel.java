@@ -30,62 +30,53 @@ public class TeamViewModel extends AndroidViewModel {
 
 
     private  TeamRepertory teamRepertory;
-    //优秀员工
-    public MutableLiveData<List<ExcellentEmployeeEntity>> excellentEmployeeData = new MutableLiveData<>();
-    //新员工
-
-    public MutableLiveData<List<NewEmployeeEntity>> newEmployeeData = new MutableLiveData<>();
-    //班组天地
-
-    public MutableLiveData<List<BetterTeamEmployeeEntity>> betterTeamData=new MutableLiveData<>();
-    public LiveData<List<TeamDemeanorBean>> listLiveData=new MutableLiveData<>();
+       public LiveData<List<TeamDemeanorBean>> listLiveData=new MutableLiveData<>();
     public LiveData<List<ExcellentEmployeeBean>> ExcellentEmployeeDatas =new MutableLiveData<>();
     public LiveData<List<NewEmployeeBean>> NewEmployeeDatas=new MutableLiveData<>();
 
+
+    //新员工
+    public final  MutableLiveData<Boolean>RefrshNewEmployeeData=new MutableLiveData<>();
+
+    public   LiveData<BaseResponse<NewEmployeeBean>> newEmployee=Transformations.switchMap(RefrshNewEmployeeData,entity->(
+            teamRepertory.getNewEmployee()
+            ));
+
+
+    //优秀员工
+    public final  MutableLiveData<Boolean>RefrshExcellentEmployeeData=new MutableLiveData<>();
+
+    public   LiveData<BaseResponse<ExcellentEmployeeBean>> excellentEmployee=Transformations.switchMap(RefrshExcellentEmployeeData,entity->(
+            teamRepertory.getExcellentEmployee()
+    ));
+
+
+
+    //班组天地
+    public final  MutableLiveData<Boolean>RefrshBetterTeamData=new MutableLiveData<>();
+
+    public   LiveData<BaseResponse<TeamDemeanorBean>> teamDemeanor=Transformations.switchMap(RefrshBetterTeamData,entity->(
+            teamRepertory.getTeamDemeanor()
+    ));
 
     public TeamViewModel(@NonNull Application application) {
         super(application);
          teamRepertory =new TeamRepertory(application);
     }
 
-
-    //优秀员工
-
-    public LiveData<List<ExcellentEmployeeBean>> getExcellentEmployeeData(){
-
-        MutableLiveData<BaseResponse<ExcellentEmployeeBean>> excellentEmployee = teamRepertory.getExcellentEmployee();
-
-        ExcellentEmployeeDatas = Transformations.map(excellentEmployee, BaseResponse::getRows);
-
-
-        return  ExcellentEmployeeDatas;
-    }
-
-
-
-
-    //新员工
-    public   LiveData<List<NewEmployeeBean>> getNewEmployeeData(){
-
-
-        MutableLiveData<BaseResponse<NewEmployeeBean>> newEmployee = teamRepertory.getNewEmployee();
-                       NewEmployeeDatas=Transformations.map(newEmployee,BaseResponse::getRows);
-        return NewEmployeeDatas;
-
-
-
+    //刷新新员工
+    public void getRefrshNewEmployeeData(boolean isTrue){
+        RefrshNewEmployeeData.setValue(isTrue);
 
     }
-    //班组天地
-    public  LiveData<List<TeamDemeanorBean>> getBetterTeamData(){
+    //刷新优秀员工
+    public void getRefrshExcellentEmployeeData(boolean isTrue){
+        RefrshExcellentEmployeeData.setValue(isTrue);
 
-        MutableLiveData<BaseResponse<TeamDemeanorBean>> teamDemeanor = teamRepertory.getTeamDemeanor();
-
-        listLiveData =Transformations.map(teamDemeanor,BaseResponse::getRows);
-        return  listLiveData;
-
-
-
+    }
+    //刷新班组天地
+    public void getRefrshBetterTeamData(boolean isTrue){
+        RefrshBetterTeamData.setValue(isTrue);
 
     }
 

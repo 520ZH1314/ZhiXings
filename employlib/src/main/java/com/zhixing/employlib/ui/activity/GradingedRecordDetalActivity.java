@@ -5,13 +5,18 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.util.MyImageLoader;
+import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.example.stateviewlibrary.StateView;
 import com.rmondjone.locktableview.LockTableView;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
@@ -65,6 +70,9 @@ public class GradingedRecordDetalActivity extends BaseActvity {
     private String useName;
     private String startTime;
     private String endTime;
+    private ScrollView linearLayout;
+    private StateView mStateView;
+    private String ip;
 
     @Override
     public int getLayoutId() {
@@ -79,6 +87,9 @@ public class GradingedRecordDetalActivity extends BaseActvity {
     @Override
     public void initLayout() {
          bind = ButterKnife.bind(this);
+         linearLayout=(ScrollView) findViewById(R.id.sl_new_gradinged_record_detail);
+        mStateView=StateView.inject(linearLayout);
+         ip = SharedPreferencesTool.getMStool(this).getIp();
         setStatus(-1);
          initView();
 
@@ -100,6 +111,8 @@ public class GradingedRecordDetalActivity extends BaseActvity {
         if (getIntent().hasExtra("GradingedRecordDetalEndTime")){
             endTime=getIntent().getStringExtra("GradingedRecordDetalEndTime");
         }
+
+
         ivWorkAddWork.setImageResource(R.mipmap.back);
         tvWorkTitle.setText("评分记录详情");
         tvWorkSend.setVisibility(View.GONE);
@@ -119,15 +132,30 @@ public class GradingedRecordDetalActivity extends BaseActvity {
     }
 
     private void initData() {
+        mStateView.showLoading();
         gradingedListViewModel.setDates(startTime,endTime,useCode);
         gradingedListViewModel.RecordDetailData.observe(this, new Observer<BaseResponse<GradingListDetailBean>>() {
             @Override
             public void onChanged(@Nullable BaseResponse<GradingListDetailBean> gradingListDetailBeanBaseResponse) {
+
                    if (gradingListDetailBeanBaseResponse.getRows()!=null){
-                       GradingListDetailBean.UserInfoBean userInfo = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo();
-                       tvGradingedRecordDetailWorker.setText(userInfo.getPositionName());
-                       tvGradingedRecordDetailScore.setText(userInfo.getScore()+"");
-                       tvGradingedRecordDetailBetter.setText(userInfo.getGrapeName());
+                       mStateView.showContent();
+                       if (gradingListDetailBeanBaseResponse.getRows().size()!=0){
+                           GradingListDetailBean.UserInfoBean userInfo = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo();
+                           tvGradingedRecordDetailWorker.setText(userInfo.getPositionName());
+                           tvGradingedRecordDetailScore.setText(userInfo.getScore()+"");
+                           if (!TextUtils.isEmpty(userInfo.getPhotoURL())){
+                               MyImageLoader.loads(GradingedRecordDetalActivity.this,userInfo.getPhotoURL(),circleImageViewGradingedDetail,R.mipmap.standard_head);
+                           }
+
+                           if ("".equals(userInfo.getGrapeName())){
+                               tvGradingedRecordDetailBetter.setText("待提升");
+                           }else{
+                               tvGradingedRecordDetailBetter.setText(userInfo.getGrapeName());
+                           }
+                       }
+
+
                        List<GradingListDetailBean.EventInfoBean> eventInfo = gradingListDetailBeanBaseResponse.getRows().get(1).getEventInfo();
                        if (eventInfo!=null){
 
@@ -139,13 +167,24 @@ public class GradingedRecordDetalActivity extends BaseActvity {
                                //数据填充
                                mRowDatas.add(eventInfo.get(i).getItemName());
                                mRowDatas.add(eventInfo.get(i).getScore() + "");
-                               mRowDatas.add(ts[1]);
+                               mRowDatas.add(ts[0]);
                                mTableDatas.add(mRowDatas);
 
                            }
                            mLockTableView.setTableDatas(mTableDatas);
                        }
 
+                   }else if ("404".equals(gradingListDetailBeanBaseResponse.getStatus())){
+                       mStateView.showRetry();
+                       mStateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+                           @Override
+                           public void onRetryClick() {
+                               gradingedListViewModel.setDates(startTime,endTime,useCode);
+                           }
+                       });
+
+                   }else{
+                       mStateView.showEmpty();
                    }
             }
         });

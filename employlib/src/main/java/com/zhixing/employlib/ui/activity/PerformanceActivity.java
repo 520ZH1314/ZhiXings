@@ -19,8 +19,13 @@ import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.BaseFragment;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.view.Toasty;
+import com.example.stateviewlibrary.Shimmer;
+import com.example.stateviewlibrary.ShimmerTextView;
+import com.example.stateviewlibrary.StateView;
+import com.orhanobut.logger.Logger;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.MyAdapter;
+import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.eventbus.UpdateEmployeeEvent;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
@@ -29,8 +34,7 @@ import com.zhixing.employlib.ui.fragment.PerformanceMineFragment;
 import com.zhixing.employlib.ui.fragment.PersonolPerformanceFragment;
 import com.zhixing.employlib.ui.fragment.RecruitFragment;
 import com.zhixing.employlib.view.CustomScrollViewPager;
-import com.zhixing.employlib.view.Shimmer;
-import com.zhixing.employlib.view.ShimmerTextView;
+
 import com.zhixing.employlib.viewmodel.activity.PerformanceMainViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,7 +47,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.Nullable;
+import android.support.annotation.Nullable;
 import io.reactivex.disposables.Disposable;
 
 @Route(path = "/employlib/PerformanceActivity")
@@ -61,6 +65,7 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
     private SharedUtils sharedUtils;
     private Shimmer shimmer;
     private int positions;
+    private StateView mStateView;
 
     @Override
     public int getLayoutId() {
@@ -73,32 +78,21 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
     public void process(Message msg) {
 
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Update(UpdateEmployeeEvent employeeEvent){
-        if ("7".equals(employeeEvent.EmPloyeeType)){
-            if(shimmer!=null&&shimmer.isAnimating())
-            shimmer.cancel();
-            relativeLayout.setVisibility(View.GONE);
-        }
-    }
+
     RelativeLayout relativeLayout;
     @Override
     public void initLayout() {
-        EventBus.getDefault().register(this);
-        performanceMainViewModel = ViewModelProviders.of(this).get(PerformanceMainViewModel.class);
-          relativeLayout=(RelativeLayout) findViewById(R.id.rl_performance);
 
-        ShimmerTextView animationTextView= (ShimmerTextView) findViewById(R.id.tv_ani);
-        TextPaint tp = animationTextView.getPaint();
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "font/STHUPO.TTF");
-        animationTextView.setTypeface(typeface);
-        tp.setFakeBoldText(true);
+        performanceMainViewModel = ViewModelProviders.of(this).get(PerformanceMainViewModel.class);
+
+
+
+
         LinearLayout linearLayout= (LinearLayout) findViewById(R.id.ll_performance);
+        mStateView=StateView.inject(linearLayout);
         sharedUtils = new SharedUtils(PerformanceApi.FLIESNAME);
 
       //  if (sharedUtils.getBooleanValue(PerformanceApi.ISFITIST) == null || !sharedUtils.getBooleanValue(PerformanceApi.ISFITIST)) {
-            shimmer = new Shimmer();
-            shimmer.start(animationTextView);
 
 
             viewPager = (CustomScrollViewPager) findViewById(R.id.viewpager_persion);
@@ -120,7 +114,7 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
                     .addItem(new BottomNavigationItem(R.mipmap.mine, "我的"))
                     .setFirstSelectedPosition(lastSelectedPosition)
                     .initialise(); //initialise 一定要放在 所有设置的最后一项
-         goNext();
+              goNext();
           /*  Observable.timer(5, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new io.reactivex.Observer<Long>() {
@@ -171,36 +165,61 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
     private void goNext() {
         setStatus(-1);
         setDefaultFragment();//设置默认导航栏
-        showDialog("");
+        mStateView.showLoading();
         //获取个人班组信息以及权限
-        performanceMainViewModel.getTeamBeans();
-        performanceMainViewModel.TeamBeans.observe(this, new Observer<List<PersonTeamBean>>() {
+        performanceMainViewModel.getData(true);
+        performanceMainViewModel.personTeamInfo.observe(this, new Observer<DBaseResponse<PersonTeamBean>>() {
             @Override
-            public void onChanged(@Nullable List<PersonTeamBean> personTeamBeans) {
-                if (personTeamBeans != null) {
-                    for (PersonTeamBean bean : personTeamBeans) {
-                        sharedUtils.setBooleanValue(PerformanceApi.ISTEAMLEADER, bean.isIsTeamLeader());
-                        sharedUtils.setStringValue(PerformanceApi.TEAMID, bean.getTeamId());
-                        sharedUtils.setStringValue(PerformanceApi.TEAMLEADERUSERID, bean.getTeamLeaderUserId());
-                        sharedUtils.setStringValue(PerformanceApi.TEAMNAME, bean.getTeamName());
+            public void onChanged(@Nullable DBaseResponse<PersonTeamBean> personTeamBeanDBaseResponse) {
+                    if (personTeamBeanDBaseResponse.getRows()!=null){
+                        if (personTeamBeanDBaseResponse.getRows().size()!=0){
+                            mStateView.showContent();
+                            for (PersonTeamBean bean :  personTeamBeanDBaseResponse.getRows()) {
+                                sharedUtils.setBooleanValue(PerformanceApi.ISTEAMLEADER, bean.isIsTeamLeader());
+                                sharedUtils.setStringValue(PerformanceApi.TEAMID, bean.getTeamId());
+                                sharedUtils.setStringValue(PerformanceApi.TEAMLEADERUSERID, bean.getTeamLeaderUserId());
+                                sharedUtils.setStringValue(PerformanceApi.TEAMNAME, bean.getTeamName());
+                            }
+                            list = new ArrayList<>();
+                            list.add(new PersonolPerformanceFragment());
+                            list.add(new GardenPlotFragment());
+                            list.add(new RecruitFragment());
+                            list.add(new PerformanceMineFragment());
+                            adapter = new MyAdapter(getSupportFragmentManager(), list, titles);
+
+                            viewPager.setAdapter(adapter);
+                        }else if ("404".equals(personTeamBeanDBaseResponse.getStatus())){
+                            mStateView.showRetry();
+                            mStateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+                                @Override
+                                public void onRetryClick() {
+                                    performanceMainViewModel.getData(true);
+                                }
+                            });
+                        }else{
+                            mStateView.showRetry();
+                            mStateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+                                @Override
+                                public void onRetryClick() {
+                                    performanceMainViewModel.getData(true);
+                                }
+                            });
+                        }
+                    }else if ("404".equals(personTeamBeanDBaseResponse.getStatus())){
+                        mStateView.showRetry();
+                        mStateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+                            @Override
+                            public void onRetryClick() {
+                                performanceMainViewModel.getData(true);
+                            }
+                        });
                     }
-                    list = new ArrayList<>();
-                    list.add(new PersonolPerformanceFragment());
-                    list.add(new GardenPlotFragment());
-                    list.add(new RecruitFragment());
-                    list.add(new PerformanceMineFragment());
-                    adapter = new MyAdapter(getSupportFragmentManager(), list, titles);
-
-                    viewPager.setAdapter(adapter);
-                    dismissDialog();
-
-                } else {
-                    dismissDialog();
-                    Toasty.INSTANCE.showToast(PerformanceActivity.this, "请求失败");
-
                 }
-            }
-        });
+
+
+
+            });
+
     }
 
     private void setDefaultFragment() {

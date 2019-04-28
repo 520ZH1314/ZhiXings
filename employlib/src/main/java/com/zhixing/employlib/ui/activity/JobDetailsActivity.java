@@ -25,10 +25,13 @@ import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.model.GradingItemEntity;
 import com.zhixing.employlib.model.RecruitEntry;
+import com.zhixing.employlib.model.eventbus.JobEventBeans;
 import com.zhixing.employlib.model.recrui.RecruitListBean;
 import com.zhixing.employlib.view.CustomDialog;
 import com.zhixing.employlib.viewmodel.activity.JobDetailsViewModel;
 import com.zhixing.netlib.base.BaseResponse;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -45,8 +48,6 @@ import butterknife.Unbinder;
  * 岗位详情
  */
 public class JobDetailsActivity extends BaseActvity {
-
-
     @BindView(R2.id.iv_work_add_work)
     ImageView ivWorkAddWork;
     @BindView(R2.id.tv_work_title)
@@ -164,7 +165,9 @@ public class JobDetailsActivity extends BaseActvity {
                                             if ("success".equals(baseResponse.getStatus())){
                                                 //投递成功
                                                 Toasty.INSTANCE.showToast(JobDetailsActivity.this,"投递成功");
+                                                EventBus.getDefault().post(new JobEventBeans(true));
                                                 AppManager.getAppManager().finishActivity();
+
                                             }else{
                                                 Toasty.INSTANCE.showToast(JobDetailsActivity.this,"投递失败");
 

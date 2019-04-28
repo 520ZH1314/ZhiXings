@@ -23,11 +23,16 @@ import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.adapter.RecruitAdapt;
 import com.zhixing.employlib.model.RecruitEntry;
+import com.zhixing.employlib.model.eventbus.JobEventBeans;
 import com.zhixing.employlib.model.recrui.RecruitListBean;
 import com.zhixing.employlib.ui.activity.JobDetailsActivity;
 import com.zhixing.employlib.ui.activity.RecruitRecordActivity;
 import com.zhixing.employlib.viewmodel.fragment.RecruitFragmentViewModel;
 import com.zhixing.netlib.base.BaseResponse;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +70,7 @@ public class RecruitFragment extends BaseLazyFragment {
         View view = inflater.inflate(R.layout.fragment_recruit, container, false);
         bind = ButterKnife.bind(this, view);
          aCache =ACache.get(getActivity());
+         EventBus.getDefault().register(this);
         recruitFragmentViewModel = ViewModelProviders.of(getActivity()).get(RecruitFragmentViewModel.class);
 
 
@@ -95,8 +101,8 @@ public class RecruitFragment extends BaseLazyFragment {
 //            }
 //        });
 
-
-        recruitFragmentViewModel.getmRecruitEntity().observe(getActivity(), new Observer<BaseResponse<RecruitListBean>>() {
+         recruitFragmentViewModel.getmRecruitEntity();
+        recruitFragmentViewModel.recruitList.observe(getActivity(), new Observer<BaseResponse<RecruitListBean>>() {
             @Override
             public void onChanged(@Nullable BaseResponse<RecruitListBean> recruitListBeanBaseResponse) {
                  if (recruitListBeanBaseResponse.getRows()!=null){
@@ -164,4 +170,51 @@ public class RecruitFragment extends BaseLazyFragment {
 
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(JobEventBeans eventBeans){
+        if (eventBeans.isTrue){
+            recruitFragmentViewModel.getmRecruitEntity();
+            recruitFragmentViewModel.recruitList.observe(getActivity(), new Observer<BaseResponse<RecruitListBean>>() {
+                @Override
+                public void onChanged(@Nullable BaseResponse<RecruitListBean> recruitListBeanBaseResponse) {
+                    if (recruitListBeanBaseResponse.getRows()!=null){
+                        List<RecruitListBean> rows = recruitListBeanBaseResponse.getRows();
+                        String json1 = GsonUtil.getGson().toJson(rows);
+
+                        List<RecruitEntry> datas=new ArrayList<>();
+                        for (int i = 0; i < recruitListBeanBaseResponse.getRows().size(); i++) {
+
+                            datas.add(new RecruitEntry(recruitListBeanBaseResponse.getRows().get(i).getJobPost(),clearTime(recruitListBeanBaseResponse.getRows().get(i).getCreateDate()),recruitListBeanBaseResponse.getRows().get(i).getJobSkills(),recruitListBeanBaseResponse.getRows().get(i).getJobDetail(),recruitListBeanBaseResponse.getRows().get(i).getJobSalaryMin()/1000+"K"+"-"+recruitListBeanBaseResponse.getRows().get(i).getJobSalarMax()/1000+"K",
+                                    recruitListBeanBaseResponse.getRows().get(i).getState()+""));
+                        }
+                        String json = GsonUtil.getGson().toJson(datas);
+                        recruitAdapt = new RecruitAdapt(R.layout.item_recruit, datas);
+                        recyRecruit.setAdapter(recruitAdapt);
+
+                        recruitAdapt.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                Intent intent =new Intent(getActivity(),JobDetailsActivity.class);
+                                intent.putExtra("RecruitPosition",position);
+                                intent.putExtra("RecruitData",json);
+                                intent.putExtra("SendData",json1);
+                                startActivity(intent);
+                            }
+                        });
+
+                    }
+                }
+            });
+        }
+
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

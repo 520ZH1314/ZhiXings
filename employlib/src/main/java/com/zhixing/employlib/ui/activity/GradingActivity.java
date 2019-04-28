@@ -3,25 +3,29 @@ package com.zhixing.employlib.ui.activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextPaint;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.inter.SelectTime;
-import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.ChangeTime;
-import com.chad.library.adapter.base.BaseQuickAdapter;
+
+import com.example.stateviewlibrary.StateView;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.adapter.GradingListAdapt;
@@ -29,6 +33,7 @@ import com.zhixing.employlib.model.GradingItemEntity;
 import com.zhixing.employlib.model.eventbus.GradingEvent;
 import com.zhixing.employlib.model.eventbus.IntegralEvent;
 import com.zhixing.employlib.model.grading.GradListBean;
+
 import com.zhixing.employlib.viewmodel.activity.GradingVIewModel;
 import com.zhixing.netlib.base.BaseResponse;
 
@@ -75,6 +80,7 @@ public class GradingActivity extends BaseActvity {
     TextView tvGoGrading;
     @BindView(R2.id.rl_grading)
     RelativeLayout rlGrading;
+
     private Unbinder bind;
     private GradingVIewModel gradingVIewModel;
 
@@ -84,6 +90,8 @@ public class GradingActivity extends BaseActvity {
 
     private List<GradingItemEntity> itemEntities = new ArrayList<>();
     private String commonTime1;
+    private StateView stateView;
+
 
     @Override
     public int getLayoutId() {
@@ -99,36 +107,57 @@ public class GradingActivity extends BaseActvity {
     public void initLayout() {
         setStatus(-1);
         bind = ButterKnife.bind(this);
+        LinearLayout linearLayout=(LinearLayout) findViewById(R.id.ll_recy_grading_list);
+         stateView = StateView.inject(linearLayout);
         EventBus.getDefault().register(this);
-        initView();
 
+
+
+
+        initView();
         initData();
 
 
     }
 
     private void initData() {
-        showDialog("");
+
         gradingVIewModel.ListData.observe(this, new Observer<BaseResponse<GradListBean>>() {
             @Override
             public void onChanged(@Nullable BaseResponse<GradListBean> gradListBeanBaseResponse) {
-                if (gradListBeanBaseResponse.getRows()!=null){
-                    tvWorkSend.setVisibility(View.VISIBLE);
-                    List<GradingItemEntity> gradingItemEntities=new ArrayList<>();
-                    List<GradListBean> rows = gradListBeanBaseResponse.getRows();
-                    for (GradListBean bean: rows) {
-                        gradingItemEntities.add(new GradingItemEntity(bean.getPhotoURL(),bean.getUserName(),bean.getSex(),bean.getPositionName(),bean.getEventCount(),bean.getUserCode())) ;
+
+                    if (gradListBeanBaseResponse.getRows() != null) {
+                        stateView.showContent();
+                        tvWorkSend.setVisibility(View.VISIBLE);
+                        List<GradingItemEntity> gradingItemEntities = new ArrayList<>();
+                        List<GradListBean> rows = gradListBeanBaseResponse.getRows();
+                        for (GradListBean bean : rows) {
+                            gradingItemEntities.add(new GradingItemEntity(bean.getPhotoURL(), bean.getUserName(), bean.getSex(), bean.getPositionName(), bean.getEventCount(), bean.getUserCode()));
+                        }
+
+                        gradingListAdapt = new GradingListAdapt(R.layout.item_grading_list, gradingItemEntities);
+                        recyGradingList.setAdapter(gradingListAdapt);
+                    } else {
+
+                        if (("404".equals(gradListBeanBaseResponse.getStatus()))){
+                            stateView.showRetry();
+                            tvWorkSend.setVisibility(View.GONE);
+                            stateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+                                @Override
+                                public void onRetryClick() {
+                                    gradingVIewModel.setDate(commonTime1);
+                                }
+                            });
+                        }else{
+                            stateView.showEmpty();
+                            tvWorkSend.setVisibility(View.GONE);
+
+                        }
+
                     }
-                    dismissDialog();
-                    gradingListAdapt = new GradingListAdapt(R.layout.item_grading_list, gradingItemEntities);
-                    recyGradingList.setAdapter(gradingListAdapt);
 
 
-                }else{
-                    dismissDialog();
-                    tvWorkSend.setVisibility(View.GONE);
 
-                }
             }
         });
 
@@ -149,7 +178,7 @@ public class GradingActivity extends BaseActvity {
         Date lastDay = ca.getTime(); //结果
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         String format = sf.format(lastDay);
-         commonTime1 = TimeUtil.getCommonTime1(format);
+        commonTime1 = TimeUtil.getCommonTime1(format);
         String[] splitDay = commonTime1.split("-");
         String Year = splitDay[0];
         String Month = splitDay[1];
@@ -157,8 +186,8 @@ public class GradingActivity extends BaseActvity {
         tvGradingListYear.setText(Year + "年");
         tvGradingListMoth.setText(Month + "月");
         tvGradingListDay.setText(Day + "日");
+        stateView.showLoading();
         gradingVIewModel.setDate(commonTime1);
-
 
 
     }
@@ -179,78 +208,73 @@ public class GradingActivity extends BaseActvity {
                 tvWorkSend.setText("取消");
                 gradingListAdapt.setIsSelect(true);
                 gradingListAdapt.notifyDataSetChanged();
-                isSelected=true;
+                isSelected = true;
             } else {
 
                 rlGrading.setVisibility(View.GONE);
                 tvWorkSend.setText("编辑");
                 gradingListAdapt.setIsSelect(false);
                 gradingListAdapt.notifyDataSetChanged();
-                isSelected=false;
+                isSelected = false;
 
             }
 
 
-        }
+        } else if (i == R.id.tv_grading_list_day)
+
+        {
+            ChangeTime changeTime = new ChangeTime(this, "", 2);
+            changeTime.setSelect(new SelectTime() {
+                @Override
+                public void select(String time, long timestp) {
+                    String commonTime1 = TimeUtil.getCommonTime1(time);
+                    String[] splitDay = commonTime1.split("-");
+                    String Year = splitDay[0];
+                    String Month = splitDay[1];
+                    String Day = splitDay[2];
+                    tvGradingListYear.setText(Year + "年");
+                    tvGradingListMoth.setText(Month + "月");
+                    tvGradingListDay.setText(Day + "日");
+                    stateView.showLoading();
+                    gradingVIewModel.setDate(commonTime1);
+                }
+            });
+            changeTime.showSheet();
 
 
-     else if(i ==R.id.tv_grading_list_day)
-
-    {
-        ChangeTime changeTime = new ChangeTime(this, "", 2);
-        changeTime.setSelect(new SelectTime() {
-            @Override
-            public void select(String time, long timestp) {
-                String commonTime1 = TimeUtil.getCommonTime1(time);
-                String[] splitDay = commonTime1.split("-");
-                String Year = splitDay[0];
-                String Month = splitDay[1];
-                String Day = splitDay[2];
-                tvGradingListYear.setText(Year + "年");
-                tvGradingListMoth.setText(Month + "月");
-                tvGradingListDay.setText(Day + "日");
-                showDialog("");
-              gradingVIewModel.setDate(commonTime1);
-            }
-        });
-        changeTime.showSheet();
-
-
-    }else if(i==R.id.rl_grading){
+        } else if (i == R.id.rl_grading) {
             List<GradingItemEntity> selectData = gradingListAdapt.getSelectData();
-            if (selectData.size()==0){
-                Toasty.INSTANCE.showToast(this,"请选择员工!!");
-            }else{
+            if (selectData.size() == 0) {
+                Toasty.INSTANCE.showToast(this, "请选择员工!!");
+            } else {
                 String json = GsonUtil.getGson().toJson(selectData);
-                Intent intent =new Intent(GradingActivity.this,GradingDetailActivity.class);
-                intent.putExtra("type","2");
-                intent.putExtra("selectData",json);
+                Intent intent = new Intent(GradingActivity.this, GradingDetailActivity.class);
+                intent.putExtra("type", "2");
+                intent.putExtra("selectData", json);
                 startActivity(intent);
             }
+        }
     }
-}
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void event(GradingEvent event){
-        if (!event.isSelect){
+    public void event(GradingEvent event) {
+        if (!event.isSelect) {
             rlGrading.setVisibility(View.GONE);
             tvWorkSend.setText("编辑");
             gradingListAdapt.setIsSelect(false);
             gradingListAdapt.notifyDataSetChanged();
-            isSelected=false;
+            isSelected = false;
         }
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void retr(IntegralEvent event){
-      if (event.isRetr){
-          gradingVIewModel.setDate(commonTime1);
-      }
+    public void retr(IntegralEvent event) {
+        if (event.isRetr) {
+            gradingVIewModel.setDate(commonTime1);
+        }
     }
-
-
 
 
     @Override
@@ -261,6 +285,7 @@ public class GradingActivity extends BaseActvity {
         dismissDialog();
 
     }
+
 
 
 }

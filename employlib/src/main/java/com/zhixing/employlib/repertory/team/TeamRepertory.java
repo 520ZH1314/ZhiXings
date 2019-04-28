@@ -124,7 +124,7 @@ public class TeamRepertory {
                                                    String UserName,
                                                    String UserCode,
                                                    String EvaluationDate,
-                                                   String ExcellentDeeds){
+                                                   String ExcellentDeeds,String rank){
         MyBaseRepository myBaseRepository =new MyBaseRepository<BaseResponse>(mContext);
         String AppCode="EMS";
         String ApiCode="EditAPPExcellentEmployee" ;
@@ -142,7 +142,7 @@ public class TeamRepertory {
         one.setEvaluationDate(EvaluationDate);
         one.setExcellentDeeds(ExcellentDeeds);
         one.setExcellentId(ExcellentId);
-        one.setSeq("1");
+        one.setSeq(rank);
         one.setExcellentType(getType(type));
         one.setUserCode(UserCode);
         one.setTeamId(teamId);

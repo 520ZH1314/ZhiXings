@@ -61,20 +61,13 @@ public class MyDBaseHttpSubscriber<T> implements Subscriber<DBaseResponse<T>> {
     public void onSubscribe(Subscription s) {
 
 
-        s.request(2);
+        s.request(1);
 
     }
 
     @Override
     public void onNext(DBaseResponse<T> t) {
-        if (t.getMessage()!=null){
-            onFinish(t);
-
-        }else{
-            ex = ExceptionEngine.handleException(new ServerException( t.getMessage()));
-            getErrorDto(ex);
-            Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
-        }
+        onFinish(t);
     }
 
     @Override
@@ -93,7 +86,7 @@ public class MyDBaseHttpSubscriber<T> implements Subscriber<DBaseResponse<T>> {
 
     private void getErrorDto(ApiException ex) {
         DBaseResponse dto = new DBaseResponse();
-
+        dto.setStatus("404");
         dto.setMessage(ex.getMsg());
         onFinish((DBaseResponse<T>) dto);
     }

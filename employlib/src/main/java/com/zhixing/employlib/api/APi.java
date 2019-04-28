@@ -29,10 +29,12 @@ import com.zhixing.employlib.model.grading.RankStandPostBean;
 import com.zhixing.employlib.model.performance.EventKeyBean;
 import com.zhixing.employlib.model.performance.EventPostBean;
 import com.zhixing.employlib.model.performance.MonthPerformanceBean;
+import com.zhixing.employlib.model.performance.PerformanceRankBean;
 import com.zhixing.employlib.model.performance.PersonDayEventBean;
 import com.zhixing.employlib.model.performance.PersonDayEventPostBean;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.model.performance.PersonTeamPostBean;
+import com.zhixing.employlib.model.performance.RankPostBean;
 import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
 import com.zhixing.employlib.model.performance.YesterdayPerformancePostBean;
 import com.zhixing.employlib.model.recrui.DoJobPostBean;
@@ -296,6 +298,14 @@ public class APi {
         BaseHttpUtil  httpUtil = new BaseHttpUtil();
 
         return RetrofitClients.getInstance(mContext,url) .create(PerformanceApi.class) .getNotices(httpUtil.convertVo2Json(put(bean,map,httpUtil)));
+    }
+
+
+    //获取排名
+    public static Flowable<BaseResponse<PerformanceRankBean>> getRank(RankPostBean bean, Context mContext, String url){
+        return RetrofitClients.getInstance(mContext, url).create(PerformanceApi.class).getRank(new BaseHttpUtil<RankPostBean>().convertVo2Json(bean));
+
+
     }
 
 

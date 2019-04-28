@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
+   <LinearLayout
+       android:id="@+id/ll_recy_new_employee"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+
    <android.support.v7.widget.RecyclerView
        android:id="@+id/recy_new_employee"
        android:layout_width="match_parent"
@@ -11,5 +19,5 @@
    </android.support.v7.widget.RecyclerView>
 
 
-
+   </LinearLayout>
 </android.support.constraint.ConstraintLayout>

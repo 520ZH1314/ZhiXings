@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
@@ -26,6 +27,7 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.ChangeTime;
+import com.example.stateviewlibrary.StateView;
 import com.google.gson.reflect.TypeToken;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.shape.DevShape;
@@ -130,6 +132,8 @@ public class GradingDetailActivity extends BaseActvity {
     private String standTime;
     private List<GradingItemEntity> userDatas=new ArrayList<>();
     private String ip;
+    private ScrollView linearLayout;
+    private StateView mStateView;
 
 
     @Override
@@ -148,7 +152,9 @@ public class GradingDetailActivity extends BaseActvity {
         setStatus(-1);
         bind = ButterKnife.bind(this);
         aCache = ACache.get(this);
-        EventBus.getDefault().register(this);
+         EventBus.getDefault().register(this);
+         linearLayout=(ScrollView) findViewById(R.id.sl_new_gradings_detail);
+         mStateView = StateView.inject(linearLayout);
         initDisplayOpinion();
         initView();
 
@@ -177,10 +183,10 @@ public class GradingDetailActivity extends BaseActvity {
         tvGradingListDetailYear.setText(Year + "年");
         tvGradingListDetailMoth.setText(Month + "月");
         tvGradingListDetailDay.setText(Day + "日");
-
+        mStateView.showLoading();
         if ("1".equals(type)) {
 
-            showDialog("");
+
             //单人
             gradListDetailViewModel.setDate(standTime, position);
             gradListDetailViewModel.DetailData.observe(this, new Observer<BaseResponse<GradingListDetailBean>>() {
@@ -188,22 +194,27 @@ public class GradingDetailActivity extends BaseActvity {
                 public void onChanged(@Nullable BaseResponse<GradingListDetailBean> gradingListDetailBeanBaseResponse) {
                     if (gradingListDetailBeanBaseResponse.getRows() != null) {
 
+                            mStateView.showContent();
+                            if (gradingListDetailBeanBaseResponse.getRows().size()!=0){
+                                String userName = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getUserName();
+                                String sex = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getSex();
+                                String positionName = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPositionName();
+                                int eventCount = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getEventCount();
+                                if (gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPhotoURL()!=null&&!TextUtils.isEmpty(gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPhotoURL())){
+                                    MyImageLoader.loads(GradingDetailActivity.this,gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPhotoURL(),circleImageViewDetail,R.mipmap.standard_head);
+                                }
+                                aCache.put("eventCount", eventCount);
+                                aCache.put("userName",userName);
+                                tvGradingItemListDetailName.setText(userName);
+                                tvGradingItemListDetailSex.setText(sex);
+                                tvGradingItemListDetailWorker.setText(positionName);
+                                tvGradingItemListDetailDesc.setText("关键事件录入:" + eventCount + "条");
 
-                            String userName = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getUserName();
-                            String sex = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getSex();
-                            String positionName = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPositionName();
-                            int eventCount = gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getEventCount();
 
-                       if (gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPhotoURL()!=null&&!TextUtils.isEmpty(gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPhotoURL())){
-                           MyImageLoader.loads(GradingDetailActivity.this,ip+gradingListDetailBeanBaseResponse.getRows().get(0).getUserInfo().getPhotoURL(),circleImageViewDetail,R.mipmap.standard_head);
-                       }
+                            }
 
-                            aCache.put("eventCount", eventCount);
-                            aCache.put("userName",userName);
-                            tvGradingItemListDetailName.setText(userName);
-                            tvGradingItemListDetailSex.setText(sex);
-                            tvGradingItemListDetailWorker.setText(positionName);
-                            tvGradingItemListDetailDesc.setText("关键事件录入:" + eventCount + "条");
+
+
 
 
                         List<GradingListDetailBean.EventInfoBean> eventInfo = gradingListDetailBeanBaseResponse.getRows().get(1).getEventInfo();
@@ -220,14 +231,20 @@ public class GradingDetailActivity extends BaseActvity {
 
                             }
                             mLockTableView.setTableDatas(mTableDatas);
-                            dismissDialog();
-                        }else{
-                            dismissDialog();
+
                         }
 
 
+                    }else if ("404".equals(gradingListDetailBeanBaseResponse.getStatus())){
+                        mStateView.showRetry();
+                         mStateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+                             @Override
+                             public void onRetryClick() {
+                                 gradListDetailViewModel.setDate(standTime, position);
+                             }
+                         });
                     }else{
-                       dismissDialog();
+                        mStateView.showEmpty();
                     }
 
                 }
@@ -239,12 +256,7 @@ public class GradingDetailActivity extends BaseActvity {
             Type type2 = new TypeToken< List<GradingItemEntity>>() {}.getType();
             userDatas = GsonUtil.getGson().fromJson(selectData, type2);
             tvGradingEventManyPeopleName.setText(userDatas.get(0).name+"等"+userDatas.size()+"人");
-
-
-
-
-
-
+            mStateView.showContent();
         }
 
     }
@@ -326,7 +338,7 @@ public class GradingDetailActivity extends BaseActvity {
 
         } else if (i == R.id.tv_work_send) {
 
-            showDialog("");
+            mStateView.showLoading();
             if (!isCommit){
                 Toasty.INSTANCE.showToast(this, "关键事件或记录时间不能为空");
 
@@ -349,12 +361,12 @@ public class GradingDetailActivity extends BaseActvity {
                     gradListDetailViewModel.GoGrading(userInfoBeans,Eventdatas).observe(GradingDetailActivity.this, new Observer<BaseResponse>() {
                         @Override
                         public void onChanged(@Nullable BaseResponse baseResponse) {
-                              dismissDialog();
+                            mStateView.showContent();
                             if (baseResponse!=null){
                                 if (baseResponse.getStatus().equals("error")){
 
                                     Toasty.INSTANCE.showToast(GradingDetailActivity.this,"提交失败");
-                                    dismissDialog();
+
                                 }else{
                                     isCommit=false;
                                     Toasty.INSTANCE.showToast(GradingDetailActivity.this,"提交成功");
@@ -388,17 +400,17 @@ public class GradingDetailActivity extends BaseActvity {
                     gradListDetailViewModel.GoGrading(userInfoBeans,Eventdatas).observe(GradingDetailActivity.this, new Observer<BaseResponse>() {
                         @Override
                         public void onChanged(@Nullable BaseResponse baseResponse) {
-
+                            mStateView.showContent();
                             if (baseResponse!=null){
                                 if (baseResponse.getStatus().equals("error")){
-                                    dismissDialog();
+
                                     EventBus.getDefault().post(new GradingEvent(false));
                                     Toasty.INSTANCE.showToast(GradingDetailActivity.this,"提交失败");
 
 
 
                                 }else{
-                                    dismissDialog();
+
                                     isCommit=false;
                                     EventBus.getDefault().post(new GradingEvent(false));
                                     Toasty.INSTANCE.showToast(GradingDetailActivity.this,"提交成功");

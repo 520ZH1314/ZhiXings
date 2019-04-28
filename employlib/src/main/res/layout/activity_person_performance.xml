@@ -26,24 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-        <RelativeLayout
-            android:id="@+id/rl_performance"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:visibility="visible">
 
-            <com.zhixing.employlib.view.ShimmerTextView
-                android:id="@+id/tv_ani"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="iLean"
-                android:textColor="@color/gray02"
-                app:reflectionColor="@color/title_bg"
-                android:textSize="70sp" />
-
-        </RelativeLayout>
 
 
     </FrameLayout>

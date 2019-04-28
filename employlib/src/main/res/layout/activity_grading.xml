@@ -16,7 +16,6 @@
         android:layout_height="match_parent">
 
         <include layout="@layout/titles_layout" />
-
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/x55"
@@ -118,12 +117,19 @@
 
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recy_grading_list"
+        <LinearLayout
+            android:id="@+id/ll_recy_grading_list"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recy_grading_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
-        </android.support.v7.widget.RecyclerView>
+
 
 
     </LinearLayout>

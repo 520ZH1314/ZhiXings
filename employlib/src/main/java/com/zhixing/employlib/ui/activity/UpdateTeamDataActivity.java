@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.MyImageLoader;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
+import com.base.zhixing.www.widget.ChangeTime;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -111,6 +113,7 @@ public class UpdateTeamDataActivity extends BaseActvity {
     private String UseCode;
     private String UserName;
     private String commonTime1;
+    private String CurrTime1;
 
     @Override
     public int getLayoutId() {
@@ -144,7 +147,7 @@ public class UpdateTeamDataActivity extends BaseActvity {
 
     @OnClick({R2.id.iv_work_add_work, R2.id.tv_work_send, R2.id.cl_update_select_type,
             R2.id.cl_update_select_people, R2.id.cardView_iv_out_ad,
-            R2.id.iv_out_carme_delete, R2.id.iv_out_carme})
+            R2.id.iv_out_carme_delete, R2.id.iv_out_carme,R2.id.cl_update_select_team_go_time})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.iv_work_add_work) {
@@ -227,9 +230,13 @@ public class UpdateTeamDataActivity extends BaseActvity {
 
             }else if (TextUtils.isEmpty(edOutAdDesc.getText().toString().trim())){
                 Toasty.INSTANCE.showToast(this,"描述不能为空");
+            }else if ("请选择".equals(tvUpdataTeamSelectTeamGoTime.getText())){
+                Toasty.INSTANCE.showToast(this,"时间不能为空");
+            }else if (TextUtils.isEmpty(tvUpdataTeamSelectRank.getText().toString().trim())){
+                Toasty.INSTANCE.showToast(this,"排名不能为空");
             }else{
                 showDialog("");
-                upTeamViewModel.UpLoadOne(LinkedTabledId,type,UserName,UseCode,commonTime1,edOutAdDesc.getText().toString().trim()).observe(this, new Observer<BaseResponse>() {
+                upTeamViewModel.UpLoadOne(LinkedTabledId,type,UserName,UseCode,tvUpdataTeamSelectTeamGoTime.getText().toString(),edOutAdDesc.getText().toString().trim(),tvUpdataTeamSelectRank.getText().toString().trim()).observe(this, new Observer<BaseResponse>() {
                     @Override
                     public void onChanged(@Nullable BaseResponse baseResponse) {
                         if (baseResponse!=null){
@@ -280,6 +287,20 @@ public class UpdateTeamDataActivity extends BaseActvity {
 
 
 
+        }else if(i==R.id.cl_update_select_team_go_time){
+
+            ChangeTime changeTime = new ChangeTime(this, "", 2);
+            changeTime.setSelect(new SelectTime() {
+                @Override
+                public void select(String time, long timestp) {
+                     CurrTime1 = TimeUtil.getCommonTime1(time);
+                    tvUpdataTeamSelectTeamGoTime.setText(CurrTime1);
+
+                }
+            });
+            changeTime.showSheet();
+
+
         }
     }
 
@@ -303,9 +324,9 @@ public class UpdateTeamDataActivity extends BaseActvity {
             clUpdateTeam.setVisibility(View.GONE);
             clUpdateSelectAddress.setVisibility(View.GONE);
             clUpdateSelectScore.setVisibility(View.GONE);
-            clUpdateSelectRank.setVisibility(View.GONE);
+            clUpdateSelectRank.setVisibility(View.VISIBLE);
             clUpdateSelectTeamName.setVisibility(View.GONE);
-            clUpdateSelectTeamGoTime.setVisibility(View.GONE);
+            clUpdateSelectTeamGoTime.setVisibility(View.VISIBLE);
 
              LinkedTabledId=UUID.randomUUID().toString();
              LinkedTable="ems_excellentemployee";
@@ -322,9 +343,9 @@ public class UpdateTeamDataActivity extends BaseActvity {
             clUpdateTeam.setVisibility(View.GONE);
             clUpdateSelectAddress.setVisibility(View.GONE);
             clUpdateSelectScore.setVisibility(View.GONE);
-            clUpdateSelectRank.setVisibility(View.GONE);
+            clUpdateSelectRank.setVisibility(View.VISIBLE);
             clUpdateSelectTeamName.setVisibility(View.GONE);
-            clUpdateSelectTeamGoTime.setVisibility(View.GONE);
+            clUpdateSelectTeamGoTime.setVisibility(View.VISIBLE);
             tvUpdataTeamSelectType.setText("季度优秀员工");
             LinkedTabledId=UUID.randomUUID().toString();
             LinkedTable="ems_excellentemployee";
@@ -336,9 +357,9 @@ public class UpdateTeamDataActivity extends BaseActvity {
             clUpdateTeam.setVisibility(View.GONE);
             clUpdateSelectAddress.setVisibility(View.GONE);
             clUpdateSelectScore.setVisibility(View.GONE);
-            clUpdateSelectRank.setVisibility(View.GONE);
+            clUpdateSelectRank.setVisibility(View.VISIBLE);
             clUpdateSelectTeamName.setVisibility(View.GONE);
-            clUpdateSelectTeamGoTime.setVisibility(View.GONE);
+            clUpdateSelectTeamGoTime.setVisibility(View.VISIBLE);
             LinkedTabledId=UUID.randomUUID().toString();
             tvUpdataTeamSelectType.setText("年度优秀员工");
             LinkedTable="ems_excellentemployee";

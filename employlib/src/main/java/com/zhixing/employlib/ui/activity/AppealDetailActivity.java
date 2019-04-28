@@ -43,7 +43,6 @@ import butterknife.Unbinder;
  * 我申诉记录详情(处理记录详情)
  */
 public class AppealDetailActivity extends BaseActvity {
-
     @BindView(R2.id.iv_work_add_work)
     ImageView ivWorkAddWork;
     @BindView(R2.id.tv_work_title)

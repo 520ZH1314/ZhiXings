@@ -47,10 +47,6 @@ public class PerFormanceViewModel extends AndroidViewModel {
 
 
 
-    //个人绩效评分的数据
-
-    public MutableLiveData<List<PersonTestEntity>> personTestEntitys=new MutableLiveData<>();
-
 
 
     //积分事件的数据
@@ -87,21 +83,6 @@ public class PerFormanceViewModel extends AndroidViewModel {
 
 
 
-    //获取个人绩效评分的数据
-
-
-    public MutableLiveData<List<PersonTestEntity>>getPersonTestEntitysData(){
-
-        List<PersonTestEntity> lists=new ArrayList<>();
-        for (int i = 6; i >0; i--) {
-            lists.add(new PersonTestEntity("员工正常出勤即获得基础得分5分i",i,""+i));
-
-        }
-
-        personTestEntitys.setValue(lists);
-        return  personTestEntitys;
-
-    }
 
 
 

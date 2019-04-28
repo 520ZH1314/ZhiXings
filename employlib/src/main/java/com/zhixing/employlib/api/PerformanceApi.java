@@ -2,7 +2,6 @@ package com.zhixing.employlib.api;
 
 import com.zhixing.employlib.model.AppealList;
 import com.zhixing.employlib.model.AppealPersonEntity;
-import com.zhixing.employlib.model.IntegralEventEntity;
 import com.zhixing.employlib.model.MonthViewBean;
 import com.zhixing.employlib.model.NoticeBean;
 import com.zhixing.employlib.model.PersonTestEntity;
@@ -14,10 +13,10 @@ import com.zhixing.employlib.model.gardenplot.UpLoadBean;
 import com.zhixing.employlib.model.grading.GradListBean;
 import com.zhixing.employlib.model.grading.GradingListDetailBean;
 import com.zhixing.employlib.model.grading.RankBean;
+import com.zhixing.employlib.model.performance.PerformanceRankBean;
 import com.zhixing.employlib.model.performance.EventKeyBean;
 import com.zhixing.employlib.model.performance.MonthPerformanceBean;
 import com.zhixing.employlib.model.performance.PersonDayEventBean;
-import com.zhixing.employlib.model.performance.PersonDayEventPostBean;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.model.performance.TotalMonthPerformanceBean;
 import com.zhixing.employlib.model.recrui.RecruitListBean;
@@ -238,10 +237,13 @@ public interface PerformanceApi<T>  {
  @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
  Flowable<BaseResponse> AlterResumeData(@Body RequestBody body);
 
-
-
  //颜色值
  @Headers({"Content-Type: application/json","Accept: application/json"})
  @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
  Flowable<BaseResponse<NoticeBean>> getNotices(@Body RequestBody body);
+
+ //获取绩效排名
+ @Headers({"Content-Type: application/json","Accept: application/json"})
+ @POST("/api/CMP/ApiRegistrator/PostApiGateWay")
+ Flowable<BaseResponse<PerformanceRankBean>> getRank(@Body RequestBody body);
 }

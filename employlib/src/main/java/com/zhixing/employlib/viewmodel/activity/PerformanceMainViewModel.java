@@ -18,6 +18,12 @@ public class PerformanceMainViewModel extends AndroidViewModel {
     //个人班组信息以及权限
 
     public LiveData< List<PersonTeamBean> > TeamBeans;
+    private final MutableLiveData<Boolean> getData=new MutableLiveData<>();
+    //获取个人班组信息以及权限
+    public LiveData<DBaseResponse<PersonTeamBean>> personTeamInfo=Transformations.switchMap(getData,entity->(
+
+            performanceRepertory.getPersonTeamInfo()
+    ));
 
     public PerformanceMainViewModel(@NonNull Application application) {
         super(application);
@@ -25,12 +31,18 @@ public class PerformanceMainViewModel extends AndroidViewModel {
     }
 
 
-    //获取个人班组信息以及权限
-        public  void getTeamBeans(){
-        if (TeamBeans==null){
-            TeamBeans=new MutableLiveData<>();
-        }
-            LiveData<DBaseResponse<PersonTeamBean>> personTeamInfo = performanceRepertory.getPersonTeamInfo();
-            TeamBeans = Transformations.map(personTeamInfo, DBaseResponse::getRows);
+
+
+
+
+    //刷新数据
+    public void getData(boolean istrue){
+
+         getData.setValue(istrue);
     }
+
+
+
+
+
 }
