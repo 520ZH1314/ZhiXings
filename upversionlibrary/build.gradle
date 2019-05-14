@@ -33,6 +33,7 @@ dependencies {
     })
     implementation "com.android.support:appcompat-v7:$support_version"
     testImplementation 'junit:junit:4.12'
+    implementation project(path: ':basecommon')
     implementation 'com.lzy.net:okgo:2.1.4'
     implementation "com.alibaba:arouter-api:$arouter_api"
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"

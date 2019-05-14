@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/child"
+    android:background="@drawable/selet_item"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/item0"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/item1"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="s"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/p_txt_i"
+                android:layout_height="0dp" />
+            <TextView
+                android:id="@+id/item11"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="s"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/p_txt_13"
+                android:layout_height="0dp" />
+            <TextView
+                android:id="@+id/item12"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="s"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/p_txt_13"
+                android:layout_height="0dp" />
+            <TextView
+                android:id="@+id/item13"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="s"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/p_txt_13"
+                android:layout_height="0dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/item14"
+                    android:layout_width="wrap_content"
+                    android:text="s"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:layout_alignParentLeft="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/p_txt_13"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/item15"
+                    android:layout_width="wrap_content"
+                    android:text="ffff"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/p_txt_13"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/item_status"
+            android:layout_toLeftOf="@+id/arrow"
+            android:text="sds"
+            android:layout_width="wrap_content"
+            android:textColor="@color/txt_viw"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x10"
+            android:src="@mipmap/right_arrow" />
+    </RelativeLayout>
+
+</LinearLayout>

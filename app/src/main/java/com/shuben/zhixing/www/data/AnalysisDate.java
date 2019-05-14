@@ -1,10 +1,11 @@
 package com.shuben.zhixing.www.data;
 
 /**
- * Created by Administrator on 2017/8/22.
+ *  实体
  */
 
 public class AnalysisDate {
+
     private String ranking;//排名
 
     private String name;//员工

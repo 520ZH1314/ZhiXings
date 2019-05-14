@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.util.DensityUtil;
 import com.base.zhixing.www.view.Toasty;

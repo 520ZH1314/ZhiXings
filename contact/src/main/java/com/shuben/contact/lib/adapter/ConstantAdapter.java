@@ -8,6 +8,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.base.zhixing.www.util.MyImageLoader;
 import com.shuben.contact.lib.common.ConstantS;
 import com.shuben.contact.lib.event.ConstantDataEvent;
 import com.shuben.contact.lib.event.ConstantIsCheck;
@@ -19,7 +21,6 @@ import com.base.zhixing.www.widget.CharAvatarView;
 import com.base.zhixing.www.widget.CircularImage;
 import com.shuben.contact.lib.R;
 import com.shuben.contact.lib.bean.Type;
-import com.shuben.contact.lib.common.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -115,7 +116,7 @@ public class ConstantAdapter extends BaseTurboAdapter<Type, BaseViewHolder> {
                 ((PersonHolder) holder).call.setEnabled(false);
 
             } else {
-                ImageLoader.local(R.mipmap.dianhua, ((PersonHolder) holder).call);
+                MyImageLoader.local(context,R.mipmap.dianhua, ((PersonHolder) holder).call);
                 ((PersonHolder) holder).call.setEnabled(true);
                 ((PersonHolder) holder).call.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -179,9 +180,9 @@ public class ConstantAdapter extends BaseTurboAdapter<Type, BaseViewHolder> {
                 ((PersonHolder) holder).imageView_head.setVisibility(View.VISIBLE);
                 ((PersonHolder) holder).txt_head.setVisibility(View.GONE);
                 if (type == 0) {
-                    ImageLoader.load(BASE + item.getImg(), ((PersonHolder) holder).imageView_head, R.mipmap.person_icon);
+                    MyImageLoader.load(context,BASE + item.getImg(), ((PersonHolder) holder).imageView_head, R.mipmap.person_icon);
                 } else {
-                    ImageLoader.load(BASE + item.getImg(), ((PersonHolder) holder).imageView_head, R.mipmap.bumen);
+                    MyImageLoader.load(context,BASE + item.getImg(), ((PersonHolder) holder).imageView_head, R.mipmap.bumen);
                 }
             }
 

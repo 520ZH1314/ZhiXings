@@ -62,7 +62,7 @@
     <color name="text_g">#000000</color>
 
     <color name="text_g9">#999999</color>
-
+    <color name="ban_color">#65000000</color>
     <color name="photopicker_background">#323232</color>
 
     <color name="moren">#13A4D3</color>

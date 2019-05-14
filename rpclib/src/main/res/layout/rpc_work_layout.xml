@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/l_title"
+        layout="@layout/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <RadioGroup
+            android:id="@+id/rbs"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rb0"
+                android:text="待工"
+                style="@style/nav_btn" />
+            <RadioButton
+                android:id="@+id/rb1"
+                android:text="生产"
+                style="@style/nav_btn" />
+            <RadioButton
+                android:id="@+id/rb2"
+                android:text="停工"
+                style="@style/nav_btn" />
+            <RadioButton
+                android:id="@+id/rb3"
+                android:text="完工"
+                style="@style/nav_btn" />
+
+        </RadioGroup>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/select_layout"
+            android:layout_margin="@dimen/x2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+</LinearLayout>

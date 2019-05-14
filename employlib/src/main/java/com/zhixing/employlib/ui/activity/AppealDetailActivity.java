@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,12 +17,15 @@ import android.widget.TextView;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.common.P;
+import com.base.zhixing.www.util.MyImageLoader;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.shape.DevShape;
+import com.vipulasri.ticketview.TicketView;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
+import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.AppealList;
 import com.zhixing.employlib.view.AppealEditDialog;
 import com.zhixing.employlib.view.CustomDialog;
@@ -60,7 +64,7 @@ public class AppealDetailActivity extends BaseActvity {
     @BindView(R2.id.tv_appeal_detail_desc)
     TextView tvAppealDetailDesc;
     @BindView(R2.id.recy_appeal)
-    RecyclerView recyAppeal;
+    ImageView recyAppeal;
     @BindView(R2.id.tv_appeal_detail_event_date2)
     TextView tvAppealDetailEventDate2;
     @BindView(R2.id.tv_appeal_detail_do_desc)
@@ -75,6 +79,12 @@ public class AppealDetailActivity extends BaseActvity {
     Button btnAppealDetailNo;
     @BindView(R2.id.cl_appeal_detail_button)
     ConstraintLayout clAppealDetailButton;
+    @BindView(R2.id.ticketView)
+    TicketView ticketView;
+    @BindView(R2.id.par_lay)
+    ConstraintLayout par_lay;
+
+
     private Unbinder bind;
     private AppealPersonViewModel appealPersonViewModel;
     private  String status="1";
@@ -111,7 +121,12 @@ public class AppealDetailActivity extends BaseActvity {
         }
         vie();
         //申诉记录详情
-
+        par_lay.post(new Runnable() {
+            @Override
+            public void run() {
+                ticketView.setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,par_lay.getMeasuredHeight()));
+            }
+        });
         //处理记录详情
 
 
@@ -185,8 +200,21 @@ public class AppealDetailActivity extends BaseActvity {
                 tvAppealDetailPeopleName.setTextColor(getResources().getColor(R.color.orange));
                 tvAppealDetailReuit.setText("不通过!");
             }
+            P.c(SharedPreferencesTool.getMStool(AppealDetailActivity.this).getIp()+appealList.getFilePath());
+            if(appealList.getFilePath()!=null&&appealList.getFilePath().length()!=0){
+                MyImageLoader.loads(AppealDetailActivity.this, PerformanceApi.IMAGE_BASE_URL+appealList.getFilePath(),recyAppeal);
+            }else{
+                recyAppeal.setVisibility(View.GONE);
+            }
+
+
             tvAppealDetailEventName.setText("申诉事件:"+appealList.getKeyName());
-            tvAppealDetailPeopleName.setText("处理人:"+appealList.getHandleUserName());
+            if(getIntent().getBooleanExtra("isLeader",false)){
+                tvAppealDetailPeopleName.setText("申请人:"+appealList.getApplyUserName());
+            }else{
+                tvAppealDetailPeopleName.setText("处理人:"+appealList.getHandleUserName());
+            }
+
             tvAppealDetailEventDate.setText("异常时间:"+ TimeUtil.getTime(TimeUtil.parseTimeC(appealList.getKeyDate())));
             tvAppealDetailDesc.setText(appealList.getOpinion());
             tvAppealDetailDoDesc.setText(appealList.getHandleOpinion());

@@ -277,7 +277,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+//        super.onSaveInstanceState(outState);
         if (adapter != null) {
             List<LocalMedia> selectedImages = adapter.getSelectedImages();
             PictureSelector.saveSelectorList(outState, selectedImages);

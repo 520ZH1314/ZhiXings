@@ -19,11 +19,6 @@ import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.ACache;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.UrlUtil;
-import com.base.zhixing.www.view.Toasty;
-import com.orhanobut.logger.Logger;
-import com.photopicker.OnPhotoPickListener;
-import com.photopicker.PhotoPicker;
-import com.photopicker.entity.Photo;
 import com.shuben.contact.lib.ConstantActivity;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.www.R;
@@ -122,9 +117,9 @@ public class Fragment04 extends BaseFragment {
         sao_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Intent intent = new Intent(getActivity(), ScanMassActivity.class);
-                intent.putExtra("type", 1);
-                startActivityForResult(intent, 1000);*/
+               Intent intent = new Intent(getActivity(), ScanLoginActivity.class);
+                intent.putExtra("type", 0);
+                startActivityForResult(intent, 1000);
             }
         });
 
@@ -161,6 +156,9 @@ public class Fragment04 extends BaseFragment {
                 mTvDepartName.setText(bean.getDeptName());
                 mTvPhone.setText(bean.getPhoneNumber());
                 aCache.put("UserPhone", bean.getPhoneNumber());
+                SharedPreferencesTool.getMStool(getActivity()).setString("head_ico",bean.getPhotoURL());
+                SharedPreferencesTool.getMStool(getActivity()).setString("DeptName",bean.getDeptName());
+                getHandler().sendEmptyMessage(2);
             }
 
             @Override
@@ -177,24 +175,30 @@ public class Fragment04 extends BaseFragment {
     public void onResume() {
         super.onResume();
         load(); //网络数据刷新
-        String name = SharedPreferencesTool.getMStool(getActivity()).getUserName();
-        me_user_name_tv.setText(name);
-        String path = SharedPreferencesTool.getMStool(getActivity()).getString("head_ico");//头像
-        if (path.length() == 1) {
-            image_head.setVisibility(View.GONE);
-            txt_head.setVisibility(View.VISIBLE);
-            txt_head.setText(name);
-        } else {
-            image_head.setVisibility(View.VISIBLE);
-            txt_head.setVisibility(View.GONE);
-            ImageLoader.load(path, image_head, R.mipmap.person_icon);
 
-        }
+        getHandler().sendEmptyMessage(2);
     }
 
 
     @Override
     public void process(Message msg) {
+            switch (msg.what){
+                case 2:
+                    String name = SharedPreferencesTool.getMStool(getActivity()).getUserName();
+                    me_user_name_tv.setText(name);
+                    String path = SharedPreferencesTool.getMStool(getActivity()).getString("head_ico");//头像
+                    if (path.length() == 0) {
+                        image_head.setVisibility(View.GONE);
+                        txt_head.setVisibility(View.VISIBLE);
+                        txt_head.setText(name);
+                    } else {
+                        image_head.setVisibility(View.VISIBLE);
+                        txt_head.setVisibility(View.GONE);
+                        String ph = SharedPreferencesTool.getMStool(getActivity()).getIp()+path;
+                        ImageLoader.load(ph, image_head, R.mipmap.person_icon);
 
+                    }
+                    break;
+            }
     }
 }

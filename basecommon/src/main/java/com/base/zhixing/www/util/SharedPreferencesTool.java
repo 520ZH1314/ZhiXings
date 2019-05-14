@@ -69,6 +69,9 @@ public class SharedPreferencesTool {
         String ip = preferences.getString("IP",UrlUtil.BaseUrl);
         String port = preferences.getString("PORT","");
         String res = null;
+        if(ip.length()==0){
+            return "";
+        }
         if(ip.startsWith("http")){
             //使用全地址
             if(port.length()!=0){

@@ -11,7 +11,7 @@
         android:layout_width="@dimen/x30"
         android:layout_height="@dimen/x30"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/ball_radius_sidebar"
+        android:layout_marginLeft="@dimen/x10"
         android:src="@drawable/add_more" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/title_center_size" />
     <TextView
-        android:layout_marginRight="@dimen/x24"
+        android:layout_marginRight="@dimen/x10"
         android:layout_centerVertical="true"
         android:id="@+id/tv_work_send"
         android:layout_width="wrap_content"

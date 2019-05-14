@@ -44,8 +44,11 @@ class SocketClient {
     if (isConnecting) {
       return
     }
-    val channelFuture = bootstrap.connect(SdkConfig.IP, SdkConfig.PORT)
-    //ChatSdkLogTool.logSocket("连接服务器中..."+SdkConfig.IP+"==="+SdkConfig.PORT)
+    //SdkConfig.IP  临时注释
+//    SdkConfig.IP = "47.104.166.204"
+    val channelFuture = bootstrap.connect( SdkConfig.IP , SdkConfig.PORT)
+
+    ChatSdkLogTool.logSocket("连接服务器中..."+SdkConfig.IP+"==="+SdkConfig.PORT)
     isConnecting = true
     channelFuture.addListener(object : ChannelFutureListener {
       override fun operationComplete(future: ChannelFuture?) {

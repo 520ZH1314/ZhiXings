@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.shuben.zhixing.www.R;
 import com.base.zhixing.www.common.FileUtils;
 import com.shuben.zhixing.www.common.ImageLoader;

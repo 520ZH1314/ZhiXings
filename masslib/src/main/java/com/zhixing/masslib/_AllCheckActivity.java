@@ -253,7 +253,8 @@ public class _AllCheckActivity extends BaseActvity {
         params.put("CreatePerson", SharedPreferencesTool.getMStool(_AllCheckActivity.this).getString("UserName"));
         params.put("TenantId",SharedPreferencesTool.getMStool(_AllCheckActivity.this).getTenantId());
         params.put("PlanDate",itemBean.getAll_t());
-        showDialog("增加"+(type.equals("1")?"合格":"不良"));
+        P.c(type.equals("1")+"怎么样");
+        showDialog("增加"+((type.equals("1")?"合格":"不良")));
         httpPostVolley(SharedPreferencesTool.getMStool(_AllCheckActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
             public void success(JSONObject jsonObject) {

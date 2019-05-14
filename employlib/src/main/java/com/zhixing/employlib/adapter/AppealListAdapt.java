@@ -18,8 +18,10 @@ import java.util.List;
 
 public class AppealListAdapt extends BaseQuickAdapter<AppealList,BaseViewHolder> {
     private List<AppealList> mList;//数据源
-    public AppealListAdapt(int layoutResId, @Nullable List<AppealList> data) {
+    private boolean isLeader;
+    public AppealListAdapt(int layoutResId, @Nullable List<AppealList> data,boolean isLeader) {
         super(layoutResId, data);
+        this.isLeader = isLeader;
         this.mList  = data;
     }
     public void updata(List<AppealList> data){
@@ -64,7 +66,12 @@ public class AppealListAdapt extends BaseQuickAdapter<AppealList,BaseViewHolder>
 
         helper.setText(R.id.tv_item_appeal_list_date,"异常日期:"+ TimeUtil.getTime(TimeUtil.parseTimeC(item.getKeyDate())));
         helper.setText(R.id.tv_item_appeal_list_event_name,"申诉事件:"+item.getKeyName());
-        helper.setText(R.id.tv_item_appeal_list_name,"处理人:"+item.getHandleUserName());
+        if(isLeader){
+            helper.setText(R.id.tv_item_appeal_list_name,"申请人:"+item.getApplyUserName());
+        }else{
+            helper.setText(R.id.tv_item_appeal_list_name,"处理人:"+item.getHandleUserName());
+        }
+
         helper.setText(R.id.tv_item_appeal_list_desc,"描述:"+item.getOpinion());
 
 

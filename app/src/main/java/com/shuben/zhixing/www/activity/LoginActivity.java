@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.android.tu.loadingdialog.LoadingDailog;
 import com.android.volley.VolleyError;
+import com.base.zhixing.www.widget.XEditText;
 import com.sdk.chat.ChatSdk;
 import com.sdk.chat.callback.IConnectListener;
 import com.sdk.chat.contact.ErrorCode;
@@ -66,16 +67,13 @@ import java.util.regex.Pattern;
  */
 
 public class LoginActivity extends BaseActvity implements View.OnClickListener{
-    private TextView login_login,login_forgetpwd,tx_Ver;
-    private ImageView tetle_back, login_user_clear,login_psw_clear;
-    private TextView tetle_text,tx_fwq;
+    private TextView login_login,tx_Ver;
     private String  PHONE,pwd,IP;
-    private EditText login_pwd_et,http_pwd_et;
-    private AutoCompleteTextView login_phone_et;
+    private XEditText login_phone_et,login_pwd_et,edit0;
     private CustomToast customToast;
     private ArrayAdapter<String> arrayAdapter;
     private List<String> list=new ArrayList<String>();
-    private DB_L db;
+//    private DB_L db;
     private LoadingDailog dialog;//加载动画
 
     @Override
@@ -121,7 +119,7 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         bindService(intent,pushConnection,Context.BIND_AUTO_CREATE);
 
     }
-
+    //add service
     private boolean isServiceRunning(String ServicePackageName) {
         ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -129,7 +127,7 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                 P.c("包名"+service.service.getClassName());
                 return true;
             }
-            P.c("包名333"+BaseApplication.application.getPackageName()+"."+TraceServiceImpl.class.getName());
+//            P.c("包名333"+BaseApplication.application.getPackageName()+"."+TraceServiceImpl.class.getName());
         }
         return false;
     }
@@ -178,8 +176,8 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
 
     private void checkUpdate() {
         UpdateManager updateManager=new UpdateManager(LoginActivity.this);
-        String updateUrl=SharedPreferencesTool.getMStool(LoginActivity.this).getIp()+UrlUtil.UpdateUrl;
-        updateManager.checkUpdateInfo(updateUrl);
+//        String updateUrl="https://ilean.m3lean.com:2001/"+UrlUtil.UpdateUrl;
+        updateManager.checkUpdateInfo(null);
     }
 
     private void initData() {
@@ -202,6 +200,7 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
             e.printStackTrace();
         }
         P.c("登录地址:"+SharedPreferencesTool.getMStool(LoginActivity.this).getIp() + UrlUtil.Url);
+        showDialog("登录中...");
         httpPostVolley(SharedPreferencesTool.getMStool(LoginActivity.this).getIp() + UrlUtil.Url, params, new VolleyResult() {
             @Override
             public void success(JSONObject jsonObject) {
@@ -294,6 +293,13 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        edit0.setTextEx(SharedPreferencesTool.getMStool(LoginActivity.this).getIp());
+    }
+
     private void init() {
         LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(this)
                 .setMessage("加载中...")
@@ -301,58 +307,45 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                 .setCancelOutside(true);
         dialog=loadBuilder.create();
 
-        tx_fwq= (TextView) findViewById(R.id.tx_fwq);
+      /*  tx_fwq= (TextView) findViewById(R.id.tx_fwq);
         tx_fwq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPopWindow();
             }
-        });
-
-        tetle_back = (ImageView)findViewById(R.id.tetle_back);//返回图片已隐藏
-        tetle_back.setVisibility(View.GONE);
+        });*/
 
 
-        login_forgetpwd = (TextView)findViewById(R.id.login_forgetpwd);//忘记密码
-        login_forgetpwd.setOnClickListener(this);
-
-        tetle_text = (TextView)findViewById(R.id.tetle_text);//标题
-        tetle_text.setText("登录页面");
         tx_Ver=(TextView)findViewById(R.id.tx_Ver);
         String v=PackageUtils.getVersionName(LoginActivity.this);
         int n=PackageUtils.getCurrVersion(LoginActivity.this);
         tx_Ver.setText("版本号:"+v+"("+n+")");
 
         login_login = (TextView)findViewById(R.id.login_login);//登录
-        login_user_clear= (ImageView) findViewById(R.id.login_clear);
-        login_psw_clear= (ImageView) findViewById(R.id.psw_clear);
+        edit0 = findViewById(R.id.edit0);
 
-        login_user_clear.setOnClickListener(this);
-        login_psw_clear.setOnClickListener(this);
+        login_phone_et =  findViewById(R.id.login_phone_et);//手机号码输入框
+        login_pwd_et =  findViewById(R.id.login_pwd_et);//密码输入
 
-        login_phone_et = (AutoCompleteTextView) findViewById(R.id.login_phone_et);//手机号码输入框
-        login_pwd_et = (EditText) findViewById(R.id.login_pwd_et);//密码输入
-        http_pwd_et = (EditText) findViewById(R.id.http_pwd_et);//IP地址
         login_phone_et.setText(SharedPreferencesTool.getMStool(this).getPhone());
         //login_pwd_et.setText(SharedPreferencesTool.getMStool(this).getPassword());
-        http_pwd_et.setText("http://www.m3lean.com:8080/login/doAction");
+//        http_pwd_et.setText("http://www.m3lean.com:8080/login/doAction");
         setOnClick();//添加监听方法
         login_phone_et.setOnClickListener(this);
-        db = DB_L.getInstance(this);
+
+        //db = DB_L.getInstance(this);
     }
 
     private void setOnClick() {
-        login_forgetpwd.setOnClickListener(this);
+
         login_login.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
         Intent intent;
-        PHONE = login_phone_et.getText().toString().trim();
-        pwd = login_pwd_et.getText().toString().trim();
-        IP = http_pwd_et.getText().toString().trim();
+       // IP = http_pwd_et.getText().toString().trim();
         switch (v.getId()){
-            case R.id.login_forgetpwd:
+
                 //忘记密码
                /* intent = new Intent(LoginActivity.this, ForgetActivity.class);
                 intent.putExtra("PHONE",PHONE);
@@ -360,8 +353,8 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
 
 
 
-                break;
-            case R.id.login_phone_et:
+
+        /*    case R.id.login_phone_et:
                 list.clear();
                 List<String> getlist = db.loadInput();
                 for(String str:getlist){
@@ -370,39 +363,76 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                 arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,list);
                 login_phone_et.setAdapter(arrayAdapter);
                 arrayAdapter.notifyDataSetChanged();
-                break;
+                break;*/
 
 
             case R.id.login_login:
                 //登录跳转
-                if (PHONE.isEmpty()||pwd.isEmpty()||IP.isEmpty()){
+                process();
+                PHONE = login_phone_et.getText().toString().trim();
+                P.c("PHONE"+PHONE);
+                pwd = login_pwd_et.getText().toString().trim();
+                if (PHONE.isEmpty()||pwd.isEmpty() ){
                     customToast.showToast("输入内容不能为空");
                 }else {
-                    List<String> getlist0 = db.loadInput();
+                   /* List<String> getlist0 = db.loadInput();
                     String str = login_phone_et.getText().toString();
                     if(getlist0.contains(str)){
                     }else{
                         Log.e("写入数据",str);
                         db.saveInput(str);
-                    }
+                    }*/
                     initData();//调用登录接口，进行跳转
                 }
                 break;
 
-            case R.id.login_clear:
-                //用户名清除
-                Toast.makeText(this,"用户名清除",Toast.LENGTH_SHORT).show();
-                login_phone_et.setText("");
-                break;
-            case R.id.psw_clear:
-                //密码清除
-                Toast.makeText(this,"密码清除",Toast.LENGTH_SHORT).show();
-                login_pwd_et.setText("");
-                break;
+
 
 
         }
     }
+
+    private void process(){
+        String add = edit0.getText().toString();
+        P.c(add+"--"+add.split(":").length);
+        if(add.split(":").length==3&&add.startsWith("http")){
+            int o = add.lastIndexOf(":");
+            //是IP加端口
+            String ip = add.substring(0,o);
+            String port = add.substring(o+1,add.length());
+            P.c(ip+"---"+port);
+            try{
+                Integer.parseInt(port);
+            }catch (Exception e){
+                Toast.makeText(LoginActivity.this,"端口不合法！",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            SharedPreferencesTool.getMStool(LoginActivity.this).setString("IP",ip);
+            SharedPreferencesTool.getMStool(LoginActivity.this).setString("PORT",port);
+        } else if(add.split(":").length==2){
+            if(add.startsWith("http")){
+                SharedPreferencesTool.getMStool(LoginActivity.this).setString("IP",add);
+                SharedPreferencesTool.getMStool(LoginActivity.this).clear("PORT");
+            }else{
+                int o = add.lastIndexOf(":");
+                //是IP加端口
+                String ip = add.substring(0,o);
+                String port = add.substring(o+1,add.length());
+                try{
+                    Integer.parseInt(port);
+                }catch (Exception e){
+                    Toast.makeText(LoginActivity.this,"端口不合法！",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                SharedPreferencesTool.getMStool(LoginActivity.this).setString("IP",ip);
+                SharedPreferencesTool.getMStool(LoginActivity.this).setString("PORT",port);
+            }
+        }else{
+            SharedPreferencesTool.getMStool(LoginActivity.this).setString("IP","https://"+add+".stdlean.com");
+            SharedPreferencesTool.getMStool(LoginActivity.this).setString("PORT","");
+        }
+    }
+
     public boolean isIP(String addr)
     {
         if(addr.length() < 7  || "".equals(addr))

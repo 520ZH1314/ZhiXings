@@ -41,14 +41,15 @@ public class UpdateAppManager {
     public UpdateAppManager(Context context, UpVersions up) {
         this.context = context;
         this.upVersions = up;
-        showNoticeDialog();
+//        showNoticeDialog();
+        downloadFile(upVersions.downloadUrl);
     }
 
     /**
      * 创建提示框，提示是否需要升级
      */
     private void showNoticeDialog() {
-        dialog = new AlertDialog.Builder(context)
+        dialog = new AlertDialog.Builder(context,R.style.Theme_AppCompat_Dialog_Alert)
                 .setTitle(upVersions.title)
                 .setMessage(upVersions.content)
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -67,6 +68,8 @@ public class UpdateAppManager {
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+
+
     }
 
     public void downloadFile(String url) {
@@ -82,7 +85,10 @@ public class UpdateAppManager {
                     loadingDialog.cancel();
 
                 AppInstall.openFile(context, file);
-                dialog.cancel();
+                if(dialog!=null){
+                    dialog.cancel();
+                }
+
             }
 
             @Override
@@ -112,7 +118,7 @@ public class UpdateAppManager {
     public void showLoadingDialog(int currentProgress) {
         if (loadingDialog == null) {
             loadingView = LayoutInflater.from(context).inflate(R.layout.downloading_layout, null);
-            loadingDialog = new AlertDialog.Builder(context).setTitle("正在下载中...").setView(loadingView).create();
+            loadingDialog = new AlertDialog.Builder(context,R.style.Theme_AppCompat_Dialog_Alert).setTitle("正在下载中...").setView(loadingView).create();
             loadingDialog.setCancelable(false);
             loadingDialog.setCanceledOnTouchOutside(false);
             loadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {

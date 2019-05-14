@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
@@ -221,12 +222,15 @@ public abstract class BaseActvity extends FragmentActivity   {
         if (dialog != null) {
             dialog.show();
         } else {
-            LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(AppManager.getAppManager().currentActivity())
-                    .setMessage(title)
-                    .setCancelable(true)
-                    .setCancelOutside(true);
-            dialog=loadBuilder.create();
-            dialog.show();
+            if(AppManager.getAppManager().currentActivity()!=null){
+                LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(AppManager.getAppManager().currentActivity())
+                        .setMessage(title)
+                        .setCancelable(true)
+                        .setCancelOutside(true);
+                dialog=loadBuilder.create();
+                dialog.show();
+            }
+
         }
     }
     //关闭进度dialog
@@ -261,4 +265,10 @@ public abstract class BaseActvity extends FragmentActivity   {
         startActivity(intent);
     }
 
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+    }
 }

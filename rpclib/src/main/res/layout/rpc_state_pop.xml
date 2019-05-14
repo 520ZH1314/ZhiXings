@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="状态切换"
+                android:textColor="@color/txt_viw"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/x10"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/x15"
+                android:background="@drawable/shape_sel_bg"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/layout0"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/x10"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/content_txt_"
+                        android:text="开工"
+                        android:textColor="@color/txt_viw"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/layout00"
+                        android:layout_width="@dimen/x25"
+                        android:button="@null"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/rpc_state_btn"
+                        android:layout_height="@dimen/x25" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x1"
+                    android:background="@color/content_line"/>
+                <RelativeLayout
+                    android:id="@+id/layout1"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/x10"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/content_txt_"
+                        android:text="停工"
+                        android:textColor="@color/txt_viw"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/layout11"
+                        android:layout_width="@dimen/x25"
+                        android:button="@null"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/rpc_state_btn"
+                        android:layout_height="@dimen/x25" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x1"
+                    android:background="@color/content_line"/>
+                <RelativeLayout
+                    android:id="@+id/layout2"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/x10"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/content_txt_"
+                        android:text="复工"
+                        android:textColor="@color/txt_viw"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/layout22"
+                        android:layout_width="@dimen/x25"
+                        android:button="@null"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/rpc_state_btn"
+                        android:layout_height="@dimen/x25" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x1"
+                    android:background="@color/content_line"/>
+                <RelativeLayout
+                    android:id="@+id/layout3"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/x10"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/content_txt_"
+                        android:text="完工"
+                        android:textColor="@color/txt_viw"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:id="@+id/layout33"
+                        android:layout_width="@dimen/x25"
+                        android:button="@null"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/rpc_state_btn"
+                        android:layout_height="@dimen/x25" />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

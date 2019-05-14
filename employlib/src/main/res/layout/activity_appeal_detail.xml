@@ -8,12 +8,15 @@
     tools:context=".ui.activity.AppealDetailActivity">
 
     <include layout="@layout/titles_layout" />
-
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/par_lay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -122,10 +125,16 @@
                 app:layout_constraintStart_toStartOf="@+id/textView47"
                 app:layout_constraintTop_toBottomOf="@+id/textView47" />
 
-            <android.support.v7.widget.RecyclerView
+            <ImageView
                 android:id="@+id/recy_appeal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/x150"
+                android:layout_height="@dimen/x150"
+                android:adjustViewBounds="true"
+                android:paddingRight="@dimen/x15"
+                android:paddingLeft="@dimen/x15"
+                android:paddingBottom="@dimen/x15"
+                android:src="@drawable/ic_launcher"
+                android:layout_marginBottom="@dimen/x10"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -272,6 +281,6 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
-
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

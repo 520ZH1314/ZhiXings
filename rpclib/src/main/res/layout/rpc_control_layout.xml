@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/txt_viw"
+        android:textSize="@dimen/s18"
+        android:layout_margin="@dimen/x6"
+        android:textStyle="bold"
+        android:text="状态维护"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/content_line"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/content_line"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <include   layout="@layout/rpc_control_item" />
+            <LinearLayout
+                android:id="@+id/change_state"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x15"
+                android:layout_marginBottom="@dimen/x5"
+                android:padding="@dimen/x6"
+                android:background="@drawable/shape_qie_bg"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/txt_viw"
+                    android:text="切换状态"
+                    android:layout_marginRight="@dimen/x8"
+                     android:layout_marginLeft="@dimen/x8"
+                        android:textSize="@dimen/content_txt_"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/btna"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+</LinearLayout>

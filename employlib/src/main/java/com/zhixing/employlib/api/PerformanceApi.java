@@ -46,7 +46,7 @@ public interface PerformanceApi<T>  {
     public  static String  TEAMNAME="TeamName";
     public  static String  TEAMLEADERUSERID="TeamLeaderUserId";
  public  static String  ISFITIST="IsFitist";
-
+ public static String IMAGE_BASE_URL = "https://sale.stdlean.com:8004";
 
 
     //获取个人班组以及权限

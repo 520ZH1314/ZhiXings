@@ -20,7 +20,13 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.common.Common;
+import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.SharedUtils;
+import com.base.zhixing.www.inter.SetSelect;
+import com.base.zhixing.www.util.GsonUtil;
+import com.base.zhixing.www.view.Toasty;
+import com.base.zhixing.www.widget.CommonSetSelectPop;
+import com.google.gson.JsonObject;
 import com.leo618.zip.IZipCallback;
 import com.leo618.zip.ZipManager;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -33,6 +39,7 @@ import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.activity.LoginActivity;
 import com.shuben.zhixing.www.activity.NewMissionActivity;
 import com.shuben.zhixing.www.activity.NewNotificationActivity;
+import com.shuben.zhixing.www.activity.SettingComActivity;
 import com.shuben.zhixing.www.activity.SquareActivity;
 import com.shuben.zhixing.www.adapter.ViewPagerAdapter;
 import com.shuben.zhixing.module.andon.AndonActivity;
@@ -41,6 +48,7 @@ import com.shuben.zhixing.module.center_room.CenterRoomActivity;
 import com.base.zhixing.www.common.P;
 import com.shuben.zhixing.www.common.ARouterContants;
 import com.shuben.zhixing.www.common.T;
+import com.shuben.zhixing.www.data.UserData;
 import com.shuben.zhixing.www.fragment.adapter.FoucsAdapter;
 import com.shuben.zhixing.www.inspection.InspectionActivity;
 import com.base.zhixing.www.inter.ScreenSelect;
@@ -56,12 +64,11 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
 import com.base.zhixing.www.widget.CommonTips;
 import com.base.zhixing.www.widget.InGridView;
-import com.zhixing.employlib.ui.activity.PerformanceActivity;
-
+import com.shuben.zhixing.www.util.UpdateManager;
+import com.zhixing.tpmlib.activity.TpmActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -69,6 +76,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
+
 /**
  * Created by Administrator on 2017/8/21.智行力首页
  */
@@ -104,15 +112,16 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
     private ViewPagerAdapter adapter;
     private ScheduledExecutorService scheduledExecutorService;
     private InGridView foucs;
-
+    private  SharedUtils sharedUtils;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view_layout = inflater.inflate(R.layout.fragment01,container,false);
         context = getActivity();
-
+        sharedUtils = new SharedUtils(T.SET_F);
         init();
+        loadInfo();
         return view_layout;
     }
     private ArrayList< Map<String,Integer>> items = new ArrayList<Map<String, Integer>>();
@@ -126,6 +135,8 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         addItem(R.mipmap.andon_ico,R.string.frg_i6);
         addItem(R.mipmap.sy_task,R.string.frg_i7);
         addItem(R.mipmap.center_room_tag,R.string.frg_i9);
+        addItem(R.mipmap.sy_rpc,R.string.frg_i10);
+        addItem(R.mipmap.sy_empl,R.string.frg_i11);
         addItem(R.mipmap.sy_more,R.string.frg_i8);
     }
     private void addItem(int im,int txt){
@@ -140,6 +151,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         setStatus(-1);
         initItems();
        // load();
+        checkUpdate();
         foucsAdapter = new FoucsAdapter(getActivity(),items);
         foucs = view_layout.findViewById(R.id.foucs);
         foucs.setAdapter(foucsAdapter);
@@ -168,7 +180,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                         * @time   2018-12-21 11:30
                         * @describe  :  清除
                         */
-                      SharedUtils sharedUtils = new SharedUtils(T.SET_F);
+
                       sharedUtils.clear();
                       P.c("数据"+SharedPreferencesTool.getMStool(getActivity()).getIp());
                         Intent intent=new Intent();
@@ -206,7 +218,23 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         P.c("正在更新安灯模块");
         //解析就统一解析到模块的module文件夹下面
         String path = Common.SD+MOUDLE+"/"+MOUDLE+ur.substring(ur.lastIndexOf("."));
+        P.c(path+"地址");
+
+
+
+        File f = new File(path);
+        if(f.isFile()&&f.exists()){
+            boolean flag = f.delete();
+            P.c("删除情况"+flag);
+        }
         FileDownloader.getImpl().create(ur).setPath(path).setListener(new FileDownloadLargeFileListener() {
+
+            @Override
+            protected void started(BaseDownloadTask task) {
+                super.started(task);
+                P.c("文件更新。。。。。。。。。。。。。。。。。");
+            }
+
             @Override
             protected void pending(BaseDownloadTask task, long soFarBytes, long totalBytes) {
 
@@ -225,19 +253,19 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
             @Override
             protected void completed(BaseDownloadTask task) {
                P.c( task.getPath());
-
+                String taskPath = task.getPath();
 
 
                 try {
                     String dir = Common.SD+MOUDLE+"/MODULE/";
                     if(path.endsWith("zip")){
-
+                        FileUtils.deleteDir(new File(dir));
                         ZipManager.unzip(task.getPath(), dir, new IZipCallback() {
                             @Override
                             public void onStart() {
 
+                                P.c("删除资源文件");
                             }
-
                             @Override
                             public void onProgress(int percentDone) {
 
@@ -245,11 +273,16 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
                             @Override
                             public void onFinish(boolean success) {
-                                dismissDialog();
-                                sharedUtils.setStringValue("CurrentVersion",current);
-                                if(enterI!=null){
-                                    enterI.enter(MOUDLE);
+                                if(success){
+                                    dismissDialog();
+                                    sharedUtils.setStringValue("CurrentVersion",current);
+                                    if(enterI!=null){
+                                        enterI.enter(MOUDLE);
+                                    }
+                                }else {
+                                    Toasty.INSTANCE.showToast(getActivity(),"更新失败");
                                 }
+
                             }
                         });
                     }
@@ -292,12 +325,13 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 try {
                     if(jsonObject.getBoolean("status")){
                         String old = sharedUtils.getStringValue("CurrentVersion");
-                       JSONArray array = jsonObject.getJSONArray("rows");
-                       if(array.length()==0){
-                           return;
-                       }
-                       JSONObject object = array.getJSONObject(0);
-                      String current =  object.getString("CurrentVersion");
+                       JSONObject array = jsonObject.getJSONObject("rows");
+//                       if(array.length()==0){
+//                           Toasty.INSTANCE.showToast(getActivity(),"请联系管理员提交应用程序");
+//                           return;
+//                       }
+//                       JSONObject object = array.getJSONObject(0);
+                      String current =  array.getString("CurrentVersion");
                       File file = new File(Common.SD+MOUDLE+"/MODULE/index.html");
                       if(!old.equals(current)||!file.exists()){
                          CommonTips commonTips = new CommonTips(getActivity(),null);
@@ -311,7 +345,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                              @Override
                              public void sure() {
                                  try {
-                                     downRar(MOUDLE,SharedPreferencesTool.getMStool(getActivity()).getIp()+object.getString("AndroidURL"),current,enterI);
+                                     downRar(MOUDLE,SharedPreferencesTool.getMStool(getActivity()).getIp()+array.getString("AndroidURL"),current,enterI);
                                  } catch (JSONException e) {
                                      e.printStackTrace();
                                  }
@@ -327,6 +361,8 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                           }
                       }
 
+                    }else{
+                        Toasty.INSTANCE.showToast(getActivity(),"服务未部署");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -350,13 +386,13 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         String user= SharedPreferencesTool.getMStool(getActivity()).getPhone();
         String psw= SharedPreferencesTool.getMStool(getActivity()).getPassword();
         intent2.putExtra("file",Common.SD+MOUDLE+"/MODULE/index.html");
-       // intent2.putExtra("url",SharedPreferencesTool.getMStool(getActivity()).getString("AndonApp_config"));
-        P.c("地址"+intent2.getStringExtra("url"));
+//        intent2.putExtra("url","http://192.168.0.109:8081");
+//        P.c("地址"+intent2.getStringExtra("url"));
         String p0 =  SharedPreferencesTool.getMStool(getActivity()).getUserId();
         String p1 =  SharedPreferencesTool.getMStool(getActivity()).getUserCode();
         String p2 = "";
         String p3 = SharedPreferencesTool.getMStool(getActivity()).getTenantId();
-        SharedUtils sharedUtils = new SharedUtils(T.SET_F);
+
         String p4 =sharedUtils.getStringValue("factory_id");
         String p7 = sharedUtils.getStringValue("workshop_id");
         String p5 = sharedUtils.getStringValue("line_id");
@@ -369,12 +405,12 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 @Override
                 public void select(String id0[], String id1[], String id2[], String id3[]) {
                     String js = "javascript:loginInfoMsg("+params(p0)+","+params(p1)+","+params(p2)+","+params(p3)+","+params(id0[0])+","+params(id1[0])+","+params(id2[0])+","+params(id3[0])+","+params("-1")+")";
-                    intent2.putExtra("js",js);
+                    intent2.putExtra("init_value",js);
                     intent2.setClass(getActivity(), AndonActivity.class);
                     startActivity(intent2);
                 }
             });
-            andon.selectScreen(4);
+            andon.selectScreen(4,1);
             return;
         }
         //安灯
@@ -408,9 +444,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 break;
             case 1://任务交办
                 //showRefundDialogs("当前用户未开启任务交办功能");
-//                TpmSetting.getInstance(getActivity()).isSetting();
-                Intent intent =new Intent(getActivity(),PerformanceActivity.class);
-                startActivity(intent);
+             //   TpmSetting.getInstance(getActivity()).isSetting();
 
 //
 //                    Intent intent =new Intent(getActivity(),WorkMainActivity.class);
@@ -446,7 +480,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
             case 5://巡线管理
               //  showRefundDialogs("暂无开放");
                 Intent po=new Intent();
-                po.setClass(getActivity(), PatrolActivity.class);
+                po.setClass(getActivity(), TpmActivity.class);
                 startActivity(po);
 
                 break;
@@ -462,12 +496,40 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 ARouter.getInstance().build(ARouterContants.MassMainActivity).navigation();
                 //通讯
                 break;
-            case 8://更多
+            case 8:
                 Intent centerIntent = new Intent();
                 centerIntent.setClass(getActivity(),CenterRoomActivity.class);
                 startActivity(centerIntent);
-                break;
 
+                break;
+            case 9://更多
+                if(sharedUtils.getStringValue("factory_id").length()==0){
+                    CommonSetSelectPop setSelectPop = new CommonSetSelectPop(getActivity(),getHandler(),"工厂");
+                    setSelectPop.getSet().put("ApiCode", "GetFactoryList");
+                    setSelectPop.setMidH(true);
+                    setSelectPop.setSelect(new SetSelect() {
+                        @Override
+                        public void select(String id, String code, String name) {
+                            sharedUtils.setStringValue("factory_id",id);
+                            sharedUtils.setStringValue("factory_name",name);
+                            ARouter.getInstance().build(ARouterContants.RpcMainActivity).navigation();
+                        }
+                    });
+                    setSelectPop.showSheet();
+                    return;
+                }
+                ARouter.getInstance().build(ARouterContants.RpcMainActivity).navigation();
+
+
+
+                break;
+            case 10:
+                ARouter.getInstance().build(ARouterContants.PerformanceActivity).navigation();
+                break;
+            case 11:
+                Toasty.INSTANCE.showToast(getActivity(),"开发中");
+                //ARouter.getInstance().build(ARouterContants.PerformanceActivity).navigation();
+                break;
         }
     }
 
@@ -583,10 +645,40 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         } else {
 
             enqueueBannerLoopMessage();
-           // load();
+            loadInfo();
         }
     }
+    /**
+     * @author zjq
+     * create at 2018/12/20 下午4:33 网络请求
+     */
+    private void loadInfo() {
+        Map<String, String> params = new HashMap<>();
+        params.put("AppCode", "EPS");
+        params.put("ApiCode", "GetUserInfo");
+        params.put("UserId", SharedPreferencesTool.getMStool(getActivity()).getUserId());
 
+        httpPostVolley(SharedPreferencesTool.getMStool(getActivity()).getIp() + UrlUtil.GetUseInfo, params, new VolleyResult() {
+            @Override
+            public void success(JSONObject jsonObject) {
+                String json = jsonObject.toString();
+                //保存 json
+
+                UserData bean = GsonUtil.getGson().fromJson(json, UserData.class);
+
+                SharedPreferencesTool.getMStool(getActivity()).setString("head_ico",bean.getPhotoURL());
+                SharedPreferencesTool.getMStool(getActivity()).setString("DeptName",bean.getDeptName());
+            }
+
+            @Override
+            public void error(VolleyError error) {
+
+
+            }
+        }, false);
+
+
+    }
     @Override
     public void onPause() {
         super.onPause();
@@ -630,6 +722,11 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         richeng.setOnClickListener(this);
         fm_guangchang.setOnClickListener(this);
 
+    }
+    private void checkUpdate() {
+        UpdateManager updateManager=new UpdateManager(getActivity());
+//        String updateUrl="https://ilean.m3lean.com:2001/"+UrlUtil.UpdateUrl;
+        updateManager.checkUpdateInfo(null);
     }
     private String params(String params) {
         return "\'"+params+"\'";
@@ -743,4 +840,5 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
             }
         },false);
     }
+
 }

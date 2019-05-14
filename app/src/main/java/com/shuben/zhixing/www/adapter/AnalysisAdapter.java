@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.data.AnalysisDate;
 

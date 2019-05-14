@@ -111,25 +111,26 @@ public class NotificationUtils extends ContextWrapper {
     int NOTIFY = 1;
 
     public void sendNotification(String title, String content, Intent intent, int res, int index) {
+        NOTIFY++;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             createNotificationChannel();
             Notification.Builder builder = getChannelNotification
-                    (title, content, intent, res, index);
+                    (title, content, intent, res, NOTIFY);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//SDK版本大于等于21才有悬挂式通知栏
                 builder.setVisibility(Notification.VISIBILITY_PUBLIC);
             }
             Notification notification = builder.build();
-            getManager().notify(NOTIFY++, notification);
+            getManager().notify(NOTIFY, notification);
 
 
         } else {
-            NotificationCompat.Builder builder = getNotification_25(title, content, intent, res, index);
+            NotificationCompat.Builder builder = getNotification_25(title, content, intent, res, NOTIFY);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//SDK版本大于等于21才有悬挂式通知栏
                 builder.setVisibility(Notification.VISIBILITY_PUBLIC);
             }
             Notification notification = builder.build();
-            getManager().notify(NOTIFY++, notification);
+            getManager().notify(NOTIFY, notification);
 
 
 

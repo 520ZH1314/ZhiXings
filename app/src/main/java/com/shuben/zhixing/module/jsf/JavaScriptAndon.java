@@ -31,6 +31,7 @@ import com.base.zhixing.www.widget.ChangeTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
@@ -96,18 +97,18 @@ public class JavaScriptAndon {
 
     //--------安灯
 
-    public void loadJs( ){
-        P.c("执行"+commonView.getTag().toString());
+    public void loadJs(String str){
+        P.c("执行"+str);
         mContxt.runOnUiThread(() -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                commonView.evaluateJavascript(commonView.getTag().toString(), new ValueCallback<String>() {
+                commonView.evaluateJavascript(str, new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String s) {
                         P.c("return   "+s);
                     }
                 });
             }else{
-                commonView.loadUrl(commonView.getTag().toString());
+                commonView.loadUrl(str);
             }
         });
 
@@ -137,6 +138,7 @@ public class JavaScriptAndon {
      */
     @JavascriptInterface
     public String getAndroidUrl(){
+        P.c("返回给安灯"+SharedPreferencesTool.getMStool(mContxt).getIp());
         return  SharedPreferencesTool.getMStool(mContxt).getIp();
     }
 
@@ -145,9 +147,14 @@ public class JavaScriptAndon {
      */
     @JavascriptInterface
     public void MainInit(){
+        P.c("vue初始化");
+        loadJs(commonView.getTag().toString());
+       /* Observable.timer(400, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
+            @Override
+            public void accept(Long aLong) throws Exception {
 
-        loadJs();
-
+            }
+        });*/
     }
     /**
      * H5对android手机原生日历的调用
@@ -184,6 +191,14 @@ public class JavaScriptAndon {
     @JavascriptInterface
     public void backAndroid(){
 //        Toasty.INSTANCE.showToast(mContxt,"触发原生返回");
+     /*   mContxt.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                commonView.clearFormData();
+                commonView.clearCache(true);
+            }
+        });*/
+
         AppManager.getAppManager().finishActivity();
     }
     /**
@@ -224,6 +239,7 @@ public class JavaScriptAndon {
                         }
                         return null;
                     }
+
                 });
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -240,7 +256,8 @@ public class JavaScriptAndon {
     }
 
     @JavascriptInterface
-    public void selectScreen(int STEP){
+    public void selectScreen(int STEP,int save){
+
         SelectFac fac = new SelectFac(mContxt,handler,commonView);
         fac.setSaveInfo(isSave());
         if(screenSelect!=null){
@@ -253,7 +270,7 @@ public class JavaScriptAndon {
                 callBK(elements,result);
             }
         });
-        fac.selectScreen(STEP,0);
+        fac.selectScreen(STEP,save);
         if(true){
             return;
         }

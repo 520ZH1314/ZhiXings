@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/scrool_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/s18"
+                android:layout_margin="@dimen/x6"
+                android:textStyle="bold"
+                android:text="基本信息"/>
+
+            <RelativeLayout
+                android:id="@+id/layout5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="产品编码" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="客户" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item7_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="生产线体" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="计划数量" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="计划开工时间" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <RelativeLayout
+                android:id="@+id/item9_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="实际开工时间" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="计划完工时间" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="实际完工时间" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="停工时间" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="恢复时间" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <LinearLayout
+                android:id="@+id/edit_rp"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/s18"
+                android:layout_margin="@dimen/x6"
+                android:textStyle="bold"
+                android:text="数据统计"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="@dimen/x92">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:gravity="right|center_vertical"
+                                android:layout_alignParentRight="true"
+                                android:layout_toRightOf="@+id/item16_tip"
+                                android:layout_marginRight="10dp"
+                                android:focusableInTouchMode="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_height="match_parent">
+                                <TextView
+                                    android:id="@+id/item16_v"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:textColor="@color/txt_viw"
+                                    android:layout_gravity="right|center_vertical"
+                                    android:textSize="@dimen/list_txt_s"/>
+                                <View
+                                    android:layout_width="@dimen/x1"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="@dimen/x10"
+                                    android:background="@color/txt_bor"
+                                    android:layout_marginLeft="@dimen/x4"
+                                    android:layout_marginRight="@dimen/x4"
+                                    android:layout_marginBottom="@dimen/x10"/>
+                                <com.base.zhixing.www.widget.XEditText
+                                    android:id="@+id/item16_edit"
+                                    android:layout_width="wrap_content"
+                                    android:ems="6"
+                                    android:singleLine="true"
+                                    android:gravity="left|center_vertical"
+                                    android:background="@color/no_color"
+                                    android:hint="输入"
+                                    android:numeric="integer"
+                                    android:textSize="@dimen/list_txt_"
+                                    android:layout_height="match_parent" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/item16_tip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@null"
+                                android:textColor="@color/text_g"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/content_txt_"
+                                android:text="当前累计产出" />
+
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/x2"
+                            android:layout_marginBottom="@dimen/x2"
+                            android:layout_marginLeft="@dimen/x8"
+                            android:layout_marginRight="@dimen/x8"
+                            android:background="@color/content_line" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="0dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:gravity="right|center_vertical"
+                                android:layout_alignParentRight="true"
+                                android:layout_toRightOf="@+id/item17_tip"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:focusableInTouchMode="true"
+                                android:layout_height="match_parent">
+                                <TextView
+                                    android:id="@+id/item17_v"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/txt_viw"
+                                    android:layout_gravity="right|center_vertical"
+                                    android:textSize="@dimen/list_txt_s"/>
+                                <View
+                                    android:layout_width="@dimen/x1"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="@dimen/x10"
+                                    android:background="@color/txt_bor"
+                                    android:layout_marginLeft="@dimen/x4"
+                                    android:layout_marginRight="@dimen/x4"
+                                    android:layout_marginBottom="@dimen/x10"/>
+                                <com.base.zhixing.www.widget.XEditText
+                                    android:id="@+id/item17_edit"
+                                    android:layout_width="wrap_content"
+                                    android:ems="6"
+                                    android:singleLine="true"
+                                    android:background="@color/no_color"
+                                    android:hint="输入"
+                                    android:numeric="integer"
+                                    android:gravity="left|center_vertical"
+                                    android:textSize="@dimen/list_txt_"
+                                    android:layout_height="match_parent" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/item17_tip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@null"
+                                android:textColor="@color/text_g"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/content_txt_"
+                                android:text="不良累计数量" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/item16"
+                        android:layout_width="@dimen/x32"
+                        android:layout_height="@dimen/x26"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/x8"
+                        android:background="@drawable/selected_add"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/btn_org"
+                        android:textSize="@dimen/list_txt_s" />
+
+                </LinearLayout>
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/btn_org"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="不良率" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/btn_org"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+
+                <com.liulishuo.magicprogresswidget.MagicProgressBar
+                    android:id="@+id/item18_pro"
+                    android:layout_marginTop="@dimen/x8"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/x8"
+                    android:layout_toRightOf="@+id/item19_l"
+                    android:layout_toLeftOf="@+id/item19"
+                    android:layout_height="@dimen/x15"
+                    app:mpb_color="@color/zise"
+                    app:mpb_default_color="@color/txt_bor"/>
+
+                <TextView
+                    android:id="@+id/item19_l"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="当前进度" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/s18"
+                android:layout_margin="@dimen/x6"
+                android:textStyle="bold"
+                android:text="附加信息"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+
+
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item141"
+                    android:layout_width="@dimen/x28"
+                    android:layout_height="@dimen/x22"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="@dimen/x10"
+                    android:background="@drawable/selected_add"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/btn_org"
+                    android:textSize="@dimen/list_txt_s" />
+                <com.base.zhixing.www.widget.XEditText
+                    android:id="@+id/item14"
+                    android:layout_toLeftOf="@+id/item141"
+                    android:layout_marginRight="10dp"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/text_g"
+                    android:layout_width="wrap_content"
+                    android:ems="6"
+                    android:singleLine="true"
+                    android:background="@color/no_color"
+                    android:hint="输入单次计数"
+                    android:numeric="integer"
+                    android:textSize="@dimen/list_txt_s"
+                    android:layout_height="match_parent" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="单次计数" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+
+
+                android:layout_height="@dimen/x45">
+
+                <TextView
+                    android:id="@+id/item151"
+                    android:layout_width="@dimen/x28"
+                    android:layout_height="@dimen/x22"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_marginRight="@dimen/x10"
+                    android:background="@drawable/selected_add"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/btn_org"
+                    android:textSize="@dimen/list_txt_s" />
+
+                <com.base.zhixing.www.widget.XEditText
+                    android:id="@+id/item15"
+                    android:layout_toLeftOf="@+id/item151"
+                    android:layout_marginRight="10dp"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/text_g"
+                    android:layout_width="wrap_content"
+                    android:singleLine="true"
+                    android:background="@color/no_color"
+                    android:hint="输入UPH"
+                    android:numeric="integer"
+                    android:ems="6"
+                    android:textSize="@dimen/list_txt_s"
+                    android:layout_height="match_parent" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="UPPH" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

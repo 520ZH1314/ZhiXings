@@ -9,6 +9,7 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhixing.employlib.R;
+import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.ExcellentEmployeeEntity;
 import com.zhixing.employlib.model.NewEmployeeEntity;
 
@@ -19,7 +20,7 @@ public class NewEmployeeAdapt extends BaseQuickAdapter<NewEmployeeEntity,BaseVie
 
     public NewEmployeeAdapt(int layoutResId, @Nullable List<NewEmployeeEntity> data) {
         super(layoutResId, data);
-        ip = "https://sale.stdlean.com:8004";
+        ip = PerformanceApi.IMAGE_BASE_URL;
 
     }
 

@@ -29,3 +29,7 @@
             bindService(intent,connection,Context.BIND_AUTO_CREATE);
             unbindService(connection);//退出应用需要调用
         }
+
+
+    #
+    #将整个aidl文件复制到对应的模块下，包名和app主aidl服务保持一致，在对应的模块中使用见上方。

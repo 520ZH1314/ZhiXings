@@ -12,12 +12,11 @@
         android:layout_height="match_parent">
         <include layout="@layout/titles_layout"/>
         <ImageView
-            android:layout_marginTop="@dimen/x15"
-
+            android:layout_margin="@dimen/x20"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/std"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="@dimen/x138"
+            android:layout_height="@dimen/x54" />
         <TextView
             android:layout_marginTop="@dimen/x15"
             android:textColor="@color/gray"
@@ -133,7 +132,7 @@
        android:layout_marginBottom="@dimen/x30"
        android:layout_centerHorizontal="true"
        android:layout_alignParentBottom="true"
-       android:text=" @Copyright2018-2028深圳市数本科技有限公司"
+       android:text=" Copyright @ 2012-2019 深圳市数本科技开发有限公司"
        android:textColor="@color/gray"
        android:textSize="@dimen/content_txt_s"
        android:layout_width="wrap_content"

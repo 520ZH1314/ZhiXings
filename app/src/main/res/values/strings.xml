@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">智行力</string>
+    <string name="app_name">智慧精益</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -40,7 +40,9 @@
     <string name="frg_i4">巡检管理</string>
     <string name="frg_i5">巡线管理</string>
     <string name="frg_i6">安灯</string>
-    <string name="frg_i7">Mini-管理</string>
+    <string name="frg_i7">Mini-质量管理</string>
     <string name="frg_i8">更多</string>
     <string name="frg_i9">中控室</string>
+    <string name="frg_i10">RPC生产监控</string>
+    <string name="frg_i11">员工成长助手</string>
 </resources>

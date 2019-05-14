@@ -29,6 +29,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.base.zhixing.www.AppManager;
+import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
 import com.carl_yang.uplib.UpVersions;
@@ -102,11 +104,11 @@ public class UpdateManager {
 	       loadData();
 	    }  
 	      
-	      
-	    private void showNoticeDialog(){  
+
+	    private void showNoticeDialog(String txt,String isMust){
 	        Builder builder = new Builder(mContext);
 	        builder.setTitle("软件版本更新");  
-	        builder.setMessage(updateMsg);  
+	        builder.setMessage(txt.replaceAll("#","\n"));
 	        builder.setPositiveButton("下载", new OnClickListener() {           
 	            @Override  
 	            public void onClick(DialogInterface dialog, int which) {  
@@ -117,7 +119,7 @@ public class UpdateManager {
 								.getInstance()
 								.setTitle("提示")
 								.setContent("有新版本需要更新！")
-								.setDownloadUrl(SharedPreferencesTool.getMStool(mContext).getUpdateUrl())
+								.setDownloadUrl(UpdateManager.APK_UP+SharedPreferencesTool.getMStool(mContext).getUpdateUrl())
 								.downAndUpApp(mContext);
 					}else{
 						AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -134,7 +136,7 @@ public class UpdateManager {
 												.getInstance()
 												.setTitle("提示")
 												.setContent("有新版本需要更新！")
-												.setDownloadUrl(SharedPreferencesTool.getMStool(mContext).getUpdateUrl())
+												.setDownloadUrl(UpdateManager.APK_UP+SharedPreferencesTool.getMStool(mContext).getUpdateUrl())
 												.downAndUpApp(mContext);
 									}
 								}).setNegativeButton("拒绝", new DialogInterface.OnClickListener() {// 消极
@@ -154,11 +156,23 @@ public class UpdateManager {
 	        builder.setNegativeButton("以后再说", new OnClickListener() {             
 	            @Override  
 	            public void onClick(DialogInterface dialog, int which) {  
-	                dialog.dismiss();                 
+	                dialog.dismiss();
+	                if(isMust.equals("1")){
+						AppManager.getAppManager().finishAllActivity();
+					}
 	            }  
-	        });  
+	        });
+
 	        noticeDialog = builder.create();  
-	        noticeDialog.show();  
+	        noticeDialog.show();
+			noticeDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialogInterface) {
+					if(isMust.equals("1")){
+						AppManager.getAppManager().finishAllActivity();
+					}
+				}
+			});
 	    }  
 	      
 	    private void showDownloadDialog(){  
@@ -314,27 +328,30 @@ public class UpdateManager {
 	      
 	    }  
 	  //作业信息文件解析
-
+	public static String APK_UP ="http://ilean.m3lean.com:2001/";
 	private void loadData() {
 		RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("AppCode", "EPS");
-		params.put("ApiCode", "GetAppVersion");
+		params.put("ApiCode", "GetAppCodeVersion");
 		params.put("AppVerCode","Android");
+		P.c("请求"+APK_UP+UrlUtil.Url);
 		JsonObjectRequest newMissRequest = new JsonObjectRequest(
-				Request.Method.POST, SharedPreferencesTool.getMStool(mContext).getIp()+UrlUtil.Url,
+				Request.Method.POST, APK_UP+UrlUtil.Url,
 				new JSONObject(params), new Response.Listener<JSONObject>() {
 
 			@Override
-			public void onResponse(JSONObject jsonObject) {
-				Log.e("KKKK更新检测KKKK", " " + jsonObject.toString());
+			public void onResponse(JSONObject json) {
+				P.c("KKKK更新检测KKKK" + json.toString());
 				try {
-						int newVersion = jsonObject.getInt("CurrentVersion");
+						JSONObject jsonObject = json.getJSONObject("rows");
+						String newVersion = jsonObject.getString("CurrentVersion");
 						String apkUrl=jsonObject.getString("AndroidURL");
 						SharedPreferencesTool.getMStool(mContext).saveUpdateUrl(apkUrl);
-						if (newVersion >PackageUtils.getCurrVersion(mContext)) {
-							Toast.makeText(mContext,"Login"+PackageUtils.getCurrVersion(mContext),Toast.LENGTH_SHORT).show();
-							showNoticeDialog();
+						P.c(newVersion+"---->"+PackageUtils.getCurrVersion(mContext));
+						if (Double.parseDouble(newVersion) >PackageUtils.getCurrVersion(mContext)) {
+
+							showNoticeDialog(jsonObject.getString("Text"),jsonObject.getString("IsForce"));
 						}
 
 

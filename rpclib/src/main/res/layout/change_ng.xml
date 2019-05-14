@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/title_bg"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/clear"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/shape_set_n"
+                android:textSize="@dimen/p_txt_12"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="不良率报警阈值设置"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x200"
+                android:orientation="horizontal">
+
+
+                <library.NumberPickerView
+                    android:id="@+id/chang_ng"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="picker_hour"
+                    app:npv_HintText="%"
+                    app:npv_TextSizeHint="20sp"
+                    app:npv_ItemPaddingHorizontal="5dp"
+                    app:npv_ItemPaddingVertical="8dp"
+                    app:npv_RespondChangeInMainThread="false"
+
+                    app:npv_ShowCount="6"
+                    app:npv_TextArray="@array/ng_lis"
+                    app:npv_TextSizeNormal="20sp"
+                    app:npv_TextSizeSelected="22sp"
+                    app:npv_WrapSelectorWheel="true" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/content_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+                <TextView
+                    android:id="@+id/cancle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="取消"
+                    android:textColor="@color/txt_viw"
+                    android:textSize="@dimen/p_txt_i" />
+                <TextView
+                    android:id="@+id/sure"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="确定"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/p_txt_i" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

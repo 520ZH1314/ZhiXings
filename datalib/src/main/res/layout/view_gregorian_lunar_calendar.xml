@@ -9,7 +9,7 @@
         android:layout_weight="1.5"
         android:contentDescription="year_picker"
         app:npv_AlternativeTextArrayWithoutMeasureHint="@array/npv_lunar_year_without_measure_hint"
-        app:npv_HintText="@string/year"
+
         app:npv_RespondChangeOnDetached="false"
         app:npv_TextSizeHint="11dp" />
 <!--  app:npv_HintText="@string/month"-->
@@ -21,10 +21,8 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_weight="1"
-        app:npv_HintText="@string/month"
         android:contentDescription="month_picker"
         app:npv_AlternativeTextArrayWithoutMeasureHint="@array/npv_lunar_month_without_measure_hint"
-
         app:npv_RespondChangeOnDetached="false"
         app:npv_TextSizeHint="11dp" />
 <!-- app:npv_AlternativeHint="@string/day"-->
@@ -33,7 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:npv_HintText="@string/day"
+
         android:contentDescription="day_picker"
         app:npv_RespondChangeOnDetached="false"
         app:npv_TextSizeHint="11dp" />

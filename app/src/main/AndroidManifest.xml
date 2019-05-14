@@ -36,9 +36,11 @@
         <receiver android:name="com.shuben.zhixing.module.andon.AndonRecive">
             <intent-filter>
                 <action android:name="com.shuben.zhixing.andon" />
+                <action android:name="android.intent.action.SCREEN_ON"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
             </intent-filter>
         </receiver>
-
+        <service android:name=".service.VoiceService"/>
         <service android:name=".service.TraceServiceImpl" />
         <service android:name=".service.ZPush"
             android:exported="true"
@@ -47,6 +49,11 @@
                 <action android:name="com.shuben.aidl.push" />
             </intent-filter>
         </service>
+        <activity android:name=".fragment.ScanLoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name="com.shuben.zhixing.module.mess.ScanMessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -186,6 +193,7 @@
         <activity
             android:name="com.shuben.zhixing.module.andon.AndonActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.shuben.zhixing.module.mess.MessActivity"

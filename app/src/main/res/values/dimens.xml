@@ -30,4 +30,6 @@
     <dimen name="s15">15sp</dimen>
     <dimen name="s16">16sp</dimen>
     <dimen name="s18">18sp</dimen>
+
+    <dimen name="s28">28sp</dimen>
 </resources>

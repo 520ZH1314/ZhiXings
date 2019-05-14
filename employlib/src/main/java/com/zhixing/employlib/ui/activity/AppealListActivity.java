@@ -94,7 +94,8 @@ public class AppealListActivity extends BaseActvity {
         appealPersonViewModel.getAppealList(map).observe(this, new Observer<List<AppealList>>() {
             @Override
             public void onChanged(@Nullable List<AppealList> appealLists) {
-                appealListAdapt=new AppealListAdapt(R.layout.item_appeal_list,appealLists) ;
+                boolean isLeader = sharedUtils.getBooleanValue(PerformanceApi.ISTEAMLEADER);
+                appealListAdapt=new AppealListAdapt(R.layout.item_appeal_list,appealLists,isLeader) ;
                 recyMyappeal.setAdapter(appealListAdapt);
                 appealListAdapt.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
@@ -102,6 +103,7 @@ public class AppealListActivity extends BaseActvity {
 //                        startActivity(AppealDetailActivity.class);
                         Intent intent1 = new Intent(AppealListActivity.this,AppealDetailActivity.class);
                         intent1.putExtra("obj",appealLists.get(position));
+                        intent1.putExtra("isLeader",isLeader);
                         startActivity(intent1);
                     }
                 });

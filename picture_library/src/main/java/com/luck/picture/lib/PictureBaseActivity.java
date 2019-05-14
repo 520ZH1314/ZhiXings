@@ -124,7 +124,7 @@ public class PictureBaseActivity extends FragmentActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+//        super.onSaveInstanceState(outState);
         outState.putString(PictureConfig.BUNDLE_CAMERA_PATH, cameraPath);
         outState.putString(PictureConfig.BUNDLE_ORIGINAL_PATH, originalPath);
         outState.putParcelable(PictureConfig.EXTRA_CONFIG, config);

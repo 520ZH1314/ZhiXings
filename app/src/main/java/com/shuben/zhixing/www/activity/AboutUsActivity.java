@@ -35,19 +35,15 @@ public class AboutUsActivity extends BaseActvity {
     TextView tvWorkSend;
     @BindView(R.id.rl_new_version)
     RelativeLayout rlNewVersion;
-
     @BindView(R.id.rl_check_new_version)
     RelativeLayout rlCheckNewVersion;
-
     @Override
     public int getLayoutId() {
-
         return R.layout.activity_about_us;
     }
-
-
     @Override
     public void process(Message msg) {
+
 
     }
 
@@ -72,8 +68,8 @@ public class AboutUsActivity extends BaseActvity {
                 break;
             case R.id.rl_check_new_version:
                 UpdateManager updateManager=new UpdateManager(this);
-                String updateUrl=SharedPreferencesTool.getMStool(this).getIp()+UrlUtil.UpdateUrl;
-                updateManager.checkUpdateInfo(updateUrl);
+//                String updateUrl=SharedPreferencesTool.getMStool(this).getIp()+UrlUtil.UpdateUrl;
+                updateManager.checkUpdateInfo(null);
                 break;
         }
     }

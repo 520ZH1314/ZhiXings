@@ -21,7 +21,7 @@ if (hasProperty("publishAar")) {
 }
  dependencies{
 
-     implementation 'com.google.zxing:core:3.3.3'
+     implementation 'com.google.zxing:core:3.3.0'
      implementation "com.alibaba:arouter-api:$arouter_api"
      annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
 

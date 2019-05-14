@@ -112,7 +112,7 @@ public class TeamRepertory {
     
     public MutableLiveData<BaseResponse<UpLoadBean>> UpLoadImage(Map<String, String> map, File flie){
         MyBaseRepository myBaseRepository =new MyBaseRepository<UpLoadBean>(mContext);
-        String  ip = "https://sale.stdlean.com:8004";
+        String  ip = PerformanceApi.IMAGE_BASE_URL;
         return myBaseRepository.request(APi.UpLoadImage(map,flie, mContext, ip)).send().get();
     }
 

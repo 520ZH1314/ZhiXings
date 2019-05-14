@@ -38,6 +38,15 @@ public class AppealList implements Serializable {
     private String HandleTime;
     private String HandleOpinion;
     private String TenantId;
+    private String FilePath;
+
+    public String getFilePath() {
+        return FilePath;
+    }
+
+    public void setFilePath(String filePath) {
+        FilePath = filePath;
+    }
 
     public String getKeyDate() {
         return KeyDate;

@@ -89,7 +89,7 @@
 
                                 <com.base.zhixing.www.widget.CircularImage
                                     android:id="@+id/image_head"
-                                    android:layout_width="@dimen/x45"
+                                    android:layout_width="41dp"
                                     android:layout_height="@dimen/x45"
                                     android:layout_gravity="center" />
                             </FrameLayout>

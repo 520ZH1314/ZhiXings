@@ -316,9 +316,9 @@ public class FileUtils {
 			BufferedWriter out = new BufferedWriter(new FileWriter(logPath+realName,
 					true));
 			try {
-				out.write(tag+"-----"+TimeUtil.getTime(System.currentTimeMillis())+"<br>");
+				out.write(tag+"-----"+TimeUtil.getTime(System.currentTimeMillis())+"\n");
 				out.write(text);
-				out.write("<br>");
+				out.write("\n");
 			} finally {
 				out.close();
 			}

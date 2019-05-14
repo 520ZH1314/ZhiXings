@@ -10,6 +10,7 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhixing.employlib.R;
+import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.model.BetterTeamEmployeeEntity;
 import com.zhixing.employlib.model.ExcellentEmployeeEntity;
 
@@ -20,7 +21,7 @@ public class BetterTeamEmployeeAdapt extends BaseQuickAdapter<BetterTeamEmployee
 
     public BetterTeamEmployeeAdapt(int layoutResId, @Nullable List<BetterTeamEmployeeEntity> data) {
         super(layoutResId, data);
-        ip = "https://sale.stdlean.com:8004";
+        ip = PerformanceApi.IMAGE_BASE_URL;
     }
 
     @Override
