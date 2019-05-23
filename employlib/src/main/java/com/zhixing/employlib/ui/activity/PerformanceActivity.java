@@ -2,7 +2,10 @@ package com.zhixing.employlib.ui.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Bundle;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.text.TextPaint;
@@ -12,11 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.BaseFragment;
+import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.view.Toasty;
 import com.example.stateviewlibrary.Shimmer;
@@ -42,7 +48,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -66,7 +74,10 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
     private Shimmer shimmer;
     private int positions;
     private StateView mStateView;
-
+    @Autowired (name ="permission")
+    String permissions;
+    @Autowired(name ="test")
+    Bundle buddle;
     @Override
     public int getLayoutId() {
         return R.layout.activity_person_performance;
@@ -79,9 +90,36 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
 
     }
 
+    /**
+     * 获得模块权限
+     * parent 来自于activity传递的permission
+     * //map 替换成buddle  提高一定的效率
+     */
+    private Bundle getModuleQxs(String parent){
+        Uri uri = Uri.parse("content://com.zhixing.provider/permission/"+parent);//这么使用
+        //在插入之前先清空表数据
+        Cursor cursor = getContentResolver().query(uri,null,null,new String[]{parent},null);
+        P.c("是否为空"+cursor.getCount());
+
+        Bundle bundle =new Bundle();
+        if( cursor.moveToFirst()){
+            do{
+                String key = cursor.getString(cursor.getColumnIndex("permissionCode"));
+                P.c(key+"子模块");
+                bundle.putString(key,"");
+            }while (cursor.moveToNext());
+
+        }
+        return bundle;
+    }
+
     RelativeLayout relativeLayout;
     @Override
     public void initLayout() {
+        ARouter.getInstance().inject(this);
+        P.c(buddle.size()+"开始。。。"+permissions);
+
+//        P.c(permissions.maps.size()+"~~223");
 
         performanceMainViewModel = ViewModelProviders.of(this).get(PerformanceMainViewModel.class);
 
