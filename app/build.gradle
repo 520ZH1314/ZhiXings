@@ -44,21 +44,21 @@ android {
         abortOnError false
     }
 
-    /* splits {
+   /*  splits {
         abi {
             enable true
             reset()
             include 'x86', 'armeabi-v7a','x86_64'
             universalApk false
         }
-    }*/
-
+    }
+*/
     defaultConfig {
         applicationId "com.shuben.zhixing.www"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 16
-        versionName "v2.4.2.${releaseTime()}_beta"
+        versionCode 18
+        versionName "v2.4.4.${releaseTime()}_beta"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         javaCompileOptions {
@@ -113,7 +113,7 @@ android {
                             'src/main/res/layouts/andon',
                             'src/main/res/layouts/mess',
                             'src/main/res/layouts/mass',
-                            'src/main/res/layouts/schedule',
+                            'src/main/res/layouts/mess_scan',
                             'src/main/res/layouts/setting',
                             'src/main/res/layouts/center_room',
                             'src/main/res/layouts/stand',

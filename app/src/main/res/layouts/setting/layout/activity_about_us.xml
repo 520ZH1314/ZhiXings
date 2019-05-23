@@ -21,8 +21,8 @@
             android:layout_marginTop="@dimen/x15"
             android:textColor="@color/gray"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/title_center_size"
-            android:text="数本科技V2.0.0"
+            android:textSize="@dimen/s12"
+            android:text="深圳市数本科技开发有限公司版权所有"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -31,9 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
 
-            android:text="已通过ISO8001信息安全认证  "
+            android:text="Copyright \u00a9 2012-2019 STD. All right reserved️"
             android:textColor="@color/gray02"
-            android:textSize="@dimen/content_txt_" />
+            android:textSize="@dimen/s12" />
         <RelativeLayout
             android:layout_marginTop="@dimen/x15"
             android:background="@color/white"

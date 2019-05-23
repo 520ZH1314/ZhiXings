@@ -12,7 +12,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.view.Toasty;
 import com.shuben.zhixing.www.fragment.Fragment01;
 import com.shuben.zhixing.www.fragment.Fragment02;
 import com.shuben.zhixing.www.fragment.Fragment03;
@@ -21,6 +23,7 @@ import com.shuben.zhixing.www.util.LTBAlertDialog;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class NavigationActivity extends BaseActvity implements View.OnClickListener {
 
@@ -178,11 +181,9 @@ public class NavigationActivity extends BaseActvity implements View.OnClickListe
 
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-          /*  if (isExit == 0) {
-
-                Toast.makeText(NavigationActivity.this, "再点一下退出....", Toast.LENGTH_SHORT).show();
-                Log.e("Text","11111111111111111111111111111111111111");
-
+            if (isExit == 0) {
+                Toasty.INSTANCE.showToast(NavigationActivity.this,"再点一下退出");
+                //再点一下退出
                 mTimer = new Timer();
                 mTimer.schedule(new TimerTask() {
 					@Override
@@ -190,13 +191,12 @@ public class NavigationActivity extends BaseActvity implements View.OnClickListe
 						isExit = 0;
 					}
 				}, 2000);
-
                 isExit++;
             } else if (isExit == 1) {
 //                mStool.savePassword("");
-                ActivityCollector.finishAll();
-            }*/
-
+//                ActivityCollector.finishAll();
+                AppManager.getAppManager().finishAllActivity();
+            }
         }
         return false;
     }

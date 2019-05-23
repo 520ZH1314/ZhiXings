@@ -36,13 +36,14 @@
     <string name="frg_i0">紧急催单</string>
     <string name="frg_i1">任务交办</string>
     <string name="frg_i2">高效会议</string>
-    <string name="frg_i3">Mini-MES</string>
+    <string name="frg_i3">SMES-S</string>
     <string name="frg_i4">巡检管理</string>
-    <string name="frg_i5">巡线管理</string>
+    <string name="frg_i5">TPM</string>
     <string name="frg_i6">安灯</string>
-    <string name="frg_i7">Mini-质量管理</string>
+    <string name="frg_i7">质量管理</string>
     <string name="frg_i8">更多</string>
     <string name="frg_i9">中控室</string>
     <string name="frg_i10">RPC生产监控</string>
     <string name="frg_i11">员工成长助手</string>
+    <string name="frg_ix">测试扫码</string>
 </resources>

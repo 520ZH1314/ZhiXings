@@ -1,4 +1,4 @@
-package com.shuben.zhixing.module.mess;
+package com.shuben.zhixing.module.mess_scan;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +15,10 @@ import cn.bingoogolapple.qrcode.core.BarcodeType;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
-public class ScanMessActivity extends BaseActvity {
+public class MessScanView extends BaseActvity {
     @Override
     public int getLayoutId() {
-        return R.layout.scan_mess_layout;
+        return R.layout.mess_scan_layout;
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.base.zhixing.www.util.SelectFac;
 import com.base.zhixing.www.widget.CommonSetSelectPop;
 import com.sdk.chat.ChatSdk;
 import com.shuben.zhixing.module.mess.ScanMessActivity;
+import com.shuben.zhixing.module.mess_scan.MessScanView;
 import com.shuben.zhixing.www.common.T;
 import com.base.zhixing.www.inter.ScreenSelect;
 import com.base.zhixing.www.inter.SelectTime;
@@ -46,6 +47,23 @@ public class JavaScriptAndon {
         this.commonView = commonView;
         sharedUtils = new SharedUtils(T.SET_F);
     }
+    //mess-scan部分
+
+    /**
+     * 扫码显示标题栏
+     * @param title
+     */
+    @JavascriptInterface
+    public void showScanCode(String title){
+        final StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        Intent intent = new Intent(mContxt, MessScanView.class);
+        intent.putExtra("type",0);
+        intent.putExtra("elements",elements);
+        intent.putExtra("title",title);
+        mContxt.startActivityForResult(intent,0);
+    }
+
+
     //------Mini mess
 
     /**

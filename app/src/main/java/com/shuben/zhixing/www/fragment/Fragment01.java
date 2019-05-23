@@ -1,6 +1,7 @@
 package com.shuben.zhixing.www.fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import com.base.zhixing.www.common.Common;
 import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.SetSelect;
+import com.base.zhixing.www.provider.PermissionEntry;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.CommonSetSelectPop;
@@ -35,6 +37,7 @@ import com.liulishuo.filedownloader.FileDownloader;
 import com.sdk.chat.ChatSdk;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.module.mess.MessActivity;
+import com.shuben.zhixing.module.mess_scan.MessScanActivity;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.activity.LoginActivity;
 import com.shuben.zhixing.www.activity.NewMissionActivity;
@@ -120,35 +123,73 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         view_layout = inflater.inflate(R.layout.fragment01,container,false);
         context = getActivity();
         sharedUtils = new SharedUtils(T.SET_F);
-        init();
-        loadInfo();
+        setStatus(-1);
+        getAllQx();
+
+
         return view_layout;
     }
-    private ArrayList< Map<String,Integer>> items = new ArrayList<Map<String, Integer>>();
+    private ArrayList< Map<String,Object>> items = new ArrayList<Map<String, Object>>();
+//    private String enmes[] = new String[]{};
+    private final String NOT_QX = "#";
+    /**
+     * 注意:“#”代表不受控
+     */
     private void initItems(){
-        addItem(R.mipmap.sy_cuidan,R.string.frg_i0);
-        addItem(R.mipmap.sy_task,R.string.frg_i1);
-        addItem(R.mipmap.sy_gxmeeting,R.string.frg_i2);
-        addItem(R.mipmap.sy_bad,R.string.frg_i3);
-        addItem(R.mipmap.sy_ecn,R.string.frg_i4);
-        addItem(R.mipmap.rolling_mrb,R.string.frg_i5);
-        addItem(R.mipmap.andon_ico,R.string.frg_i6);
-        addItem(R.mipmap.sy_task,R.string.frg_i7);
-        addItem(R.mipmap.center_room_tag,R.string.frg_i9);
-        addItem(R.mipmap.sy_rpc,R.string.frg_i10);
-        addItem(R.mipmap.sy_empl,R.string.frg_i11);
-        addItem(R.mipmap.sy_more,R.string.frg_i8);
+        addItem(R.mipmap.sy_cuidan,R.string.frg_i0,"JJCD");
+        addItem(R.mipmap.sy_task,R.string.frg_i1,"RWJB");
+        addItem(R.mipmap.sy_gxmeeting,R.string.frg_i2,"GXHY");
+        addItem(R.mipmap.sy_bad,R.string.frg_i3,"SMES-S");
+        addItem(R.mipmap.sy_ecn,R.string.frg_i4,"");
+        addItem(R.mipmap.rolling_mrb,R.string.frg_i5,"TPM");
+        addItem(R.mipmap.andon_ico,R.string.frg_i6,"ANDON");
+        addItem(R.mipmap.sy_task,R.string.frg_i7,"QMS");
+        addItem(R.mipmap.center_room_tag,R.string.frg_i9,"ZKS");
+        addItem(R.mipmap.sy_rpc,R.string.frg_i10,"RPC");
+        addItem(R.mipmap.sy_empl,R.string.frg_i11,"YGJX");
+        addItem(R.mipmap.sy_more,R.string.frg_i8,"MORE");
+        addItem(R.mipmap.sy_more,R.string.frg_ix,NOT_QX);
     }
-    private void addItem(int im,int txt){
-        Map<String,Integer> ms = new HashMap<>();
+    //给应用模块增加TAG
+    private void addItem(int im,int txt,String TAG){
+        Map<String,Object> ms = new HashMap<>();
         ms.put("img",im);
         ms.put("txt",txt);
-        items.add(ms);
+        ms.put("tag",im);
+
+        //保证都是一样的，不区分大小写
+        if(qxMaps.containsKey(TAG.toUpperCase())||TAG.equals(NOT_QX)){
+            ms.put("qx",qxMaps.get(TAG.toUpperCase()));
+            items.add(ms);
+        }
+
+    }
+    private Map<String,String> qxMaps = new HashMap<>();
+    private void getAllQx(){
+        //获得权限
+        Uri uri = Uri.parse("content://com.zhixing.provider/permission/products");//这么使用
+        //在插入之前先清空表数据
+        Cursor cursor = getActivity().getContentResolver().query(uri,null,null,null,null);
+        P.c(cursor.getCount()+"=="+cursor.isFirst()+"=="+cursor.isLast());
+        qxMaps.clear();
+       if( cursor.moveToFirst()){
+           do{
+               String key = cursor.getString(cursor.getColumnIndex("permissionCode"));
+                qxMaps.put(key.toUpperCase(),key);
+           }while (cursor.moveToNext());
+           getHandler().sendEmptyMessage(2);
+       }
+
+
     }
     private FoucsAdapter foucsAdapter;
+
     //id初始化
     private void init() {
-        setStatus(-1);
+
+
+
+
         initItems();
        // load();
         checkUpdate();
@@ -206,7 +247,11 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         foucs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                clickItem(i);
+                //这里使用每个都是不一样的图标
+                int param0 = ((Integer) items.get(i).get("tag")).intValue();
+                String params1 = items.get(i).get("qx").toString();
+                P.c("模块是"+params1);
+                clickItem(param0,params1);
             }
         });
         setOnclick();
@@ -422,9 +467,14 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
     }
 
-    private void clickItem(int p){
+
+
+    private void clickItem(int p,String p1){
+
+
+
         switch (p){
-            case 0://紧急催单
+            case R.mipmap.sy_cuidan://紧急催单
 
                 //实例化SelectPicPopupWindow
                 menuWindow = new SelectPicPopupWindow(getActivity(), itemsOnClick);
@@ -432,7 +482,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 menuWindow.showAtLocation(getActivity().findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
 
                 break;
-            case 6:
+            case R.mipmap.andon_ico:
                 downModule(T.ANDON, new EnterI() {
                     @Override
                     public void enter(String moudle) {
@@ -442,7 +492,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
 
                 break;
-            case 1://任务交办
+            case 2://任务交办
                 //showRefundDialogs("当前用户未开启任务交办功能");
              //   TpmSetting.getInstance(getActivity()).isSetting();
 
@@ -452,11 +502,11 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
                 break;
 
-            case 2://高效会议
+            case R.mipmap.sy_gxmeeting://高效会议
                 showRefundDialogs("当前用户未开启高效会议功能");
                 break;
 
-            case 3://80管理
+            case R.mipmap.sy_bad://80管理
                 //showRefundDialogs("暂无开放");
                /* Intent intent1=new Intent();
                 intent1.setClass(getActivity(), MessActivity.class);
@@ -470,21 +520,21 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 });
                 break;
 
-            case 4://巡检
+            case R.mipmap.sy_ecn://巡检
                 //showRefundDialogs("当前用户未开启巡检功能");
                 Intent mini=new Intent();
                 mini.setClass(getActivity(), InspectionActivity.class);
                 startActivity(mini);
                 break;
 
-            case 5://巡线管理
+            case R.mipmap.rolling_mrb://巡线管理
               //  showRefundDialogs("暂无开放");
                 Intent po=new Intent();
                 po.setClass(getActivity(), TpmActivity.class);
                 startActivity(po);
 
                 break;
-            case 7:
+            case R.mipmap.sy_task:
                /* Intent personIntent = new Intent();
                 personIntent.setClass(getActivity(),MassMainActivity.class);
                 startActivity(personIntent);*/
@@ -496,13 +546,13 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 ARouter.getInstance().build(ARouterContants.MassMainActivity).navigation();
                 //通讯
                 break;
-            case 8:
+            case R.mipmap.center_room_tag:
                 Intent centerIntent = new Intent();
                 centerIntent.setClass(getActivity(),CenterRoomActivity.class);
                 startActivity(centerIntent);
 
                 break;
-            case 9://更多
+            case R.mipmap.sy_rpc://更多
                 if(sharedUtils.getStringValue("factory_id").length()==0){
                     CommonSetSelectPop setSelectPop = new CommonSetSelectPop(getActivity(),getHandler(),"工厂");
                     setSelectPop.getSet().put("ApiCode", "GetFactoryList");
@@ -523,12 +573,23 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
 
                 break;
-            case 10:
-                ARouter.getInstance().build(ARouterContants.PerformanceActivity).navigation();
+            case R.mipmap.sy_empl:
+                ARouter.getInstance().build(ARouterContants.PerformanceActivity).withString("permission",p1).withBundle("test", new Bundle()).navigation();
                 break;
             case 11:
                 Toasty.INSTANCE.showToast(getActivity(),"开发中");
                 //ARouter.getInstance().build(ARouterContants.PerformanceActivity).navigation();
+                break;
+            case R.mipmap.sy_more:
+                /**
+                 * @author cloor
+                 * @time 2019-5-6 16:33
+                 * @describe  :
+                 */
+                //ARouter.getInstance().build(ARouterContants.MassMainActivity).navigation();
+                Intent intent2=new Intent(getActivity(), MessScanActivity.class);
+                intent2.putExtra("url","http://192.168.31.168:8848/SMT/view/code.html");
+                startActivity(intent2);
                 break;
         }
     }
@@ -687,7 +748,12 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
     @Override
     public void process(Message msg) {
-
+            switch (msg.what){
+                case 2:
+                    init();
+                    loadInfo();
+                    break;
+            }
     }
 
     private class ViewPageTask implements Runnable{

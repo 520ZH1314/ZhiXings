@@ -62,6 +62,16 @@
             android:name="com.shuben.zhixing.module.mess.MessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.shuben.zhixing.module.mess_scan.MessScanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.shuben.zhixing.module.mess_scan.MessScanView"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -96,7 +106,12 @@
             android:name="com.shuben.zhixing.module.center_room.CenterRoomActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-
+        <!--提供给第三方和自己使用的contentprovider-->
+        <provider
+            android:authorities="com.zhixing.provider"
+            android:name="com.shuben.zhixing.provider.PermissionProvider"
+            android:enabled="true"
+            android:exported="true"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.FileProvider"

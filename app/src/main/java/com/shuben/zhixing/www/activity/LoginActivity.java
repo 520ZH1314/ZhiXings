@@ -3,11 +3,13 @@ import android.Manifest;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
@@ -30,10 +32,14 @@ import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
+import com.base.zhixing.www.widget.XEditText;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.shape.DevShape;
 import com.sdk.chat.server.SdkConfig;
 import com.shuben.common.IPush;
+import com.shuben.zhixing.provider.PermissionBean;
 import com.shuben.zhixing.www.BaseApplication;
 import com.shuben.zhixing.www.NavigationActivity;
 import com.shuben.zhixing.www.R;
@@ -48,6 +54,7 @@ import com.xdandroid.hellodaemon.IntentWrapper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,8 +75,8 @@ import java.util.regex.Pattern;
 public class LoginActivity extends BaseActvity implements View.OnClickListener{
     private TextView login_login,login_forgetpwd,tx_Ver;
     private String  PHONE,pwd,IP;
-    private EditText login_pwd_et,http_pwd_et;
-    private EditText login_phone_et;
+    private XEditText login_pwd_et,http_pwd_et;
+    private XEditText login_phone_et;
     private CustomToast customToast;
     private ArrayAdapter<String> arrayAdapter;
     private List<String> list=new ArrayList<String>();
@@ -86,7 +93,7 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
 
 
-
+        
       /*  File file = new File("/storage/emulated/0/UpApkPath/shuben_updata.apk");
         AppInstall.openFile(LoginActivity.this, file);*/
         P.c("登录凌乱了");
@@ -133,7 +140,12 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         }
         return false;
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        http_pwd_et.setTextEx(SharedPreferencesTool.getMStool(LoginActivity.this).getIp());
+    }
     private void startKeep(){
 
       /*  if(!isServiceRunning(TraceServiceImpl.class.getName())){
@@ -143,16 +155,31 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
             IntentWrapper.whiteListMatters(this, "智行力消息服务的持续运行");
             SharedPreferencesTool.getMStool(LoginActivity.this).setString("isWrap","1");
         }
-
     }
     @Override
     public void process(Message msg) {
-
+            switch (msg.what){
+                case 1:
+                    Uri uri = Uri.parse("content://com.zhixing.provider/permission");//这么使用
+                    //在插入之前先清空表数据
+                    getContentResolver().delete(uri,null,null);
+                    for(int i=0;i<permissionBeans.size();i++){
+                        PermissionBean pb = permissionBeans.get(i);
+                        ContentValues values = new ContentValues();
+                        values.put("appCode",pb.getAppCode());
+                        values.put("permissionCode",pb.getPermissionCode());
+                        values.put("permissionRemark",pb.getPermissionName());
+                        values.put("parentCode",pb.getParentCode());
+                        values.put("seq",pb.getSeq());
+                        getContentResolver().insert(uri,values);
+                    }
+                    enterMainCon();
+                    break;
+            }
     }
 
     @Override
     public void initLayout() {
-
         customToast = new CustomToast(this);
         ActivityCompat.requestPermissions(LoginActivity.this,new String []{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE},1);
         init();
@@ -182,6 +209,9 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         updateManager.checkUpdateInfo(updateUrl);
     }
 
+
+
+    private List<PermissionBean> permissionBeans;
     private void initData() {
 
         //  RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
@@ -236,10 +266,24 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                         startServiceKeep();
 
 
-                        Intent intent=new Intent();
-                        intent.setClass(LoginActivity.this , NavigationActivity.class);
-                        startActivity(intent);
-                        AppManager.getAppManager().finishActivity();
+                            if(jsonObject.has("funcData")){
+                                //保证不出错
+                                JSONArray jsonArray = jsonObject.getJSONArray("funcData");
+                                Gson gson = new Gson();
+//                                hourBeans =  gson.fromJson(jsonObject.getJSONArray("rows").toString(),new TypeToken<List<HourBean>>(){}.getType());
+                                if(permissionBeans!=null){
+                                    permissionBeans.clear();
+                                }
+                                permissionBeans = gson.fromJson(jsonArray.toString(),new TypeToken<List<PermissionBean>>(){}.getType());
+                                getHandler().sendEmptyMessage(1);
+                            }else{
+                              enterMainCon();
+                            }
+
+
+
+
+
                     }else{
                         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
@@ -286,6 +330,13 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         // dialog.show();
         //   requestQueue.add(newMissRequest);
     }
+    private void enterMainCon(){
+        Intent intent=new Intent();
+        intent.setClass(LoginActivity.this , NavigationActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishActivity();
+    }
+
     //启动保活服务
     public void startServiceKeep(){
         DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
@@ -331,9 +382,9 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                 .into(login_login);
 
 
-        login_phone_et = (EditText) findViewById(R.id.et_login_ip2);//手机号码输入框
-        login_pwd_et = (EditText) findViewById(R.id.et_login_ip3);//密码输入
-        http_pwd_et = (EditText) findViewById(R.id.et_login_ip);//IP地址
+        login_phone_et =  findViewById(R.id.et_login_ip2);//手机号码输入框
+        login_pwd_et =  findViewById(R.id.et_login_ip3);//密码输入
+        http_pwd_et =  findViewById(R.id.et_login_ip);//IP地址
         login_phone_et.setText(SharedPreferencesTool.getMStool(this).getPhone());
         //login_pwd_et.setText(SharedPreferencesTool.getMStool(this).getPassword());
 //        http_pwd_et.setText("http://www.m3lean.com:8080/login/doAction");

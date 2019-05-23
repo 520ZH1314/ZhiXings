@@ -20,8 +20,8 @@ import java.util.Map;
 public class FoucsAdapter extends BaseAdapter {
     private Activity context;
     private LayoutInflater inflater;
-    private ArrayList<Map<String,Integer>> items;
-    public FoucsAdapter(Activity context,ArrayList<Map<String,Integer>> items){
+    private ArrayList<Map<String,Object>> items;
+    public FoucsAdapter(Activity context,ArrayList<Map<String,Object>> items){
         this.context =context;
         inflater = LayoutInflater.from(context);
         this.items = items;
@@ -64,8 +64,9 @@ public class FoucsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag(R.mipmap.ic_launcher
                     + position);
         }
-        ImageLoader.local(items.get(position).get("img").intValue(),viewHolder.item0);
-        viewHolder.item1.setText(context.getString(items.get(position).get("txt").intValue()));
+
+        ImageLoader.local(((Integer)items.get(position).get("img")).intValue(),viewHolder.item0);
+        viewHolder.item1.setText(context.getString(((Integer)items.get(position).get("txt")).intValue()));
         return  convertView;
     }
 }

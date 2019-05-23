@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/blue"
+        android:background="@color/title_bg"
         android:layout_height="@dimen/x40">
         <ImageView
             android:id="@+id/tetle_back"
@@ -34,7 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="8dp"
+            android:padding="@dimen/x10"
+            android:textColor="@color/title_bg"
             android:text="库存转周天数"
             android:onClick="kxzzts"/>
 

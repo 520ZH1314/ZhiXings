@@ -54,10 +54,7 @@
     <com.shuben.zhixing.www.view.LCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-
-        android:background="@color/white"
-
+        android:background="@color/cardview_shadow_end_color"
         app:cardBackgroundColor="@color/white"
         app:cardPreventCornerOverlap="true"
         app:elevation="3dp"
@@ -82,22 +79,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+
+            <com.base.zhixing.www.widget.XEditText
                 android:id="@+id/et_login_ip"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/x35"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:background="@null"
-                android:gravity="center_vertical|left"
-                android:hint="请输入企业号"
-                android:textColorHint="@color/gray"
-                android:textSize="14sp"
+                android:layout_toLeftOf="@+id/scan_view"
+                android:background="@color/no_color"
+                android:gravity="center_vertical"
+                android:hint="企业号"
+                android:padding="@dimen/x8"
+                android:singleLine="true"
+                android:textColor="@color/txt_viw"
+                android:textColorHint="@color/txt_bor"
+                android:textSize="@dimen/s14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView84"
-                app:layout_constraintTop_toBottomOf="@+id/textView84" />
-
+                app:layout_constraintTop_toBottomOf="@+id/textView84"
+                app:x_clearDrawable="@mipmap/ic_clear"
+                app:x_disableEmoji="true" />
             <View
                 android:id="@+id/view20"
                 android:layout_width="match_parent"
@@ -133,50 +137,68 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_login_ip3" />
 
-            <EditText
-                android:id="@+id/et_login_ip2"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/x35"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:background="@null"
-                android:gravity="center_vertical|left"
-                android:hint="请输入手机号/工号"
-                android:textColorHint="@color/gray"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.666"
-                app:layout_constraintStart_toStartOf="@+id/textView84"
-                app:layout_constraintTop_toBottomOf="@+id/view20" />
 
-            <EditText
-                android:id="@+id/et_login_ip3"
+            <com.base.zhixing.www.widget.XEditText
+                android:id="@+id/et_login_ip2"
+
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x35"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:background="@null"
-                android:gravity="center_vertical|left"
-                android:hint="请输入密码"
-                android:textColorHint="@color/gray"
-                android:textSize="14sp"
+                android:background="@color/no_color"
+                android:padding="@dimen/x8"
+                android:hint="手机号/工号"
+                android:singleLine="true"
+                app:x_disableEmoji="true"
+                android:layout_centerVertical="true"
+                android:textColorHint="@color/txt_bor"
+                android:textColor="@color/txt_viw"
+                android:textSize="@dimen/s14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.666"
                 app:layout_constraintStart_toStartOf="@+id/textView84"
-                app:layout_constraintTop_toBottomOf="@+id/et_login_ip2" />
+                app:layout_constraintTop_toBottomOf="@+id/view20"
+                app:x_clearDrawable="@mipmap/ic_clear"/>
+            <com.base.zhixing.www.widget.XEditText
+                android:id="@+id/et_login_ip3"
+                android:gravity="center_vertical"
+                android:padding="@dimen/x8"
+                android:layout_toLeftOf="@+id/scan_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x35"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@color/no_color"
+                android:textSize="@dimen/s14"
+                android:hint="密码"
+                android:password="true"
+                android:singleLine="true"
+                app:x_disableEmoji="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="4dp"
+                android:textColorHint="@color/txt_bor"
+                android:textColor="@color/txt_viw"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toStartOf="@+id/textView84"
+                app:layout_constraintTop_toBottomOf="@+id/et_login_ip2"
+                app:x_clearDrawable="@mipmap/ic_clear"
+                />
 
             <TextView
                 android:id="@+id/tv_forget_pwd"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="17dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="24dp"
                 android:text="忘记密码?"
                 android:textColor="#287DFA"
                 android:textSize="12sp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="@+id/et_login_ip3"
                 app:layout_constraintStart_toStartOf="@+id/et_login_ip3"
                 app:layout_constraintTop_toBottomOf="@+id/view22" />
@@ -221,7 +243,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="2dp"
-
                 android:text="深圳市数本科技开发有限公司版权所有"
                 android:textColor="@color/gray02"
                 android:textSize="12sp"
