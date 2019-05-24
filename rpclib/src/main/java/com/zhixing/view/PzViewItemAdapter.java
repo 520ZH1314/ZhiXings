@@ -67,7 +67,11 @@ public class PzViewItemAdapter extends RecyclerView.Adapter<PzViewItemAdapter.Vi
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         PzBean pb = foodsBeans.get(i);
         viewHolder.name.setText(pb.getLineName());
-        double dv = FileUtils.formatDouble(Double.parseDouble(String.valueOf(pb.getSumNG()))/Double.parseDouble(String.valueOf(pb.getSumQty()))*100);
+        double dv = 0;
+        if(pb.getSumQty()!=0){
+            dv = FileUtils.formatDouble(Double.parseDouble(String.valueOf(pb.getSumNG()))/Double.parseDouble(String.valueOf(pb.getSumQty()))*100);
+        }
+
         if(dv>=Double.parseDouble(city[ng_leav])){
             viewHolder.ng.setTextColor(Color.RED);
         }else{

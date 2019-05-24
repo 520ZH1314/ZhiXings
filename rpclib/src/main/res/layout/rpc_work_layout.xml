@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
     <include
         android:id="@+id/l_title"
@@ -20,20 +21,20 @@
             android:layout_height="wrap_content">
             <RadioButton
                 android:id="@+id/rb0"
-                android:text="待工"
+                android:text="闲置"
                 style="@style/nav_btn" />
             <RadioButton
                 android:id="@+id/rb1"
-                android:text="生产"
+                android:text="运转"
                 style="@style/nav_btn" />
             <RadioButton
                 android:id="@+id/rb2"
                 android:text="停工"
                 style="@style/nav_btn" />
-            <RadioButton
+         <!--   <RadioButton
                 android:id="@+id/rb3"
                 android:text="完工"
-                style="@style/nav_btn" />
+                style="@style/nav_btn" />-->
 
         </RadioGroup>
 

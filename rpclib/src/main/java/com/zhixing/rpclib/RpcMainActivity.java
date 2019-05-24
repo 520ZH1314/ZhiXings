@@ -1,7 +1,9 @@
 package com.zhixing.rpclib;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Message;
 import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -27,8 +29,8 @@ public class RpcMainActivity extends BaseRpcActivity {
     TextView line_sel;
     @BindView(R2.id.hour_enter)
     TextView hour_enter;
-@BindView(R2.id.pinzhi_enter)
-TextView pinzhi_enter;
+    @BindView(R2.id.pinzhi_enter)
+    TextView pinzhi_enter;
 
 
     @BindView(R2.id.work_enter)
@@ -42,6 +44,8 @@ TextView pinzhi_enter;
     public void process(Message msg) {
 
     }
+
+
 
     private SharedUtils sharedUtils, parentShared;
     @Override

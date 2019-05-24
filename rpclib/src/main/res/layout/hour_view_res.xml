@@ -32,7 +32,7 @@
                     android:gravity="left|top"
                     android:textColor="@color/text_g"
                     android:layout_width="match_parent"
-                    android:singleLine="true"
+
                     android:minLines="4"
                     android:background="@color/no_color"
                     android:hint="输入原因"
@@ -62,7 +62,6 @@
                     android:gravity="left|top"
                     android:textColor="@color/text_g"
                     android:layout_width="match_parent"
-                    android:singleLine="true"
                     android:background="@color/no_color"
                     android:hint="输入备注"
                     android:lines="2"

@@ -642,7 +642,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:background="@color/no_color"
-                                    android:text="实际UPPH"
+                                    android:text="实际UPH"
                                     android:textColor="@color/txt_bor"
                                     android:gravity="center_vertical"
                                     android:textSize="@dimen/list_txt_s"

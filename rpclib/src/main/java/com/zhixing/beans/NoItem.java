@@ -16,6 +16,15 @@ public class NoItem implements Serializable {
     private String BatchCompletedCount;
     private String BatchCustomer;
     private String BatchCreateDate;
+    private String BatchWorkNo;
+
+    public String getBatchWorkNo() {
+        return BatchWorkNo;
+    }
+
+    public void setBatchWorkNo(String batchWorkNo) {
+        BatchWorkNo = batchWorkNo;
+    }
 
     public String getBatchNo() {
         return BatchNo;

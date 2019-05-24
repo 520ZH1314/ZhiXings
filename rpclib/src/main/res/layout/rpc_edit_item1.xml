@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/white"
     android:layout_height="match_parent">
     <ScrollView
         android:id="@+id/scrool_view"
@@ -21,7 +24,46 @@
                 android:layout_margin="@dimen/x6"
                 android:textStyle="bold"
                 android:text="基本信息"/>
+            <RelativeLayout
+                android:id="@+id/layout51"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x45">
 
+                <TextView
+                    android:id="@+id/item51"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/no_color"
+
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/list_txt_s"
+                    />
+                <TextView
+                    android:id="@+id/item52"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColor="@color/text_g"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/content_txt_"
+                    android:text="订单号" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/x2"
+                android:layout_marginBottom="@dimen/x2"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:background="@color/content_line" />
             <RelativeLayout
                 android:id="@+id/layout5"
                 android:layout_width="match_parent"
@@ -451,6 +493,7 @@
                                 android:layout_toRightOf="@+id/item16_tip"
                                 android:layout_marginRight="10dp"
                                 android:focusableInTouchMode="true"
+                                android:focusable="true"
                                 android:layout_marginLeft="10dp"
                                 android:layout_height="match_parent">
                                 <TextView
@@ -473,7 +516,9 @@
                                     android:id="@+id/item16_edit"
                                     android:layout_width="wrap_content"
                                     android:ems="6"
+                                    android:focusableInTouchMode="true"
                                     android:singleLine="true"
+                                    android:textColor="@color/txt_viw"
                                     android:gravity="left|center_vertical"
                                     android:background="@color/no_color"
                                     android:hint="输入"
@@ -518,6 +563,7 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_marginLeft="10dp"
                                 android:focusableInTouchMode="true"
+                                android:focusable="true"
                                 android:layout_height="match_parent">
                                 <TextView
                                     android:id="@+id/item17_v"
@@ -539,8 +585,10 @@
                                     android:layout_width="wrap_content"
                                     android:ems="6"
                                     android:singleLine="true"
+                                    android:focusableInTouchMode="true"
                                     android:background="@color/no_color"
                                     android:hint="输入"
+                                    android:textColor="@color/txt_viw"
                                     android:numeric="integer"
                                     android:gravity="left|center_vertical"
                                     android:textSize="@dimen/list_txt_"
@@ -690,7 +738,8 @@
                 android:text="附加信息"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-
+                android:focusableInTouchMode="true"
+                android:focusable="true"
 
                 android:layout_height="@dimen/x45">
 
@@ -714,6 +763,7 @@
                     android:gravity="left|center_vertical"
                     android:textColor="@color/text_g"
                     android:layout_width="wrap_content"
+                    android:focusableInTouchMode="true"
                     android:ems="6"
                     android:singleLine="true"
                     android:background="@color/no_color"
@@ -746,7 +796,8 @@
                 android:background="@color/content_line" />
             <RelativeLayout
                 android:layout_width="match_parent"
-
+                android:focusableInTouchMode="true"
+                android:focusable="true"
 
                 android:layout_height="@dimen/x45">
 
@@ -772,6 +823,7 @@
                     android:layout_width="wrap_content"
                     android:singleLine="true"
                     android:background="@color/no_color"
+                    android:focusableInTouchMode="true"
                     android:hint="输入UPH"
                     android:numeric="integer"
                     android:ems="6"
@@ -789,7 +841,7 @@
                     android:textColor="@color/text_g"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/content_txt_"
-                    android:text="UPPH" />
+                    android:text="UPH" />
 
             </RelativeLayout>
             <View

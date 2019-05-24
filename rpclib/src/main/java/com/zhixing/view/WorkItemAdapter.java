@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.util.DensityUtil;
 import com.base.zhixing.www.util.MyImageLoader;
+import com.base.zhixing.www.util.TimeUtil;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.selector.DevSelector;
 import com.luliang.shapeutils.shape.DevShape;
@@ -63,7 +64,7 @@ public class WorkItemAdapter extends RecyclerView.Adapter<WorkItemAdapter.ViewHo
 
         WorkBean bean = foodsBeans.get(i);
         viewHolder.item0.setText(bean.getLineName());
-        viewHolder.item2.setText("开始时间:"+bean.getCreateDateStr());
+        viewHolder.item2.setText("开始时间:"+ TimeUtil.getTime(TimeUtil.parseTimeC(bean.getCreateDateStr())));
         viewHolder.item3.setText("停机次数:"+bean.getStopCount());
         viewHolder.item4.setText("停机时间:"+bean.getStopTime());
         viewHolder.item7.setText("任务单:"+bean.getOrderNo());
@@ -81,12 +82,21 @@ public class WorkItemAdapter extends RecyclerView.Adapter<WorkItemAdapter.ViewHo
             MyImageLoader.local(context,R.mipmap.rpc_sta3_p, viewHolder.item1);
         }
 
-        if(bean.isOpen()){
-            viewHolder.item6.setVisibility(View.VISIBLE);
-            viewHolder.item5.setText("收起");
-        }else{
+
+       if(bean.getState().equals("0")){
             viewHolder.item6.setVisibility(View.GONE);
-            viewHolder.item5.setText("展开");
+
+            viewHolder.nos_show.setVisibility(View.GONE);
+        }else{
+            viewHolder.nos_show.setVisibility(View.VISIBLE);
+
+           if(bean.isOpen()){
+               viewHolder.item6.setVisibility(View.VISIBLE);
+               viewHolder.item5.setText("收起");
+           }else{
+               viewHolder.item6.setVisibility(View.GONE);
+               viewHolder.item5.setText("展开");
+           }
         }
 /*        viewHolder.item2.setVisibility(View.VISIBLE);
     if(mposition==i){
@@ -125,7 +135,7 @@ public class WorkItemAdapter extends RecyclerView.Adapter<WorkItemAdapter.ViewHo
     }
     class  ViewHolder extends  RecyclerView.ViewHolder{
             TextView item0,item5,item2,item3,item4,item7,item8,item9,item10;
-            LinearLayout item6;
+            LinearLayout item6,nos_show;
         ImageView item1;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -140,6 +150,7 @@ public class WorkItemAdapter extends RecyclerView.Adapter<WorkItemAdapter.ViewHo
             item8 = itemView.findViewById(R.id.item8);
             item9 = itemView.findViewById(R.id.item9);
             item10 = itemView.findViewById(R.id.item10);
+            nos_show = itemView.findViewById(R.id.nos_show);
 
         }
     }

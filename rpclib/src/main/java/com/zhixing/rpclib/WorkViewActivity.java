@@ -69,9 +69,10 @@ public class WorkViewActivity extends BaseRpcActivity {
                     workBeans = workBeans1;
                 }else if(i==R.id.rb2){
                     workBeans = workBeans2;
-                }else if(i==R.id.rb3){
-                    workBeans = workBeans3;
                 }
+//                else if(i==R.id.rb3){
+//                    workBeans = workBeans3;
+//                }
                 workItemAdapter.updata(workBeans);
             }
         });
@@ -110,9 +111,10 @@ public class WorkViewActivity extends BaseRpcActivity {
                     workBeans = workBeans1;
                 }else if(i==R.id.rb2){
                     workBeans = workBeans2;
-                }else if(i==R.id.rb3){
-                    workBeans = workBeans3;
                 }
+                /*else if(i==R.id.rb3){
+                    workBeans = workBeans3;
+                }*/
                 workItemAdapter.updata(workBeans);
 
                 break;
@@ -144,13 +146,13 @@ public class WorkViewActivity extends BaseRpcActivity {
                     for(int i=0;i<jsonArray.length();i++){
 
                         WorkBean workBean  =  gson.fromJson(jsonArray.getJSONObject(i).toString(),WorkBean.class);
-                        if(workBean.getStateName().equals("未切单")){
+                        if(workBean.getState().equals("0")){
                             workBeans0.add(workBean);
-                        }else if(workBean.getStateName().equals("生产中")){
+                        }else if(workBean.getState().equals("1")){
                             workBeans1.add(workBean);
-                        }else if(workBean.getStateName().equals("停机中")){
+                        }else if(workBean.getState().equals("2")){
                             workBeans2.add(workBean);
-                        }else if(workBean.getStateName().equals("已完成")){
+                        }else if(workBean.getState().equals("已完成")){
                             workBeans3.add(workBean);
                         }
                     }

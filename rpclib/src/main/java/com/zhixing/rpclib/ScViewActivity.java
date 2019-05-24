@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Message;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.android.volley.VolleyError;
@@ -22,17 +21,13 @@ import com.zhixing.beans.NoItem;
 import com.zhixing.beans.ScViewBean;
 import com.zhixing.common.Common;
 import com.zhixing.common.DateTimeUtil;
-import com.zhixing.view.CommonNoSelectPop;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -258,7 +253,7 @@ public class ScViewActivity extends BaseRpcActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if(requestCode==100&&resultCode==1000){
+        if(requestCode==100&&resultCode==1000){
             String no = data.getStringExtra("no");
             String uph = data.getStringExtra("uph");
             String num = data.getStringExtra("num");
@@ -267,7 +262,7 @@ public class ScViewActivity extends BaseRpcActivity {
             sharedUtils.setStringValue("sc_num",num);
             item00.setText(sharedUtils.getStringValue("sc_nos"));
             load(sharedUtils.getStringValue("sc_nos"),sharedUtils.getStringValue("sc_uph"),sharedUtils.getStringValue("sc_num"));
-        }*/
+        }
     }
 
     @BindView(R2.id.item1)

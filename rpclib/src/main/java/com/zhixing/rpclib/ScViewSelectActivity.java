@@ -10,6 +10,7 @@ import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.SetSelect;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.SharedPreferencesTool;
+import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.util.UrlUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.XEditText;
@@ -97,11 +98,18 @@ public class ScViewSelectActivity extends BaseRpcActivity {
                         int len = jsonArray.length();
                         noItems.clear();                                   
                         for (int i = 0; i < len; i++) {
+
                             JSONObject object = jsonArray.getJSONObject(i);
                             NoItem noItem = new NoItem();
                             noItem.setNo(object.getString("OrderNo"));
                             noItem.setName(object.getString("ProductName"));
                             noItem.setStatus(object.getInt("State"));
+                            noItem.setID(object.getString("ID"));
+                            noItem.setNum(object.getString("BatchPlanCount"));
+                            noItem.setKehu(object.getString("BatchCustomer"));
+                            noItem.setBatchNo(object.getString("BatchNo"));
+                            noItem.setTime(TimeUtil.getTime(TimeUtil.parseTimeC(object.getString("BatchCreateDate"))));
+                            noItem.setBatchWorkNo(object.getString("BatchWorkNo"));
                             noItems.add(noItem);
                         }
                         getHandler().sendEmptyMessage(1);

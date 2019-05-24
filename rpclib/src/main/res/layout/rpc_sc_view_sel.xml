@@ -47,7 +47,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="UPPH值"
+            android:text="UPH值"
             android:layout_marginTop="@dimen/x10"
             android:layout_marginBottom="@dimen/x5"
             android:textSize="@dimen/content_txt_"

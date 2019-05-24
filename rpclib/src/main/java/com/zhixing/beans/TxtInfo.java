@@ -22,6 +22,24 @@ public class TxtInfo implements Serializable {
     private int UPH;
     private int Ratio;
     private String ID;
+    private String BatchNo;
+    private String BatchWorkNo;
+
+    public String getBatchNo() {
+        return BatchNo;
+    }
+
+    public void setBatchNo(String batchNo) {
+        BatchNo = batchNo;
+    }
+
+    public String getBatchWorkNo() {
+        return BatchWorkNo;
+    }
+
+    public void setBatchWorkNo(String batchWorkNo) {
+        BatchWorkNo = batchWorkNo;
+    }
 
     public String getID() {
         return ID;

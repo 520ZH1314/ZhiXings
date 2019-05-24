@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,10 +76,16 @@ public class NoSelectAdapter extends RecyclerView.Adapter<NoSelectAdapter.ViewHo
             viewHolder.item_status.setText(context.getResources().getString(R.string.state3));
             break;
     }
+    if(TextUtils.isEmpty(bean.getBatchWorkNo())){
+        viewHolder.item17.setVisibility(View.GONE);
+    }else{
+        viewHolder.item17.setText("ERP工单:"+bean.getBatchWorkNo());
+    }
+
     viewHolder.item11.setText("产品名称:"+bean.getName());
-        viewHolder.item12.setText("批次号:"+bean.getBatchNo());
+    viewHolder.item12.setText("用户批次号:"+bean.getBatchNo());
     viewHolder.item13.setText("客户:"+bean.getKehu());
-    viewHolder.item14.setText("数量:"+bean.getNum());
+    viewHolder.item14.setText("RPC工单数量:"+bean.getNum());
 
     viewHolder.item15.setText(bean.getTime());
     if(mposition==i){
@@ -87,7 +94,8 @@ public class NoSelectAdapter extends RecyclerView.Adapter<NoSelectAdapter.ViewHo
         viewHolder.child.setBackgroundResource(R.color.no_color);
     }
 
-    viewHolder.item1.setText(bean.getNo());
+    viewHolder.item1.setText("RPC工单:"+bean.getNo());
+
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int) (width*0.92), LinearLayout.LayoutParams.WRAP_CONTENT);
         viewHolder.child.setLayoutParams(layoutParams);
 
@@ -109,7 +117,7 @@ public class NoSelectAdapter extends RecyclerView.Adapter<NoSelectAdapter.ViewHo
     class  ViewHolder extends  RecyclerView.ViewHolder{
         LinearLayout child;
         TextView  item_status;
-        TextView item1,item11,item12,item13,item14,item15;
+        TextView item1,item11,item12,item13,item14,item15,item17;
         public ViewHolder(View itemView) {
             super(itemView);
             item11 = itemView.findViewById(R.id.item11);
@@ -118,6 +126,7 @@ public class NoSelectAdapter extends RecyclerView.Adapter<NoSelectAdapter.ViewHo
             item14 = itemView.findViewById(R.id.item14);
             item15 = itemView.findViewById(R.id.item15);
             item1 = itemView.findViewById(R.id.item1);
+            item17 = itemView.findViewById(R.id.item17);
             item_status = itemView.findViewById(R.id.item_status);
             child  = itemView.findViewById(R.id.child);
         }

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,6 @@ public class RpcFrame0 extends ScrollAbleFragment implements ScrollableHelper.Sc
         super.onAttach(context);
         setHandler(handler);
     }
-
       ScrollView scrool_view;
 
     @Override
@@ -127,6 +127,11 @@ public class RpcFrame0 extends ScrollAbleFragment implements ScrollableHelper.Sc
     TextView item19;
     @BindView(R2.id.item151)
     TextView item151;
+    @BindView(R2.id.item52)
+    TextView item52;
+    @BindView(R2.id.item51)
+    TextView item51;
+
 
     @BindView(R2.id.item141)
     TextView item141;
@@ -172,6 +177,14 @@ public class RpcFrame0 extends ScrollAbleFragment implements ScrollableHelper.Sc
         if(txtInfo.getState()==2){
             item13.setText("");
         }
+        if(TextUtils.isEmpty(txtInfo.getBatchWorkNo())){
+            item51.setText(txtInfo.getBatchNo());
+                    item52.setText("用户批次号");
+            
+        }else{
+            item51.setText(txtInfo.getBatchWorkNo());
+            item52.setText("订单号");
+        }
         item14.setTextEx(String.valueOf(txtInfo.getRatio()));
         item15.setTextEx(String.valueOf(txtInfo.getUPH()));
         item16_v.setText(String.valueOf(txtInfo.getQty()));
@@ -181,6 +194,7 @@ public class RpcFrame0 extends ScrollAbleFragment implements ScrollableHelper.Sc
             item18.setText(formatDouble((Double.parseDouble(item17_v.getText().toString())/Double.parseDouble(item16_v.getText().toString())*100))+"%");
         }
         if(txtInfo.getQtyNG()!=0){
+            P.c("是什么"+item16_v.getText().toString()+"=="+txtInfo.getPlanQty());
             double jindu = formatDouble(Double.parseDouble(item16_v.getText().toString())/txtInfo.getPlanQty());
             // P.c(Float.parseFloat(item16_v.getText().toString())+"=="+txtInfo.getPlanQty());
             item18_pro.setPercent(Float.parseFloat(String.valueOf(jindu)));
@@ -216,7 +230,7 @@ public class RpcFrame0 extends ScrollAbleFragment implements ScrollableHelper.Sc
         }
         BigDecimal b = new BigDecimal(fromDouble);
         // 保留2位小数
-        double targetDouble = b.setScale(2, BigDecimal.ROUND_HALF_UP)
+        double targetDouble = b.setScale(3, BigDecimal.ROUND_HALF_UP)
                 .doubleValue();
         return targetDouble;
     }
@@ -238,6 +252,8 @@ public class RpcFrame0 extends ScrollAbleFragment implements ScrollableHelper.Sc
     public void changeTextInfo(TxtInfo txtInfo){
         this.txtInfo = txtInfo;
         initTxt();
+        item16_edit.setTextEx("");
+        item17_edit.setTextEx("");
     }
     @Override
     public View getScrollableView() {
