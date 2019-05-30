@@ -40,6 +40,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
+
 public class BaseApplication extends BaseApp {
     public static BaseApplication application;
     //    protected boolean isNeedCaughtExeption = true;// 是否捕获未知异常
@@ -94,6 +97,13 @@ public class BaseApplication extends BaseApp {
                     .build());
         }*/
         super.onCreate();
+
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                P.c("接收和处理rx异常");
+            }
+        });
         //预加载x5内核
         String IP = SharedPreferencesTool.getMStool(this).getString("IP");
 
