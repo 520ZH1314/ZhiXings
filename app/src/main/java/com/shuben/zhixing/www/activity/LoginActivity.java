@@ -457,6 +457,10 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                             SharedPreferencesTool.getMStool(LoginActivity.this).setString("IP", ip);
                             SharedPreferencesTool.getMStool(LoginActivity.this).setString("PORT", port);
                         }
+                    }else{
+                        SharedPreferencesTool.getMStool(LoginActivity.this).setString("IP", "https://"+add+".stdlean.com/");
+                        SharedPreferencesTool.getMStool(LoginActivity.this).setString("PORT", "");
+
                     }
 
 

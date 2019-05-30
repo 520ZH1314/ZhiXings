@@ -24,7 +24,6 @@ import com.base.zhixing.www.common.Common;
 import com.base.zhixing.www.common.FileUtils;
 import com.base.zhixing.www.common.SharedUtils;
 import com.base.zhixing.www.inter.SetSelect;
-import com.base.zhixing.www.provider.PermissionEntry;
 import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.CommonSetSelectPop;
@@ -158,8 +157,10 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         ms.put("tag",im);
 
         //保证都是一样的，不区分大小写
-        if(qxMaps.containsKey(TAG.toUpperCase())||TAG.equals(NOT_QX)){
+        if(qxMaps.containsKey(TAG.toUpperCase())){
             ms.put("qx",qxMaps.get(TAG.toUpperCase()));
+            items.add(ms);
+        }else if(TAG.equals(NOT_QX)){
             items.add(ms);
         }
 
@@ -177,9 +178,9 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                String key = cursor.getString(cursor.getColumnIndex("permissionCode"));
                 qxMaps.put(key.toUpperCase(),key);
            }while (cursor.moveToNext());
-           getHandler().sendEmptyMessage(2);
-       }
 
+       }
+        getHandler().sendEmptyMessage(2);
 
     }
     private FoucsAdapter foucsAdapter;
@@ -249,7 +250,11 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //这里使用每个都是不一样的图标
                 int param0 = ((Integer) items.get(i).get("tag")).intValue();
-                String params1 = items.get(i).get("qx").toString();
+                String params1 = null;
+                if(items.get(i).containsKey("qx")){
+                    params1 = items.get(i).get("qx").toString();
+                }
+              
                 P.c("模块是"+params1);
                 clickItem(param0,params1);
             }
@@ -594,7 +599,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         }
     }
 
-    private void setviewpager() {
+        private void setviewpager() {
         // TODO Auto-generated method stub
 
         //显示的图片
