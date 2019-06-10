@@ -21,11 +21,10 @@
         android:id="@+id/tv_item_appeal_list_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="处理人:李四"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_appeal_list_event_name" />
 
     <TextView
         android:id="@+id/tv_item_appeal_list_date"
@@ -49,15 +48,16 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_item_appeal_list_date" />
 
     <TextView
-        android:padding="@dimen/x6"
-        android:textSize="12sp"
         android:id="@+id/tv_item_appeal_list_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
+        android:padding="@dimen/x6"
         android:text="待审核"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_appeal_list_date" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_appeal_list_name" />
 
     <TextView
         android:maxEms="30"

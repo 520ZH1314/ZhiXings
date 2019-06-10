@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseFragment;
+import com.base.zhixing.www.common.SharedUtils;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.R2;
 import com.zhixing.employlib.adapter.MyAdapter;
+import com.zhixing.employlib.api.PerformanceApi;
 import com.zhixing.employlib.ui.activity.OutOfAdActivity;
 import com.zhixing.employlib.ui.activity.UpdateTeamDataActivity;
 import com.zhixing.employlib.view.TypeDialog;
@@ -52,6 +54,8 @@ public class GardenPlotFragment extends BaseLazyFragment {
     private List<BaseFragment> list;
     private String[] titles = {"优秀员工", "新员工", "班组风采"};
     private MyAdapter adapter;
+    private SharedUtils sharedUtils;
+    private Boolean booleanValue;
 
     @Nullable
     @Override
@@ -59,10 +63,18 @@ public class GardenPlotFragment extends BaseLazyFragment {
 
         View view = inflater.inflate(R.layout.fragment_garden_plot, container, false);
         unbinder = ButterKnife.bind(this, view);
+        sharedUtils = new SharedUtils(PerformanceApi.FLIESNAME);
 
-        tetleTvImg.setVisibility(View.VISIBLE);
         tetleText.setVisibility(View.VISIBLE);
+
+        booleanValue = sharedUtils.getBooleanValue(PerformanceApi.ISTEAMLEADER);
         tetleTvImg.setImageResource(R.mipmap.add_more);
+        if (booleanValue){
+            tetleTvImg.setVisibility(View.VISIBLE);
+        }else{
+            tetleTvImg.setVisibility(View.GONE);
+        }
+
         tetleBack.setVisibility(View.GONE);
         tetleText.setText("园地");
 
@@ -107,6 +119,8 @@ public class GardenPlotFragment extends BaseLazyFragment {
         } else if (i == R.id.tetle_tv_img) {
 
 
+
+
             TypeDialog typeDialog =new TypeDialog();
             typeDialog.setOnDialogInforCompleted(new TypeDialog.OnDialogInforCompleted() {
                 @Override
@@ -120,6 +134,7 @@ public class GardenPlotFragment extends BaseLazyFragment {
 
                         Intent intent =new Intent(getActivity(),OutOfAdActivity.class);
                         startActivity(intent);
+
                         //发布公告
                     }
 

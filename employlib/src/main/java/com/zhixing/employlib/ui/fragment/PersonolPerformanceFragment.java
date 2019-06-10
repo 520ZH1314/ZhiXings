@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -162,6 +163,8 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
     @BindView(R2.id.tv_performance_go_rank)
     TextView tvPerformanceGoRank;
 
+    @BindView(R2.id.sr_performance)
+    SwipeRefreshLayout refreshLayout;
 
     private RapidFloatingActionLayout rfaLayout;
     private RapidFloatingActionButton rfaButton;
@@ -202,8 +205,22 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
         mStateView=StateView.inject(scrollView);
         monthViewModel = ViewModelProviders.of(getActivity()).get(MonthViewModel.class);
         perFormanceViewModel = ViewModelProviders.of(getActivity()).get(PerFormanceViewModel.class);
+        refreshLayout.setColorSchemeResources(R.color.moren, R.color.tpm_blue, R.color.title_bg);
+
         rfaLayout = (RapidFloatingActionLayout) view.findViewById(R.id.label_list_sample_rfal);
         rfaButton = (RapidFloatingActionButton) view.findViewById(R.id.label_list_sample_rfab);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (index==0){
+                    perFormanceViewModel.setYesterdayTime(commonTime1);
+                    refreshLayout.setRefreshing(false);
+                }else{
+                    perFormanceViewModel.setMonthTime(Years + "-" + Months + "-" + "01");
+                    refreshLayout.setRefreshing(false);
+                }
+            }
+        });
         return view;
     }
 

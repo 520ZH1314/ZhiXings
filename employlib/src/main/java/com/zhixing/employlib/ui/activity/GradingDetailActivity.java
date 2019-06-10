@@ -338,12 +338,12 @@ public class GradingDetailActivity extends BaseActvity {
 
         } else if (i == R.id.tv_work_send) {
 
-            mStateView.showLoading();
+
             if (!isCommit){
                 Toasty.INSTANCE.showToast(this, "关键事件或记录时间不能为空");
 
             }else{
-
+                mStateView.showLoading();
                 if ("1".equals(type)){
 
                      if (dateTime==null){

@@ -121,6 +121,9 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
 
 //        P.c(permissions.maps.size()+"~~223");
 
+
+
+
         performanceMainViewModel = ViewModelProviders.of(this).get(PerformanceMainViewModel.class);
 
 
@@ -152,6 +155,7 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
                     .addItem(new BottomNavigationItem(R.mipmap.mine, "我的"))
                     .setFirstSelectedPosition(lastSelectedPosition)
                     .initialise(); //initialise 一定要放在 所有设置的最后一项
+
               goNext();
           /*  Observable.timer(5, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
@@ -205,6 +209,11 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
         setDefaultFragment();//设置默认导航栏
         mStateView.showLoading();
         //获取个人班组信息以及权限
+
+        Bundle moduleQxs = getModuleQxs(permissions);
+        if (moduleQxs.containsKey("jxpf")){
+            sharedUtils.setBooleanValue(PerformanceApi.ISTEAMLEADER, true);
+        }
         performanceMainViewModel.getData(true);
         performanceMainViewModel.personTeamInfo.observe(this, new Observer<DBaseResponse<PersonTeamBean>>() {
             @Override
@@ -283,11 +292,10 @@ public class PerformanceActivity extends BaseActvity implements BottomNavigation
                 break;
             default:
                 break;
+
+
         }
-
-
     }
-
     @Override
     public void onTabUnselected(int position) {
 
