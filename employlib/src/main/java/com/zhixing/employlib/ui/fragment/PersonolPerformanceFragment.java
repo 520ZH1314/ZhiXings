@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
@@ -201,7 +202,7 @@ public class PersonolPerformanceFragment extends BaseLazyFragment implements Rap
         View view = inflater.inflate(R.layout.fragment_personol_performance, container, false);
         unbinder = ButterKnife.bind(this, view);
         aCache = ACache.get(getActivity(), "Performance");
-        ScrollView scrollView =view.findViewById(R.id.scrollview_performance);
+        NestedScrollView scrollView =view.findViewById(R.id.scrollview_performance);
         mStateView=StateView.inject(scrollView);
         monthViewModel = ViewModelProviders.of(getActivity()).get(MonthViewModel.class);
         perFormanceViewModel = ViewModelProviders.of(getActivity()).get(PerFormanceViewModel.class);
