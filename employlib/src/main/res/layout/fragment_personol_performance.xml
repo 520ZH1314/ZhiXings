@@ -16,7 +16,7 @@
         android:id="@+id/sr_performance"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:id="@+id/scrollview_performance"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -731,7 +731,7 @@
 
 
             </android.support.constraint.ConstraintLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>

@@ -97,6 +97,8 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
     private Unbinder bind;
     private AppealPersonViewModel appealPersonViewModel;
     private UpTeamViewModel upTeamViewModel;
+
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_appeal;
@@ -112,6 +114,8 @@ public class AppealActivity extends BaseActvity implements PermissionsUtil.IPerm
 
         sharedUtils = new SharedUtils(PerformanceApi.FLIESNAME);
          bind = ButterKnife.bind(this);
+
+
         setStatus(-1);
         appealPersonViewModel = ViewModelProviders.of(this).get(AppealPersonViewModel.class);
         upTeamViewModel = ViewModelProviders.of(this).get(UpTeamViewModel.class);
