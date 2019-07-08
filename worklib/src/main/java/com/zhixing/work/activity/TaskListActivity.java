@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.stateviewlibrary.StateView;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.shape.DevShape;
 import com.orhanobut.logger.Logger;
@@ -37,6 +39,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import okhttp3.RequestBody;
@@ -65,6 +68,8 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
     private TaskListAdapter adapter;
     private RequestBody body;
     private String ip;
+    private LinearLayout mContent;
+    private StateView mStateView;
 
 
     @Override
@@ -91,7 +96,7 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
         mIvadd=(ImageView) findViewById(R.id.iv_work_add_work);
         mTvTitle=(TextView) findViewById(R.id.tv_work_title);
         mTvSend=(TextView) findViewById(R.id.tv_work_send);
-
+        mContent=(LinearLayout) findViewById(R.id.ll_task_list);
         mIvadd.setImageResource(R.mipmap.back);
         mIvadd.setOnClickListener(this);
         mTvTitle.setText("任务");
@@ -102,11 +107,13 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
         LinearLayoutManager layoutManager = new LinearLayoutManager(TaskListActivity.this);
         mRecyTaskList.setLayoutManager(layoutManager);
         EventBus.getDefault().register(this);
+         mStateView = StateView.inject(mContent);
 
         initData();
     }
 
     private void initData() {
+        mStateView.showLoading();
         PostTaskListJsonBean jsonBean=new PostTaskListJsonBean();
         jsonBean.setApiCode(ApiCode);
         jsonBean.setAppCode(AppCode);
@@ -121,6 +128,7 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
 
 
     private  void  initMyCreateData(){
+        mStateView.showLoading();
         PostTaskCreateJsonBean  jsonBean=new PostTaskCreateJsonBean();
         jsonBean.setApiCode(ApiCode);
         jsonBean.setAppCode(AppCode);
@@ -133,59 +141,82 @@ public class TaskListActivity extends BaseActvity implements View.OnClickListene
 
 
 
-    private void setTaskListData(RequestBody body) {
+    private void setTaskListData(final RequestBody body) {
         RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .getTaskList(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
-                .doOnSubscribe(new Consumer<Disposable>() {
+                .subscribe(new Observer<TaskListItemEntity>() {
                     @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showDialog("加载中");
-                    }
-                })
-                .subscribe(new Consumer<TaskListItemEntity>() {
-                    @Override
-                    public void accept(TaskListItemEntity entity) throws Exception {
-                        dismissDialog();
-                        final List<TaskListItemEntity.RowsBean> rows = entity.getRows();
-                         if (adapter!=null){
-                              adapter.replaceData(rows);
-                              adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                                  @Override
-                                  public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                      String taskId = rows.get(position).getSourceId();
-
-                                      Intent intent =new Intent(TaskListActivity.this,WorkTaskDetailActivity.class);
-                                      intent.putExtra("ToDoListId", rows.get(position).getToDoListId());
-                                      intent.putExtra("name",mTvTaskStatusType.getText());
-                                      intent.putExtra("ApiCode",ApiCode);
-                                      startActivity(intent);
-
-                                  }
-                              });
-
-
-                       }else{
-                           adapter=new TaskListAdapter(R.layout.item_task_message,rows);
-                             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                                 @Override
-                                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                     String taskId = rows.get(position).getSourceId();
-                                     Intent intent =new Intent(TaskListActivity.this,WorkTaskDetailActivity.class);
-                                     intent.putExtra("ToDoListId", rows.get(position).getToDoListId());
-                                     intent.putExtra("name",mTvTaskStatusType.getText());
-                                     intent.putExtra("ApiCode",ApiCode);
-                                     intent.putExtra("CreateTaskName",rows.get(position).getCreateUserName());
-                                     startActivity(intent);
-
-                                 }
-                             });
-                           mRecyTaskList.setAdapter(adapter);
-
-                       }
+                    public void onSubscribe(Disposable d) {
 
                     }
+
+                    @Override
+                    public void onNext(TaskListItemEntity entity) {
+                        mStateView.showContent();
+                        if (entity!=null&&entity.getRows().size()!=0){
+                            final List<TaskListItemEntity.RowsBean> rows = entity.getRows();
+                            if (adapter!=null){
+                                adapter.replaceData(rows);
+                                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                        String taskId = rows.get(position).getSourceId();
+
+                                        Intent intent =new Intent(TaskListActivity.this,WorkTaskDetailActivity.class);
+                                        intent.putExtra("ToDoListId", rows.get(position).getSourceId());
+                                        intent.putExtra("name",mTvTaskStatusType.getText());
+                                        intent.putExtra("ApiCode",ApiCode);
+                                        startActivity(intent);
+
+                                    }
+                                });
+
+
+                            }else{
+                                adapter=new TaskListAdapter(R.layout.item_task_message,rows);
+                                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                        String taskId = rows.get(position).getSourceId();
+                                        Intent intent =new Intent(TaskListActivity.this,WorkTaskDetailActivity.class);
+                                        intent.putExtra("ToDoListId", rows.get(position).getSourceId());
+                                        intent.putExtra("name",mTvTaskStatusType.getText());
+                                        intent.putExtra("ApiCode",ApiCode);
+                                        intent.putExtra("CreateTaskName",rows.get(position).getCreateUserName());
+                                        startActivity(intent);
+
+                                    }
+                                });
+                                mRecyTaskList.setAdapter(adapter);
+
+                            }
+                        }else{
+                            mStateView.showEmpty();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                                  mStateView.showRetry();
+                                  mStateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+                                      @Override
+                                      public void onRetryClick() {
+                                          setTaskListData(body);
+                                      }
+                                  });
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+
+
                 });
 
 

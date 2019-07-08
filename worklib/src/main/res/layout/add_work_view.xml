@@ -35,6 +35,7 @@
            android:layout_width="0dp"
            android:layout_height="match_parent" />
        <RadioButton
+           android:visibility="gone"
            android:id="@+id/rb_add_date"
            android:textSize="@dimen/content_txt_"
            android:gravity="center"

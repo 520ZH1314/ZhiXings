@@ -29,6 +29,8 @@ import com.zhixing.work.R;
 import com.zhixing.work.bean.CreateTaskEntity;
 import com.zhixing.work.bean.MeetStatusType;
 import com.zhixing.work.bean.PostCreateMeetJson;
+import com.zhixing.work.http.base.MyBaseSubscriber;
+import com.zhixing.work.http.base.ResponseThrowable;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
@@ -75,11 +77,8 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
     private String meetRecordPeople = "2";//记录人
     private String meetJoinPeople = "3";//参与者
     private String Names = "";//参与者名字拼
-
     private String AppCode = "CEOAssist";
-
     private String ApiCode = "EditMeeting";
-
     private String TenantId;
     private Validator validator;
     private String HostID;
@@ -95,7 +94,6 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
     private TextView mTvMeetRemind;
     private int MeetingReminder;//会议提醒类型
     private String ip;
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_create_meetting;
@@ -323,7 +321,7 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
 
 
 
-        if (TimeUtil.getTimeCompareSize(startTime,endTime)==2){
+        if (TimeUtil.getTimeCompareSizes(startTime,endTime)==2){
 
 
 
@@ -357,15 +355,10 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
                     .CreateMeet(body)
                     .compose(RxUtils.schedulersTransformer())  // 线程调度
                     .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
-                    .doOnSubscribe(new Consumer<Disposable>() {
+                    .subscribe(new MyBaseSubscriber<CreateTaskEntity>(this) {
+
                         @Override
-                        public void accept(Disposable disposable) throws Exception {
-                            showDialog("加载中");
-                        }
-                    })
-                    .subscribe(new Consumer<CreateTaskEntity>() {
-                        @Override
-                        public void accept(CreateTaskEntity entity) throws Exception {
+                        public void onResult(CreateTaskEntity entity) {
                             dismissDialog();
                             if (entity.isStatus()) {
                                 //成功
@@ -375,6 +368,11 @@ public class CreateMeettingActivity extends BaseActvity implements View.OnClickL
                             } else {
                                 Toasty.INSTANCE.showToast(CreateMeettingActivity.this, entity.getMessage());
                             }
+                        }
+
+                        @Override
+                        public void onError(ResponseThrowable e) {
+
                         }
                     });
 

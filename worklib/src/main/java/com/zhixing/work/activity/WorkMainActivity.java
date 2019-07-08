@@ -52,25 +52,26 @@ public class WorkMainActivity extends BaseActvity implements View.OnClickListene
     }
 
     private void initView() {
-        mTablayout = (TabLayout) findViewById(R.id.tablayout_work_main);
-        mViewPage = (ViewPager) findViewById(R.id.vp_work_mian);
+//        mTablayout = (TabLayout) findViewById(R.id.tablayout_work_main);
+//        mViewPage = (ViewPager) findViewById(R.id.vp_work_mian);
         mImageView=(ImageView) findViewById(R.id.iv_work_add_work);
         mTvSend=(TextView) findViewById(R.id.tv_work_send);
         mTvWorkMainMeet=(TextView) findViewById(R.id.tv_work_main_meet);//点击到会议列表的
         mTvWorkMainTask=findViewById(R.id.tv_work_main_task);
         mTvSend.setVisibility(View.GONE);
         mImageView.setOnClickListener(this);
+        mImageView.setImageResource(R.drawable.add_more);
         mTvWorkMainMeet.setOnClickListener(this);
         mTvWorkMainTask.setOnClickListener(this);
-        ArrayList<String> titleDatas = new ArrayList<>();
-        titleDatas.add("我发出的");
-        titleDatas.add("我收到的");
-        ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
-        fragmentList.add(new DepartmentSendFragment());
-        fragmentList.add(new DepartmentReceiveFragment());
-        MyViewPageAdapter myViewPageAdapter = new MyViewPageAdapter(getSupportFragmentManager(), titleDatas, fragmentList);
-        mViewPage.setAdapter(myViewPageAdapter);
-        mTablayout.setupWithViewPager(mViewPage);
+//        ArrayList<String> titleDatas = new ArrayList<>();
+//        titleDatas.add("我发出的");
+//        titleDatas.add("我收到的");
+//        ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
+//        fragmentList.add(new DepartmentSendFragment());
+//        fragmentList.add(new DepartmentReceiveFragment());
+//        MyViewPageAdapter myViewPageAdapter = new MyViewPageAdapter(getSupportFragmentManager(), titleDatas, fragmentList);
+//        mViewPage.setAdapter(myViewPageAdapter);
+//        mTablayout.setupWithViewPager(mViewPage);
     }
     /**
      *点击事件

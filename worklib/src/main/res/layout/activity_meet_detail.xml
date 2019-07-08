@@ -123,12 +123,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:textSize="@dimen/content_txt_"
                     android:id="@+id/tv_meet_detail_note_taker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text=" 李刚; 李波;"
+                    android:textSize="@dimen/content_txt_"
                     app:layout_constraintBottom_toBottomOf="@+id/textView17_note_taker"
                     app:layout_constraintStart_toEndOf="@+id/textView17_note_taker"
                     app:layout_constraintTop_toTopOf="@+id/textView17_note_taker" />
@@ -189,12 +188,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:textSize="@dimen/content_txt_"
                     android:id="@+id/tv_meet_detail_host"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text=" 李刚; 李波;"
+                    android:textSize="@dimen/content_txt_"
                     app:layout_constraintBottom_toBottomOf="@+id/textView17_host"
                     app:layout_constraintStart_toEndOf="@+id/textView17_host"
                     app:layout_constraintTop_toTopOf="@+id/textView17_host"
@@ -226,14 +224,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:textSize="@dimen/content_txt_"
                 android:id="@+id/tv_meet_detail_contant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:maxEms="13"
                 android:maxLines="5"
-                android:text="今天下午在胎位参加8点的,会议主要内容是关于,请大家代号自闭内容懂不"
+                android:textSize="@dimen/content_txt_"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -265,7 +262,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="主持人:  李三"
+                android:text="主持人:  "
                 android:textColor="@color/black"
 
                 android:textSize="@dimen/list_txt_s"
@@ -345,12 +342,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:textSize="@dimen/content_txt_"
                     android:id="@+id/tv_meet_detail_attendee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text=" 李刚; 李波;"
+                    android:textSize="@dimen/content_txt_"
                     app:layout_constraintBottom_toBottomOf="@+id/textView17_attendee"
                     app:layout_constraintStart_toEndOf="@+id/textView17_attendee"
                     app:layout_constraintTop_toTopOf="@+id/textView17_attendee" />
@@ -504,6 +500,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <ImageView
+                        android:visibility="gone"
                         android:id="@+id/iv_meet_detail_add_message"
                         android:layout_marginRight="@dimen/x24"
                         android:layout_centerVertical="true"

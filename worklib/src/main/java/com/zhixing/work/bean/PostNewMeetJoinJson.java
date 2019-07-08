@@ -16,6 +16,15 @@ public class PostNewMeetJoinJson implements Parcelable {
     private String AppCode;
     private String ApiCode;
 
+    public String getMeetingID() {
+        return MeetingID;
+    }
+
+    public void setMeetingID(String meetingID) {
+        MeetingID = meetingID;
+    }
+
+    private String MeetingID;
     public String getAppCode() {
         return AppCode;
     }
@@ -32,13 +41,7 @@ public class PostNewMeetJoinJson implements Parcelable {
         ApiCode = apiCode;
     }
 
-    public String getMeetingDataID() {
-        return MeetingDataID;
-    }
 
-    public void setMeetingDataID(String meetingDataID) {
-        MeetingDataID = meetingDataID;
-    }
 
     public String getSystemCurrentUserID() {
         return SystemCurrentUserID;
@@ -48,7 +51,7 @@ public class PostNewMeetJoinJson implements Parcelable {
         SystemCurrentUserID = systemCurrentUserID;
     }
 
-    private String MeetingDataID;
+
     private String SystemCurrentUserID;
 
 
@@ -61,7 +64,7 @@ public class PostNewMeetJoinJson implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.AppCode);
         dest.writeString(this.ApiCode);
-        dest.writeString(this.MeetingDataID);
+        dest.writeString(this.MeetingID);
         dest.writeString(this.SystemCurrentUserID);
     }
 
@@ -71,7 +74,7 @@ public class PostNewMeetJoinJson implements Parcelable {
     protected PostNewMeetJoinJson(Parcel in) {
         this.AppCode = in.readString();
         this.ApiCode = in.readString();
-        this.MeetingDataID = in.readString();
+        this.MeetingID = in.readString();
         this.SystemCurrentUserID = in.readString();
     }
 

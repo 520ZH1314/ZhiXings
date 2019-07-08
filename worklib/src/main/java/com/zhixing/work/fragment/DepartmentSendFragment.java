@@ -20,11 +20,14 @@ import com.zhixing.work.activity.MeetDetailActivity;
 import com.zhixing.work.activity.MeetListActivity;
 import com.zhixing.work.activity.TaskListActivity;
 import com.zhixing.work.activity.WorkTaskDetailActivity;
+import com.zhixing.work.bean.CreateTaskEntity;
 import com.zhixing.work.bean.MySendWorkEntity;
 import com.zhixing.work.bean.PostTaskCreateJsonBean;
 import com.zhixing.work.bean.PostTaskListJsonBean;
 import com.zhixing.work.bean.ResponseMeetingEntity;
 import com.zhixing.work.bean.TaskListItemEntity;
+import com.zhixing.work.http.base.MyBaseSubscriber;
+import com.zhixing.work.http.base.ResponseThrowable;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
@@ -99,16 +102,19 @@ public class DepartmentSendFragment  extends BaseFragment {
                         showDialog("加载中");
                     }
                 })
-                .subscribe(new Consumer<ResponseMeetingEntity>() {
+                .subscribe(new MyBaseSubscriber<ResponseMeetingEntity>(getActivity()) {
+
 
                                @Override
-                               public void accept(ResponseMeetingEntity entity) throws Exception {
+                               public void onResult(ResponseMeetingEntity entity) {
                                    dismissDialog();
                                    final List<ResponseMeetingEntity.RowsBean> rows = entity.getRows();
+                               }
 
-                                   }
-
-
+                               @Override
+                               public void onError(ResponseThrowable e) {
+                                   dismissDialog();
+                               }
                            }
                 );
 

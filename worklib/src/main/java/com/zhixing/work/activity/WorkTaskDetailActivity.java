@@ -40,8 +40,11 @@ import com.zhixing.work.bean.PostNewTaskDetailJson;
 import com.zhixing.work.bean.PostTaskCompeteJsonBean;
 import com.zhixing.work.bean.PostTaskDetailJson;
 import com.zhixing.work.bean.PostTaskReplyJson;
+import com.zhixing.work.bean.ResponseMeetDetailEntity;
 import com.zhixing.work.bean.TaskDetailEntity;
 import com.zhixing.work.bean.TaskListItemEntity;
+import com.zhixing.work.http.base.MyBaseSubscriber;
+import com.zhixing.work.http.base.ResponseThrowable;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
@@ -135,9 +138,10 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
     private void initData() {
          userId = SharedPreferencesTool.getMStool(this).getUserId();
 
+
         PostNewTaskDetailJson json= new PostNewTaskDetailJson();
 
-        json.setToDoListId(ToDoListId);
+        json.setTaskId(ToDoListId);
         json.setApiCode(ApiCode);
         json.setAppCode(AppCode);
         json.setTenantId(tenantId);
@@ -150,7 +154,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
     private void setTaskDetailData(RequestBody body) {
 
-        RetrofitClients.getInstance(this).create(WorkAPi.class)
+        RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .getTaskDetail(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
@@ -160,30 +164,30 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         showDialog("加载中");
                     }
                 })
-                .subscribe(new Consumer<TaskDetailEntity>() {
+                .subscribe(new MyBaseSubscriber<TaskDetailEntity>(this) {
                     @Override
-                    public void accept(TaskDetailEntity entity) throws Exception {
+                    public void onResult(TaskDetailEntity entity) {
                         dismissDialog();
 
-                        SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).setString("TaskID",entity.getSourceId());
+                        SharedPreferencesTool.getMStool(WorkTaskDetailActivity.this).setString("TaskID",entity.getOrigionTaskId());
 
 
 
 
 
-                        if (entity.getTaskStatus()==10) {
+                        if (entity.getCurrentStep()==10) {
                             //已经完成
-                                mCheckBox.setChecked(true);
-                                mCheckBox.setClickable(false);
-                                mTv_task_details_status.setVisibility(View.VISIBLE);
-                                mTv_task_details_status.setText("已完成");
-                                mBtnDiss.setVisibility(View.VISIBLE);
-                                mBtn_Diss.setText("已完成");
-                                mBtn_Diss.setClickable(false);
+                            mCheckBox.setChecked(true);
+                            mCheckBox.setClickable(false);
+                            mTv_task_details_status.setVisibility(View.VISIBLE);
+                            mTv_task_details_status.setText("已完成");
+                            mBtnDiss.setVisibility(View.VISIBLE);
+                            mBtn_Diss.setText("已完成");
+                            mBtn_Diss.setClickable(false);
 
 
 
-                        } else if (entity.getTaskStatus()==15) {
+                        } else if (entity.getCurrentStep()==20) {
                             //取消
                             mCheckBox.setChecked(true);
                             mCheckBox.setClickable(false);
@@ -192,7 +196,18 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             mBtnDiss.setVisibility(View.VISIBLE);
                             mBtn_Diss.setText("已取消");
                             mBtn_Diss.setClickable(false);
-                        } else {
+                        } else  if (entity.getCurrentStep()==15){
+                            //取消
+                            mCheckBox.setChecked(true);
+                            mCheckBox.setClickable(false);
+                            mTv_task_details_status.setVisibility(View.VISIBLE);
+                            mTv_task_details_status.setText("已结束");
+                            mBtnDiss.setVisibility(View.VISIBLE);
+                            mBtn_Diss.setText("已结束");
+                            mBtn_Diss.setClickable(false);
+                        }
+
+                        else {
 
                             String[] toDoUseId = entity.getToDoUserId().split(",");
                             List <String> data1=new ArrayList<>();
@@ -220,20 +235,21 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             if (data.contains(userId)){
                                 //当前用户是抄送人
                                 isCCuser=true;
-                                mCheckBox.setChecked(false);
-                                mCheckBox.setClickable(true);
+                                mCheckBox.setVisibility(View.GONE);
+
                                 mTv_task_details_status.setVisibility(View.GONE);
                                 mBtnDiss.setVisibility(View.VISIBLE);
                                 mBtn_Diss.setText("任务进行时");
                             }else{
                                 if (userId.equals(entity.getCreateUserId())){
+                                    mCheckBox.setVisibility(View.GONE);
                                     isCreate=true;
-
                                     mTv_task_details_status.setVisibility(View.GONE);
                                     mBtnDiss.setVisibility(View.VISIBLE);
                                     mBtn_Diss.setText("取消任务");
                                     mBtn_Diss.setClickable(true);
                                 }else{
+                                    mCheckBox.setVisibility(View.VISIBLE);
                                     isCreate=false;
                                     mTv_task_details_status.setVisibility(View.GONE);
                                     mBtnDiss.setVisibility(View.VISIBLE);
@@ -245,7 +261,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
 
                         }
 
-                        mTv_task_detail_content.setText(entity.getContents());//任务描述
+                        mTv_task_detail_content.setText(entity.getTaskDesc());//任务描述
                         String[] createtime = entity.getCreateDate().split("T");
                         mTv_task_detail_create_time.setText("时间"+createtime[0].toString() + " " + createtime[1].toString()); //创建时间
                         String[] compete_time = entity.getDueDate().split("T");
@@ -262,7 +278,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         for (int i = 0; i < str2.length; i++) {
                             copyData.add(new CopyPeopleBean(str2[i]));
                         }
-                         copyJson = GsonUtil.getGson().toJson(copyData);
+                        copyJson = GsonUtil.getGson().toJson(copyData);
 
                         mTv_task_detail_do_people_copy.setText(str2[0].toString() + "等" + str2.length + "人");
 
@@ -272,10 +288,16 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         TaskDetailListAdapter adapter = new TaskDetailListAdapter(R.layout.item_task_detail_recyles, rows);
                         mRecyleView.setAdapter(adapter);
                     }
+
+
+                    @Override
+                    public void onError(ResponseThrowable e) {
+                             dismissDialog();
+                    }
                 });
 
+}
 
-    }
 
     private void initView() {
            ip = SharedPreferencesTool.getMStool(this).getIp();
@@ -387,7 +409,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                  closeTaskDialog.show(getSupportFragmentManager(), "CloseTaskDialog");
 
              }else{
-                 Toasty.INSTANCE.showToast(this,"创建人才能取消");
+
              }
 
 
@@ -416,8 +438,6 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                  });
                  tips.showSheet();
 
-             }else {
-                 Toasty.INSTANCE.showToast(this,"只有执行人才能完成任务");
              }
 
 
@@ -439,7 +459,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         bean.setApiCode("EditCompletedTask");
         bean.setAppCode("CEOAssist");
         bean.setSystemCurrentUserID(userId);
-        bean.setToDoListId(ToDoListId);
+        bean.setTaskId(ToDoListId);
         String json = GsonUtil.getGson().toJson(bean);
         RequestBody  body1 = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
@@ -453,24 +473,29 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                     public void accept(Disposable disposable) throws Exception {
                         showDialog("加载中");
                     }
-                }).subscribe(new Consumer<CreateTaskEntity>() {
+                }) .subscribe(new MyBaseSubscriber<CreateTaskEntity>(this) {
+
             @Override
-            public void accept(CreateTaskEntity o) throws Exception {
-                 dismissDialog();
-                 if (o.isStatus()){
-                     mCheckBox.setChecked(true);
-                     mCheckBox.setClickable(false);
-                     mTv_task_details_status.setVisibility(View.VISIBLE);
-                     mTv_task_details_status.setText("已完成");
-                     mBtnDiss.setVisibility(View.VISIBLE);
-                     mBtn_Diss.setText("已完成");
-                     mBtn_Diss.setClickable(false);
-                     //发条消息通知外面刷新下界面
-                     EventBus.getDefault().postSticky(new CompeteTaskEvent(true,name,apiCode));
-                     AppManager.getAppManager().finishActivity();
+            public void onResult(CreateTaskEntity o) {
+                dismissDialog();
+                if (o.isStatus()){
+                    mCheckBox.setChecked(true);
+                    mCheckBox.setClickable(false);
+                    mTv_task_details_status.setVisibility(View.VISIBLE);
+                    mTv_task_details_status.setText("已完成");
+                    mBtnDiss.setVisibility(View.VISIBLE);
+                    mBtn_Diss.setText("已完成");
+                    mBtn_Diss.setClickable(false);
+                    //发条消息通知外面刷新下界面
+                    EventBus.getDefault().postSticky(new CompeteTaskEvent(true,name,apiCode));
+                    AppManager.getAppManager().finishActivity();
 
-                 }
+                }
+            }
 
+            @Override
+            public void onError(ResponseThrowable e) {
+                dismissDialog();
             }
         });
 
@@ -492,7 +517,7 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
         PostTaskReplyJson.RowsBean.ListBean ListBean = new PostTaskReplyJson.RowsBean.ListBean();
         List<PostTaskReplyJson.RowsBean.ListBean.InsertedBean> listBeans = new ArrayList<>();
         PostTaskReplyJson.RowsBean.ListBean.InsertedBean bean = new PostTaskReplyJson.RowsBean.ListBean.InsertedBean();
-        bean.setCommentSourceID(SharedPreferencesTool.getMStool(this).getString("TaskID"));
+        bean.setCommentSourceID(ToDoListId);
         bean.setCommentText(mEdit.getText().toString().trim());
         bean.setCommentUserID(SharedPreferencesTool.getMStool(this).getUserId());
         bean.setCreateUserID(SharedPreferencesTool.getMStool(this).getUserId());
@@ -516,10 +541,10 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         showDialog("加载中");
                     }
                 })
-                .subscribe(new Consumer<CreateTaskEntity>() {
-                    @Override
-                    public void accept(CreateTaskEntity entity) throws Exception {
+                .subscribe(new MyBaseSubscriber<CreateTaskEntity>(this) {
 
+                    @Override
+                    public void onResult(CreateTaskEntity entity) {
                         dismissDialog();
                         if (entity.isStatus()) {
 
@@ -527,8 +552,11 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             //保存成功
                             initData();//重新刷新下数据
                         }
+                    }
 
-
+                    @Override
+                    public void onError(ResponseThrowable e) {
+                        dismissDialog();
                     }
                 });
     }
@@ -557,9 +585,10 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                         showDialog("加载中");
                     }
                 })
-                .subscribe(new Consumer<CreateTaskEntity>() {
+                .subscribe(new MyBaseSubscriber<CreateTaskEntity>(this) {
+
                     @Override
-                    public void accept(CreateTaskEntity entity) throws Exception {
+                    public void onResult(CreateTaskEntity entity) {
                         dismissDialog();
                         if (entity.isStatus()) {
                             //取消
@@ -576,7 +605,11 @@ public class WorkTaskDetailActivity extends BaseActvity implements View.OnClickL
                             AppManager.getAppManager().finishActivity();
 
                         }
+                    }
 
+                    @Override
+                    public void onError(ResponseThrowable e) {
+                        dismissDialog();
                     }
                 });
 

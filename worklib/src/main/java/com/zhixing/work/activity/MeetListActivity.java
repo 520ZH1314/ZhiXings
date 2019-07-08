@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.TimeUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.stateviewlibrary.StateView;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.shape.DevShape;
 import com.orhanobut.logger.Logger;
@@ -39,8 +41,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.Subject;
 import okhttp3.RequestBody;
 
 /**
@@ -72,6 +76,9 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
     private MeetListAdapter adapter;
     private RecyclerView mRecycleViewMeetList;
     private String ip;
+    private LinearLayout mContentView;
+    private StateView mStateView;
+    private  RequestBody body;
 
 
     @Override
@@ -93,6 +100,7 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         mTvMeetStatusType = (TextView) findViewById(R.id.tv_meet_type);
         mRelativeLayout = (RelativeLayout) findViewById(R.id.rl_meet_type);
+        mContentView=(LinearLayout) findViewById(R.id.ll_meeting_list);
         mIvadd = (ImageView) findViewById(R.id.iv_work_add_work);
         mIvadd.setOnClickListener(this);
         mTvTitle = (TextView) findViewById(R.id.tv_work_title);
@@ -105,22 +113,22 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
         mTvSend.setVisibility(View.GONE);
         mRelativeLayout.setOnClickListener(this);
         mTvMeetStatusType.setText("我的发起");
-
+         mStateView = StateView.inject(mContentView);
 
         initData();
     }
 
     private void initData() {
         //初始化数据
-
+        mStateView.showLoading();
         PostTaskListJsonBean jsonBean = new PostTaskListJsonBean();
         jsonBean.setApiCode(ApiCode);
         jsonBean.setAppCode(AppCode);
         jsonBean.setTenantId(tenantId);
         jsonBean.setSystemCurrentUserID(userId);
 
-        String json = GsonUtil.getGson().toJson(jsonBean);
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+         String json = GsonUtil.getGson().toJson(jsonBean);
+         body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
 
 
         setMeetListData(body);
@@ -133,50 +141,72 @@ public class MeetListActivity extends BaseActvity implements View.OnClickListene
     *@author zjq
     *create at 2018/12/14 上午9:51 设置会议列表数据
     */
-    private void setMeetListData(RequestBody body) {
+    private void setMeetListData(final RequestBody body) {
         RetrofitClients.getInstance(this,ip).create(WorkAPi.class)
                 .getMeetingList(body)
                 .compose(RxUtils.schedulersTransformer())  // 线程调度
                 .compose(RxUtils.exceptionTransformer())   // 网络错误的异常转换
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showDialog("加载中");
-                    }
-                })
-                .subscribe(new Consumer<ResponseMeetingEntity>() {
+                .subscribe(new Observer<ResponseMeetingEntity>() {
+                               @Override
+                               public void onSubscribe(Disposable d) {
 
-                    @Override
-                    public void accept(ResponseMeetingEntity entity) throws Exception {
-                        dismissDialog();
-                        final List<ResponseMeetingEntity.RowsBean> rows = entity.getRows();
-                        if (adapter!=null){
-                            adapter.replaceData(rows);
-                            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                     Intent intent =new  Intent(MeetListActivity.this,MeetDetailActivity.class);
-                                     intent.putExtra("meetingDataID",rows.get(position).getMeetingDataID());
+                               }
 
-                                    startActivity(intent);
-                                }
-                            });
-                        }else{
-                            adapter=new MeetListAdapter(R.layout.item_meet_message,rows);
-                            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                    Intent intent =new  Intent(MeetListActivity.this,MeetDetailActivity.class);
-                                    intent.putExtra("meetingDataID",rows.get(position).getMeetingDataID());
+                               @Override
+                               public void onNext(ResponseMeetingEntity entity) {
+                                   mStateView.showContent();
+                                   if (entity.getRows().size()!=0&&entity!=null){
+                                       final List<ResponseMeetingEntity.RowsBean> rows = entity.getRows();
+                                       if (adapter!=null){
+                                           adapter.replaceData(rows);
+                                           adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                               @Override
+                                               public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                                   Intent intent =new  Intent(MeetListActivity.this,MeetDetailActivity.class);
+                                                   intent.putExtra("meetingDataID",rows.get(position).getMeetingDataID());
+                                                   intent.putExtra("meetingID",rows.get(position).getMeetingID());
+                                                   startActivity(intent);
+                                               }
+                                           });
+                                       }else{
+                                           adapter=new MeetListAdapter(R.layout.item_meet_message,rows);
+                                           adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                               @Override
+                                               public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                                   Intent intent =new  Intent(MeetListActivity.this,MeetDetailActivity.class);
+                                                   intent.putExtra("meetingDataID",rows.get(position).getMeetingDataID());
+                                                   intent.putExtra("meetingID",rows.get(position).getMeetingID());
+                                                   startActivity(intent);
+                                               }
+                                           });
 
-                                    startActivity(intent);
-                                }
-                            });
+                                           mRecycleViewMeetList.setAdapter(adapter);
+                                       }
+                                   }else{
+                                      mStateView.showEmpty();
+                                   }
 
-                            mRecycleViewMeetList.setAdapter(adapter);
-                        }
+                               }
 
-                    }
+                               @Override
+                               public void onError(Throwable e) {
+                                   mStateView.showRetry();
+                                   mStateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+                                       @Override
+                                       public void onRetryClick() {
+                                           setMeetListData(body);
+                                       }
+                                   });
+
+                               }
+
+                               @Override
+                               public void onComplete() {
+
+                               }
+
+
+
                 }
                 );
 

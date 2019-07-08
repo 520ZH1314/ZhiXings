@@ -31,6 +31,8 @@ import com.zhixing.work.R;
 import com.zhixing.work.bean.CreateTaskEntity;
 import com.zhixing.work.bean.CreateTaskJsonBean;
 
+import com.zhixing.work.http.base.MyBaseSubscriber;
+import com.zhixing.work.http.base.ResponseThrowable;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
@@ -194,7 +196,7 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
         }
 
 
-        if (TimeUtil.getTimeCompareSize(time1,time)==2){
+        if (TimeUtil.getTimeCompareSizes(time1,time)==2){
 
             CreateTaskJsonBean createTaskJsonBean = new CreateTaskJsonBean();
 
@@ -228,11 +230,11 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
                             showDialog("加载中");
                         }
                     })
-                    .subscribe(new Consumer<CreateTaskEntity>() {
+                    .subscribe(new MyBaseSubscriber<CreateTaskEntity>(this) {
                         @Override
-                        public void accept(CreateTaskEntity entity) throws Exception {
-                            dismissDialog();
-                            if (entity.isStatus()) {
+                        public void onResult(CreateTaskEntity entity) {
+
+                            if (entity.isStatus()) {   dismissDialog();
                                 //成功
                                 AppManager.getAppManager().finishActivity();
                                 //发消息通知任务列表刷新数据
@@ -241,6 +243,13 @@ public class CreateTaskActivity extends BaseActvity implements View.OnClickListe
                                 Toasty.INSTANCE.showToast(CreateTaskActivity.this, entity.getMessage());
                             }
                         }
+
+                        @Override
+                        public void onError(ResponseThrowable e) {
+                            dismissDialog();
+                        }
+
+
                     });
         }else if (TimeUtil.getTimeCompareSize(time1,time)==1){
             Toasty.INSTANCE.showToast(CreateTaskActivity.this,"开始时间不能大于结束时间");

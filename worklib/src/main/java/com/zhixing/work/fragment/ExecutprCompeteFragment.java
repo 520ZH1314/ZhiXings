@@ -20,6 +20,9 @@ import com.zhixing.work.activity.CopyPersonActivity;
 import com.zhixing.work.bean.CopyPeopleBean;
 import com.zhixing.work.bean.PostTaskDetailJson;
 import com.zhixing.work.bean.ResponseCompeteBean;
+import com.zhixing.work.bean.ResponseMeetingEntity;
+import com.zhixing.work.http.base.MyBaseSubscriber;
+import com.zhixing.work.http.base.ResponseThrowable;
 import com.zhixing.work.http.base.RetrofitClients;
 import com.zhixing.work.http.base.RxUtils;
 import com.zhixing.work.http.httpapi.WorkAPi;
@@ -74,17 +77,23 @@ public class ExecutprCompeteFragment extends BaseFragment {
                     public void accept(Disposable disposable) throws Exception {
                         showDialog("加载中");
                     }
-                }).subscribe(new Consumer<ResponseCompeteBean>() {
+                })   .subscribe(new MyBaseSubscriber<ResponseCompeteBean>(getActivity()) {
+
             @Override
-            public void accept(ResponseCompeteBean o) throws Exception {
-                      dismissDialog();
+            public void onResult(ResponseCompeteBean o) {
+                dismissDialog();
                 List<CopyPeopleBean> data =new ArrayList<>();
                 for (ResponseCompeteBean.RowsBean bean:o.getRows()) {
                     data.add(new CopyPeopleBean(bean.getToDoUserName()));
                 }
-                   Logger.d(data.size());
+                Logger.d(data.size());
                 adapter = new TaskCompetePeopleListAdapter(R.layout.item_compete, data);
                 mRecylerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onError(ResponseThrowable e) {
+                dismissDialog();
             }
         });
 

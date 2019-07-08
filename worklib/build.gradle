@@ -33,6 +33,7 @@ dependencies {
 
     implementation project(path: ':contact')
     implementation project(path: ':basecommon')
+    implementation project(path: ':stateviewlibrary')
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     implementation fileTree(include: ['*.jar'], dir: 'libs')

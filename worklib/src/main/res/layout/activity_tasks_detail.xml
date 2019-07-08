@@ -64,7 +64,6 @@
                 android:layout_marginTop="8dp"
                 android:maxEms="13"
                 android:maxLines="5"
-                android:text="3213213123123"
                 android:textColor="@color/black"
                 android:textSize="@dimen/s14"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -86,7 +85,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="李三"
                 android:textSize="@dimen/content_txt_"
                 app:layout_constraintBottom_toBottomOf="@+id/textView6"
                 app:layout_constraintStart_toEndOf="@+id/textView6"
@@ -96,14 +94,14 @@
                 android:id="@+id/tv_task_details_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
                 android:background="@drawable/textview_border"
                 android:padding="@dimen/x3"
                 android:text="已取消任务"
-                android:textSize="@dimen/content_txt_"
                 android:textColor="@color/textview_border"
-                app:layout_constraintStart_toEndOf="@+id/tv_task_detail_create_time"
+                android:textSize="@dimen/content_txt_"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_task_crate_people"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_task_crate_people" />
 
             <TextView
@@ -111,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="时间:11月5日 09:17"
+                android:text="时间:"
                 android:textSize="@dimen/content_txt_"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -169,10 +167,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:textSize="@dimen/content_txt_"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="2018年12月12日 18:00 截止"
+                    android:textSize="@dimen/content_txt_"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView18"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -244,7 +241,6 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:textSize="@dimen/content_txt_"
-                    android:text="共3人"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView_task18"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -316,7 +312,6 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:textSize="@dimen/content_txt_"
-                    android:text="共3人"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView_task19"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -459,7 +454,8 @@
                     android:padding="@dimen/x5"
                     android:textSize="@dimen/content_txt_" />
                 <ImageView
-                    android:visibility="visible"
+
+                    android:visibility="gone"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/iv_meet_detail_add_message"
                      android:layout_alignParentRight="true"

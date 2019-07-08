@@ -194,13 +194,13 @@ public class CreateCalendarActivity extends BaseActvity  implements View.OnClick
 
         String time1 = mTvTimeEnd.getText().toString();
 
-        if (TimeUtil.getTimeCompareSize(time1,time)==2){
+        if (TimeUtil.getTimeCompareSizes(time1,time)==2){
             //发送日程
             RequestBody body = setPostData();
 
             sendDateData(body);
 
-        }else if (TimeUtil.getTimeCompareSize(time1,time)==1){
+        }else if (TimeUtil.getTimeCompareSizes(time1,time)==1){
             Toasty.INSTANCE.showToast(CreateCalendarActivity.this,"开始时间不能大于结束时间");
 
         }else{

@@ -112,6 +112,7 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
     private ImageView mIvMore;
     private boolean isJoin = false;
     private ImageView mIvBack;
+    private String meetingID;
 
     @Override
     public int getLayoutId() {
@@ -138,6 +139,9 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
     private void initView() {
 
         meetingDataID = getIntent().getStringExtra("meetingDataID");
+
+        meetingID = getIntent().getStringExtra("meetingID");
+
         tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
         userId = SharedPreferencesTool.getMStool(this).getUserId();
         ip = SharedPreferencesTool.getMStool(this).getIp();
@@ -317,9 +321,15 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
                             //可以参加会议
                             mBtnJoin.setClickable(true);
                             mBtnJoin.setText("参加会议");
-                        } else {
+                        } else if (o.getMeetingStatus()==2){
                             mBtnJoin.setClickable(false);
                             mBtnJoin.setText("已参加");
+                        }else if (o.getMeetingStatus()==3){
+                            mBtnJoin.setClickable(false);
+                            mBtnJoin.setText("已关闭");
+                        }else{
+                            mBtnJoin.setClickable(false);
+                            mBtnJoin.setText("已取消");
                         }
 
 
@@ -532,7 +542,7 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
 
         json.setAppCode("CEOAssist");
         json.setApiCode("EditConfirmMeeting");
-        json.setMeetingDataID(meetingDataID);
+        json.setMeetingID(meetingID);
         json.setSystemCurrentUserID(userId);
         String json1 = GsonUtil.getGson().toJson(json);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json1);
@@ -549,10 +559,15 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
             @Override
             public void onResult(CreateTaskEntity o) {
                 dismissDialog();
-                Toasty.INSTANCE.showToast(MeetDetailActivity.this, "参加成功");
-                mBtnJoin.setText("已参加");
-                mBtnJoin.setClickable(false);
-                EventBus.getDefault().post(new UpdateMeetSureEvent(true));
+                if (o.isStatus()){
+                    Toasty.INSTANCE.showToast(MeetDetailActivity.this, "参加成功");
+                    mBtnJoin.setText("已参加");
+                    mBtnJoin.setClickable(false);
+                    EventBus.getDefault().post(new UpdateMeetSureEvent(true));
+                }else {
+                    Toasty.INSTANCE.showToast(MeetDetailActivity.this, "参加失败");
+                }
+
             }
 
             @Override
@@ -715,19 +730,23 @@ public class MeetDetailActivity extends BaseActvity implements View.OnClickListe
                             showDialog("加载中");
                         }
                     })
-                    .subscribe(new Consumer<CreateTaskEntity>() {
+                    .subscribe(new MyBaseSubscriber<CreateTaskEntity>(this) {
                         @Override
-                        public void accept(CreateTaskEntity entity) throws Exception {
-
+                        public void onResult(CreateTaskEntity entity) {
                             dismissDialog();
                             if (entity.isStatus()) {
                                 mEdit.getText().clear();
                                 //保存成功
                                 initData();//重新刷新下数据
                             }
-
-
                         }
+
+                        @Override
+                        public void onError(ResponseThrowable e) {
+                            dismissDialog();
+                        }
+
+
                     });
         }
 

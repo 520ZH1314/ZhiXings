@@ -15,7 +15,7 @@ public class PostNewTaskDetailJson implements Parcelable {
 
     private String AppCode;
     private String ApiCode;
-    private String ToDoListId;
+    private String TaskId;
     private String TenantId;
 
     public String getAppCode() {
@@ -34,12 +34,12 @@ public class PostNewTaskDetailJson implements Parcelable {
         this.ApiCode = ApiCode;
     }
 
-    public String getToDoListId() {
-        return ToDoListId;
+    public String getTaskId() {
+        return TaskId;
     }
 
-    public void setToDoListId(String ToDoListId) {
-        this.ToDoListId = ToDoListId;
+    public void setTaskId(String TaskId) {
+        this.TaskId = TaskId;
     }
 
     public String getTenantId() {
@@ -59,7 +59,7 @@ public class PostNewTaskDetailJson implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.AppCode);
         dest.writeString(this.ApiCode);
-        dest.writeString(this.ToDoListId);
+        dest.writeString(this.TaskId);
         dest.writeString(this.TenantId);
     }
 
@@ -69,7 +69,7 @@ public class PostNewTaskDetailJson implements Parcelable {
     protected PostNewTaskDetailJson(Parcel in) {
         this.AppCode = in.readString();
         this.ApiCode = in.readString();
-        this.ToDoListId = in.readString();
+        this.TaskId = in.readString();
         this.TenantId = in.readString();
     }
 
