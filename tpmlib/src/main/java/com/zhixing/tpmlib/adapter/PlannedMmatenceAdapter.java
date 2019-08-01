@@ -18,7 +18,7 @@ import com.zhixing.tpmlib.view.LabelView;
 import java.util.List;
 
 public class PlannedMmatenceAdapter extends BaseQuickAdapter<PlannetEntity, BaseViewHolder> {
-
+    int i=20;
     private PlanMatheBean planMatheBean;
     public PlannedMmatenceAdapter(List<PlannetEntity> data) {
         super(R.layout.item_planned_mentance, data);
@@ -27,6 +27,7 @@ public class PlannedMmatenceAdapter extends BaseQuickAdapter<PlannetEntity, Base
 
     @Override
     protected void convert(BaseViewHolder helper, PlannetEntity entity) {
+        i++;
         helper.setText(R.id.tv_matche_name, entity.getEquipmentName());
         helper.setText(R.id.tv_matche_date, entity.getLastMaintanceDate());
         helper.setText(R.id.tv_matche_num, entity.getEquipmentCode());
@@ -42,7 +43,7 @@ public class PlannedMmatenceAdapter extends BaseQuickAdapter<PlannetEntity, Base
         } else if (status.equals("10")) {
             labelView.setPrimaryText("已保养");
         }
-        helper.setText(R.id.tv_check_date, entity.getMaintanceDate() + "天");
+        helper.setText(R.id.tv_check_date, i+ "天");
         helper.setOnClickListener(R.id.tv_check_detail, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

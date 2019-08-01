@@ -34,17 +34,15 @@ public class TpmSetting {
      * 判断是否保存Tpm模块的工厂的数据
      */
     public void isSetting() {
-
+        SettingData();
         sharedUtils = new SharedUtils("TpmSetting");
-        if (sharedUtils.getStringValue("TpmFactoryId").length() == 0) {
-            SettingData();
-        } else {
-            isSetting = true;
-            Intent intent =new Intent(mContext,TpmActivity.class);
-            mContext.startActivity(intent);
-        }
-
-
+//        if (sharedUtils.getStringValue("TpmFactoryId").length() == 0) {
+//            SettingData();
+//        } else {
+//            isSetting = true;
+//            Intent intent =new Intent(mContext,TpmActivity.class);
+//            mContext.startActivity(intent);
+//        }
     }
     private void SettingData() {
         //设置工厂

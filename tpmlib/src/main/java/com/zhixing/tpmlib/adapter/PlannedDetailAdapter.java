@@ -25,7 +25,7 @@ public class PlannedDetailAdapter extends BaseQuickAdapter<PlanDatailBean,BaseVi
     @Override
     protected void convert(BaseViewHolder helper, PlanDatailBean entity) {
         ImageView ivMatcheDefault = helper.itemView.findViewById(R.id.iv_matche_default);
-        MyImageLoader.loads(mContext,UrlUtil.BaseImgUrl +entity.getActuallyImage(),ivMatcheDefault);
+        MyImageLoader.loads(mContext,"https://sale.stdlean.com:8003" +"/" +entity.getActuallyImage(),ivMatcheDefault,R.drawable.check_test);
         helper.setText(R.id.tv_requiment_num,entity.getNum());
         helper.setText(R.id.tv_planned_employee,entity.getOperator());//设置计划保养的人员
         helper.setText(R.id.tv_check_stard,entity.getDescription());//设置计划保养的标准

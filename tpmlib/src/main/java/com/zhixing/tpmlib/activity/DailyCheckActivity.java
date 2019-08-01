@@ -73,7 +73,7 @@ import butterknife.BindView;
  * @Date 2018/12/24
  * @Des 进入日常点检的界面
  */
-public class DailyCheckActivity extends BaseTpmActivity implements SpringView.OnFreshListener {
+public class DailyCheckActivity extends BaseTpmActivity {
     @BindView(R2.id.tetle_text)
     TextView tvTite;//标题文本标签
     @BindView(R2.id.spring)
@@ -128,12 +128,7 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
     }
     private void initData() {
         //设置上下拉事件
-        springView.setListener(this);
-        //设置springview的头和尾
-        //设置上下控件
-        springView.setType(SpringView.Type.FOLLOW);
-        springView.setHeader(new DefaultHeader(this));
-        springView.setFooter(new DefaultFooter(this));
+
         tvTite.setText("日常点检");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         getFroData(tpmLinecode,tpmStationCode);
@@ -168,14 +163,19 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                     Logger.d(imgList.get(0));
                     String json = GsonUtil.getGson().toJson(imgList);
                     shareUtil.setStringValue("Tpm_DailyCheck",json);
-                    dailyCheckAdapter = new DailyCheckAdapter(R.layout.item_requrement,equipmentEtityList);
-                    View headerView = getLayoutInflater().inflate(R.layout.item_line_select, null);
-                    headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    //   LinearLayout btn_select = headerView.findViewById(R.id.btn_select);
-                    // tvCell = (TextView) headerView.findViewById(R.id.tv_cell);
+                    if (dailyCheckAdapter!=null){
+                       dailyCheckAdapter.setNewData(equipmentEtityList);
+                    }else{
+                        dailyCheckAdapter = new DailyCheckAdapter(R.layout.item_requrement,equipmentEtityList);
+                        View headerView = getLayoutInflater().inflate(R.layout.item_line_select, null);
+                        headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        //   LinearLayout btn_select = headerView.findViewById(R.id.btn_select);
+                        // tvCell = (TextView) headerView.findViewById(R.id.tv_cell);
 //                                tvCell.setText(tpmLineName);
-                    // dailyCheckAdapter.addHeaderView(headerView);
-                    mRecyclerView.setAdapter(dailyCheckAdapter);
+                        // dailyCheckAdapter.addHeaderView(headerView);
+                        mRecyclerView.setAdapter(dailyCheckAdapter);
+                    }
+
                     btn_select.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -186,6 +186,24 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    if (dailyCheckAdapter!=null){
+                        dailyCheckAdapter.setNewData(equipmentEtityList);
+                    }else{
+                        dailyCheckAdapter = new DailyCheckAdapter(R.layout.item_requrement,equipmentEtityList);
+                        View headerView = getLayoutInflater().inflate(R.layout.item_line_select, null);
+                        headerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        //   LinearLayout btn_select = headerView.findViewById(R.id.btn_select);
+                        // tvCell = (TextView) headerView.findViewById(R.id.tv_cell);
+//                                tvCell.setText(tpmLineName);
+                        // dailyCheckAdapter.addHeaderView(headerView);
+                        mRecyclerView.setAdapter(dailyCheckAdapter);
+                    }
+                    btn_select.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            getWorkPosition();
+                        }
+                    });
                 }
                 P.c(jsonObject.toString());
             }
@@ -193,6 +211,7 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 P.c(error.toString());
+
             }
         });
 
@@ -228,9 +247,9 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
                     for (int i = 0; i < rows.length(); i++) {
                         EquipmentEtity equipmentBean = new EquipmentEtity();
                         JSONObject jsonObject1 = rows.getJSONObject(i);
-                        String equipmentName = jsonObject1.getString("EquipmentName");
-                        String equipmentCode = jsonObject1.getString("EquipmentCode");
-                        String equipmentId = jsonObject1.getString("EquipmentId");
+                        String equipmentName = jsonObject1.getString("equipmentName");
+                        String equipmentCode = jsonObject1.getString("equipmentCode");
+                        String equipmentId = jsonObject1.getString("equipmentId");
                         String ClassId = jsonObject1.getString("ClassId");
                         String Status = jsonObject1.getString("Status");
                         equipmentBean.setEquipmentName(equipmentName);
@@ -283,26 +302,5 @@ public class DailyCheckActivity extends BaseTpmActivity implements SpringView.On
         });
         commonSetSelectPop.showSheet();
     }
-    @Override
-    public void onRefresh() {
-        Toast.makeText(this, "上拉加载更多", Toast.LENGTH_SHORT).show();
-        dailyCheckAdapter.notifyDataSetChanged();
-        //这个方法就是在刷新或者加载1秒的时间后关闭
-        finishFreshAndLoad();
-    }
-    //来设置刷新时间的
-    private void finishFreshAndLoad() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                springView.onFinishFreshAndLoad();
-            }
-        }, 1000);
-    }
-    @Override
-    public void onLoadmore() {
-        dailyCheckAdapter.notifyDataSetChanged();
-        finishFreshAndLoad();
-        Toast.makeText(this, "下拉加载更多", Toast.LENGTH_SHORT).show();
-    }
+
 }

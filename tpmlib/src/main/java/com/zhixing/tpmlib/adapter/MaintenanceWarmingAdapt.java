@@ -15,17 +15,23 @@ import com.zhixing.tpmlib.view.LabelView;
 import java.util.List;
 
 public class MaintenanceWarmingAdapt extends BaseQuickAdapter<MaintenanceWarnBean, BaseViewHolder> {
+    private  int i;
+
     public MaintenanceWarmingAdapt(int layoutResId, @Nullable List<MaintenanceWarnBean> data) {
         super(layoutResId, data);
+         i =30;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, MaintenanceWarnBean item) {
+
         helper.setText(R.id.tv_machine_num, item.sum);
         helper.setText(R.id.tv_machine_name, item.machineName);
         helper.setText(R.id.tv_machine_id, item.machineId);
         helper.setText(R.id.tv_maintain_type, item.maintainType);
         LabelView viewById = helper.itemView.findViewById(R.id.tv_rotate);
+        helper.setText(R.id.tv_overdue,i+"天");
+        i++;
         if ("5".equals(item.getMachineStatus())){
             viewById.setPrimaryText("保养中");
             viewById.setTriangleBackgroundColor(Color.parseColor("#15BC84"));

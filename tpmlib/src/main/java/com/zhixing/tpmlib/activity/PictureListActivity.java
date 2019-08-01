@@ -79,6 +79,7 @@ public class PictureListActivity extends Activity implements PermissionsUtil.IPe
     private SharedUtils sharedUtils;
     private String imgUrl;
     private String imagePth;
+    private String ip;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +93,7 @@ public class PictureListActivity extends Activity implements PermissionsUtil.IPe
 
     private void initView() {
         gv_leave_img = (CustomGridView) findViewById(R.id.gv_leave_img);
+         ip = SharedPreferencesTool.getMStool(this).getIp();
         ImageView ivBack =(ImageView) findViewById(R.id.iv_back);
         TextView tv_commit = (TextView)findViewById(R.id.tv_commit);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +162,7 @@ public class PictureListActivity extends Activity implements PermissionsUtil.IPe
 
     public void uploadPic(Map<String,String> map) {
         // File file = new File(path);
-        RetrofitInterface retrofitInterface = RetrofitUtil.getInstance().getRetrofitInterface();
+        RetrofitInterface retrofitInterface = RetrofitUtil.getInstance("https://sale.stdlean.com:8003").getRetrofitInterface();
         retrofitInterface.getPicturesBean(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<PicturesBean>() {

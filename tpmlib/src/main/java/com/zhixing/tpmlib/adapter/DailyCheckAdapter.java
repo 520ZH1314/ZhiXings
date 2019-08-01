@@ -54,7 +54,7 @@ public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentEtity,BaseViewH
         imgMap =MultimapBuilder.hashKeys().arrayListValues().build();
         String tpm_dailyCheck =  sharedUtil.getStringValue("Tpm_DailyCheck");;
         Type type = new TypeToken<List<ImageEntity>>() {}.getType();
-        if (tpm_dailyCheck!=null){
+        if (!TextUtils.isEmpty(tpm_dailyCheck)){
             List<ImageEntity> datas = GsonUtil.getGson().fromJson(tpm_dailyCheck, type);
             for (ImageEntity bean: datas) {
                 imgMap.put(bean.getClassId(),bean.getFilePath());
@@ -70,7 +70,7 @@ public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentEtity,BaseViewH
         ShapedImageView ivDefault =  helper.itemView.findViewById(R.id.iv_matche_default);
         boolean hasImag = imgMap.containsKey(entity.getClassId());
         if (hasImag){
-            Url=SharedPreferencesTool.getMStool(mContext).getIp()+imgMap.get(entity.getClassId()).get(0);
+            Url=imgMap.get(entity.getClassId()).get(0);
         }
         MyImageLoader.loads(mContext,Url,ivDefault);
               helper.setText(R.id.tv_requiment,entity.getEquipmentName());
@@ -80,7 +80,7 @@ public class DailyCheckAdapter extends BaseQuickAdapter<EquipmentEtity,BaseViewH
             helper.setText(R.id.tv_matche_num,entity.getEquipmentCode());
             equipmentCodes = sharedUtils.getStringValue("equipmentCode");
         String status = entity.getStatus();
-        if(TextUtils.isEmpty(status)){
+        if(TextUtils.isEmpty(status)||"0".equals(status)){
             helper.setText(R.id.tv_daily_status,"未点检");
         }else if(status.equals("5")){
             helper.setText(R.id.tv_daily_status,"点检中");
