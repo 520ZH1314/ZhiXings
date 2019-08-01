@@ -208,7 +208,7 @@ public abstract class BaseActvity extends FragmentActivity   {
                 }
             }
         });
-        newMissRequest.setRetryPolicy( new DefaultRetryPolicy( 50000,//默认超时时间，应设置一个稍微大点儿的，例如本处的500000
+        newMissRequest.setRetryPolicy( new DefaultRetryPolicy( 150000,//默认超时时间，应设置一个稍微大点儿的，例如本处的500000
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,//默认最大尝试次数
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT ) );
 
