@@ -257,6 +257,9 @@
 
 
         <EditText
+            android:inputType="number"
+            android:maxEms="14"
+
             android:id="@+id/ed_recommend_id_num"
             android:layout_width="0dp"
             android:layout_height="0dp"

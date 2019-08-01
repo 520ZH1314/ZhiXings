@@ -63,7 +63,7 @@ public class SelectTeamTypeActivity extends BaseActvity {
         tvWorkTitle.setText("选择类型");
         recyUpdateSelectType.setLayoutManager(new LinearLayoutManager(this));
         List<PersonTestEntity> datas=new ArrayList<>();
-
+        tvWorkSend.setText("发送");
         datas.add(new PersonTestEntity("月度优秀员工",0,"1"));
         datas.add(new PersonTestEntity("季度优秀员工",0,"2"));
         datas.add(new PersonTestEntity("年度优秀员工",0,"3"));

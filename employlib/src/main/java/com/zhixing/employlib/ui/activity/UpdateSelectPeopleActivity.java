@@ -70,7 +70,7 @@ public class UpdateSelectPeopleActivity extends BaseActvity {
                 .mipmap.back);
         tvWorkTitle.setText("员工选择");
         gradingVIewModel = ViewModelProviders.of(this).get(GradingVIewModel.class);
-
+        tvWorkSend.setText("确认");
 
         Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
         ca.setTime(new Date()); //设置时间为当前时间

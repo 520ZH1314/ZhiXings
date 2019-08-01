@@ -79,7 +79,7 @@ public class OutOfAdActivity extends BaseActvity {
         ivWorkAddWork.setImageResource(R.mipmap.back);
         setStatus(-1);
         tvWorkTitle.setText("发布公告");
-        tvWorkSend.setText("完成");
+        tvWorkSend.setText("发送");
 
         upTeamViewModel = ViewModelProviders.of(this).get(UpTeamViewModel.class);
 
