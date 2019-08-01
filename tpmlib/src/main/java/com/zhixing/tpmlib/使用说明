@@ -1,0 +1,3 @@
+模块调用说明
+
+直接调用TpmSetting.getInstance().isSetting();
