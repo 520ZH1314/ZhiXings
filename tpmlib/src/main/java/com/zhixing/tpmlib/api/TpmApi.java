@@ -5,6 +5,7 @@ package com.zhixing.tpmlib.api;
 import com.zhixing.netlib.base.BaseRepository;
 import com.zhixing.netlib.base.BaseResponse;
 import com.zhixing.tpmlib.bean.CheckRecordDataEntity;
+import com.zhixing.tpmlib.bean.CheckResponseBean;
 import com.zhixing.tpmlib.bean.CommitMaintenanceBean;
 import com.zhixing.tpmlib.bean.EquipmentBaseDateEntity;
 import com.zhixing.tpmlib.bean.LineStationResponEntity;
@@ -87,5 +88,11 @@ public interface TpmApi {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("api/CMP/ApiRegistrator/PostApiGateWay")
     Flowable<CommitMaintenanceBean>SendMaintenanceItemDatas(@Body RequestBody body);
+
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/CMP/ApiRegistrator/PostApiGateWay")
+    Flowable<CheckResponseBean>SendCheckResponseBean(@Body RequestBody body);
+
 
 }

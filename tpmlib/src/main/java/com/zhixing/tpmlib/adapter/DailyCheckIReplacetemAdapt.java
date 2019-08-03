@@ -103,7 +103,7 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
         SharedUtils sharedUtil = new SharedUtils("TpmSetting");
         sharedUtils = new SharedUtils("TPM");
         EventBus.getDefault().register(this);
-        ip=SharedPreferencesTool.getMStool(context).getIp();
+        ip = SharedPreferencesTool.getMStool(context).getIp();
         String tpmMaintenanceData = sharedUtil.getStringValue("TpmMaintenanceData");
         if (tpmMaintenanceData != null) {
             maintenanceServerBean = GsonUtil.getGson().fromJson(tpmMaintenanceData, MaintenanceServerBean.class);
@@ -125,7 +125,14 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
             helper.setText(R.id.tv_daily_check_replace_body, item.getDescription());
             Button btn2 = helper.itemView.findViewById(R.id.btn_ng);
             roundAngleImageView = (RoundAngleImageView) helper.itemView.findViewById(R.id.roundAngleImageView);
-            MyImageLoader.loads(mContext, "https://sale.stdlean.com:8003" +"/"+ item.getActuallyImage(), roundAngleImageView,R.drawable.check_test);
+            if ("null".equals(item.getActuallyImage())) {
+                item.setActuallyImage("");
+            }
+
+            if (!TextUtils.isEmpty(item.getActuallyImage())) {
+                MyImageLoader.loads(mContext, "https://sale.stdlean.com:8003" + "/" + item.getActuallyImage(), roundAngleImageView, R.drawable.check_test);
+
+            }
       /*  String path="storage/emulated/0/Android/data/com.shuben.zhixing.www/cache/luban_disk_cache/154840046858340.png";
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
@@ -312,9 +319,17 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
                 }
 
             });
-            iv_add.setOnClickListener(new View.OnClickListener()
 
-            {
+
+
+
+
+
+
+
+
+
+            iv_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mContext.startActivity(new Intent(mContext, PictureListActivity.class));
@@ -335,7 +350,7 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
 
             roundAngleImageView = (RoundAngleImageView) helper.itemView.findViewById(R.id.roundAngleImageView);
             if (!TextUtils.isEmpty(entity.getActuallyImage())) {
-                MyImageLoader.loads(mContext, "https://sale.stdlean.com:8003" +"/"+ entity.getActuallyImage(), roundAngleImageView,R.drawable.check_test);
+                MyImageLoader.loads(mContext, "https://sale.stdlean.com:8003" + "/" + entity.getActuallyImage(), roundAngleImageView, R.drawable.check_test);
 
             }
 
@@ -396,7 +411,7 @@ public class DailyCheckIReplacetemAdapt<T> extends BaseQuickAdapter<T, BaseViewH
                         @Override
                         public void onChanged(@Nullable CommitMaintenanceBean commitMaintenanceBean) {
                             if (commitMaintenanceBean != null) {
-                                if (commitMaintenanceBean.getResult()==1) {
+                                if (commitMaintenanceBean.getResult() == 1) {
                                     Toasty.INSTANCE.showToast(mContext, "上传成功");
                                     DevShapeUtils
                                             .shape(DevShape.RECTANGLE)

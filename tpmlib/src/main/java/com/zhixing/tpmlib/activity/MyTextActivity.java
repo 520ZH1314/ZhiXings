@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -151,6 +152,8 @@ public class MyTextActivity extends BaseTpmActivity {
 
     }
 
+
+
     private void getExceptionFromData() {
 
         String tenantId = SharedPreferencesTool.getMStool(this).getTenantId();
@@ -173,6 +176,10 @@ public class MyTextActivity extends BaseTpmActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+
+
+
 //        获取异常小类的接口
         Map<String, String> exceptionParams = new HashMap<String, String>();
         exceptionParams.put("AppCode", "Andon");
@@ -195,7 +202,8 @@ public class MyTextActivity extends BaseTpmActivity {
             public void success(JSONObject jsonObject) {
                 String exceptionUrl = jsonObject.toString();
                 sharedUtils.setStringValue("exceptionJson", jsonObject.toString());
-                P.c(jsonObject.toString() + "exceptionUtrl");
+
+
             }
 
             @Override
@@ -315,5 +323,10 @@ public class MyTextActivity extends BaseTpmActivity {
             isReplace = false;
         }
     }
+
+
+
+
+
 }
 

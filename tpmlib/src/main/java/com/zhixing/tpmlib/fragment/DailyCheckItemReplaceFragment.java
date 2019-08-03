@@ -223,12 +223,11 @@ public class DailyCheckItemReplaceFragment extends BaseFragment {
             JSONObject jsonObject = new JSONObject(exceptionJson);
             JSONArray rows = jsonObject.getJSONArray("rows");
             for (int i = 0; i < rows.length(); i++) {
-                String exceptionGroupName = rows.getJSONObject(i).getString("ExceptionGroupName");
+                String exceptionGroupName = rows.getJSONObject(i).getString("ExceptionName");
                 String ExceptionId = rows.getJSONObject(i).getString("ExceptionId");
                 AnomalousBean anomalousBean = new AnomalousBean();
                 anomalousBean.setExceptionGroupName(exceptionGroupName);
                 anomalousBean.setExceptionId(ExceptionId);
-                P.c("exceptionGroupName" + exceptionGroupName);
                 anomalousBeanList.add(anomalousBean);
             }
         } catch (Exception e) {
