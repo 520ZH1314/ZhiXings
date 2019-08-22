@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:background="@color/content_bg"
         android:layout_height="0dp"
+        android:id="@+id/root"
         android:layout_weight="1">
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/ref"

@@ -28,12 +28,12 @@ import com.base.zhixing.www.util.GsonUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.CommonSetSelectPop;
 import com.google.gson.JsonObject;
+import com.igexin.sdk.PushManager;
 import com.leo618.zip.IZipCallback;
 import com.leo618.zip.ZipManager;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadLargeFileListener;
 import com.liulishuo.filedownloader.FileDownloader;
-import com.sdk.chat.ChatSdk;
 import com.base.zhixing.www.BaseFragment;
 import com.shuben.zhixing.module.mess.MessActivity;
 import com.shuben.zhixing.module.mess_scan.MessScanActivity;
@@ -52,10 +52,10 @@ import com.shuben.zhixing.www.common.ARouterContants;
 import com.shuben.zhixing.www.common.T;
 import com.shuben.zhixing.www.data.UserData;
 import com.shuben.zhixing.www.fragment.adapter.FoucsAdapter;
-import com.shuben.zhixing.www.inspection.InspectionActivity;
 import com.base.zhixing.www.inter.ScreenSelect;
 import com.base.zhixing.www.inter.Tips;
 import com.base.zhixing.www.inter.VolleyResult;
+import com.shuben.zhixing.www.inspection.fragment.InspectionMain;
 import com.shuben.zhixing.www.inter.EnterI;
 import com.shuben.zhixing.www.patrol.PatrolActivity;
 import com.shuben.zhixing.www.reminder.ReminderActivity;
@@ -68,6 +68,8 @@ import com.base.zhixing.www.widget.CommonTips;
 import com.base.zhixing.www.widget.InGridView;
 import com.shuben.zhixing.www.util.UpdateManager;
 import com.zhixing.tpmlib.activity.TpmActivity;
+import com.zhixing.tpmlib.activity.TpmSetting;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -135,19 +137,22 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
      * 注意:“#”代表不受控
      */
     private void initItems(){
-        addItem(R.mipmap.sy_cuidan,R.string.frg_i0,"JJCD");
-        addItem(R.mipmap.sy_task,R.string.frg_i1,"RWJB");
+        addItem(R.mipmap.sy_cuidan,R.string.frg_i0,NOT_QX);//"JJCD"
+        addItem(R.mipmap.sy_task,R.string.frg_i1,NOT_QX);//"RWJB"
         addItem(R.mipmap.sy_gxmeeting,R.string.frg_i2,"GXHY");
         addItem(R.mipmap.sy_bad,R.string.frg_i3,"SMES-S");
-        addItem(R.mipmap.sy_ecn,R.string.frg_i4,"");
-        addItem(R.mipmap.rolling_mrb,R.string.frg_i5,"TPM");
+        addItem(R.mipmap.sy_ecn,R.string.frg_i4,NOT_QX);
+        addItem(R.mipmap.rolling_mrb,R.string.frg_i5,NOT_QX);//"TPM"
         addItem(R.mipmap.andon_ico,R.string.frg_i6,"ANDON");
-        addItem(R.mipmap.sy_task,R.string.frg_i7,"QMS");
+       // addItem(R.mipmap.sy_zhiliang,R.string.frg_i7,"QMS");
         addItem(R.mipmap.center_room_tag,R.string.frg_i9,"ZKS");
         addItem(R.mipmap.sy_rpc,R.string.frg_i10,"RPC");
         addItem(R.mipmap.sy_empl,R.string.frg_i11,"YGJX");
-        addItem(R.mipmap.sy_more,R.string.frg_i8,"MORE");
-        addItem(R.mipmap.sy_more,R.string.frg_ix,NOT_QX);
+        addItem(R.mipmap.sy_mes_scan,R.string.frg_i12,"MES_SCAN");
+//        addItem(R.mipmap.sy_more,R.string.frg_i8,"MORE");
+//        addItem(R.mipmap.sy_more,R.string.frg_ix,NOT_QX);
+//        addItem(R.mipmap.sy_more1,R.string.frg_ix,NOT_QX);
+//        addItem(R.mipmap.sy_more2,R.string.frg_ix,NOT_QX);
     }
     //给应用模块增加TAG
     private void addItem(int im,int txt,String TAG){
@@ -183,6 +188,14 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         getHandler().sendEmptyMessage(2);
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+
     private FoucsAdapter foucsAdapter;
 
     //id初始化
@@ -193,7 +206,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
         initItems();
        // load();
-        checkUpdate();
+
         foucsAdapter = new FoucsAdapter(getActivity(),items);
         foucs = view_layout.findViewById(R.id.foucs);
         foucs.setAdapter(foucsAdapter);
@@ -215,8 +228,20 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
                     @Override
                     public void sure() {
-                        ChatSdk.close();
+
+                        //#######主动退出推送
+
                         SharedPreferencesTool.getMStool(getActivity()).clear("UserId");
+                        //清除数据
+                        //99对应provider的CLEAR_ALL常量
+                        Uri uri = Uri.parse("content://com.zhixing.provider/standInfo");//这么使用
+                        getActivity().getContentResolver().delete(uri,null,null);
+                        //停止推送服务
+                        PushManager.getInstance().stopService(getActivity());
+//
+                        //在退出这里处理
+
+
                         /**
                         * @author cloor
                         * @time   2018-12-21 11:30
@@ -257,6 +282,13 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
               
                 P.c("模块是"+params1);
                 clickItem(param0,params1);
+            }
+        });
+
+        mViewPaper.post(new Runnable() {
+            @Override
+            public void run() {
+                checkUpdate();
             }
         });
         setOnclick();
@@ -341,6 +373,7 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
 
             @Override
@@ -425,17 +458,35 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
             }
         });
     }
-    private void enterMes(String MOUDLE){
-        Intent intent2=new Intent(getActivity(),MessActivity.class);
+    private void enterMoudle(String MOUDLE,Class c){
+        Intent intent2=new Intent(getActivity(),c);
         intent2.putExtra("file",Common.SD+MOUDLE+"/MODULE/index.html");
+        startActivity(intent2);
+    }
+    private void enterMoudleI(String MOUDLE,Class c,String init){
+        Intent intent2=new Intent(getActivity(),c);
+
+        if(FileUtils.isExists(Common.BASE_DIR+"/andon.ini")&&MOUDLE.equals(T.ANDON)){
+            intent2.putExtra("url",FileUtils.read(Common.BASE_DIR+"/andon.ini"));
+            P.c("是"+FileUtils.read(Common.BASE_DIR+"/andon.ini"));
+
+        }else{
+            intent2.putExtra("file",Common.SD+MOUDLE+"/MODULE/index.html");
+        }
+
+
+//        intent2.putExtra("url","http://192.168.1.107:8081/index.html");
+        if(init!=null){
+            intent2.putExtra("init_value",init);
+        }
         startActivity(intent2);
     }
 
     private void enterAndon(String MOUDLE){
-        Intent intent2=new Intent();
+       // Intent intent2=new Intent();
         String user= SharedPreferencesTool.getMStool(getActivity()).getPhone();
         String psw= SharedPreferencesTool.getMStool(getActivity()).getPassword();
-        intent2.putExtra("file",Common.SD+MOUDLE+"/MODULE/index.html");
+       // intent2.putExtra("file",Common.SD+MOUDLE+"/MODULE/index.html");
 //        intent2.putExtra("url","http://192.168.0.109:8081");
 //        P.c("地址"+intent2.getStringExtra("url"));
         String p0 =  SharedPreferencesTool.getMStool(getActivity()).getUserId();
@@ -455,9 +506,12 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 @Override
                 public void select(String id0[], String id1[], String id2[], String id3[]) {
                     String js = "javascript:loginInfoMsg("+params(p0)+","+params(p1)+","+params(p2)+","+params(p3)+","+params(id0[0])+","+params(id1[0])+","+params(id2[0])+","+params(id3[0])+","+params("-1")+")";
-                    intent2.putExtra("init_value",js);
-                    intent2.setClass(getActivity(), AndonActivity.class);
-                    startActivity(intent2);
+//                    intent2.putExtra("init_value",js);
+////                    intent2.setClass(getActivity(), AndonActivity.class);
+////                    startActivity(intent2);
+                    enterMoudleI(MOUDLE,AndonActivity.class,js);
+
+
                 }
             });
             andon.selectScreen(4,1);
@@ -466,10 +520,10 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
         //安灯
         String js = "javascript:loginInfoMsg("+params(p0)+","+params(p1)+","+params(p2)+","+params(p3)+","+params(p4)+","+params(p7)+","+params(p5)+","+params(p6)+")";
         P.c(js);
-        intent2.putExtra("init_value",js);
+      /*  intent2.putExtra("init_value",js);
         intent2.setClass(getActivity(), AndonActivity.class);
-        startActivity(intent2);
-
+        startActivity(intent2);*/
+        enterMoudleI(MOUDLE,AndonActivity.class,js);
     }
 
 
@@ -488,13 +542,20 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
 
                 break;
             case R.mipmap.andon_ico:
+
+              /*  Intent intent2=new Intent(getActivity(),AndonActivity.class);
+                intent2.putExtra("file","/android_asset/index.html");
+                startActivity(intent2);*/
+
+
+
+
                 downModule(T.ANDON, new EnterI() {
                     @Override
                     public void enter(String moudle) {
                         enterAndon(moudle);
                     }
                 });
-
 
                 break;
             case 2://任务交办
@@ -520,23 +581,24 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 downModule(T.SMESS, new EnterI() {
                     @Override
                     public void enter(String moudle) {
-                        enterMes(moudle);
+                        enterMoudle(moudle,MessActivity.class);
                     }
                 });
                 break;
 
             case R.mipmap.sy_ecn://巡检
                 //showRefundDialogs("当前用户未开启巡检功能");
-                Intent mini=new Intent();
-                mini.setClass(getActivity(), InspectionActivity.class);
-                startActivity(mini);
+                Intent inspection=new Intent();
+                inspection.setClass(getActivity(), InspectionMain.class);
+                startActivity(inspection);
                 break;
 
             case R.mipmap.rolling_mrb://巡线管理
               //  showRefundDialogs("暂无开放");
-                Intent po=new Intent();
+                TpmSetting.getInstance(getActivity()).isSetting();
+                /*Intent po=new Intent();
                 po.setClass(getActivity(), TpmActivity.class);
-                startActivity(po);
+                startActivity(po);*/
 
                 break;
             case R.mipmap.sy_task:
@@ -548,7 +610,10 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                * @time   2018-12-24 16:18
                * @describe  :
                */
-                ARouter.getInstance().build(ARouterContants.MassMainActivity).navigation();
+//                ARouter.getInstance().build(ARouterContants.MassMainActivity).navigation();
+
+                ARouter.getInstance().build(ARouterContants.WorkMainActivity).navigation();
+
                 //通讯
                 break;
             case R.mipmap.center_room_tag:
@@ -585,16 +650,66 @@ public class Fragment01 extends BaseFragment implements View.OnClickListener{
                 Toasty.INSTANCE.showToast(getActivity(),"开发中");
                 //ARouter.getInstance().build(ARouterContants.PerformanceActivity).navigation();
                 break;
-            case R.mipmap.sy_more:
+            case R.mipmap.sy_mes_scan:
                 /**
                  * @author cloor
                  * @time 2019-5-6 16:33
                  * @describe  :
                  */
                 //ARouter.getInstance().build(ARouterContants.MassMainActivity).navigation();
-                Intent intent2=new Intent(getActivity(), MessScanActivity.class);
-                intent2.putExtra("url","http://192.168.31.168:8848/SMT/view/code.html");
-                startActivity(intent2);
+              /*  Intent intent2=new Intent(getActivity(), MessScanActivity.class);
+                intent2.putExtra("url","http://192.168.1.125:8848/SMT/index.html");
+                JSONObject object = new JSONObject();
+                try {
+                    object.put("tenantId",SharedPreferencesTool.getMStool(getActivity()).getTenantId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                intent2.putExtra("init_value","javascript:getMesUser('"+object.toString()+"')");
+                startActivity(intent2);*/
+
+                downModule(T.MES, new EnterI() {
+                    @Override
+                    public void enter(String moudle) {
+                        JSONObject object = new JSONObject();
+                        try {
+                            object.put("tenantId",SharedPreferencesTool.getMStool(getActivity()).getTenantId());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        String js = "javascript:getMesUser('"+object.toString()+"')";
+                        enterMoudleI(moudle,MessScanActivity.class,js);
+                    }
+                });
+
+                break;
+            case R.mipmap.sy_more:
+                    Toasty.INSTANCE.showToast(getActivity(),"努力开发中!");
+                /*downModule(T.MES, new EnterI() {
+                    @Override
+                    public void enter(String moudle) {
+                        JSONObject object = new JSONObject();
+                        try {
+                            object.put("tenantId",SharedPreferencesTool.getMStool(getActivity()).getTenantId());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        enterMoudleI(moudle,MessScanActivity.class,"javascript:getMesUser('"+object.toString()+"')");
+                    }
+                });*/
+                break;
+            case R.mipmap.sy_more2:
+                /**
+                 * @author cloor
+                 * @time 2019-5-6 16:33
+                 * @describe  :
+                 */
+                //ARouter.getInstance().build(ARouterContants.MassMainActivity).navigation();
+                Intent intent23=new Intent(getActivity(), MessScanActivity.class);
+                intent23.putExtra("url","http://192.168.31.168:8848/SMT/view/collecting.html");
+                startActivity(intent23);
                 break;
         }
     }

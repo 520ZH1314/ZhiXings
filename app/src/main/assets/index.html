@@ -1,0 +1,15 @@
+<body>  
+  	<center>  <share>js中调用本地方法</share>  
+  	</center>
+    <script>  
+    var aTag = document.getElementsByTagName('share')[0];  
+    aTag.addEventListener('click', function(){  
+        //调用android本地方法  
+        jsShared.h5_share("标题","打开地址","短语","图片地址");  
+        return false;  
+    }, false);  
+    </script>  
+    <p></p>  
+    <input id="input" type="file"/>  
+     
+</body> 

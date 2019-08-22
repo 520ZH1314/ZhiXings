@@ -94,7 +94,7 @@ public class IntentWrapper {
             xiaomiGodIntent.setComponent(new ComponentName("com.miui.powerkeeper", "com.miui.powerkeeper.ui.HiddenAppsConfigActivity"));
             xiaomiGodIntent.putExtra("package_name", DaemonEnv.sApp.getPackageName());
             xiaomiGodIntent.putExtra("package_label", getApplicationName());
-            sIntentWrapperList.add(new IntentWrapper(xiaomiGodIntent, XIAOMI_GOD));
+            sIntentWrapperList.add(new IntentWrapper(xiaomiGodIntent, XIAOMI_GOD));  
 
             //三星 5.0/5.1 自启动应用程序管理
             Intent samsungLIntent = DaemonEnv.sApp.getPackageManager().getLaunchIntentForPackage("com.samsung.android.sm");

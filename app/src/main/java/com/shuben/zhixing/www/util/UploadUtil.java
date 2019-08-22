@@ -2,6 +2,8 @@ package com.shuben.zhixing.www.util;
 
 import android.util.Log;
 
+import com.base.zhixing.www.common.P;
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -105,10 +107,13 @@ public class UploadUtil {
 				// Log.e(TAG, "request error");
 				// }
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+
+		}catch (Exception e){
+			try {
+				P.c(e.getMessage());
+			}catch (Exception m){
+				
+			}
 		}
 		return result;
 	}

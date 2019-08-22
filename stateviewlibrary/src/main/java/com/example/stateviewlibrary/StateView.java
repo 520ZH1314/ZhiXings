@@ -29,6 +29,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -390,14 +391,22 @@ public class StateView extends View {
             ShimmerTextView shimmerTextView=view.findViewById(R.id.tv_ani_loading);
             TextPaint tp = shimmerTextView.getPaint();
             Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "font/STHUPO.TTF");
+            TextView tv_ani_loading = findViewById(R.id.tv_ani_loading);
             shimmerTextView.setTypeface(typeface);
             tp.setFakeBoldText(true);
             shimmer =new Shimmer();
+            if(showText!=null){
+                shimmerTextView.setText(showText);
+            }
             shimmer.start(shimmerTextView);
         }
         setVisibility(view, VISIBLE);
 
         hideViews(view);
+    }
+    private String showText = null;
+    public void setShowText(String showText){
+        this.showText = showText;
     }
 
     /**

@@ -13,6 +13,7 @@
     <com.shuben.zhixing.www.reminder.ReminderTabIndicator
         android:id="@+id/tab_indicator"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

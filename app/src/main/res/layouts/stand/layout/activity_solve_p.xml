@@ -1,145 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_my_question"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_my_question"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="com.shuben.zhixing.www.inspection.fragment.SolvePActivity"
+android:weightSum="1">
+<RelativeLayout
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.shuben.zhixing.www.inspection.fragment.SolvePActivity"
-    android:weightSum="1">
-    <RelativeLayout
+    android:layout_height="@dimen/title_height"
+    android:background="@color/title_bg"
+    >
+
+    <TextView
+        android:text="解决问题"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title_center_size"
+        android:id="@+id/tx_tittle" />
+
+    <LinearLayout
+        android:id="@+id/lay_back"
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/x40"
-        android:background="#169BD5"
-        >
-
-        <TextView
-            android:text="解决问题"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/s14"
-            android:id="@+id/tx_tittle" />
-
-        <LinearLayout
-            android:id="@+id/lay_back"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/title_back"
-                android:layout_width="@dimen/x20"
-                android:layout_height="@dimen/x20"
-                android:layout_centerVertical="true"
-                android:background="@mipmap/back"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:text="返回"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/s12"
-                android:id="@+id/tx_back"
-                android:layout_alignBaseline="@+id/tx_tittle"
-                android:layout_alignBottom="@+id/tx_tittle"
-                android:layout_toRightOf="@+id/title_back"
-                android:layout_toEndOf="@+id/title_back"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <TextView
-            android:text="发送"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="@dimen/x10"
-            android:textColor="@color/white"
-            android:textSize="@dimen/s14"
-
-            android:id="@+id/tx_commit" />
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:gravity="center_vertical"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/title_back"
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/back"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="返回"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s12"
+            android:id="@+id/tx_back"
+            android:layout_alignBaseline="@+id/tx_tittle"
+            android:layout_alignBottom="@+id/tx_tittle"
+            android:layout_toRightOf="@+id/title_back"
+            android:layout_toEndOf="@+id/title_back"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView
+        android:text="发送"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/x10"
+        android:textColor="@color/white"
+        android:textSize="@dimen/s14"
+
+        android:id="@+id/tx_commit" />
+</RelativeLayout>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:text="处理结果描述"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:textSize="@dimen/content_txt_"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/x10"
+            android:id="@+id/textView14" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x100"
+            android:inputType="text"
+            android:layout_margin="@dimen/x8"
+            android:textColor="@color/txt_viw"
+            android:gravity="left|top"
+            android:hint="请输入内容"
+            android:maxLines="4"
+            android:textSize="@dimen/content_txt_s"
+            android:background="@color/content_bg"
+            android:padding="@dimen/x4"
+            android:id="@+id/editText2" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x40">
 
             <TextView
-                android:text="处理结果描述"
-                android:layout_width="match_parent"
+                android:text="问题拍照:"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/s12"
-                android:textStyle="bold"
-                android:layout_margin="@dimen/x10"
-                android:id="@+id/textView14" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/x60"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:hint="请输入内容"
-                android:textSize="@dimen/s12"
-                android:background="@color/gray03"
-                android:paddingLeft="@dimen/x10"
-                android:id="@+id/editText2" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/x40">
-
-                <TextView
-                    android:text="问题拍照:"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="@dimen/x10"
-                    android:layout_marginStart="25dp"
-                    android:textSize="@dimen/s12"
-                    android:id="@+id/textView57" />
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_marginStart="25dp"
+                android:textSize="@dimen/content_txt_"
+                android:id="@+id/textView57" />
 
 
-                <Button
-                    android:layout_width="@dimen/x25"
-                    android:layout_height="@dimen/x20"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="@dimen/x10"
-                    android:id="@+id/bnt_camera" />
-            </RelativeLayout>
-            <GridView
-                android:id="@+id/gridview_photo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:padding="@dimen/x10"
-                android:horizontalSpacing="@dimen/x10"
-                android:numColumns="3"
-                />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/x40">
+            <Button
+                android:layout_width="@dimen/x30"
+                android:layout_height="@dimen/x22"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/x10"
+                android:background="@mipmap/patrol_camera_icon"
+                android:id="@+id/bnt_camera" />
+        </RelativeLayout>
+        <com.base.zhixing.www.widget.InGridView
+            android:id="@+id/gridview_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:padding="@dimen/x10"
+            android:verticalSpacing="@dimen/x10"
+            android:horizontalSpacing="@dimen/x10"
+            android:numColumns="3"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x40">
 
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
 
 
 </LinearLayout>

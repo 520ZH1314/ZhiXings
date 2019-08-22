@@ -12,5 +12,5 @@ public class T {
     //安灯模块
     public static String ANDON = "ANDON";
      public static String SMESS = "SMES";
-
+    public static String MES = "MES_SCAN";
 }

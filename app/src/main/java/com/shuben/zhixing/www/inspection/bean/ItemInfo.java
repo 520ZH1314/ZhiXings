@@ -18,6 +18,33 @@ public class ItemInfo implements Serializable{
     private String CreateTime;
     private String ItemSource;
     private List<ParamInfo> list;//该巡检项对应的文本框信息，返回值为Json格式，
+    private  String path;
+    private String tx03V;
+    private String tx04V;
+
+    public String getTx03V() {
+        return tx03V;
+    }
+
+    public void setTx03V(String tx03V) {
+        this.tx03V = tx03V;
+    }
+
+    public String getTx04V() {
+        return tx04V;
+    }
+
+    public void setTx04V(String tx04V) {
+        this.tx04V = tx04V;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public ItemInfo(String patrolRecord, String patrolTaskId, String itemId, String itemName, String itemType, String patrolFashion, String result, String createTime, String itemSource, List<ParamInfo> list) {
 

@@ -22,7 +22,7 @@ public abstract class BaseSubscriber<T> extends DisposableObserver<T> {
 
     @Override
     public void onError(Throwable e) {
-        KLog.e(e.getMessage());
+
         // todo error somthing
 
         if (e instanceof ResponseThrowable) {
@@ -65,7 +65,7 @@ public abstract class BaseSubscriber<T> extends DisposableObserver<T> {
         } else if (baseResponse.getCode() == 330) {
             Toast.makeText(context,baseResponse.getMessage(),Toast.LENGTH_SHORT).show();
         } else if (baseResponse.getCode() == 503) {
-            KLog.e(baseResponse.getMessage());
+
         } else {
             Toast.makeText(context,"操作失败！错误代码:" + baseResponse.getCode(),Toast.LENGTH_SHORT).show();
 

@@ -22,10 +22,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
-import com.wxx.net.HttpResult;
 import com.base.zhixing.www.BaseActvity;
 import com.shuben.zhixing.www.R;
-import com.shuben.zhixing.push.PushMessageModel;
 import com.shuben.zhixing.www.view.NiceSpinner;
 
 import org.json.JSONArray;
@@ -298,19 +296,7 @@ public class EditGroupActivity extends BaseActvity implements View.OnClickListen
                         String  msg="人员分组";
                         String from=SharedPreferencesTool.getMStool(EditGroupActivity.this).getUserId();
                         String receivers=   LeaderMap.get(tx_leader.getText().toString());
-                        PushMessageModel push=new PushMessageModel(msg,from,receivers);
-                        push.getSource(new Function1<HttpResult<String>, Unit>() {
-                            @Override
-                            public Unit invoke(HttpResult<String> stringHttpResult) {
-                                if (stringHttpResult.getSuccess()){
-                                    //服务器响应成功
-                                    stringHttpResult.getData();
-                                }else {
-                                    Toast.makeText(EditGroupActivity.this, stringHttpResult.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                                return null;
-                            }
-                        });
+
 
 
                         intent=new Intent();

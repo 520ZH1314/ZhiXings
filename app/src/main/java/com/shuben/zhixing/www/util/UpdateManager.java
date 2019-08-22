@@ -36,7 +36,6 @@ import com.base.zhixing.www.util.UrlUtil;
 import com.carl_yang.uplib.UpVersions;
 import com.shuben.zhixing.www.BaseApplication;
 import com.shuben.zhixing.www.R;
-import com.shuben.zhixing.www.service.DownLoadService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -201,12 +200,12 @@ public class UpdateManager {
 
 
 	    }
-	public static void startDownload(Context context, String downUrl) {
+/*	public static void startDownload(Context context, String downUrl) {
 		Intent intent = new Intent(context, DownLoadService.class);
 		intent.putExtra("downUrl", downUrl);
 		context.startService(intent);
 	}
-	      
+	      */
 	    private Runnable mdownApkRunnable = new Runnable() {      
 	        @Override  
 	        public void run() {  
@@ -330,6 +329,7 @@ public class UpdateManager {
 	  //作业信息文件解析
 	public static String APK_UP ="http://ilean.m3lean.com:2001/";
 	private void loadData() {
+		APK_UP = SharedPreferencesTool.getMStool(mContext).getIp();
 		RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("AppCode", "EPS");

@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.P;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.inspection.adapter.ProblemDetailAdapter;
 import com.shuben.zhixing.www.inspection.bean.ProblemDetailInfo;
@@ -63,7 +64,7 @@ public class ProblemRecordActivity extends BaseActvity implements View.OnClickLi
     public int getLayoutId() {
         return R.layout.activity_problem_record;
     }
-
+    int des = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,7 @@ public class ProblemRecordActivity extends BaseActvity implements View.OnClickLi
 
     @Override
     public void initLayout() {
+        des = getIntent().getIntExtra("des",0);
         initView();
         initData();
     }
@@ -102,17 +104,24 @@ public class ProblemRecordActivity extends BaseActvity implements View.OnClickLi
         bnt_commit.setOnClickListener(this);
         Status=getIntent().getStringExtra("Status");
         if(Status.equals("未开始")){
-            if(SharedPreferencesTool.getMStool(ProblemRecordActivity.this).getUserName().equals(getIntent().getStringExtra("LiableUserName"))){
+          /*  if(SharedPreferencesTool.getMStool(ProblemRecordActivity.this).getUserName().equals(getIntent().getStringExtra("LiableUserName"))){
                 lay01.setVisibility(View.VISIBLE);
-                bnt_commit.setText("立即处理");
+
             }else{
                 lay01.setVisibility(View.INVISIBLE);
-            }
+            }*/
+            P.c(des+"的值");
+          if(des==1){
+              lay01.setVisibility(View.INVISIBLE);
+          }else{
+              bnt_commit.setText("立即处理");
+              lay01.setVisibility(View.VISIBLE);
+          }
 
         }else {
             lay01.setVisibility(View.INVISIBLE);
         }
-
+       // bnt_commit.setText("立即处理");
 
     }
     private void initData() {
@@ -163,7 +172,7 @@ public class ProblemRecordActivity extends BaseActvity implements View.OnClickLi
                         String ItemType=jData.getString("ItemType"); //责任人姓名
                         String DueDate=jData.getString("DueDate").replaceAll("T"," ");//要求完成时间
                         String CompleteDate=jData.getString("CompleteDate").replaceAll("T"," ");//实际完成时间
-                        String ProductName=jData.getString("ProductName");
+                        String ProductName="";//jData.getString("ProductName");
                         String Status=jData.getString("Status");//问题状态，－10//审核未通过，－5//未完成，0//未启动，2//进行中，5//已处理（待审核），10//已审核
 
                         String FilePath01="";

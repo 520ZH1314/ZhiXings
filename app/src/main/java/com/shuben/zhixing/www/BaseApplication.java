@@ -1,36 +1,29 @@
 package com.shuben.zhixing.www;
-
-import android.app.Application;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Environment;
-import android.os.IBinder;
-import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
-
+import android.util.Log;
 import com.base.zhixing.www.BaseApp;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.util.FileDownloadLog;
-import com.liulishuo.filedownloader.util.FileDownloadUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.sdk.chat.server.SdkConfig;
 import com.base.zhixing.www.util.SharedPreferencesTool;
-import com.shuben.common.IPush;
-import com.shuben.zhixing.www.activity.LoginActivity;
+import com.sdk.chat.ChatSdk;
+import com.sdk.chat.callback.IConnectListener;
+import com.sdk.chat.contact.ErrorCode;
+import com.sdk.chat.server.SdkConfig;
+import com.shuben.zhixing.push.getui.TraceServiceImpl;
+import com.shuben.zhixing.push.local.LoginServer;
 import com.tencent.smtt.sdk.QbSdk;
 import com.xdandroid.hellodaemon.DaemonEnv;
 import com.base.zhixing.www.common.Common;
 import com.base.zhixing.www.common.P;
-import com.shuben.zhixing.www.service.TraceServiceImpl;
 import com.shuben.zhixing.www.util.NotificationUtils;
 import com.shuben.zhixing.www.util.SMEDTools;
-import com.zhixing.kpilib.utils.KLog;
-import com.zhixing.kpilib.utils.Utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -118,16 +111,40 @@ public class BaseApplication extends BaseApp {
             }
 
         }
-        SdkConfig.setIP(IP);
+
         P.c("推送服务初始化"+IP);
         preinitX5WebCore();
 
-        /*ChatSdk.init(this);
+
+        application = this;
+
+
+        packgeName = getPackageName();
+        if (Common.DEVELOPER_MODE) {
+            cauchException();
+        }
+        notificationUtils = new NotificationUtils(this);
+
+        SMEDTools.init();
+        initImageLoader(this);
+        startServiceKeep();
+        initFiled();
+
+        //判断是否是本地推送
+        if(Common.LOCAL_PUSH){
+            openLocalPush(IP);
+        }
+
+    }
+
+
+    private void openLocalPush(String IP){
+        SdkConfig.setIP(IP);
+        ChatSdk.init(this);
         ChatSdk.setConnectListener(new IConnectListener() {
             @Override
             public void onConnectSuccess() {
                 //123是用户的Id
-
                 ChatSdk.INSTANCE.sendDataBuf(new LoginServer(SharedPreferencesTool.getMStool(getApplicationContext()).getUserCode()), null);
             }
 
@@ -135,26 +152,7 @@ public class BaseApplication extends BaseApp {
             public void onConnectError(ErrorCode code) {
 
             }
-        });*/
-        application = this;
-        KLog.init(BuildConfig.DEBUG);
-        setApplication(application);
-        packgeName = getPackageName();
-        P.c("初始化");
-        if (DEVELOPER_MODE) {
-            cauchException();
-        }
-        notificationUtils = new NotificationUtils(this);
-
-//        loadPush();
-
-
-
-        SMEDTools.init();
-        initImageLoader(this);
-        startServiceKeep();
-        initFiled();
-
+        });
     }
 
     /**
@@ -163,7 +161,7 @@ public class BaseApplication extends BaseApp {
      * @describe  :
      */
     private void initFiled(){
-        FileDownloadLog.NEED_LOG = DEVELOPER_MODE;
+        FileDownloadLog.NEED_LOG = Common.DEVELOPER_MODE;
         FileDownloader.setupOnApplicationOnCreate(this)
                 /*.connectionCreator(new FileDownloadUrlConnection
                         .Creator(new FileDownloadUrlConnection.Configuration()
@@ -181,10 +179,17 @@ public class BaseApplication extends BaseApp {
 
 
     //启动保活服务
+    //启动保活服务
     public void startServiceKeep(){
-        DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
-        TraceServiceImpl.sShouldStopService = false;
-        DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
+        if(Common.LOCAL_PUSH){
+            DaemonEnv.initialize(this, com.shuben.zhixing.push.local.TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+            com.shuben.zhixing.push.local.TraceServiceImpl.sShouldStopService = false;
+            DaemonEnv.startServiceMayBind(com.shuben.zhixing.push.local.TraceServiceImpl.class);
+        }else{
+            DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+            TraceServiceImpl.sShouldStopService = false;
+            DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
+        }
     }
 
 
@@ -280,11 +285,46 @@ public class BaseApplication extends BaseApp {
         ImageLoader.getInstance().init(config);
     }
 
+ /*   private JobManager jobManager;
+    //队列配置
+    private void configureJobManager() {
+        //3. JobManager的配置器，利用Builder模式
+        Configuration configuration = new Configuration.Builder(this)
+                .customLogger(new CustomLogger() {
+                    private static final String TAG = "JOBS";
+                    @Override
+                    public boolean isDebugEnabled() {
+                        return true;
+                    }
 
-    private static synchronized void setApplication(@NonNull BaseApplication application) {
+                    @Override
+                    public void d(String text, Object... args) {
+                        Log.d(TAG, String.format(text, args));
+                    }
 
-        //初始化工具类
-        Utils.init(application);
-    }
+                    @Override
+                    public void e(Throwable t, String text, Object... args) {
+                        Log.e(TAG, String.format(text, args), t);
+                    }
+
+                    @Override
+                    public void e(String text, Object... args) {
+                        Log.e(TAG, String.format(text, args));
+                    }
+
+                    @Override
+                    public void v(String text, Object... args) {
+
+                    }
+                })
+                .minConsumerCount(1)//always keep at least one consumer alive
+                .maxConsumerCount(3)//up to 3 consumers at a time
+                .loadFactor(3)//3 jobs per consumer
+                .consumerKeepAlive(120)//wait 2 minute
+                .build();
+        jobManager = new JobManager( configuration);
+    }*/
+
+
 
 }

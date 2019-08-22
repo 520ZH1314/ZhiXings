@@ -30,6 +30,7 @@ internal object ChatSdkLogTool {
   }
 
   private fun printLog(tag: String, message: String) {
-    Log.i(tag, message)
+    //暂时取消这个日志
+    Log.e(tag, message)
   }
 }

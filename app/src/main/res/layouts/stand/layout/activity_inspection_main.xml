@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/content_bg"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/l_title"
+        layout="@layout/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x100"
+            android:background="@color/title_bg"/>
+        <LinearLayout
+            android:id="@+id/root_content"
+            android:background="@drawable/shape_white_or"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/x8"
+            android:layout_height="wrap_content">
+            <com.shuben.zhixing.www.inspection.SwitchView
+                android:id="@+id/swich"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/x10"
+                android:layout_gravity="center_horizontal"
+                app:container_Width="@dimen/x180"
+                app:cursor_Width="@dimen/x80"
+                app:container_Hight="@dimen/x32"
+                app:cursor_Hight="@dimen/s28"
+                app:textTrue="巡检任务"
+                app:textFalse="问题记录"/>
+           <FrameLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/layout2"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/x8"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/my_p0"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                       android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="@dimen/x40"
+                            android:src="@mipmap/ins_1"
+                            android:layout_margin="@dimen/x5"
+                            android:layout_height="@dimen/x40" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/txt_viw"
+                            android:textSize="@dimen/content_txt_"
+                            android:text="我的问题"
+
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/my_p1"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="@dimen/x40"
+                                android:src="@mipmap/ins_0"
+                                android:layout_margin="@dimen/x5"
+                                android:layout_height="@dimen/x40" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:textColor="@color/txt_viw"
+                                android:textSize="@dimen/content_txt_"
+                                android:text="发现问题"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                </LinearLayout>
+               <LinearLayout
+                   android:id="@+id/layout1"
+                   android:layout_width="match_parent"
+                   android:paddingBottom="@dimen/x8"
+                   android:layout_height="match_parent">
+                   <android.support.v7.widget.RecyclerView
+                       android:id="@+id/left_list"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"/>
+               </LinearLayout>
+
+           </FrameLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</LinearLayout>

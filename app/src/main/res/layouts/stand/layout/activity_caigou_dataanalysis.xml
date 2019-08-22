@@ -8,7 +8,9 @@
     android:background="@color/gray03"
     android:orientation="vertical">
 
-
+    <include layout="@layout/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"/>
     <include
         android:id="@+id/l_title"
         android:layout_width="match_parent"

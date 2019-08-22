@@ -12,8 +12,8 @@
 
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x40"
-        android:background="#169BD5"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/title_bg"
         >
 
         <TextView
@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
-            android:textSize="@dimen/s14"
+            android:textSize="@dimen/title_center_size"
             android:id="@+id/tx_tittle" />
 
         <LinearLayout

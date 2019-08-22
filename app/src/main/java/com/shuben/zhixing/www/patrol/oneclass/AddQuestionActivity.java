@@ -36,13 +36,11 @@ import com.photopicker.PhotoPicker;
 import com.photopicker.PhotoPreview;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
-import com.wxx.net.HttpResult;
 import com.base.zhixing.www.BaseActvity;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.patrol.UserActivity;
 import com.shuben.zhixing.www.patrol.adapter.GridAdapter;
 import com.shuben.zhixing.www.patrol.adapter.ImageAdapter;
-import com.shuben.zhixing.push.PushMessageModel;
 import com.shuben.zhixing.www.util.CalendarUtil;
 import com.shuben.zhixing.www.util.DateUtil;
 import com.shuben.zhixing.www.util.ScrollListview;
@@ -473,19 +471,7 @@ public class AddQuestionActivity extends BaseActvity implements View.OnClickList
                         String  msg="提交问题";
                         String from=SharedPreferencesTool.getMStool(AddQuestionActivity.this).getUserId();
                         String receivers=   UserMap.get(tx_user.getText().toString());
-                        PushMessageModel push=new PushMessageModel(msg,from,receivers);
-                        push.getSource(new Function1<HttpResult<String>, Unit>() {
-                            @Override
-                            public Unit invoke(HttpResult<String> stringHttpResult) {
-                                if (stringHttpResult.getSuccess()){
-                                    //服务器响应成功
-                                    stringHttpResult.getData();
-                                }else {
-                                    Toast.makeText(AddQuestionActivity.this, stringHttpResult.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                                return null;
-                            }
-                        });
+
 
                         if(imagePaths.size()>0){
                             for(int i=0;i<imagePaths.size();i++){

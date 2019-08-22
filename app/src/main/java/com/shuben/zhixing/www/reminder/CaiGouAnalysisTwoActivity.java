@@ -88,6 +88,7 @@ public class CaiGouAnalysisTwoActivity extends BaseActvity implements View.OnCli
 
     @Override
     public void initLayout() {
+        setStatus(-1);
         mQueue = Volley.newRequestQueue(this);
 
         init();
@@ -107,8 +108,8 @@ public class CaiGouAnalysisTwoActivity extends BaseActvity implements View.OnCli
     private void init() {
 //        data = getDate();
 
-        tetle_back = (ImageView)findViewById(R.id.tetle_back);//返回
-        tetle_back.setOnClickListener(this);
+//        tetle_back = (ImageView)findViewById(R.id.tetle_back);//返回
+//        tetle_back.setOnClickListener(this);
         tetle_text = (TextView) findViewById(R.id.tetle_text);//title
 
         tetle_text.setText("采购紧急催单分析");

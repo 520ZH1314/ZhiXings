@@ -155,7 +155,7 @@ public class Fragment04 extends BaseFragment {
                 UserData bean = GsonUtil.getGson().fromJson(json, UserData.class);
                 mTvDepartName.setText(bean.getDeptName());
                 mTvPhone.setText(bean.getPhoneNumber());
-                aCache.put("UserPhone", bean.getPhoneNumber());
+               // aCache.put("UserPhone", bean.getPhoneNumber());
                 SharedPreferencesTool.getMStool(getActivity()).setString("head_ico",bean.getPhotoURL());
                 SharedPreferencesTool.getMStool(getActivity()).setString("DeptName",bean.getDeptName());
                 getHandler().sendEmptyMessage(2);

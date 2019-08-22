@@ -11,4 +11,10 @@ interface IPush{
      *                IP跨进程，否则需要设计成contentprovide
      */
      void push(String IP,String from,String tos,String title,String des,String txt,int flag,int action,String module);
+
+
+     /**
+     *跨进程更新
+     */
+    // String changeShared();
 }

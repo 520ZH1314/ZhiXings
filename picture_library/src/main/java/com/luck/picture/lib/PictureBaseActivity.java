@@ -13,7 +13,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.compress.OnCompressListener;
 import com.luck.picture.lib.config.PictureConfig;
@@ -31,11 +30,9 @@ import com.luck.picture.lib.tools.DoubleUtils;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropMulti;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -425,7 +422,7 @@ public class PictureBaseActivity extends FragmentActivity {
 
     /**
      * return image result
-     *
+     *type =0 是相机
      * @param images
      */
     protected void onResult(List<LocalMedia> images) {
@@ -438,6 +435,8 @@ public class PictureBaseActivity extends FragmentActivity {
         Intent intent = PictureSelector.putIntentResult(images);
         setResult(RESULT_OK, intent);
         closeActivity();
+        //无需考虑
+
     }
 
     /**
