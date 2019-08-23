@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.P;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.adapter.TypeAdapterAdapter;
 import com.shuben.zhixing.www.data.MyTypesDate;
@@ -59,7 +60,7 @@ public class MyjourneyTypeActivity extends BaseActvity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        UrlUtil.IP = SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getIp();
     }
 
     @Override
@@ -99,6 +100,7 @@ public class MyjourneyTypeActivity extends BaseActvity implements View.OnClickLi
     }
 
     private void  getdate01(String res,String ToDoUserId) {
+        P.c("标记"+res);
         String Url="";
          data_id = new ArrayList<>();
         if(res.equals("nei_chaosong")){
@@ -106,7 +108,7 @@ public class MyjourneyTypeActivity extends BaseActvity implements View.OnClickLi
         }else if(res.equals("nei_zeren")){
             Url= UrlUtil.GetInnerUrgeUserUrl(UrlUtil.IP, UrlUtil.GetInnerUrgeUser, SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getUserId(),SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getTenantId());
         }else if(res.equals("caigou_zeren")){
-            Url= UrlUtil.GetInnerUrgeUserUrl(UrlUtil.IP, UrlUtil.GetOuterUrgeUser, SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getUserId(),SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getTenantId02());
+            Url= UrlUtil.GetInnerUrgeUserUrl(UrlUtil.IP, UrlUtil.GetOuterUrgeUser, SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getUserId(),SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getTenantId());//getTenantId02
         }else if(res.equals("caigou_chaosong")){
             Url= UrlUtil.GetInnerUrgeUserUrl(UrlUtil.IP, UrlUtil.GetOuterUrgeUser, SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getUserId()+","+ToDoUserId,SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getTenantId()+","+SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).getTenantId02());
         }
@@ -116,9 +118,9 @@ public class MyjourneyTypeActivity extends BaseActvity implements View.OnClickLi
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
-                        response = XmlUtil.getDataByXml(response, "string", TAG);
-                        Log.e("TAG", response);
+                        P.c(response);
+                     /*   response = XmlUtil.getDataByXml(response, "string", TAG);
+                        Log.e("TAG", response);*/
                         data_id.clear();
                         try {
                             JSONObject jsonData = new JSONObject(response);
@@ -131,14 +133,14 @@ public class MyjourneyTypeActivity extends BaseActvity implements View.OnClickLi
                                 MyTypesDate myTypesDate=new  MyTypesDate(userId,UserName,"0");
                                 data_id.add(myTypesDate);
                             }
-                            if(data_id.size()>0){
+                           /* if(data_id.size()>0){
 
                             }else{
                                 for (int i =0;i< 10;i++){
                                     MyTypesDate nd = new MyTypesDate("11","田巧","");
                                     data_id.add(nd);
                                 }
-                            }
+                            }*/
                             adapter = new TypeAdapterAdapter(MyjourneyTypeActivity.this,data_id);
                             type_listv.setAdapter(adapter);
                             type_listv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -291,9 +293,9 @@ public class MyjourneyTypeActivity extends BaseActvity implements View.OnClickLi
                                 MyTypesDate myTypesDate=new  MyTypesDate(VendorId,VendorName,TenantId);
                                 data_id.add(myTypesDate);
                             }
-                            if(data_id.size()>0){
+                           /* if(data_id.size()>0){
 
-                            }/*else{
+                            }else{
                                 for (int i =0;i< 10;i++){
                                     MyTypesDate nd = new MyTypesDate("11","田巧","");
                                     data_id.add(nd);
@@ -309,6 +311,8 @@ public class MyjourneyTypeActivity extends BaseActvity implements View.OnClickLi
                                     item_id = data_id.get(i).getId();
                                     //Toast.makeText(MyjourneyTypeActivity.this,data_id.get(i).getTnantId().toString(),Toast.LENGTH_SHORT).show();
                                    // view.setBackgroundColor(Color.rgb(0, 153, 219));
+
+
                                     SharedPreferencesTool.getMStool(MyjourneyTypeActivity.this).saveTenantId02(data_id.get(i).getTnantId());
 
                                     tx_content.setText(item_name);

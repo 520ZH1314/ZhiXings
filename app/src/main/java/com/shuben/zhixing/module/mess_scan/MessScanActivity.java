@@ -1,7 +1,6 @@
 package com.shuben.zhixing.module.mess_scan;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,25 +15,49 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.common.P;
+import com.base.zhixing.www.view.Toasty;
 import com.shuben.zhixing.module.jsf.JavaScriptAndon;
 import com.shuben.zhixing.www.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.UnsupportedEncodingException;
 @Route(path = "/mess_scan/MessScanActivity")
 public class MessScanActivity extends BaseActvity {
 
 
     @Override
-    public void process(Message msg) {
+    protected void onResume() {
+        super.onResume();
+        try {
+            scriptObject.initMessScan();
+            scriptObject.reg();
+        }catch (RuntimeException e){
+            Toasty.INSTANCE.showToast(MessScanActivity.this,"设备不支持!");
+            AppManager.getAppManager().finishActivity();
+        }
 
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+      try {
+          scriptObject.messPause();
+          scriptObject.nur();
+      }catch (Exception e){}
+
+    }
+
+    @Override
+    public void process(Message msg) {
+        switch (msg.what){
+            case 1:
+                scriptObject.callBK(scriptObject.getMessMlements(), (String) msg.obj);
+                break;
+        }
     }
     private ImageView tetle_back,share,close;
     private TextView title;
@@ -52,6 +75,10 @@ public class MessScanActivity extends BaseActvity {
             commonView.getSettings().setLoadsImagesAutomatically(false);
         }
     }
+
+
+
+
     private boolean INIT = false;
     @SuppressLint("WrongViewCast")
     @Override
@@ -70,8 +97,11 @@ public class MessScanActivity extends BaseActvity {
 
         process_bar = findViewById(R.id.process_bar);
         commonView = findViewById(R.id.common_web);
+        commonView.clearCache(true);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         tetle_back = findViewById(R.id.tetle_back);
         share = findViewById(R.id.share);
+        share.setOnClickListener((v)->{scriptObject.state();});
         close = findViewById(R.id.close);
         title = findViewById(R.id.title);
         //  init();
@@ -87,15 +117,16 @@ public class MessScanActivity extends BaseActvity {
 
         WebSettings webSettings = commonView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSettings.setUseWideViewPort(false);
         webSettings.setAllowFileAccess(true);
-        webSettings.setAppCacheEnabled(true);
-        webSettings.setDatabaseEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setAppCacheMaxSize(Long.MAX_VALUE);
-        webSettings.setAppCachePath(this.getDir("appcache", 0).getPath());
-        webSettings.setDatabasePath(this.getDir("databases", 0).getPath());
+        webSettings.setAppCacheEnabled(false);
+        /*webSettings.setDatabaseEnabled(true);
+        webSettings.setDomStorageEnabled(false);*/
+
         webSettings.setBuiltInZoomControls(false);
         scriptObject = new JavaScriptAndon(MessScanActivity.this,getHandler(),commonView);
+
         scriptObject.addObj(new View[]{tetle_back,title,share,close});//添加四个组件
         close.setOnClickListener(v->{AppManager.getAppManager().finishActivity();
         });
@@ -146,7 +177,7 @@ public class MessScanActivity extends BaseActvity {
         WebChromeClient webChromeClient = new WebChromeClient() {
             public void onReceivedTitle(WebView view, String tl) {
 //
-
+                title.setText(tl.length()==0?"扫码":tl);
 
 
             }
@@ -189,7 +220,21 @@ public class MessScanActivity extends BaseActvity {
     }
 
     @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        P.c("keyCode"+event.getKeyCode());
+        if(event.getKeyCode()==120){
+
+            scriptObject.showScanCode();
+            return true;
+        }
+
+        return super.dispatchKeyEvent(event);
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
         if(keyCode==KeyEvent.KEYCODE_BACK){
 
             scriptObject.backJs();
@@ -219,7 +264,7 @@ public class MessScanActivity extends BaseActvity {
 
     }
 
-    @Override
+ /*   @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -239,5 +284,5 @@ public class MessScanActivity extends BaseActvity {
 
         }
 
-    }
+    }*/
 }

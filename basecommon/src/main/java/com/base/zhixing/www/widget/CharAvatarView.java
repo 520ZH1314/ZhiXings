@@ -63,7 +63,7 @@ public class CharAvatarView extends ImageView {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
     }
-
+    int size = 0;
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -74,7 +74,10 @@ public class CharAvatarView extends ImageView {
             canvas.drawCircle(getWidth() / 2, getWidth() / 2, getWidth() / 2, mPaintBackground);
             // 写字
             mPaintText.setColor(Color.WHITE);
-            mPaintText.setTextSize(getWidth() / 2);
+            if(size==0){
+              size =   getWidth() / 2;
+            }
+            mPaintText.setTextSize(size);
             mPaintText.setStrokeWidth(3);
             mPaintText.getTextBounds(text, 0, 1, mRect);
             // 垂直居中
@@ -97,6 +100,20 @@ public class CharAvatarView extends ImageView {
         this.text = String.valueOf(content.toCharArray()[0]);
         this.text = text.toUpperCase();
         charHash = this.text.hashCode();
+        // 重绘
+        invalidate();
+    }
+    /**
+     * @param content 传入字符内容
+     *
+     */
+    public void setTextMore(String content) {
+        if (content == null) {
+            content=" ";
+        }
+        this.text = content;
+        charHash = this.text.hashCode();
+        size = 40;
         // 重绘
         invalidate();
     }

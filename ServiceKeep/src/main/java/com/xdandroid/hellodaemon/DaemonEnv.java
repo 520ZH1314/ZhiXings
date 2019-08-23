@@ -11,8 +11,8 @@ public final class DaemonEnv {
 
     private DaemonEnv() {}
 
-    public static final int DEFAULT_WAKE_UP_INTERVAL = 3 *  1000;
-    private static final int MINIMAL_WAKE_UP_INTERVAL = 3  * 1000;
+    public static final int DEFAULT_WAKE_UP_INTERVAL = 15 *  1000;
+    private static final int MINIMAL_WAKE_UP_INTERVAL = 15  * 1000;
 
     static Context sApp;
     static Class<? extends AbsWorkService> sServiceClass;

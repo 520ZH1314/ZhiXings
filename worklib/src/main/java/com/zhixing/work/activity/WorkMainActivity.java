@@ -9,13 +9,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.BaseFragment;
 import com.zhixing.work.R;
-import com.zhixing.work.fragment.DepartmentReceiveFragment;
-import com.zhixing.work.fragment.DepartmentSendFragment;
-import com.zhixing.work.fragment.MeetDetailResponseFragment;
-import com.zhixing.work.fragment.MyReceiveFragment;
 import com.zhixing.work.ui.AddWorkDialog;
 import java.util.ArrayList;
 /**
@@ -24,6 +22,7 @@ import java.util.ArrayList;
  * @author zjq
  * create at 2018/11/28 下午2:56
  */
+@Route(path = "/worklib/WorkMainActivity")
 public class WorkMainActivity extends BaseActvity implements View.OnClickListener {
 
     private TabLayout mTablayout;

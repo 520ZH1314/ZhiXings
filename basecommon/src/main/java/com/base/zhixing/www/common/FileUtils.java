@@ -131,7 +131,13 @@ public class FileUtils {
 		return base64;
 	}
 
-
+	public static  boolean isExists(String path){
+		File file = new File(path);
+		if(file!=null&&file.isFile()){
+			return  file.exists();
+		}
+		return  false;
+	}
 
 	public static <T> T clone(T obj) throws Exception {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -260,6 +266,45 @@ public class FileUtils {
 		}
 		return dir.delete();
 	}
+	public  static boolean delAllFile(String path) {
+		boolean flag = false;
+		File file = new File(path);
+		if (!file.exists()) {
+			return flag;
+		}
+		if (!file.isDirectory()) {
+			return flag;
+		}
+		String[] tempList = file.list();
+		File temp = null;
+		for (int i = 0; i < tempList.length; i++) {
+			if (path.endsWith(File.separator)) {
+				temp = new File(path + tempList[i]);
+			} else {
+				temp = new File(path + File.separator + tempList[i]);
+			}
+			if (temp.isFile()) {
+				temp.delete();
+			}
+			if (temp.isDirectory()) {
+				delAllFile(path + "/" + tempList[i]);//先删除文件夹里面的文件
+				delFolder(path + "/" + tempList[i]);//再删除空文件夹
+				flag = true;
+			}
+		}
+		return flag;
+	}
+	public static void delFolder(String folderPath) {
+		try {
+			delAllFile(folderPath); //删除完里面所有内容
+			String filePath = folderPath;
+			filePath = filePath.toString();
+			java.io.File myFilePath = new java.io.File(filePath);
+			myFilePath.delete(); //删除空文件夹
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public static  void addIgnore(String filePath) {
 		File file = new File(filePath);
 		if (!file.exists()) {
@@ -287,20 +332,21 @@ public class FileUtils {
 	public static String name(File file, String fileNs[], String childFileName){
 		if(fileNs!=null){
 			for(int i=0;i<fileNs.length;i++){
-				if(fileNs[i].substring(0,fileNs[i].lastIndexOf(".")).equals(childFileName)){
+				//如果是以当天时间开头的文件，证明是有效日志文件，否则全部删除
+				if(fileNs[i].substring(0,fileNs[i].lastIndexOf(".")).startsWith(childFileName)){
 					return childFileName;
 				}
 			}
 			if(fileNs.length!=0){
 				deleteDir(file);
+//				delAllFile(file.getAbsolutePath());
 			}
 		}
 		//
 		return childFileName;
 	}
 
-	public static void writeLog(String text,String tag) {
-		String childFileName = TimeUtil.getTimeLog(System.currentTimeMillis());
+	public static void writeLog(String text,String tag,String childFileName) {
 		String logPath = Common.LOG_DIR;
 		File file = new File(Common.LOG_DIR);
 		if(!file.exists()){
@@ -327,7 +373,6 @@ public class FileUtils {
 			e.printStackTrace();
 		}
 	}
-
 
 
 

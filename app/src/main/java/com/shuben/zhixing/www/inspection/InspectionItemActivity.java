@@ -22,7 +22,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.tu.loadingdialog.LoadingDailog;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -31,7 +30,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.P;
+import com.base.zhixing.www.inter.VolleyResult;
+import com.base.zhixing.www.view.Toasty;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.inspection.adapter.ItemAdapter;
 import com.shuben.zhixing.www.inspection.bean.ItemInfo;
@@ -41,15 +48,18 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.shuben.zhixing.www.util.SizeHelper;
 import com.shuben.zhixing.www.util.SysUtils;
 import com.base.zhixing.www.util.UrlUtil;
+import com.shuben.zhixing.www.util.UploadUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class InspectionItemActivity extends BaseActvity implements View.OnClickListener, InspectionItemOnScrollListener.OnloadDataListener{
     private HorizontalScrollView hs_activity_tabbar;
@@ -80,53 +90,295 @@ public class InspectionItemActivity extends BaseActvity implements View.OnClickL
         return R.layout.activity_inspection_item;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-
-    }
 
     @Override
     public void process(Message msg) {
+        switch (msg.what){
+            case 2:
+                int ind = msg.arg1;
+                Intent intent=new Intent();
+                intent.setClass(InspectionItemActivity.this, AddProblemActivity.class);
+                intent.putExtra("obj",data.get(ind));
+                intent.putExtra("ind",ind);
+                startActivityForResult(intent,102);
+                break;
+            case 3:
+                //OK
+                int ind1 = msg.arg1;
+                linkId = UUID.randomUUID().toString();
+                if(data.get(ind1).getPath()!=null){
+                    uploadImage(new File(data.get(ind1).getPath()),linkId,ind1);
+                }else{
+                    sendC(ind1,"");
 
+                }
+
+
+                break;
+            case 4:
+                //
+                int ind2 = msg.arg1;
+                OK_INDEX = ind2;
+                selectImages();
+                break;
+            case 5:
+                        int ind3 = msg.arg1;
+                    String path = (String) msg.obj;
+                commit(ind3,path);
+                break;
+        }
     }
+
+    private void commit(int ind,String path) {
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("AppCode", "PatrolInspection");
+        params.put("ApiCode", "EditPatrolRecord");
+        params.put("TenantId", SharedPreferencesTool.getMStool(InspectionItemActivity.this).getTenantId());
+        params.put("PatrolRecordId", data.get(ind).getPatrolRecord());
+        params.put("Result","OK");
+        params.put("PatrolTaskId",data.get(ind).getPatrolTaskId());
+        params.put("ProblemID",linkId);
+
+        params.put("ImagePathID",path);
+        params.put("ProblemDesc", "");//问题描述
+        params.put("LiableUserId","");
+        params.put("LiableDeptId","");
+        params.put("DueDate", "");
+        String temp = data.get(ind).getTx03V();
+        if(temp==null||temp.length()==0){
+            temp = data.get(ind).getTx04V();
+        }
+        params.put("EditPatrolRecord",temp);
+        httpPostSONVolley(SharedPreferencesTool.getMStool(InspectionItemActivity.this).getIp()+UrlUtil.Url, params, new VolleyResult() {
+            @Override
+            public void success(JSONObject jsonobj) {
+                try {
+                    String status=jsonobj.getString("status");
+                    final String message=jsonobj.getString("message");
+                    if(status.equals("true")){
+                        data.remove(ind);
+                        adapter.updata(data);
+                        Toasty.INSTANCE.showToast(InspectionItemActivity.this,"数据已提交");
+                    }else{
+                        Toast.makeText(InspectionItemActivity.this,message,Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void error(VolleyError error) {
+
+            }
+        });
+    }
+
+    private String linkId;
+    private int OK_INDEX  = 0;
+    private final int SELECT_IMAGE = 11;
+    private void selectImages(){
+        PictureSelector.create(InspectionItemActivity.this)
+                .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                .theme(R.style.picture_QQ_style)//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
+                .maxSelectNum(1)// 最大图片选择数量 int
+                .minSelectNum(1)// 最小选择数量 int
+                .imageSpanCount(4)// 每行显示个数 int
+
+                .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                .previewImage(true)// 是否可预览图片 true or false
+                .previewVideo(false)// 是否可预览视频 true or false
+                .isCamera(true)// 是否显示拍照按钮 true or false
+//                .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
+                .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
+                .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
+                .enableCrop(false)// 是否裁剪 true or false
+                .compress(true)// 是否压缩 true or false
+                .hideBottomControls(false)// 是否显示uCrop工具栏，默认不显示 true or false
+                .isGif(false)// 是否显示gif图片 true or false
+//                .compressSavePath(Environment.getExternalStorageState()+"/Images")//压缩图片保存地址
+                .freeStyleCropEnabled(true)// 裁剪框是否可拖拽 true or false
+                .circleDimmedLayer(false)// 是否圆形裁剪 true or false
+                .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
+                .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
+                .openClickSound(false)// 是否开启点击声音 true or false
+//                .selectionMedia()// 是否传入已选图片 List<LocalMedia> list
+                .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
+                .minimumCompressSize(100)// 小于100kb的图片不压缩
+//                .synOrAsy(true)//同步true或异步false 压缩 默认同步
+                .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
+                .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
+//                .videoQuality(0)// 视频录制质量 0 or 1 int
+//                .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int
+//                .videoMinSecond(10)// 显示多少秒以内的视频or音频也可适用 int
+
+                .forResult(SELECT_IMAGE);//结果回调onActivityResult code
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent dat) {
+        super.onActivityResult(requestCode, resultCode, dat);
+        if(requestCode==102&&resultCode==100){
+            //问题提交
+            if(dat.hasExtra("ind")){
+                data.remove(dat.getIntExtra("ind",0));
+                adapter.updata(data);
+            }
+        }else if(requestCode==SELECT_IMAGE){
+            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(dat);
+            // 例如 LocalMedia 里面返回三种path
+            // 1.media.getPath(); 为原图path
+            // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+            // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+            // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+
+            for (LocalMedia bean: selectList) {
+                String compressPath = bean.getCompressPath();
+//                          ImageLoader.loadListeren(this,compressPath,ivMyInfoDetailHead);
+                if(compressPath!=null){
+                    P.c(bean.getPictureType()+"地址"+compressPath);
+                  data.get(OK_INDEX).setPath(compressPath);
+                  adapter.updata(data);
+                }
+//
+
+            }
+        }
+    }
+
+    String clsId,scopeID,scopeName;
 
     @Override
     public void initLayout() {
+        Intent intent = getIntent();
+        clsId = intent.getStringExtra("ClassId");
+        scopeID = intent.getStringExtra("scopeID");
+        scopeName = intent.getStringExtra("scopeName");
         initView();
         initData(PatrolTaskId,type);
     }
 
-    private void initData(final String PatrolTaskId, final String ItemType) {
-        RequestQueue requestQueue = Volley.newRequestQueue(InspectionItemActivity.this);
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("AppCode", "PatrolInspection");
-        params.put("ApiCode", "GetAllCheckItemByTaskId");
-        params.put("TenantId", SharedPreferencesTool.getMStool(InspectionItemActivity.this).getTenantId());
-        params.put("PatrolTaskId", PatrolTaskId);
-        params.put("ItemType", ItemType);
 
-        JSONObject myData=new JSONObject();
+    public void uploadImage(final File file, final String linkedTableId,int ind1){
+
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            final Map<String, String> params = new HashMap<String, String>();
+            params.put("AppCode", "LinePatrol");
+            JsonObjectRequest newMissRequest = new JsonObjectRequest(
+                    Request.Method.GET, SharedPreferencesTool.getMStool(InspectionItemActivity.this).getIp()+UrlUtil.SeveLinePatrolImageUrl,
+                    new JSONObject(params), new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject jsonobj) {
+                    P.c(jsonobj.toString());
+                    try {
+                        JSONArray jArray=jsonobj.getJSONArray("rows");
+                        JSONObject jData;
+                        for (int i=0;i<jArray.length();i++){
+                            jData=jArray.getJSONObject(i);
+                            String AppUrl=jData.getString("AppUrl");
+                            final String url=UrlUtil.UploadInspectionImageUrl(AppUrl,"PatrolInspection","EditUploadFiles",SharedPreferencesTool.getMStool(InspectionItemActivity.this).getTenantId(),linkedTableId,UrlUtil.patrolinspection01,"patrolinspection_problem01");
+                            // final String url=UrlUtil.UploadImageUrl(AppUrl,"LinePatrol","EditUploadFiles","00000000-0000-0000-0000-000000000001",linkedTableId,UrlUtil.LinkedTable01,"inepatrol_record_question");
+                            P.c(url);
+                            /**
+                             * 下载线程
+                             */
+                            Runnable downloadRun = new Runnable(){
+                                @Override
+                                public void run() {
+                                    // TODO Auto-generated method stub
+                                    upLoadImage(file,url,ind1);
+                                }
+                            };
+
+                            new Thread(downloadRun).start();
+
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setResult(UrlUtil.AddProblemActivity_ResultCode,intent);
+                    finish();
+
+                }
+            });
+            newMissRequest.setRetryPolicy( new DefaultRetryPolicy( 50000,//默认超时时间，应设置一个稍微大点儿的，例如本处的500000
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,//默认最大尝试次数
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT ) );
+            requestQueue.add(newMissRequest);
+
+    }
+
+    private void upLoadImage(final File file, final String url,int ind1) {
+        String request= UploadUtil.uploadFile(file,url);
+        JSONObject jsonobj= null;
         try {
-            myData.put("AppCode", "PatrolInspection");
-            myData.put("ApiCode", "GetAllCheckItemByTaskId");
-            myData.put("TenantId", SharedPreferencesTool.getMStool(InspectionItemActivity.this).getTenantId());
-            myData.put("PatrolTaskId", PatrolTaskId);
-            myData.put("ItemType", ItemType);
+            jsonobj = new JSONObject(request);
+            String status=jsonobj.getString("status");
+            P.c("status"+status);
 
+            if(status.equals("true")){
+                JSONObject object = jsonobj.getJSONObject("message");
+               sendC(ind1,object.getString("FileID"));
+
+
+            }else{
+
+                final String message=jsonobj.getString("message");
+
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.e("******巡检项********",myData.toString());
-        JsonObjectRequest newMissRequest = new JsonObjectRequest(
-                Request.Method.POST,  SharedPreferencesTool.getMStool(InspectionItemActivity.this).getIp()+UrlUtil.Url,
-                new JSONObject(params), new Response.Listener<JSONObject>() {
 
+    }
+    private void sendC(int ind1,String obj){
+        Message msg  = new Message();
+        msg.what = 5;
+        msg.arg1 = ind1;
+        msg.obj = obj;
+        getHandler().sendMessage(msg);
+    }
+    private void initData(final String PatrolTaskId, final String ItemType) {
+       // RequestQueue requestQueue = Volley.newRequestQueue(InspectionItemActivity.this);
+       /* Map<String, String> params = new HashMap<String, String>();
+        params.put("AppCode", "PatrolInspection");
+        params.put("ApiCode", "GetAllCheckItemByTaskId");
+        params.put("TenantId", SharedPreferencesTool.getMStool(InspectionItemActivity.this).getTenantId());
+        params.put("PatrolTaskId", PatrolTaskId);*/
+
+        Map<String,String> params = new HashMap<>();
+        params.put("AppCode","PatrolInspection");
+        params.put("ApiCode","EditHandleGenerateTask");
+        params.put("TenantId",SharedPreferencesTool.getMStool(this).getTenantId());
+        params.put("ClassId",clsId);
+        params.put("scopeID",scopeID);
+        params.put("scopeName",scopeName);
+        params.put("UserName",SharedPreferencesTool.getMStool(this).getUserName());
+        params.put("UserId",SharedPreferencesTool.getMStool(this).getUserId());
+
+//        params.put("ItemType", ItemType);
+
+
+        httpPostSONVolley(SharedPreferencesTool.getMStool(InspectionItemActivity.this).getIp()+UrlUtil.Url, params, new VolleyResult() {
             @Override
-            public void onResponse(JSONObject jsonobj) {
-                Log.e("KKKK巡检项KKKK", " " + jsonobj.toString());
+            public void success(JSONObject jsonobj) {
 
+                Log.e("KKKK巡检项KKKK", " " + jsonobj.toString());
+                    if(dialog!=null)
                 dialog.dismiss();
                 try {
                     int total=jsonobj.getInt("total");
@@ -138,12 +390,15 @@ public class InspectionItemActivity extends BaseActvity implements View.OnClickL
                         String PatrolRecord=jData.getString("PatrolRecordId");//巡检记录ID
                         String PatrolTaskId=jData.getString("PatrolTaskId");//巡检任务ID
                         String ItemId=jData.getString("ItemId");//巡检项ID
+                        if(ItemId.equals("null")){
+                            continue;
+                        }
                         String ItemName=jData.getString("ItemName");//巡线项描述
-                        String ItemType=jData.getString("ItemType");//类型，人、机、料、法、环
+                       // String ItemType=jData.getString("ItemType");//类型，人、机、料、法、环
                         String PatrolFashion=jData.getString("PatrolFashion");//巡检方式，取值有;//数量、拍照、说明
                         String Result=jData.getString("Result");//取值有OK/NG/空值
-                        String CreateTime=jData.getString("CreateTime").replaceAll("T"," ");
-                        String ItemSource=jData.getString("ItemSource");//取值有OK/NG/空值
+                        String CreateTime=jData.getString("PlanPatrolTime").replaceAll("T"," ");
+                        /*String ItemSource=jData.getString("ItemSource");//取值有OK/NG/空值
                         JSONObject PatrolResult=jData.getJSONObject("PatrolResult");
                         JSONArray ss=PatrolResult.getJSONArray("rows");
                         JSONObject jsonObject;
@@ -183,9 +438,9 @@ public class InspectionItemActivity extends BaseActvity implements View.OnClickL
 
 
 
-                        }
-
-                        ItemInfo info=new ItemInfo(PatrolRecord,PatrolTaskId,ItemId,ItemName,ItemType,PatrolFashion,Result,CreateTime,ItemSource,plist);
+                        }*/
+//                        去掉了ItemSource
+                        ItemInfo info=new ItemInfo(PatrolRecord,PatrolTaskId,ItemId,ItemName,ItemType,PatrolFashion,Result,CreateTime,"",plist);
                         data.add(info);
                     }
                     adapter=null;
@@ -195,26 +450,21 @@ public class InspectionItemActivity extends BaseActvity implements View.OnClickL
                     //设置接口回调
                     onScrollListener.setOnLoadDataListener(InspectionItemActivity.this);
                     //设置ListView的滚动监听事件
-                    mList.setOnScrollListener(onScrollListener);
+                  //  mList.setOnScrollListener(onScrollListener);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
-        }, new Response.ErrorListener() {
 
             @Override
-            public void onErrorResponse(VolleyError error) {
-                dialog.dismiss();
+            public void error(VolleyError error) {
+                if(dialog!=null)
+                    dialog.dismiss();
             }
         });
-        newMissRequest.setRetryPolicy( new DefaultRetryPolicy( 50000,//默认超时时间，应设置一个稍微大点儿的，例如本处的500000
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,//默认最大尝试次数
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT ) );
-
         dialog.show();
-        requestQueue.add(newMissRequest);
+
     }
 
     private void initView() {
@@ -234,9 +484,9 @@ public class InspectionItemActivity extends BaseActvity implements View.OnClickL
         tx_close= (TextView) findViewById(R.id.tx_close);
         tx_close.setOnClickListener(this);
         standar_listview= (ListView) findViewById(R.id.standar_listview);
-        if(getIntent().getStringExtra("Status").equals("已完成")){
+       /* if(getIntent().getStringExtra("Status").equals("已完成")){
             tx_close.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
 
 
@@ -349,7 +599,7 @@ public class InspectionItemActivity extends BaseActvity implements View.OnClickL
             }
 
             //创建adpter数据
-            adapter = new ItemAdapter(InspectionItemActivity.this,data,getIntent().getStringExtra("Status"));
+            adapter = new ItemAdapter(InspectionItemActivity.this,data,"",getHandler());
             //设置adapter
             mList.setAdapter(adapter);
         } else {

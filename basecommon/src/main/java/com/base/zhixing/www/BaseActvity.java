@@ -64,6 +64,9 @@ public abstract class BaseActvity extends FragmentActivity   {
     public LayoutInflater inflater;
     private LoadingDailog dialog;//加载动画
     public abstract int getLayoutId();
+    public RequestQueue getVolley(){
+        return requestQueue;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,11 +215,17 @@ public abstract class BaseActvity extends FragmentActivity   {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                P.c("错误"+volleyError.getLocalizedMessage());
+
+                P.c("错误"+volleyError.getLocalizedMessage() );
                 if(result!=null){
                     result.error(volleyError);
                     if(dialog!=null){
-                        dialog.cancel();
+                        try {
+                            dialog.cancel();
+                        }catch (IllegalArgumentException e){
+
+                        }
+
                     }
                 }
             }

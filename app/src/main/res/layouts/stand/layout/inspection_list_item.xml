@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/x5"
+    android:id="@+id/root_li"
     android:orientation="vertical"
     >
 
@@ -27,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:textSize="@dimen/s12"
+            android:textSize="@dimen/list_txt_"
+            android:textColor="@color/txt_viw"
             android:layout_marginLeft="@dimen/x5"
             android:id="@+id/tx_itemName" />
     </LinearLayout>
@@ -35,29 +38,56 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:background="@color/gray03"
-            android:layout_height="@dimen/x30"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/x10"
+            android:focusableInTouchMode="true"
             android:layout_gravity="center"
-            android:visibility="gone"
             >
 
 
+
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:background="#EEEEEE"
-                android:paddingLeft="@dimen/x10"
                 android:id="@+id/ed_workplace"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/x5"
+                android:layout_height="wrap_content"
                 android:hint="请输入建议"
-                />
+                android:textSize="@dimen/content_txt_"
+                android:gravity="left|top"
+                android:padding="@dimen/x8"
+                android:textColor="@color/txt_bor"
+
+                android:background="@drawable/shape_set_n"/>
+
+            <EditText
+                android:id="@+id/ed_shuzhi"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/x5"
+                android:inputType="numberDecimal"
+                android:layout_height="wrap_content"
+                android:hint="请输入数值"
+                android:textSize="@dimen/content_txt_"
+                android:gravity="left|top"
+                android:padding="@dimen/x8"
+                android:textColor="@color/txt_bor"
+                android:background="@drawable/shape_set_n"/>
+
+
+            <ImageView
+                android:id="@+id/ed_paizhao"
+                android:layout_width="@dimen/x80"
+                android:textColor="@color/txt_viw"
+                android:gravity="center"
+                android:scaleType="fitCenter"
+                android:background="@mipmap/inspection_item_add"
+
+                android:layout_height="@dimen/x80" />
         </LinearLayout>
 
         <LinearLayout

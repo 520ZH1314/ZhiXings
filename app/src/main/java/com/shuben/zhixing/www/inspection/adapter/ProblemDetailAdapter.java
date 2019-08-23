@@ -10,7 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.photopicker.PhotoPreview;
+import com.base.zhixing.www.util.TimeUtil;
+import com.base.zhixing.www.view.Toasty;
+import com.shuben.zhixing.module.andon.CommonViewsPop;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.inspection.bean.ProblemDetailInfo;
 import com.shuben.zhixing.www.patrol.adapter.TestGridViewAdapter;
@@ -102,10 +104,11 @@ public class ProblemDetailAdapter extends BaseAdapter {
         holder.item04.setText(recordInfo.getLiableDeptName());
         holder.item05.setText(recordInfo.getLiableUserName());
         holder.item06.setText(recordInfo.getDueDate().substring(5,recordInfo.getDueDate().length()));
-        if(recordInfo.getCompleteDate().equals("")||recordInfo.getCompleteDate().equals("null")){
+        if(recordInfo.getCompleteDate().equals("")||recordInfo.getCompleteDate().equals("null")||recordInfo.getCompleteDate()==null){
             holder.item07.setVisibility(View.INVISIBLE);
         }else {
-            holder.item07.setText(recordInfo.getCompleteDate().substring(5,recordInfo.getCompleteDate().length()));
+//            holder.item07.setText(TimeUtil.getTimeCh(TimeUtil.parseTimeC(recordInfo.getCompleteDate())));
+            holder.item07.setText(recordInfo.getCompleteDate());
         }
 
         holder.item08.setText(recordInfo.getProblemDesc());
@@ -180,13 +183,17 @@ public class ProblemDetailAdapter extends BaseAdapter {
             holder.gridView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    PhotoPreview.init().setPhotoPaths(mlist).setCurrentPos(position).setPreviewOnly(true).startPreview(mContext, null);
+                  //  PhotoPreview.init().setPhotoPaths(mlist).setCurrentPos(position).setPreviewOnly(true).startPreview(mContext, null);
+                   //Toasty.INSTANCE.showToast(mContext,"待接入");
+
+                    CommonViewsPop viewsPop = new CommonViewsPop(mContext,null,mlist);
+                    viewsPop.showSheet(position);
 
                 }
 
             });
 
-            int w = 0;
+          /*  int w = 0;
             switch (mlist.size()) {
                 case 1:
                     w = wh;
@@ -205,7 +212,7 @@ public class ProblemDetailAdapter extends BaseAdapter {
                     break;
             }
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(w, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            gv_images.setLayoutParams(lp);
+            gv_images.setLayoutParams(lp);*/
             nearByInfoImgsAdapter = new TestGridViewAdapter(mContext, mlist);
             gv_images.setAdapter(nearByInfoImgsAdapter);
            /* gv_images.setOnItemClickListener(new OnItemClickListener() {
@@ -227,8 +234,9 @@ public class ProblemDetailAdapter extends BaseAdapter {
             holder.gridView02.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    PhotoPreview.init().setPhotoPaths(mlist).setCurrentPos(position).setPreviewOnly(true).startPreview(mContext, null);
-
+//                    PhotoPreview.init().setPhotoPaths(mlist).setCurrentPos(position).setPreviewOnly(true).startPreview(mContext, null);
+                    CommonViewsPop viewsPop = new CommonViewsPop(mContext,null,mlist);
+                    viewsPop.showSheet(position);
                 }
 
             });

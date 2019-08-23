@@ -3,18 +3,13 @@ package com.zhixing.employlib.ui.activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
-import android.text.TextPaint;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -24,39 +19,22 @@ import com.base.zhixing.www.BaseActvity;
 import com.base.zhixing.www.BaseFragment;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.common.SharedUtils;
-import com.base.zhixing.www.view.Toasty;
 import com.example.stateviewlibrary.Shimmer;
-import com.example.stateviewlibrary.ShimmerTextView;
 import com.example.stateviewlibrary.StateView;
-import com.orhanobut.logger.Logger;
 import com.zhixing.employlib.R;
 import com.zhixing.employlib.adapter.MyAdapter;
 import com.zhixing.employlib.api.DBaseResponse;
 import com.zhixing.employlib.api.PerformanceApi;
-import com.zhixing.employlib.model.eventbus.UpdateEmployeeEvent;
 import com.zhixing.employlib.model.performance.PersonTeamBean;
 import com.zhixing.employlib.ui.fragment.GardenPlotFragment;
 import com.zhixing.employlib.ui.fragment.PerformanceMineFragment;
 import com.zhixing.employlib.ui.fragment.PersonolPerformanceFragment;
 import com.zhixing.employlib.ui.fragment.RecruitFragment;
 import com.zhixing.employlib.view.CustomScrollViewPager;
-
 import com.zhixing.employlib.viewmodel.activity.PerformanceMainViewModel;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import android.support.annotation.Nullable;
-import io.reactivex.disposables.Disposable;
 
 @Route(path = "/employlib/PerformanceActivity")
 public class PerformanceActivity extends BaseActvity implements BottomNavigationBar.OnTabSelectedListener {

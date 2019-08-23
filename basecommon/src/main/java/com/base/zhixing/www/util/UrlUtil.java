@@ -82,7 +82,6 @@ public class UrlUtil {
 	//public static String BaseUrl= "http://192.168.0.102:9001";//泰威服务器地址
 	 public static String BaseUrl= "";//傲雷服务器地址
 //	public static String BaseUrl= "http://www.m3lean.com:501";//云服务器地址
-
 	public  static String Url="/api/CMP/ApiRegistrator/PostApiGateWay";
 	public  static String BaseImgUrl="http://192.168.2.29:9008/";
 	public  static String CheckUrl="/api/TPM/TPMViewer/EditEveryDayRecordForAndroid";

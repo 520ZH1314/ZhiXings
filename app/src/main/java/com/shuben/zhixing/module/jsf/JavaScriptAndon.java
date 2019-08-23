@@ -1,9 +1,21 @@
 package com.shuben.zhixing.module.jsf;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.device.ScanManager;
+import android.device.scanner.configuration.PropertyID;
+import android.device.scanner.configuration.Triggering;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Message;
+import android.os.Vibrator;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
@@ -15,23 +27,23 @@ import com.base.zhixing.www.inter.JsRet;
 import com.base.zhixing.www.inter.SetSelect;
 import com.base.zhixing.www.util.SelectFac;
 import com.base.zhixing.www.widget.CommonSetSelectPop;
-import com.sdk.chat.ChatSdk;
 import com.shuben.zhixing.module.mess.ScanMessActivity;
-import com.shuben.zhixing.module.mess_scan.MessScanView;
 import com.shuben.zhixing.www.common.T;
 import com.base.zhixing.www.inter.ScreenSelect;
 import com.base.zhixing.www.inter.SelectTime;
 import com.base.zhixing.www.util.SharedPreferencesTool;
-import com.wxx.net.HttpResult;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.common.P;
-import com.shuben.zhixing.push.PushMessageModel;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.ChangeTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -44,24 +56,160 @@ public class JavaScriptAndon {
     private SharedUtils sharedUtils;
     public JavaScriptAndon(Activity mContxt, Handler handler,WebView commonView) {
         this.mContxt = mContxt;
+        this.handler = handler;
         this.commonView = commonView;
         sharedUtils = new SharedUtils(T.SET_F);
     }
+    //公共部分
+    private   String replaceBlank(String str) {
+        String dest = "";
+        if (str!=null) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            dest = m.replaceAll("");
+        }
+        return dest;
+    }
+
+
+
+
     //mess-scan部分
+
+    private ScanManager mScanManager;
+    private SoundPool soundpool = null;
+    private int soundid;
+    private Vibrator mVibrator;
+    private AssetManager assetManager;
+    //初始化
+    public void initMessScan(){
+        P.c("初始化");
+        mScanManager = new ScanManager();
+        mScanManager.openScanner();
+        mScanManager.switchOutputMode(0);
+        mScanManager.setTriggerMode(Triggering.HOST);
+        soundpool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 100); // MODE_RINGTONE
+        assetManager = mContxt.getAssets();
+        AssetFileDescriptor descriptor = null;
+        try {
+            descriptor = assetManager.openFd("sm.mp3");
+            soundid = soundpool.load(descriptor, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mVibrator = (Vibrator) mContxt.getSystemService(Context.VIBRATOR_SERVICE);
+    }
+    private  volatile boolean isScaning = false;
+    private    StackTraceElement[] messMlements;
+    @JavascriptInterface
+    public  void showScanCode( ){
+        P.c("是否打开");
+        if(messMlements!=null){
+            messMlements = null;
+        }
+        messMlements = Thread.currentThread().getStackTrace();
+        mScanManager.stopDecode();
+        isScaning = true;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        mScanManager.startDecode();
+       
+    }
+    //得到mes扫码的函数壳
+    public StackTraceElement[] getMessMlements(){
+        return messMlements;
+    }
+
+    //暂停
+    public void messPause(){
+
+        if(mScanManager != null) {
+            mScanManager.stopDecode();
+            mScanManager.closeScanner();
+            isScaning = false;
+        }
+    }
+    public void state(){
+        P.c("状态"+ mScanManager.getScannerState());
+    }
+    //完成
+    private void messComplete(){
+        isScaning = false;
+        soundpool.play(soundid, 1, 1, 0, 0, 1);
+        mVibrator.vibrate(200);
+    }
+    //取消注册
+    public void nur(){
+        if(mScanReceiver!=null){
+            mContxt.unregisterReceiver(mScanReceiver);
+        }
+    }
+    //注册广播
+    public void reg(){
+        IntentFilter filter = new IntentFilter();
+        int[] idbuf = new int[]{PropertyID.WEDGE_INTENT_ACTION_NAME, PropertyID.WEDGE_INTENT_DATA_STRING_TAG};
+        String[] value_buf = mScanManager.getParameterString(idbuf);
+        if(value_buf != null && value_buf[0] != null && !value_buf[0].equals("")) {
+            filter.addAction(value_buf[0]);
+        } else {
+            filter.addAction(ScanManager.ACTION_DECODE);
+        }
+
+        mContxt.registerReceiver(mScanReceiver, filter);
+    }
+
+    private BroadcastReceiver mScanReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            // TODO Auto-generated method stub
+            messComplete();
+            byte[] barcode = intent.getByteArrayExtra(ScanManager.DECODE_DATA_TAG);
+            int barcodelen = intent.getIntExtra(ScanManager.BARCODE_LENGTH_TAG, 0);
+            byte temp = intent.getByteExtra(ScanManager.BARCODE_TYPE_TAG, (byte) 0);
+          P.c("----codetype--" + temp);
+            String barcodeStr = new String(barcode, 0, barcodelen);
+          //  P.c("打印出"+barcodeStr);
+           // Toasty.INSTANCE.showToast(context,barcodeStr);
+            JSONObject object = new JSONObject();
+            try {
+                object.put("result",replaceBlank(barcodeStr));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //执行ok
+            Message msg  = new Message();
+            msg.what = 1;
+            msg.obj = object.toString();
+            handler.sendMessage(msg);
+            barcodeStr = null;
+
+        }
+
+    };
 
     /**
      * 扫码显示标题栏
      * @param title
      */
-    @JavascriptInterface
+    /* @JavascriptInterface
     public void showScanCode(String title){
-        final StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+       final StackTraceElement[] elements = Thread.currentThread().getStackTrace();
         Intent intent = new Intent(mContxt, MessScanView.class);
         intent.putExtra("type",0);
         intent.putExtra("elements",elements);
         intent.putExtra("title",title);
         mContxt.startActivityForResult(intent,0);
-    }
+
+
+
+    }*/
 
 
     //------Mini mess
@@ -115,6 +263,8 @@ public class JavaScriptAndon {
 
     //--------安灯
 
+
+
     public void loadJs(String str){
         P.c("执行"+str);
         mContxt.runOnUiThread(() -> {
@@ -131,6 +281,20 @@ public class JavaScriptAndon {
         });
 
     }
+
+    /**
+     *
+     * @param json
+     * @param pop 0是预览   1是上传
+     */
+    @JavascriptInterface
+        public void uploadAndonImage(String json,int pop){
+           Message msg = new Message();
+           msg.what = 4;
+           msg.obj = json;
+           msg.arg1 = pop;
+           handler.sendMessage(msg);
+        }
 
         /**
          * 返回当前登录的用户信息
@@ -219,6 +383,33 @@ public class JavaScriptAndon {
 
         AppManager.getAppManager().finishActivity();
     }
+
+
+    /**
+     * 返回当前登录的用户信息
+     * //根据异常id传入
+     * @return
+     */
+    @JavascriptInterface
+    public String getAndonCurrentUserInfo(){
+
+        JSONObject jsonObject =new JSONObject();
+        try {
+            jsonObject.put("userId",SharedPreferencesTool.getMStool(mContxt).getUserId());
+            jsonObject.put("userCode",SharedPreferencesTool.getMStool(mContxt).getUserCode());
+            jsonObject.put("userName",SharedPreferencesTool.getMStool(mContxt).getUserName());
+            jsonObject.put("tenanId",SharedPreferencesTool.getMStool(mContxt).getTenantId());
+            jsonObject.put("factory_id",sharedUtils.getStringValue("factory_id"));
+            jsonObject.put("workshop_id",sharedUtils.getStringValue("workshop_id"));
+            jsonObject.put("line_id",sharedUtils.getStringValue("line_id"));
+            jsonObject.put("station_id",sharedUtils.getStringValue("station_id"));
+            jsonObject.put("exception_id","");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
+
     /**
      * H5默认传3
      * @param tos 接收人，多个人之间用逗号分隔
@@ -232,7 +423,9 @@ public class JavaScriptAndon {
     @JavascriptInterface
     public void pushToUsers(String tos,String title,String des,String txt,int flag,int action,String module){
         P.c(tos+"=="+title+"=="+des+"=="+txt+"=="+flag+"=="+action+"==="+module);
-        if(ChatSdk.isConnectSuccess()){
+
+
+       /* if(ChatSdk.isConnectSuccess()){
             try {
                 JSONObject object = new JSONObject();
                 object.put("title",title);
@@ -263,7 +456,7 @@ public class JavaScriptAndon {
                 e.printStackTrace();
             }
 
-        }
+        }*/
     }
     private boolean isSave = false;
     public void setSaveInfo(boolean isSave){
@@ -447,7 +640,7 @@ public class JavaScriptAndon {
                 commonView.evaluateJavascript("javascript:"+elements[2].getMethodName()+"T('"+json+"')", new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String s) {
-
+                        P.c("执行情况"+s);
                     }
                 });
             }else{

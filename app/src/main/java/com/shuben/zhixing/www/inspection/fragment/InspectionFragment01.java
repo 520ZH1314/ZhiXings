@@ -71,6 +71,10 @@ public class InspectionFragment01 extends BaseFragment implements View.OnClickLi
     //底部加载更多布局
     View footer;
     private View line;
+    private TypeInfo info;
+    public void setObj( TypeInfo info){
+        this.info = info;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view_layout = inflater.inflate(R.layout.fragment_inspection01,container,false);
@@ -125,7 +129,7 @@ public class InspectionFragment01 extends BaseFragment implements View.OnClickLi
                         String Frequency=jData.getString("Frequency");//
                         String IsRelationWorksheet=jData.getString("IsRelationWorksheet");//
                         String IsCreateTaskByStart=jData.getString("IsCreateTaskByStart");//
-                        data.add(new TypeInfo(ClassId,ClassName,Period,Frequency,IsRelationWorksheet,IsCreateTaskByStart));
+                        data.add(new TypeInfo(ClassId,ClassName,Period,Frequency,IsRelationWorksheet,IsCreateTaskByStart,"",""));
 
                     }
                     for(int j=0;j<data.size();j++){

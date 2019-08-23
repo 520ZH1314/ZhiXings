@@ -2,6 +2,8 @@ package com.base.zhixing.www.common;
 
 import android.util.Log;
 
+import com.base.zhixing.www.util.TimeUtil;
+
 public class P {
 	private static final boolean DEBUG = true;
 
@@ -9,7 +11,15 @@ public class P {
 		if(DEBUG){
 			Log.v("数本", param);
 //			i("数本",param);
-			FileUtils.writeLog(param,"数本");
+			FileUtils.writeLog(param,"数本", TimeUtil.getTimeLog(System.currentTimeMillis()));
+		}
+	}
+	//推送专用日志文件
+	public static void push(String param){
+		if(DEBUG){
+			Log.v("数本", param);
+//			i("数本",param);
+			FileUtils.writeLog(param,"数本",TimeUtil.getTimeLog(System.currentTimeMillis())+"_push");
 		}
 	}
 	public static void b(boolean flag){

@@ -234,7 +234,7 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Phot
 
     @Override
     public void onViewRecycled(PhotoViewHolder holder) {
-        Glide.clear(holder.ivPhoto);
+       // Glide.clear(holder.ivPhoto);
         super.onViewRecycled(holder);
     }
 

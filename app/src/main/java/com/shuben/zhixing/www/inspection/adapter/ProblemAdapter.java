@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.base.zhixing.www.common.P;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.inspection.InspectionItemActivity;
 import com.shuben.zhixing.www.inspection.ProblemRecordActivity;
@@ -54,7 +55,11 @@ public class ProblemAdapter extends BaseAdapter {
         this.mlist=list;
         this.IsRelationWorksheet=IsRelationWorksheet;
     }
-
+    private int des;
+    public void setDes(int des){
+        this.des = des;
+        notifyDataSetChanged();
+    }
     @Override
     //获取一个在数据集中指定索引的视图来显示数据
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -85,11 +90,21 @@ public class ProblemAdapter extends BaseAdapter {
         holder.tx03.setText(info.getLiableDeptName());
         holder.tx04.setText(info.getLiableUserName());
         holder.tx05.setText(info.getDueDate());
-        holder.tx06.setText(info.getCompleteDate());
+        if(info.getCompleteDate()==null||info.getCompleteDate().equals("null")){
+            holder.tx06.setText("无");
+        }else{
+            holder.tx06.setText(info.getCompleteDate());
+        }
+
         holder.tx07.setText(info.getProblemDesc());
         holder.tx08.setText(info.getProductName());
         if(info.getStatus().equals("未开始")){
-            holder.bnt_start.setText("进入处理");
+            if(des==1){
+                holder.bnt_start.setText("查看详情");
+            }else{
+                holder.bnt_start.setText("进入处理");
+            }
+
         }else{
             holder.bnt_start.setText("查看详情");
         }
@@ -137,7 +152,10 @@ public class ProblemAdapter extends BaseAdapter {
                 intent.putExtra("Status",mlist.get(position).getStatus());
                 intent.putExtra("LiableUserName",mlist.get(position).getLiableUserName());
                 intent.setClass(mContext, ProblemRecordActivity.class);
-                mContext.startActivityForResult(intent,UrlUtil.InspectionFragment02_RequstCode);
+                intent.putExtra("des",des);
+                P.c("des"+des);
+                mContext.startActivity(intent);
+//                mContext.startActivityForResult(intent,UrlUtil.InspectionFragment02_RequstCode);
             }
 
 

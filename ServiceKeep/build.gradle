@@ -54,8 +54,8 @@ android {
 }
 
 dependencies {
-    api 'io.reactivex.rxjava2:rxjava:2.+'
-    api 'com.android.support:support-annotations:+'
+    api 'io.reactivex.rxjava2:rxjava:2.1.6'
+    //api 'com.android.support:support-annotations:+'
     implementation "com.alibaba:arouter-api:$arouter_api"
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
 

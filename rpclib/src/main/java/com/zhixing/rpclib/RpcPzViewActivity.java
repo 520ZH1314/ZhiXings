@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -21,6 +22,7 @@ import com.base.zhixing.www.util.SyLinearLayoutManager;
 import com.base.zhixing.www.util.TimeUtil;
 import com.base.zhixing.www.util.UrlUtil;
 import com.base.zhixing.www.widget.RecycleViewDivider;
+import com.example.stateviewlibrary.StateView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhixing.beans.HourBean;
@@ -46,8 +48,10 @@ public class RpcPzViewActivity extends BaseRpcActivity {
     private ArrayList<PzBean> pzBeans = new ArrayList<>();
     private SharedUtils sharedUtils;
     private      String[] city;
+    private StateView stateView;
     @Override
     public void newIniLayout() {
+        stateView=StateView.inject(rootL);
         sharedUtils =new SharedUtils(Common.SHARED_);
         Resources res =getResources();
         city=res.getStringArray(R.array.ng_lis);
@@ -106,6 +110,8 @@ public class RpcPzViewActivity extends BaseRpcActivity {
     TextView sets;
     @BindView(R2.id.tetle_tv_ok)
     TextView tetle_tv_ok;
+    @BindView(R2.id.root)
+    LinearLayout rootL;
     @Override
     public int getLayoutId() {
         return R.layout.rpc_pz_view_activity;
@@ -115,7 +121,12 @@ public class RpcPzViewActivity extends BaseRpcActivity {
     public void process(Message msg) {
             switch (msg.what){
                 case 1:
-                    pzViewItemAdapter.updata(pzBeans);
+                    if(pzBeans.size()!=0){
+                        pzViewItemAdapter.updata(pzBeans);
+                    }else{
+                        stateView.showEmpty();
+                    }
+
 
                     break;
             }
@@ -145,12 +156,13 @@ public class RpcPzViewActivity extends BaseRpcActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    stateView.showEmpty();
                 }
             }
 
             @Override
             public void error(VolleyError error) {
-
+               stateView.showEmpty();
             }
         },"提交数据");
     }

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
@@ -13,38 +12,40 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.tu.loadingdialog.LoadingDailog;
 import com.android.volley.VolleyError;
 import com.base.zhixing.www.AppManager;
 import com.base.zhixing.www.BaseActvity;
+import com.base.zhixing.www.common.Common;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.inter.VolleyResult;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
+import com.base.zhixing.www.view.Toasty;
 import com.base.zhixing.www.widget.XEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.igexin.sdk.PushManager;
 import com.luliang.shapeutils.DevShapeUtils;
 import com.luliang.shapeutils.shape.DevShape;
 import com.sdk.chat.server.SdkConfig;
 import com.shuben.common.IPush;
 import com.shuben.zhixing.provider.PermissionBean;
+import com.shuben.zhixing.push.getui.GTPushService;
+import com.shuben.zhixing.push.getui.GeTuiReviceServices;
+import com.shuben.zhixing.push.getui.TraceServiceImpl;
+import com.shuben.zhixing.push.getui.ZPush;
 import com.shuben.zhixing.www.BaseApplication;
 import com.shuben.zhixing.www.NavigationActivity;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.dataBase.DB_L;
-import com.shuben.zhixing.www.service.TraceServiceImpl;
 import com.shuben.zhixing.www.util.CustomToast;
 import com.shuben.zhixing.www.util.PackageUtils;
 import com.shuben.zhixing.www.util.UpdateManager;
@@ -88,17 +89,29 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         return R.layout.activity_new_loading;
     }
 
+    private void initGeTui(){
+
+        P.c("个推服务。。。");
+        // read phone state用于获取 imei 设备信息
+         
+        PushManager.getInstance().initialize(this.getApplicationContext(), GTPushService.class);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), GeTuiReviceServices.class);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         
       /*  File file = new File("/storage/emulated/0/UpApkPath/shuben_updata.apk");
         AppInstall.openFile(LoginActivity.this, file);*/
-        P.c("登录凌乱了");
-        blind();
+        P.c("登录界面");
+        if(!Common.LOCAL_PUSH){
+            blind();
+        }
+
         startKeep();
+       // initGeTui();//临时存放个推推送
         if(SharedPreferencesTool.getMStool(LoginActivity.this).getUserId().length()!=0){
             Intent intent=new Intent();
             intent.setClass(LoginActivity.this , NavigationActivity.class);
@@ -114,7 +127,7 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             iPush = IPush.Stub.asInterface(iBinder);
-            P.c("服务端"+componentName);
+            P.c("跨进程推送服务已启动=>"+componentName);
         }
 
         @Override
@@ -124,8 +137,11 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         }
     };
     private void blind(){
-        Intent intent = new Intent(this,IPush.class);
-        bindService(intent,pushConnection,Context.BIND_AUTO_CREATE);
+        if(pushConnection==null){
+            Intent intent = new Intent(this, ZPush.class);
+            bindService(intent,pushConnection,Context.BIND_AUTO_CREATE);
+        }
+
 
     }
 
@@ -178,15 +194,30 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
             }
     }
 
+   /* @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode==1){
+            PushManager.getInstance().initialize(this.getApplicationContext(), GTPushService.class);
+        }else{
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+    }*/
+
     @Override
     public void initLayout() {
         customToast = new CustomToast(this);
         ActivityCompat.requestPermissions(LoginActivity.this,new String []{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE},1);
         init();
-        EventBus.getDefault().register(this);
-        checkUpdate();
+      //  EventBus.getDefault().register(this);
+      login_login.post(new Runnable() {
+          @Override
+          public void run() {
+              checkUpdate();
+          }
+      });
     }
-    @Subscribe (threadMode =  ThreadMode.MAIN)
+  /*  @Subscribe (threadMode =  ThreadMode.MAIN)
     public void even(String i){
 
     }
@@ -194,13 +225,13 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
     @Subscribe (threadMode =  ThreadMode.MAIN)
     public void even1(String i){
 
-    }
+    }*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(EventBus.getDefault().isRegistered(this)){
+       /* if(EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().unregister(this);
-        }
+        }*/
     }
 
     private void checkUpdate() {
@@ -209,8 +240,30 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
         updateManager.checkUpdateInfo(updateUrl);
     }
 
-
-
+    /**
+     * 保存基本数据使用
+     * @param p0
+     * @param p1
+     * @param p2
+     * @param p3
+     */
+    private void addInfo(String p0,String p1,String p2,String p3){
+        Uri uri = Uri.parse("content://com.zhixing.provider/standInfo");//这么使用
+        //在插入之前先清空表数据
+//        getContentResolver().delete(uri,null,null);
+        ContentValues values = new ContentValues();
+        values.put("TenantId",p0);
+        values.put("UserName",p1);
+        values.put("UserCode",p2);
+        values.put("UserId",p3);
+        getContentResolver().insert(uri,values);
+    }
+    //推送服务重启
+    private void sendStatus(){
+        Intent tip = new Intent(this, TraceServiceImpl.class);
+        tip.putExtra("push_rev","push_rev");
+        startService(tip);
+    }
     private List<PermissionBean> permissionBeans;
     private void initData() {
 
@@ -245,6 +298,9 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                         String userName=jsonObject.getString("UserName");
                         String userId=jsonObject.getString("UserId");
                         String TenantId=jsonObject.getString("TenantId");
+
+                        addInfo(TenantId,userName,userCode,userId);
+//                        SharedPreferencesTool.getMStool(LoginActivity.this).saveTenantId02(userId);
                         SharedPreferencesTool.getMStool(LoginActivity.this).saveUserCode(userCode);
                         SharedPreferencesTool.getMStool(LoginActivity.this).saveUserName(userName);
                         SharedPreferencesTool.getMStool(LoginActivity.this).saveUserId(userId);
@@ -259,11 +315,13 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                             //无论是http还是https开头都这么认为
                             IP = IP.split("://")[1];
                         }
-                        SdkConfig.setIP(IP);
-
-                        EventBus.getDefault().postSticky("");
-
+                        if(Common.LOCAL_PUSH){
+                            SdkConfig.setIP(IP);
+                        }
+                     //   SdkConfig.setIP(IP);
+                      //  EventBus.getDefault().postSticky("");
                         startServiceKeep();
+                        sendStatus();
 
 
                             if(jsonObject.has("funcData")){
@@ -280,10 +338,6 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                               enterMainCon();
                             }
 
-
-
-
-
                     }else{
                         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
@@ -299,7 +353,9 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
 
             @Override
             public void error(VolleyError error) {
-
+              try {
+                  Toasty.INSTANCE.showToast(LoginActivity.this,error.getLocalizedMessage());
+              }catch (Exception e){}
             }
         },true);
 
@@ -339,10 +395,16 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
 
     //启动保活服务
     public void startServiceKeep(){
-        DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
-        TraceServiceImpl.sShouldStopService = false;
-        DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
+        if(Common.LOCAL_PUSH){
 
+            DaemonEnv.initialize(this, com.shuben.zhixing.push.local.TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+            com.shuben.zhixing.push.local.TraceServiceImpl.sShouldStopService = false;
+            DaemonEnv.startServiceMayBind(com.shuben.zhixing.push.local.TraceServiceImpl.class);
+        }else{
+            DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+            TraceServiceImpl.sShouldStopService = false;
+            DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
+        }
     }
 
     private void init() {
@@ -421,8 +483,8 @@ public class LoginActivity extends BaseActvity implements View.OnClickListener{
                     customToast.showToast("输入内容不能为空");
                 }else {
                     List<String> getlist0 = db.loadInput();
-                    String str = login_phone_et.getText().toString();
-                    String add = http_pwd_et.getText().toString();
+                    String str = login_phone_et.getText().toString().trim();
+                    String add = http_pwd_et.getText().toString().trim();
                     P.c(add+"--"+add.split(":").length);
                     if( add.split(":").length==3&&add.startsWith("http")){
                         int o = add.lastIndexOf(":");

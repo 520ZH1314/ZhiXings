@@ -149,7 +149,7 @@ public class InspectionItemOnScrollListener implements AbsListView.OnScrollListe
         params.put("ApiCode", "GetAllCheckItemByTaskId");
         params.put("TenantId", SharedPreferencesTool.getMStool(activity).getTenantId());
         params.put("PatrolTaskId", PatrolTaskId);
-        params.put("ItemType", ItemType);
+//        params.put("ItemType", ItemType);
 
         JSONObject myData = new JSONObject();
         try {
@@ -157,7 +157,7 @@ public class InspectionItemOnScrollListener implements AbsListView.OnScrollListe
             myData.put("ApiCode", "GetAllCheckItemByTaskId");
             myData.put("TenantId", SharedPreferencesTool.getMStool(activity).getTenantId());
             myData.put("PatrolTaskId", PatrolTaskId);
-            myData.put("ItemType", ItemType);
+//            myData.put("ItemType", ItemType);
 
         } catch (JSONException e) {
             e.printStackTrace();

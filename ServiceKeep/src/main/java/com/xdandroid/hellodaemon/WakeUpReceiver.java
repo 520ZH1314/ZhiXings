@@ -19,7 +19,7 @@ public class WakeUpReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        System.out.println("接受广播"+intent.getAction());
+        System.out.println(DaemonEnv.sInitialized+"看门狗:"+intent.getAction());
         if (intent != null && ACTION_CANCEL_JOB_ALARM_SUB.equals(intent.getAction())) {
             WatchDogService.cancelJobAlarmSub();
             return;

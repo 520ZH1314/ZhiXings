@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shuben.zhixing.www">
+    <!-- 支持iBeancon 需要蓝牙权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <!-- 支持个推3.0 电子围栏功能 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 浮动通知权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -22,6 +31,10 @@
     <uses-permission android:name="android.permission.BATTERY_STATS" />
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <uses-permission android:name="android.permission.BROADCAST_SMS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.DEVICE_POWER"/>
 
     <application
         android:name=".BaseApplication"
@@ -32,23 +45,114 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/ThemeActivity"
+        android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <receiver android:name="com.shuben.zhixing.module.andon.AndonRecive">
-            <intent-filter>
+        <!--注释本地推送服务########   对应base    模块下的LOCAL_PUSH常亮控制-->
+
+       <!-- <receiver android:name="com.shuben.zhixing.module.andon.AndonRecive">
+            <intent-filter android:priority="999">
                 <action android:name="com.shuben.zhixing.andon" />
                 <action android:name="android.intent.action.SCREEN_ON"/>
                 <action android:name="android.intent.action.USER_PRESENT"/>
+
             </intent-filter>
         </receiver>
-        <service android:name=".service.VoiceService"/>
-        <service android:name=".service.TraceServiceImpl" />
-        <service android:name=".service.ZPush"
+
+
+
+        <service android:name="com.shuben.zhixing.push.local.TraceServiceImpl" />
+
+
+        <service android:name="com.shuben.zhixing.push.local.ZPush"
             android:exported="true"
             android:process=":remote">
             <intent-filter>
                 <action android:name="com.shuben.aidl.push" />
             </intent-filter>
         </service>
+-->
+        <!--本地推送结束-->
+
+            <service android:name="com.shuben.zhixing.push.VoiceService"/>
+
+
+            <!--外网开启-->
+
+
+        <service android:name="com.shuben.zhixing.push.getui.TraceServiceImpl" />
+       <service android:name="com.shuben.zhixing.push.getui.ZPush"
+              android:exported="true"
+              android:process=":remote">
+              <intent-filter>
+                  <action android:name="com.shuben.aidl.push" />
+              </intent-filter>
+          </service>
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="${GETUI_APP_ID}" />
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="${GETUI_APP_KEY}" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="${GETUI_APP_SECRET}" />
+
+
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":pushservice">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.service.message" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.igexin.sdk.PushReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.igexin.sdk.PushActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="com.igexin.sdk.GActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+
+        <service
+            android:name="com.shuben.zhixing.push.getui.GeTuiReviceServices"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+
+        <service
+             android:name="com.shuben.zhixing.push.getui.GTPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice"></service>
+
+
+        <!--外网结束-->
+
+
+
         <activity android:name=".fragment.ScanLoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">
@@ -66,6 +170,7 @@
         <activity
             android:name="com.shuben.zhixing.module.mess_scan.MessScanActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+
             android:screenOrientation="portrait" />
         <activity
             android:name="com.shuben.zhixing.module.mess_scan.MessScanView"
@@ -153,11 +258,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="修改密码"
             android:screenOrientation="portrait" />
-        <activity
+        <!--<activity
             android:name=".activity.PersonalDataActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="个人资料"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
         <activity
             android:name=".activity.DataAnalysisActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -456,12 +561,21 @@
             android:name=".mes.ManagerChartActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".inspection.fragment.InspectionMain"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name=".inspection.ScanInspectionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".inspection.InspectionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".inspection.InspectionItemActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity

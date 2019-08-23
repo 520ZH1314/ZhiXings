@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class PermissionHelper extends SQLiteOpenHelper{
 	public static String DB_NAME = "permission_zhjy";//智慧精益权限数据库
-	public static int DB_VERSION = 2;
+	public static int DB_VERSION = 3;
 	/**
 	 * 数据库操作
 	 * @param context
@@ -39,15 +39,15 @@ public class PermissionHelper extends SQLiteOpenHelper{
 	db.beginTransaction();
 	//权限控制表
 	db.execSQL("create table permission(i integer primary key autoincrement,appCode varchar ,permissionCode varchar,permissionRemark varchar,parentCode varchar,seq int);");
-
+	db.execSQL("create table standInfo(i integer primary key autoincrement,TenantId varchar ,UserName varchar,UserCode varchar,UserId varchar);");
 
 		db.setTransactionSuccessful();
 	db.endTransaction();
 	}
 	private void drop(SQLiteDatabase db){
 		db.beginTransaction();
-		db.execSQL("DROP TABLE IF EXISTS organize");
-
+		db.execSQL("DROP TABLE IF EXISTS permission");
+		db.execSQL("DROP TABLE IF EXISTS standInfo");
 		db.setTransactionSuccessful();
 		db.endTransaction();
 		//此处是删除数据表，在实际的业务中一般是需要数据备份的

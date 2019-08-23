@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.base.zhixing.www.common.Common;
+import com.shuben.zhixing.push.getui.TraceServiceImpl;
+import com.shuben.zhixing.push.VoiceService;
 import com.shuben.zhixing.www.BaseApplication;
 import com.shuben.zhixing.www.R;
 import com.base.zhixing.www.common.P;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.shuben.zhixing.www.common.T;
-import com.shuben.zhixing.www.service.TraceServiceImpl;
-import com.shuben.zhixing.www.service.VoiceService;
 import org.json.JSONException;
 import org.json.JSONObject;
 public class AndonRecive extends BroadcastReceiver {
@@ -90,13 +90,11 @@ public class AndonRecive extends BroadcastReceiver {
 
         }else if(ient.getAction().equals(Intent.ACTION_SCREEN_ON)){
             Intent tip = new Intent(context, TraceServiceImpl.class);
-
             tip.putExtra("push_rev","push_rev");
             context.startService(tip);
 
         }else if(ient.getAction().equals(Intent.ACTION_USER_PRESENT)){
             Intent tip = new Intent(context, TraceServiceImpl.class);
-
             tip.putExtra("push_rev","push_rev");
             context.startService(tip);
         }

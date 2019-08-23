@@ -45,5 +45,6 @@
     <string name="frg_i9">中控室</string>
     <string name="frg_i10">RPC生产监控</string>
     <string name="frg_i11">员工成长助手</string>
-    <string name="frg_ix">测试扫码</string>
+    <string name="frg_i12">MES扫码</string>
+    <string name="frg_ix">更多</string>
 </resources>

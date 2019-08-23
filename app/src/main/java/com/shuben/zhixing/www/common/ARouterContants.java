@@ -7,4 +7,5 @@ public class ARouterContants {
     public static final String RpcMainActivity = "/rpclib/RpcMainActivity";
     public static final String  PerformanceActivity = "/employlib/PerformanceActivity";
     public static final String MessScanActivity = "/mess_scan/MessScanActivity";
+    public static final String  WorkMainActivity = "/worklib/WorkMainActivity";
 }

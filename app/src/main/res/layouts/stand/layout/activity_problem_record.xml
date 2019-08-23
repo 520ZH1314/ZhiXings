@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shuben.zhixing.www.inspection.ProblemRecordActivity">
-    android:weightSum="1">
+     >
+
     <RelativeLayout
         android:id="@+id/lay_back"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x40"
-        android:background="#169BD5"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/title_bg"
         >
 
         <TextView
@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
-            android:textSize="@dimen/s14"
+            android:textSize="@dimen/title_center_size"
             android:id="@+id/tx_tittle" />
 
         <ImageView
@@ -47,44 +47,42 @@
             android:layout_toRightOf="@+id/title_back"
             android:layout_toEndOf="@+id/title_back" />
     </RelativeLayout>
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@color/content_bg">
+        <ListView
+            android:id="@+id/record_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
         <LinearLayout
+            android:id="@+id/lay01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_marginTop="@dimen/x40"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
 
-            <ListView
-                android:id="@+id/record_listview"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/bnt_commit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
-            <LinearLayout
-                android:id="@+id/lay01"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/x40"
-                android:layout_marginTop="@dimen/x40"
-                android:orientation="vertical"
-                android:visibility="invisible"
+                android:ems="6"
+                android:padding="@dimen/x2"
+                android:textSize="@dimen/title_center_size"
+                android:textColor="#FF6600"
+                android:layout_margin="@dimen/x8"
                 android:gravity="center"
-                >
-
-                <Button
-                    android:id="@+id/bnt_commit"
-                    android:layout_width="@dimen/x180"
-                    android:layout_height="wrap_content"
-                    android:textSize="26sp"
-                    android:textColor="#FF6600"
-                    android:background="@drawable/ss03"
-                    android:text="保存建议" />
-
-            </LinearLayout>
+                android:background="@drawable/ss03"
+                android:text="保存建议" />
 
         </LinearLayout>
-    </ScrollView>
-
+    </LinearLayout>
 
 
 

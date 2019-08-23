@@ -40,7 +40,7 @@ import java.util.List;
  * Created by Administrator on 2017/8/22.
  * 个人资料
  */
-public class CuiDanAnalysisTwoActivity extends BaseActvity implements View.OnClickListener {
+public class CuiDanAnalysisTwoActivity  extends BaseActvity implements View.OnClickListener {
 
     private static String TAG="CuiDanAnalysisTwoActivity";
 
@@ -87,6 +87,7 @@ public class CuiDanAnalysisTwoActivity extends BaseActvity implements View.OnCli
 
     @Override
     public void initLayout() {
+        setStatus(-1);
         mQueue = Volley.newRequestQueue(this);
         init();
 

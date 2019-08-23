@@ -21,13 +21,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.base.zhixing.www.util.UrlUtil;
-import com.wxx.net.HttpResult;
 import com.base.zhixing.www.BaseActvity;
 import com.shuben.zhixing.www.R;
 import com.base.zhixing.www.common.P;
 import com.shuben.zhixing.www.patrol.adapter.Node;
 import com.shuben.zhixing.www.patrol.adapter.TreeAdapter;
-import com.shuben.zhixing.push.PushMessageModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -282,19 +280,7 @@ public class CallUserActivity extends BaseActvity implements AdapterView.OnItemC
                         String from=SharedPreferencesTool.getMStool(CallUserActivity.this).getUserId();
                         String receivers=   User;
                         P.c("召集"+from+"=="+receivers);
-                        PushMessageModel push=new PushMessageModel(msg,from,receivers);
-                        push.getSource(new Function1<HttpResult<String>, Unit>() {
-                            @Override
-                            public Unit invoke(HttpResult<String> stringHttpResult) {
-                                if (stringHttpResult.getSuccess()){
-                                    //服务器响应成功
-                                    stringHttpResult.getData();
-                                }else {
-                                    Toast.makeText(CallUserActivity.this, stringHttpResult.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                                return null;
-                            }
-                        });
+
 
 
                         Intent intent=new Intent();

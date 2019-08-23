@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import com.google.gson.Gson
 import com.sdk.chat.callback.IConnectListener
 import com.sdk.chat.callback.IPacketListener
 import com.sdk.chat.message.Message
@@ -53,7 +52,7 @@ object ChatSdk {
 
     fun sendDataBuf(message: DataBuf, listener: IPacketListener<Any>?) {
 //        sendMessage(Gson().toJson(message), listener)
-        socketClient.sendString(message, null)
+        socketClient.sendString( message , null)
     }
     @JvmStatic
     fun isConnectSuccess() = socketClient.isChannelOk()

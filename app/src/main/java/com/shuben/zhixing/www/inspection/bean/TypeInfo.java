@@ -13,14 +13,33 @@ public class TypeInfo implements Serializable{
     private String Frequency;//巡检频率
     private String IsRelationWorksheet;//是否关联工单，1;//是，0;//否
     private String IsCreateTaskByStart;//开工自动产生任务，1;//是，0;//否
+    private String FilePath;
+    private String ClassCode;
+    public String getFilePath() {
+        return FilePath;
+    }
 
-    public TypeInfo(String classId, String className, String period, String frequency, String isRelationWorksheet, String isCreateTaskByStart) {
+    public void setFilePath(String filePath) {
+        FilePath = filePath;
+    }
+
+    public TypeInfo(String classId, String className, String period, String frequency, String isRelationWorksheet, String isCreateTaskByStart,String FilePath,String ClassCode) {
         ClassId = classId;
         ClassName = className;
         Period = period;
         Frequency = frequency;
         IsRelationWorksheet = isRelationWorksheet;
         IsCreateTaskByStart = isCreateTaskByStart;
+        this.FilePath = FilePath;
+        this.ClassCode = ClassCode;
+    }
+
+    public String getClassCode() {
+        return ClassCode;
+    }
+
+    public void setClassCode(String classCode) {
+        ClassCode = classCode;
     }
 
     public String getClassId() {

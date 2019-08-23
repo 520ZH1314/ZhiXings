@@ -45,7 +45,7 @@ class SocketClient {
       return
     }
     //SdkConfig.IP  临时注释
-//    SdkConfig.IP = "47.104.166.204"
+//    SdkConfig.IP = "192.168.31.218"
     val channelFuture = bootstrap.connect( SdkConfig.IP , SdkConfig.PORT)
 
     ChatSdkLogTool.logSocket("连接服务器中..."+SdkConfig.IP+"==="+SdkConfig.PORT)
@@ -93,7 +93,7 @@ class SocketClient {
     }
 
     ListenerQueue.push(dataBuf.seq, listener)
-    currentChannel?.writeAndFlush(Gson().toJson(dataBuf))?.addListener { future ->
+    currentChannel?.writeAndFlush(Gson().toJson(dataBuf)+"</END>")?.addListener { future ->
       if (!future.isSuccess) {
         listener?.onFail(ErrorCode.DIS_CONNECT, "")
         ListenerQueue.pop(dataBuf.seq)

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.jakewharton.butterknife'
+//apply plugin: 'com.antfortune.freeline'
 def releaseTime() {
     return new Date().format("MMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
 }
@@ -29,36 +30,35 @@ android {
         exclude 'META-INF/io.netty.versions.properties'
 
     }
-    /*signingConfigs{
+    signingConfigs{
         release {
-            keyAlias 'stdsign'
-            keyPassword 'std123'
-            storeFile file('F:/Project/Andriod/ZhiXing/stdsign.jks')
-            storePassword 'std123'
+            keyAlias 'shuben'
+            keyPassword 'shuben'
+            storeFile file('shuben.jks')
+            storePassword 'shuben'
         }
-    }*/
+    }
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
         abortOnError false
     }
-
+        //正式打包需要关闭
    /*  splits {
         abi {
             enable true
             reset()
-            include 'x86', 'armeabi-v7a','x86_64'
+            include 'x86'//'x86', 'armeabi-v7a','x86_64'////,
             universalApk false
         }
-    }
-*/
+    }*/
     defaultConfig {
         applicationId "com.shuben.zhixing.www"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 18
-        versionName "v2.4.4.${releaseTime()}_beta"
+        versionCode 20
+        versionName "v2.5.5.${releaseTime()}_beta"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         javaCompileOptions {
@@ -66,6 +66,15 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+        manifestPlaceholders = [
+                GETUI_APP_ID : "WBqOLaxQ706Y6qLqbUFEd9",
+                GETUI_APP_KEY : "voSq1yxgYe8U6OTarM4Ai3",
+                GETUI_APP_SECRET : "Pxge5S3Ctq8wiYbmA8HCh1"
+        ]
+        ndk {
+            abiFilters   "armeabi","armeabi-v7a", "x86_64"
+        }
+
     }
 
  /*   applicationVariants.all { variant ->
@@ -91,7 +100,7 @@ android {
             //shrinkResources true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             jniDebuggable false
         }
         debug {
@@ -99,6 +108,7 @@ android {
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //shrinkResources true
+            signingConfig signingConfigs.release
             debuggable true
         }
     }
@@ -133,11 +143,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+      implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     /* androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-                                                                        exclude group: 'com.android.support', module: 'support-annotations'
-                                                                    })*/
+                                                                                        exclude group: 'com.android.support', module: 'support-annotations'
+                                                                                    })*/
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
@@ -150,6 +161,7 @@ dependencies {
         }
     }
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.getui:sdk:2.13.2.0'
 
     //compile files('libs/xUtil.jar')
 
@@ -169,7 +181,7 @@ dependencies {
     implementation project(path: ':boommenu')
     implementation project(path: ':push.chat')
     implementation project(path: ':sdk.chat')
-    implementation project(path: ':ServiceKeep')
+    implementation project(path: ':ServiceKeep' )
     implementation project(path: ':qrcodecore')
     implementation project(path: ':upversionlibrary')
     implementation project(path: ':basecommon')
@@ -181,6 +193,8 @@ dependencies {
     implementation project(path: ':tpmlib')
     implementation project(path: ':rpclib')
     implementation project(path: ':employlib')
+
+
 
     //    implementation 'com.android.support:appcompat-v7:25.3.1'
 
@@ -201,7 +215,6 @@ dependencies {
     //    implementation 'com.github.gittjy:LoadingDialog:1.0.2'
     implementation 'com.github.gittjy:LoadingDialog:1.0.2'
     implementation project(path: ':one-drawable')
-    implementation files('libs/httpclient-4.5.jar')
     implementation files('libs/xUtils.jar')
     implementation 'com.jakewharton:butterknife:9.0.0-rc3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
@@ -211,7 +224,6 @@ dependencies {
     implementation 'com.mcxiaoke.volley:library:1.0.+'
     implementation files('libs/library.jar')
     implementation files('libs/afinal_0.5.1_bin.jar')
-    implementation files('libs/achartengine-1.1.0.jar')
     implementation 'com.google.android.gms:play-services-appindexing:8.4.0'
     implementation 'com.android.support:multidex:1.0.2'
     implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
@@ -238,7 +250,11 @@ dependencies {
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     implementation 'com.liulishuo.filedownloader:library:1.7.5'
+  /*  implementation 'com.birbit:android-priority-jobqueue:2.0.1'*/
     implementation project(path: ':picture_library')
     implementation files('libs/ant.jar')
     implementation files('libs/junrar-0.7.jar')
+    implementation files('libs/platform_sdk_v2.4.0210.jar')
+    implementation project(path: ':stateviewlibrary')
+
 }

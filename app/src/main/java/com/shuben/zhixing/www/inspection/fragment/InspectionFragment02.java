@@ -20,7 +20,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.android.tu.loadingdialog.LoadingDailog;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -30,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.base.zhixing.www.BaseFragment;
+import com.base.zhixing.www.common.P;
 import com.shuben.zhixing.www.R;
 import com.shuben.zhixing.www.inspection.adapter.ProblemAdapter;
 import com.shuben.zhixing.www.inspection.bean.InspectionQInfo;
@@ -38,11 +38,9 @@ import com.base.zhixing.www.util.SharedPreferencesTool;
 import com.shuben.zhixing.www.util.SizeHelper;
 import com.shuben.zhixing.www.util.SysUtils;
 import com.base.zhixing.www.util.UrlUtil;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,12 +83,24 @@ public class InspectionFragment02 extends BaseFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view_layout = inflater.inflate(R.layout.fragment_inspection02,container,false);
         context = getActivity();
-        initView();
-        initGroup();
-        loadData("","",type);
+
+
         return view_layout;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initView();
+        initGroup();
+        
+    }
+
+    private int des;
+    //设置我的问题第二序号
+    public void setDes(int des){
+        this.des = des;
+    }
     private void initView() {
         tx_back= (TextView) view_layout.findViewById(R.id.tx_back);
         lay_back= (RelativeLayout) view_layout.findViewById(R.id.lay_back);
@@ -152,13 +162,16 @@ public class InspectionFragment02 extends BaseFragment implements View.OnClickLi
                 mCurrentCheckedRadioLeft = rb.getLeft();//更新当前按钮距离左边的距离
                 int width=(int) SizeHelper.dp2px(context, 150);
                 hs_activity_tabbar.smoothScrollTo((int) mCurrentCheckedRadioLeft - width, 0);
+                P.c(type+"==="+channel);
                 if(channel.equals("我的问题")){
                     //加载未处理数据
-                    if(!type.equals("我的问题")){
+                    type="我的问题";
+                    loadData("0","",type);
+                   /* if(!type.equals("我的问题")){
                         type="我的问题";
                         loadData("0","",type);
-
-                    }
+//                        loadData("","",type);
+                    }*/
 
                 }else if(channel.equals("我的发现")){
                     //加载待审核数据
@@ -171,12 +184,14 @@ public class InspectionFragment02 extends BaseFragment implements View.OnClickLi
             }
         });
         //设定默认被选中的选项卡为第一项
-        if (!titleList.isEmpty()) {
-            myRadioGroup.check(myRadioGroup.getChildAt(0).getId());
-        }
+       select(des);
 
     }
-
+    private void select(int des){
+        if (!titleList.isEmpty()) {
+            myRadioGroup.check(myRadioGroup.getChildAt(des).getId());
+        }
+    }
 
     private void loadData(final String status, final String DueDate,final String type) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -256,8 +271,8 @@ public class InspectionFragment02 extends BaseFragment implements View.OnClickLi
                         }else if(Status.equals("-5")){
                             Status="未完成";
                         }
-                        String ProductName=jData.getString("ProductName");
-                        InspectionQInfo info = new InspectionQInfo(ProblemNo,ProblemId,PatrolTaskId, ProblemNo, LiableDeptId, LiableDeptName, LiableUserId, LiableUserName,PatrolUserName, DueDate, CompleteDate, Status,ProductName);
+                       // String ProductName=jData.getString("ProductName");
+                        InspectionQInfo info = new InspectionQInfo(ProblemNo,ProblemId,PatrolTaskId, ProblemNo, LiableDeptId, LiableDeptName, LiableUserId, LiableUserName,PatrolUserName, DueDate, CompleteDate, Status,"");
                         data.add(info);
                     }
                   adapter=null;
@@ -267,7 +282,7 @@ public class InspectionFragment02 extends BaseFragment implements View.OnClickLi
                     //设置接口回调
                     onScrollListener.setOnLoadDataListener(InspectionFragment02.this);
                     //设置ListView的滚动监听事件
-                    mList.setOnScrollListener(onScrollListener);
+                   // mList.setOnScrollListener(onScrollListener);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -334,6 +349,7 @@ public class InspectionFragment02 extends BaseFragment implements View.OnClickLi
 
             //创建adpter数据
             adapter = new ProblemAdapter(context,data,"我的问题");
+            adapter.setDes(des);
             //设置adapter
             mList.setAdapter(adapter);
         } else {

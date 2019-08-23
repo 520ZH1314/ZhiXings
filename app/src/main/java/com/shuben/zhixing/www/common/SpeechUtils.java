@@ -12,7 +12,9 @@ public class SpeechUtils {
     private static SpeechUtils singleton;
     
     private TextToSpeech textToSpeech; // TTS对象
-
+    public boolean isSpeaking(){
+      return    textToSpeech.isSpeaking();
+    }
     public static SpeechUtils getInstance(Context context) {
         if (singleton == null) {
             synchronized (SpeechUtils.class) {
@@ -35,13 +37,18 @@ public class SpeechUtils {
                     textToSpeech.setSpeechRate(1.0f);
                 }
             }
+
+            @Override
+            protected void finalize() throws Throwable {
+                super.finalize();
+            }
         });
     }
 
     public void speakText(String text) {
         if (textToSpeech != null) {
             textToSpeech.speak(text,
-                    TextToSpeech.QUEUE_FLUSH, null);
+                    TextToSpeech.QUEUE_ADD, null);
         }
 
     }
