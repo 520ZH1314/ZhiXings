@@ -72,6 +72,19 @@ public abstract class BaseActvity extends FragmentActivity   {
         base_handler = new Base_Handler(BaseActvity.this);
         inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         requestQueue = Volley.newRequestQueue(BaseActvity.this);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
+        {
+            // 包含新API的代码块
+            setTheme(R.style.AppTheme);
+        }
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M)
+        {
+            // 包含新API的代码块
+            setTheme(R.style.AppTheme);
+        }
+
+
         setContentView(getLayoutId());
         AppManager.getAppManager().addActivity(this);
         
