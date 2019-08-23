@@ -57,7 +57,7 @@ import okhttp3.RequestBody;
 
 public class APi {
 
-
+   ///测试
     //获取个人班组以及权限
     public static Flowable<DBaseResponse<PersonTeamBean>> getPersonTeamInfo(PersonTeamPostBean bean, Context mContext, String url) {
         return RetrofitClients.getInstance(mContext, url).create(PerformanceApi.class).getPersonTeamInfo((new BaseHttpUtil<PersonTeamPostBean>().convertVo2Json(bean)));
